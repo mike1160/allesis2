@@ -1,5 +1,10 @@
 import Link from "next/link";
-export const metadata = { title: "Hosting & Domeinen | Allesis", description: "Betrouwbare webhosting pakketten voor MKB en particulieren vanaf € 4,95/mnd." };
+export const metadata = {
+  title: "Webhosting Pakketten",
+  description: "Betrouwbare webhosting voor MKB en particulieren. Pakketten vanaf 20ac8,95/mnd inclusief SSL, e-mail en MySQL. Snel, veilig en alles in 00e900e9n pakket.",
+  openGraph: { title: "Webhosting Pakketten | Allesis", description: "Hosting pakketten vanaf 20ac8,95/mnd. SSL, e-mail, MySQL inbegrepen." },
+  alternates: { canonical: "https://allesis.nl/hosting" },
+};
 
 export default function HostingPage() {
   const pakketten = [

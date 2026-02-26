@@ -1,4 +1,8 @@
-export const metadata = { title: "Contact | Allesis", description: "Stuur Allesis een bericht voor hosting, webdesign, vertaling of dienstverlening." };
+export const metadata = {
+  title: "Contact",
+  description: "Neem contact op met Allesis voor hosting, webdesign, domeinen of vertaling. Wij reageren binnen 00e900e9n werkdag via e-mail.",
+  alternates: { canonical: "https://allesis.nl/contact" },
+};
 
 export default function ContactPage() {
   return (
