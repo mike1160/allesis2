@@ -2,45 +2,51 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 mt-24 py-12 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-        <div>
-          <div className="font-playfair text-lg font-bold mb-3">
-            <span style={{ color: "#c8a96e" }}>ALLESIS</span>
-            <span className="text-white/30">.NL</span>
+    <footer style={{ background: "#0f172a", color: "white", padding: "64px 24px 32px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 48, marginBottom: 48 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <div style={{ width: 32, height: 32, background: "#1a3bcc", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ color: "white", fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: 14 }}>A</span>
+              </div>
+              <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 18 }}>Allesis.nl</span>
+            </div>
+            <p style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, lineHeight: 1.7, maxWidth: 240 }}>
+              Domeinregistratie, hosting, webdesign en SEO voor MKB en particulieren.
+            </p>
           </div>
-          <p className="text-white/40 text-sm leading-relaxed font-dm">
-            Domeinregistratie, webhosting, webdesign, SEO en Thais-Nederlands vertaalservice voor MKB en particulieren.
-          </p>
-        </div>
-        <div>
-          <h4 className="text-white/80 text-sm font-medium mb-3 font-dm">Menu</h4>
-          <ul className="space-y-2 text-sm font-dm">
+
+          <div>
+            <h4 style={{ fontFamily: "Sora, sans-serif", fontWeight: 600, fontSize: 13, textTransform: "uppercase", letterSpacing: ".08em", color: "#64748b", marginBottom: 16 }}>Diensten</h4>
             {[
               { href: "/hosting", label: "Hosting & Domeinen" },
+              { href: "/domeinen", label: "Domein checken" },
               { href: "/vertaling", label: "Vertaling & Tolk" },
               { href: "/dienstverlening", label: "Dienstverlening" },
-              { href: "/contact", label: "Contact" },
-            ].map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="text-white/40 hover:text-white transition-colors">
-                  {l.label}
-                </Link>
-              </li>
+            ].map(l => (
+              <div key={l.href} style={{ marginBottom: 10 }}>
+                <Link href={l.href} style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, textDecoration: "none" }}>{l.label}</Link>
+              </div>
             ))}
-          </ul>
+          </div>
+
+          <div>
+            <h4 style={{ fontFamily: "Sora, sans-serif", fontWeight: 600, fontSize: 13, textTransform: "uppercase", letterSpacing: ".08em", color: "#64748b", marginBottom: 16 }}>Contact</h4>
+            <div style={{ marginBottom: 10 }}>
+              <a href="mailto:info@allesis.nl" style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, textDecoration: "none" }}>info@allesis.nl</a>
+            </div>
+            <div style={{ marginBottom: 10 }}>
+              <Link href="/contact" style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, textDecoration: "none" }}>Stuur een bericht</Link>
+            </div>
+            <p style={{ fontFamily: "Lato, sans-serif", color: "#64748b", fontSize: 13, marginTop: 8 }}>Amsterdam & omgeving</p>
+          </div>
         </div>
-        <div>
-          <h4 className="text-white/80 text-sm font-medium mb-3 font-dm">Contact</h4>
-          <ul className="space-y-2 text-sm text-white/40 font-dm">
-            <li>📞 <a href="tel:0888040355" className="hover:text-white transition-colors">088 80 40 355</a></li>
-            <li>✉️ <a href="mailto:info@allesis.nl" className="hover:text-white transition-colors">info@allesis.nl</a></li>
-            <li>📍 Amsterdam & omgeving</li>
-          </ul>
+
+        <div style={{ borderTop: "1px solid #1e293b", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+          <p style={{ fontFamily: "Lato, sans-serif", color: "#475569", fontSize: 13 }}>© {new Date().getFullYear()} Allesis. Alle rechten voorbehouden.</p>
+          <Link href="/contact" style={{ fontFamily: "Lato, sans-serif", color: "#475569", fontSize: 13, textDecoration: "none" }}>Privacy & Contact</Link>
         </div>
-      </div>
-      <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-white/5 text-center text-white/20 text-xs font-dm">
-        © {new Date().getFullYear()} Allesis. All rights reserved.
       </div>
     </footer>
   );

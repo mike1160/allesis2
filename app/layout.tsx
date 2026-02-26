@@ -5,26 +5,18 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Allesis | Webdesign, Hosting & Domeinen",
-  description:
-    "Allesis.nl – Domeinregistratie, webhosting, webdesign, SEO en Thais-Nederlands vertaalservice voor MKB en particulieren in Amsterdam en omgeving.",
+  description: "Allesis.nl – Domeinregistratie, webhosting, webdesign en SEO voor MKB en particulieren in Amsterdam en omgeving.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="nl">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-[#0a0a0a] text-[#f0ede6] antialiased">
+      <body>
         <Navigation />
         <main>{children}</main>
         <Footer />
