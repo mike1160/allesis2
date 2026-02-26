@@ -13,24 +13,21 @@ export default function Footer() {
               <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 18 }}>Allesis.nl</span>
             </div>
             <p style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, lineHeight: 1.7, maxWidth: 240 }}>
-              Domeinregistratie, hosting, webdesign en SEO voor MKB en particulieren.
+              Domeinregistratie, hosting, webdesign, SEO en Thais-Nederlands vertaalservice. Gevestigd in Vijfhuizen, Nederland.
             </p>
           </div>
-
           <div>
             <h4 style={{ fontFamily: "Sora, sans-serif", fontWeight: 600, fontSize: 13, textTransform: "uppercase", letterSpacing: ".08em", color: "#64748b", marginBottom: 16 }}>Diensten</h4>
             {[
               { href: "/hosting", label: "Hosting & Domeinen" },
               { href: "/domeinen", label: "Domein checken" },
               { href: "/vertaling", label: "Vertaling & Tolk" },
-              { href: "/dienstverlening", label: "Dienstverlening" },
             ].map(l => (
               <div key={l.href} style={{ marginBottom: 10 }}>
                 <Link href={l.href} style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, textDecoration: "none" }}>{l.label}</Link>
               </div>
             ))}
           </div>
-
           <div>
             <h4 style={{ fontFamily: "Sora, sans-serif", fontWeight: 600, fontSize: 13, textTransform: "uppercase", letterSpacing: ".08em", color: "#64748b", marginBottom: 16 }}>Contact</h4>
             <div style={{ marginBottom: 10 }}>
@@ -39,13 +36,14 @@ export default function Footer() {
             <div style={{ marginBottom: 10 }}>
               <Link href="/contact" style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, textDecoration: "none" }}>Stuur een bericht</Link>
             </div>
-            <p style={{ fontFamily: "Lato, sans-serif", color: "#64748b", fontSize: 13, marginTop: 8 }}>Amsterdam & omgeving</p>
           </div>
         </div>
-
         <div style={{ borderTop: "1px solid #1e293b", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
           <p style={{ fontFamily: "Lato, sans-serif", color: "#475569", fontSize: 13 }}>© {new Date().getFullYear()} Allesis. Alle rechten voorbehouden.</p>
-          <Link href="/contact" style={{ fontFamily: "Lato, sans-serif", color: "#475569", fontSize: 13, textDecoration: "none" }}>Privacy & Contact</Link>
+          <div style={{ display: "flex", gap: 20 }}>
+            <Link href="/disclaimer" style={{ fontFamily: "Lato, sans-serif", color: "#475569", fontSize: 13, textDecoration: "none" }}>Disclaimer & Privacy</Link>
+            <Link href="/contact" style={{ fontFamily: "Lato, sans-serif", color: "#475569", fontSize: 13, textDecoration: "none" }}>Contact</Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -3,7 +3,6 @@ import { useState } from "react";
 
 const EXTENSIONS = [".nl", ".com", ".net", ".eu", ".org", ".be"];
 
-// Prijzen per extensie (indicatief)
 const PRICES: Record<string, string> = {
   ".nl": "€ 9,95/jr",
   ".com": "€ 12,95/jr",
@@ -26,7 +25,6 @@ export default function DomainChecker() {
   const [searched, setSearched] = useState(false);
   const [checking, setChecking] = useState(false);
 
-  // Schoon de invoer op (verwijder extensie als iemand die intypt)
   const cleanQuery = (val: string) => {
     let clean = val.toLowerCase().trim();
     EXTENSIONS.forEach(ext => { if (clean.endsWith(ext)) clean = clean.slice(0, -ext.length); });
@@ -39,26 +37,20 @@ export default function DomainChecker() {
 
     setChecking(true);
     setSearched(true);
-
-    // Start met loading state voor alle extensies
     setResults(EXTENSIONS.map(ext => ({ ext, available: null, loading: true, price: PRICES[ext] })));
 
-    // Check elke extensie via de Whois API
-    for (let i = 0; i < EXTENSIONS.length; i++) {
-      const ext = EXTENSIONS[i];
-      const domain = `${name}${ext}`;
-      try {
-        const res = await fetch(`https://api.domainsdb.info/v1/domains/search?domain=${name}&zone=${ext.replace(".", "")}&limit=1`);
-        const data = await res.json();
-        // Als het domein IN de database zit → geregistreerd (niet beschikbaar)
-        const taken = data.domains && data.domains.length > 0 &&
-          data.domains.some((d: { domain: string }) => d.domain === domain);
-        setResults(prev => prev.map(r => r.ext === ext ? { ...r, loading: false, available: !taken } : r));
-      } catch {
-        // Bij fout: markeer als onbekend
-        setResults(prev => prev.map(r => r.ext === ext ? { ...r, loading: false, available: null } : r));
-      }
-    }
+    await Promise.all(
+      EXTENSIONS.map(async (ext) => {
+        try {
+          const res = await fetch(`/api/domein-check?name=${encodeURIComponent(name)}&ext=${encodeURIComponent(ext)}`);
+          const data = await res.json();
+          setResults(prev => prev.map(r => r.ext === ext ? { ...r, loading: false, available: data.available } : r));
+        } catch {
+          setResults(prev => prev.map(r => r.ext === ext ? { ...r, loading: false, available: null } : r));
+        }
+      })
+    );
+
     setChecking(false);
   };
 
@@ -66,28 +58,19 @@ export default function DomainChecker() {
 
   return (
     <div style={{ width: "100%" }}>
-      {/* Zoekbalk */}
-      <div style={{ display: "flex", gap: 0, maxWidth: 580, margin: "0 auto", boxShadow: "0 4px 32px rgba(26,59,204,0.15)", borderRadius: 12, overflow: "hidden", border: "2px solid #1a3bcc" }}>
+      <div style={{ display: "flex", maxWidth: 580, margin: "0 auto", boxShadow: "0 4px 32px rgba(26,59,204,0.15)", borderRadius: 12, overflow: "hidden", border: "2px solid #1a3bcc" }}>
         <input
           type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
           onKeyDown={e => e.key === "Enter" && checkDomains()}
           placeholder="bijv. mijnbedrijf"
-          style={{
-            flex: 1, padding: "16px 20px", border: "none", outline: "none",
-            fontFamily: "Lato, sans-serif", fontSize: 16, color: "#0f172a", background: "white",
-          }}
+          style={{ flex: 1, padding: "16px 20px", border: "none", outline: "none", fontFamily: "Lato, sans-serif", fontSize: 16, color: "#0f172a", background: "white" }}
         />
         <button
           onClick={checkDomains}
           disabled={checking || !query}
-          style={{
-            padding: "16px 28px", background: "#1a3bcc", color: "white", border: "none",
-            fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, cursor: "pointer",
-            opacity: (!query || checking) ? 0.7 : 1,
-            whiteSpace: "nowrap",
-          }}>
+          style={{ padding: "16px 28px", background: checking ? "#4f72e8" : "#1a3bcc", color: "white", border: "none", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, cursor: query && !checking ? "pointer" : "not-allowed", whiteSpace: "nowrap", transition: "background .2s" }}>
           {checking ? "Bezig..." : "Controleer →"}
         </button>
       </div>
@@ -96,7 +79,6 @@ export default function DomainChecker() {
         Controleer .nl, .com, .net, .eu, .org en .be tegelijk
       </p>
 
-      {/* Resultaten */}
       {searched && results.length > 0 && (
         <div style={{ maxWidth: 580, margin: "24px auto 0", display: "flex", flexDirection: "column", gap: 8 }}>
           {results.map(r => (
@@ -105,10 +87,11 @@ export default function DomainChecker() {
               padding: "14px 20px", background: "white", borderRadius: 10,
               border: `1px solid ${r.loading ? "#e2e6f0" : r.available === true ? "#bbf7d0" : r.available === false ? "#fecaca" : "#e2e6f0"}`,
               boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
+              transition: "border-color .3s",
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {r.loading ? (
-                  <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid #e2e6f0", borderTopColor: "#1a3bcc" }} className="spinner" />
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid #e2e6f0", borderTopColor: "#1a3bcc", animation: "spin .8s linear infinite" }} />
                 ) : r.available === true ? (
                   <span style={{ fontSize: 20 }}>✅</span>
                 ) : r.available === false ? (
@@ -122,7 +105,7 @@ export default function DomainChecker() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {!r.loading && (
-                  <span style={{ fontFamily: "Lato, sans-serif", fontSize: 13, color: r.available === true ? "#16a34a" : r.available === false ? "#dc2626" : "#94a3b8", fontWeight: 700 }}>
+                  <span style={{ fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, color: r.available === true ? "#16a34a" : r.available === false ? "#dc2626" : "#94a3b8" }}>
                     {r.available === true ? r.price : r.available === false ? "Bezet" : "Onbekend"}
                   </span>
                 )}
@@ -140,6 +123,8 @@ export default function DomainChecker() {
           </p>
         </div>
       )}
+
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
