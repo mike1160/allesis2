@@ -20,7 +20,7 @@ export default function VertaaldPage() {
             Allesis biedt vertaal- en tolkdiensten voor Thaise, Nederlandse en Engelse diensten voor bedrijven en particulieren in Nederland en wereldwijd. Of u nu een multinational vertegenwoordigt of een particulier bent — wij helpen u graag.
           </p>
           <p style={{ fontFamily: "Lato, sans-serif", fontSize: 17, color: "#64748b", marginBottom: 32, fontWeight: 300, lineHeight: 1.8 }}>
-            Allesis vertaalbureau is gevestigd in Vijfhuizen, Nederland. Onze tolkdiensten kunnen u helpen ongeacht waar u zich bevindt.
+            Allesis vertaalbureau is gevestigd in Haarlem, Nederland. Onze tolkdiensten kunnen u helpen ongeacht waar u zich bevindt.
           </p>
           <Link href="/contact" style={{ display: "inline-block", padding: "14px 32px", background: "#1a3bcc", color: "white", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, borderRadius: 8, textDecoration: "none" }}>
             Offerte aanvragen →
@@ -74,7 +74,7 @@ export default function VertaaldPage() {
               { icon: "🎬", titel: "Ondertiteling & Transcriptie", tekst: "Ondertiteling voor Nederlandse televisie en video content. Transcriptie van audio- en videomateriaal." },
               { icon: "⚓", titel: "Offshore & Technisch", tekst: "Specialist als tolk bij BOSIET en andere offshore safety trainingen. Ervaring met technische en maritieme terminologie." },
               { icon: "📝", titel: "Officiële documenten", tekst: "Persoonlijke en officiële documenten: financiën, boekhouding, juridische stukken. In HTML, MS Word, Excel en PDF." },
-              { icon: "🌍", titel: "Wereldwijd", tekst: "Gevestigd in Vijfhuizen maar actief in Nederland en internationaal. Native speakers in de doeltaal voor elk project." },
+              { icon: "🌍", titel: "Wereldwijd", tekst: "Gevestigd in Haarlem maar actief in Nederland en internationaal. Native speakers in de doeltaal voor elk project." },
             ].map(d => (
               <div key={d.titel} style={{ padding: 28, border: "1px solid #e2e6f0", borderRadius: 12, background: "white" }}>
                 <div style={{ fontSize: 32, marginBottom: 16 }}>{d.icon}</div>

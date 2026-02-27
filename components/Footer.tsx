@@ -13,7 +13,7 @@ export default function Footer() {
               <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 18 }}>Allesis.nl</span>
             </div>
             <p style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, lineHeight: 1.7, maxWidth: 240 }}>
-              Domeinregistratie, hosting, webdesign, SEO en Thais-Nederlands vertaalservice. Gevestigd in Vijfhuizen, Nederland.
+              Domeinregistratie, hosting, webdesign, SEO en Thais-Nederlands vertaalservice. Gevestigd in Haarlem, Nederland.
             </p>
           </div>
           <div>

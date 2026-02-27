@@ -8,7 +8,7 @@ export default function DisclaimerPage() {
         <p style={{ fontFamily: "Lato, sans-serif", color: "#94a3b8", fontSize: 14, marginBottom: 48 }}>Laatste update: {new Date().toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}</p>
 
         {[
-          { titel: "Algemeen", tekst: "Allesis is gevestigd in Vijfhuizen, Nederland. Aan de informatie op deze website kunnen geen rechten worden ontleend. Allesis behoudt het recht om de inhoud van deze website op elk moment te wijzigen zonder kennisgeving." },
+          { titel: "Algemeen", tekst: "Allesis is gevestigd in Haarlem, Nederland. Aan de informatie op deze website kunnen geen rechten worden ontleend. Allesis behoudt het recht om de inhoud van deze website op elk moment te wijzigen zonder kennisgeving." },
           { titel: "Prijzen", tekst: "Alle genoemde prijzen op deze website zijn exclusief BTW (21%), tenzij anders aangegeven. Prijzen worden jaarlijks gefactureerd. Allesis behoudt het recht om prijzen te wijzigen. Wijzigingen worden minimaal 30 dagen van tevoren gecommuniceerd aan bestaande klanten." },
           { titel: "Aansprakelijkheid", tekst: "Allesis is niet aansprakelijk voor schade die voortvloeit uit het gebruik van of vertrouwen op de informatie op deze website. Allesis geeft geen garanties met betrekking tot de juistheid, volledigheid of actualiteit van de informatie." },
           { titel: "Cookiebeleid", tekst: "Allesis.nl maakt gebruik van functionele cookies die nodig zijn voor het correct functioneren van de website (zoals het onthouden van uw cookievoorkeur). Wij gebruiken geen tracking- of advertentiecookies. U kunt uw browserinstellingen aanpassen om cookies te weigeren." },

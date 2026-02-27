@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     default: "Allesis | Webhosting, Domeinen & Thais-Nederlands Vertaling",
     template: "%s | Allesis.nl",
   },
-  description: "Allesis.nl biedt webhosting, domeinregistratie, webdesign, SEO en Thais-Nederlands-Engels vertaal- en tolkdiensten voor MKB en particulieren. Gevestigd in Vijfhuizen.",
+  description: "Allesis.nl biedt webhosting, domeinregistratie, webdesign, SEO en Thais-Nederlands-Engels vertaal- en tolkdiensten voor MKB en particulieren. Gevestigd in Haarlem.",
   keywords: ["webhosting", "domeinregistratie", "webdesign", "SEO", "Thais vertaling", "tolk", "BOSIET", "offshore tolk", "hosting nederland", "allesis"],
   authors: [{ name: "Allesis", url: "https://allesis.nl" }],
   creator: "Allesis",
@@ -54,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   description: "Webhosting, domeinregistratie, webdesign, SEO en Thais-Nederlands-Engels vertaal- en tolkdiensten voor MKB en particulieren.",
                   address: {
                     "@type": "PostalAddress",
-                    addressLocality: "Vijfhuizen",
+                    addressLocality: "Haarlem",
                     addressCountry: "NL",
                   },
                   areaServed: ["NL", "BE", "Worldwide"],

@@ -19,7 +19,7 @@ export default function ContactPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 48 }}>
             {[
               { icon: "✉️", label: "E-mail", waarde: "info@allesis.nl", href: "mailto:info@allesis.nl" },
-              { icon: "📍", label: "Locatie", waarde: "Vijfhuizen, Nederland", href: null },
+              { icon: "📍", label: "Locatie", waarde: "Haarlem, Nederland", href: null },
             ].map(c => (
               <div key={c.label} style={{ padding: "20px 24px", background: "white", border: "1px solid #e2e6f0", borderRadius: 12 }}>
                 <div style={{ fontSize: 24, marginBottom: 8 }}>{c.icon}</div>

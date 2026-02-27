@@ -1,6 +1,7 @@
 import Link from "next/link";
 import DienstCard from "@/components/DienstCard";
 import CookieConsent from "@/components/CookieConsent";
+import HeroSection from "@/components/HeroSection";
 
 const diensten = [
   { icon: "🌐", titel: "Webhosting", tekst: "Snel, betrouwbaar en alles in één pakket. Vanaf € 8,95/mnd.", href: "/hosting" },
@@ -33,27 +34,7 @@ export default function Home() {
       <CookieConsent />
 
       {/* Hero */}
-      <section style={{ background: "linear-gradient(135deg, #f0f4ff 0%, #ffffff 60%)", paddingTop: 120, paddingBottom: 80 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-          <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-            <h1 className="fu2" style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(2.2rem, 5vw, 3.5rem)", lineHeight: 1.12, color: "#0f172a", marginBottom: 20 }}>
-              Alles voor uw website,<br />
-              <span style={{ color: "#1a3bcc" }}>onder één dak</span>
-            </h1>
-            <p className="fu3" style={{ fontFamily: "Lato, sans-serif", fontSize: 18, color: "#64748b", lineHeight: 1.7, marginBottom: 40, fontWeight: 300 }}>
-              Domeinregistratie, hosting, webdesign, SEO en Thais-Nederlands vertaalservice voor het MKB en particulieren.
-            </p>
-            <div className="fu4" style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 56 }}>
-              <Link href="/hosting" style={{ padding: "14px 28px", background: "#1a3bcc", color: "white", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, borderRadius: 8, textDecoration: "none" }}>
-                Bekijk hosting →
-              </Link>
-              <Link href="/contact" style={{ padding: "14px 28px", border: "2px solid #e2e6f0", color: "#374151", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, borderRadius: 8, textDecoration: "none" }}>
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Diensten */}
       <section style={{ padding: "80px 24px", background: "white" }}>
