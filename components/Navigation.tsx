@@ -8,6 +8,7 @@ const links = [
   { href: "/hosting", label: "Hosting & Domeinen" },
   { href: "/vertaling", label: "Vertaling & Tolk" },
   { href: "/domeinen", label: "Domein checken" },
+  { href: "/recent-websites", label: "Recent websites" },
   { href: "/contact", label: "Contact" },
 ];
 
