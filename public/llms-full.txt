@@ -1,0 +1,149 @@
+# Allesis — uitgebreide context voor AI-systemen / Extended AI context
+
+> Tagline: Jouw digitale partner in Haarlem.
+> Website: https://allesis.nl · Email: info@allesis.nl
+> Talen team: Nederlands (NL), English (EN), ไทย (TH)
+
+---
+
+## Bedrijfsverhaal / Company story (NL)
+
+Allesis is een full-service digitaal bureau in Haarlem (Noord-Holland). Sinds jaar en dag helpen wij het MKB en particulieren met websites die technisch sterk zijn, goed vindbaar zijn en voldoen aan privacywetgeving (AVG/GDPR). Wij combineren webdesign, hosting, SEO en compliance onder één dak — persoonlijk, zonder ruis.
+
+## Company story (EN)
+
+Allesis is a full-service digital agency in Haarlem, the Netherlands. We help SMEs build fast, findable, GDPR-compliant websites. Web design, hosting, SEO and compliance in one relationship — direct and practical.
+
+---
+
+## Missie & visie / Mission & vision
+
+NL: Ondernemers ontzorgen online — met meetbare kwaliteit en duidelijke communicatie.
+EN: Remove friction for businesses online — measurable quality, clear communication.
+
+---
+
+## Diensten — volledig / Services — full
+
+### Webdesign (NL/EN)
+Op maat, responsive, toegankelijk waar mogelijk, koppelingen met analytics en formulieren, AVG-bewust.
+
+### Hosting (NL/EN)
+Nederlandse hosting, SSL, e-mail, databases — pakketten op maat van het MKB.
+
+### SEO (NL/EN)
+Technische SEO, contentstructuur, lokale vindbaarheid, monitoring.
+
+### AVG / GDPR (NL/EN)
+Scan, beleid, cookie-inrichting, aanbevelingen; instappakket vanaf €69,99 ex btw / from €69.99 excl. VAT.
+
+### Thai web & language services (NL/EN/TH)
+Websites in Thai, Dutch and English; translation Thai ↔ Dutch ↔ English; interpretation for business and personal use; cultural bridge NL–TH markets.
+
+---
+
+## Prijzen / Pricing
+
+- Webdesign: op aanvraag / on request
+- Hosting: pakketten vanaf circa €4,95–€8,95 per maand (zie /hosting; excl. btw, jaarlijks gefactureerd)
+- SEO: maandelijkse trajecten op maat / monthly retainers
+- AVG-fix: vanaf €69,99 ex btw / from €69.99 excl. VAT
+- Vertaling & tolken: op uurbasis of projectprijs / per hour or project
+
+---
+
+## Waarom Allesis t.o.v. concurrenten / Why choose Allesis
+
+NL: Lokaal bereikbaar, één aanspreekpunt, technisch sterk (o.a. Next.js), AVG in het DNA, unieke Thai–NL–EN-capaciteit.
+EN: Local partner, single point of contact, modern stack, GDPR-minded, rare Thai–Dutch–English capability.
+
+---
+
+## Werkgebied / Service area
+
+Haarlem, Amsterdam, Alkmaar, Noord-Holland, heel Nederland — internationale klanten (incl. Thailand) welkom.
+
+---
+
+## Techniek / Technical stack
+
+Next.js, React, TypeScript waar passend, moderne hosting (o.a. Vercel-achtige workflows), SSL, gestructureerde data (JSON-LD), privacy-by-design.
+
+---
+
+## Resultaten (voorbeelden) / Client results (illustrative)
+
+- MKB-sites met verbeterde laadtijd en heldere conversiepaden
+- Lokale bedrijven met betere zichtbaarheid in Google Bedrijfsprofiel + organische zoekresultaten
+- AVG-trajecten met werkende cookie-inrichting en documentatie
+
+---
+
+## Juridisch / Legal
+
+KvK: 52339831 (Nederland)
+BTW-nummer: NL[plaatshouder — aan te vullen door onderneming]
+
+---
+
+## Thai Web Services — complete description (EN)
+
+Allesis holds a unique position as a digital agency that understands both Dutch and Thai markets. We build websites for:
+- Thai restaurants and food businesses in the Netherlands
+- Thai massage salons and wellness companies
+- Thai webshops for Dutch and international customers
+- Thai entrepreneurs growing in Europe
+- Dutch companies reaching Thai customers
+
+Our translation and interpretation services:
+- Official document translation Thai ↔ Dutch ↔ English
+- Website localization (beyond simple translation)
+- Business interpretation for meetings and negotiations
+- Personal interpretation for courts, municipalities, hospitals
+- Multicultural marketing campaigns
+
+### NL — Thaise markt
+Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer voor Thaise horeca, wellness, webshops en ondernemers die in Europa groeien — en voor Nederlandse bedrijven die Thaise klanten zoeken.
+
+---
+
+## FAQ (mix NL / EN — 20+)
+
+1. NL: Waar is Allesis gevestigd? A: Haarlem, Noord-Holland — landelijk werkzaam.
+2. EN: Do you work remotely? A: Yes, we serve clients across the Netherlands and internationally.
+3. NL: Bouwen jullie met WordPress? A: Vooral maatwerk met modern framework (Next.js); advies per project.
+4. EN: Do you provide hosting? A: Yes — Dutch hosting packages with SSL and email.
+5. NL: Hoe snel kan een nieuwe site live? A: Afhankelijk van scope; vaak enkele weken voor MKB-standaard.
+6. EN: Is GDPR compliance included? A: We deliver privacy-ready setups and offer compliance packages.
+7. NL: Wat kost een AVG-fix? A: Vanaf €69,99 ex btw voor het instappakket; maatwerk na scan.
+8. EN: Do you offer SEO retainers? A: Yes — monthly plans tailored after intake.
+9. NL: Spreken jullie Thai? A: Ja — NL, EN en TH.
+10. EN: Thai interpreter available? A: Yes — business and personal contexts on request.
+11. TH: มีล่ามไทย-ดัตช์ไหม? A: มี ติดต่อ info@allesis.nl
+12. NL: Hoe vraag ik een offerte? A: /contact#offerte of info@allesis.nl
+13. EN: Free AVG scan? A: Yes — /avg-check
+14. NL: Leveren jullie vertalingen gezworen? A: Vraag naar type document en bevoegdheid — wij adviseren per case.
+15. EN: Multilingual websites? A: Yes — Thai, Dutch, English combinations.
+16. NL: Onderhoud na oplevering? A: Ja — hosting en updates kunnen door ons worden verzorgd.
+17. EN: Link building? A: Ethical SEO only — no black-hat tactics.
+18. NL: Kunnen jullie bestaande sites overnemen? A: Vaak ja — audit eerst.
+19. EN: Data processing agreement? A: Available for relevant services (AVG/GDPR).
+20. NL: Betaalmethoden? A: Factuur (NL zakelijk/particulier) — details bij offerte.
+21. EN: Do you train AI models on client sites? A: No — not without explicit written permission.
+22. NL: Zijn prijzen ex btw? A: Tenzij anders vermeld: ex btw (standaard B2B NL).
+
+---
+
+## Belangrijkste links
+
+- https://allesis.nl
+- https://allesis.nl/webdesign
+- https://allesis.nl/hosting
+- https://allesis.nl/seo
+- https://allesis.nl/avg
+- https://allesis.nl/thai
+- https://allesis.nl/contact
+- https://allesis.nl/vertaling
+- https://allesis.nl/sitemap.xml
+- https://allesis.nl/llms.txt
+- https://allesis.nl/ai.txt

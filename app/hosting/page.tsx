@@ -1,9 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-export const metadata = {
-  title: "Webhosting Pakketten",
-  description: "Betrouwbare webhosting voor MKB en particulieren. Pakketten vanaf 20ac8,95/mnd inclusief SSL, e-mail en MySQL. Snel, veilig en alles in 00e900e9n pakket.",
-  openGraph: { title: "Webhosting Pakketten | Allesis", description: "Hosting pakketten vanaf 20ac8,95/mnd. SSL, e-mail, MySQL inbegrepen." },
-  alternates: { canonical: "https://allesis.nl/hosting" },
+import { Suspense } from "react";
+import HostingOrderForm from "@/components/HostingOrderForm";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
+
+export const metadata: Metadata = {
+  title: "Webhosting Nederland — SSL, e-mail & MySQL",
+  description:
+    "Snelle Nederlandse webhosting voor MKB. Pakketten vanaf €4,95/mnd ex btw. SSL, e-mail, MySQL en helpdesk. Allesis Haarlem.",
+  alternates: pageAlternates("/hosting"),
+  openGraph: {
+    title: "Webhosting pakketten | Allesis",
+    description: "Betrouwbare hosting met SSL, e-mail en MySQL — jaarlijks gefactureerd.",
+    url: `${SITE_URL}/hosting`,
+    locale: "nl_NL",
+    type: "website",
+  },
 };
 
 export default function HostingPage() {
@@ -38,10 +50,17 @@ export default function HostingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" style={{ display: "block", textAlign: "center", padding: "12px 0", background: p.highlight ? "white" : "#1a3bcc", color: p.highlight ? "#1a3bcc" : "white", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, borderRadius: 8, textDecoration: "none" }}>Bestel nu →</Link>
+              <Link href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`} style={{ display: "block", textAlign: "center", padding: "12px 0", background: p.highlight ? "white" : "#1a3bcc", color: p.highlight ? "#1a3bcc" : "white", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, borderRadius: 8, textDecoration: "none" }}>Bestel nu →</Link>
             </div>
           ))}
         </div>
+        <Suspense
+          fallback={
+            <p style={{ fontFamily: "Lato, sans-serif", textAlign: "center", color: "#94a3b8", marginTop: 32 }}>Formulier laden…</p>
+          }
+        >
+          <HostingOrderForm />
+        </Suspense>
       </section>
     </div>
   );

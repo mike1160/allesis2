@@ -1,5 +1,11 @@
-export const metadata = { title: "Registreren | Allesis", description: "Maak een account aan bij Allesis." };
+import type { Metadata } from "next";
 import RegisterForm from "@/components/auth/RegisterForm";
+
+export const metadata: Metadata = {
+  title: "Registreren",
+  description: "Maak een account aan bij Allesis.",
+  robots: { index: false, follow: false },
+};
 
 export default function RegisterPage() {
   return (

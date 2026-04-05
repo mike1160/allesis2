@@ -1,6 +1,20 @@
+import type { Metadata } from "next";
 import DomainChecker from "@/components/DomainChecker";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
-export const metadata = { title: "Domein checken & registreren | Allesis", description: "Controleer live of uw domeinnaam beschikbaar is. Meerdere extensies tegelijk." };
+export const metadata: Metadata = {
+  title: "Domeinnaam checken — .nl .com .eu en meer",
+  description:
+    "Controleer live beschikbaarheid van uw domein (.nl, .com, .net, .eu, .org, .be). Registratie en begeleiding via Allesis Haarlem.",
+  alternates: pageAlternates("/domeinen"),
+  openGraph: {
+    title: "Domeinen | Allesis",
+    description: "Domeincheck en registratie — meerdere extensies tegelijk.",
+    url: `${SITE_URL}/domeinen`,
+    locale: "nl_NL",
+    type: "website",
+  },
+};
 
 export default function DomeinenPage() {
   return (

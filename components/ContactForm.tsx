@@ -13,13 +13,13 @@ export default function ContactForm() {
     setError("");
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ type: "contact", ...form }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Er ging iets mis. Probeer het opnieuw.");
       setSuccess(true);
     } catch (err: any) {
       setError(err.message || "Er ging iets mis. Probeer het opnieuw.");

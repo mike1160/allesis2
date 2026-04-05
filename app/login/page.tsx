@@ -1,5 +1,11 @@
-export const metadata = { title: "Inloggen | Allesis", description: "Log in op uw Allesis klantenpaneel." };
+import type { Metadata } from "next";
 import LoginForm from "@/components/auth/LoginForm";
+
+export const metadata: Metadata = {
+  title: "Inloggen",
+  description: "Log in op uw Allesis klantenpaneel.",
+  robots: { index: false, follow: false },
+};
 
 export default function LoginPage() {
   return (

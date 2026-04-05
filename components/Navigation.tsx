@@ -11,15 +11,18 @@ type NavDropdown = { type: "dropdown"; label: string; items: { href: string; lab
 const navItems: (NavLink | NavDropdown)[] = [
   { type: "link", href: "/webdesign", label: "Webdesign" },
   { type: "link", href: "/hosting", label: "Hosting & Domeinen" },
+  { type: "link", href: "/seo", label: "SEO" },
   {
     type: "dropdown",
     label: "AVG & Compliance",
     items: [
+      { href: "/avg", label: "AVG-compliance pakket" },
       { href: "/avg-regelgeving", label: "AVG Regelgeving" },
       { href: "/avg-boetes", label: "AVG Boetes" },
       { href: "/avg-check", label: "AVG Check", badge: "GRATIS" },
     ],
   },
+  { type: "link", href: "/thai", label: "Thaise diensten" },
   { type: "link", href: "/recent-websites", label: "Recent Websites" },
   { type: "link", href: "/contact", label: "Contact" },
 ];
@@ -182,7 +185,7 @@ export default function Navigation() {
                   Inloggen
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact#offerte"
                   className="font-lato rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white no-underline shadow-sm transition hover:bg-primary-dark"
                 >
                   Offerte aanvragen
@@ -276,7 +279,7 @@ export default function Navigation() {
                 <Link href="/login" onClick={closeMobile} className="font-lato text-lg font-bold text-neutral-mid no-underline">
                   Inloggen
                 </Link>
-                <Link href="/contact" onClick={closeMobile} className="font-lato text-lg font-bold text-primary no-underline">
+                <Link href="/contact#offerte" onClick={closeMobile} className="font-lato text-lg font-bold text-primary no-underline">
                   Offerte aanvragen →
                 </Link>
               </div>

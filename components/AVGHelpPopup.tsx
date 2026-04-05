@@ -13,6 +13,7 @@ interface Props {
   setPhone: (v: string) => void;
   loading: boolean;
   sent: boolean;
+  error?: string | null;
 }
 
 export default function AVGHelpPopup({
@@ -28,6 +29,7 @@ export default function AVGHelpPopup({
   setPhone,
   loading,
   sent,
+  error,
 }: Props) {
   return (
     <div
@@ -100,6 +102,11 @@ export default function AVGHelpPopup({
                   className="font-lato w-full rounded-xl border border-[#cbd5e0] px-4 py-3 text-neutral-dark outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </div>
+              {error ? (
+                <p className="font-lato rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700" role="alert">
+                  {error}
+                </p>
+              ) : null}
               <button
                 type="submit"
                 disabled={loading}

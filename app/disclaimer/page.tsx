@@ -1,4 +1,17 @@
-export const metadata = { title: "Disclaimer & Privacybeleid | Allesis", description: "Disclaimer, privacybeleid en cookiebeleid van Allesis.nl" };
+import type { Metadata } from "next";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
+
+export const metadata: Metadata = {
+  title: "Disclaimer & privacybeleid",
+  description: "Disclaimer, privacy- en cookiebeleid van Allesis.nl — transparant over gegevensverwerking en contact.",
+  alternates: pageAlternates("/disclaimer"),
+  openGraph: {
+    title: "Disclaimer | Allesis",
+    url: `${SITE_URL}/disclaimer`,
+    locale: "nl_NL",
+    type: "website",
+  },
+};
 
 export default function DisclaimerPage() {
   return (

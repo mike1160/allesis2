@@ -3,11 +3,14 @@ import Link from "next/link";
 const dienstenLinks = [
   { href: "/webdesign", label: "Webdesign" },
   { href: "/hosting", label: "Hosting" },
+  { href: "/seo", label: "SEO" },
   { href: "/domeinen", label: "Domeinen" },
   { href: "/vertaling", label: "Vertaling" },
+  { href: "/thai", label: "Thaise webdiensten" },
 ];
 
 const avgLinks = [
+  { href: "/avg", label: "AVG-compliance" },
   { href: "/avg-regelgeving", label: "AVG Regelgeving" },
   { href: "/avg-boetes", label: "AVG Boetes" },
   { href: "/avg-check", label: "AVG Check" },

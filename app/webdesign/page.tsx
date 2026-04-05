@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
-  title: "Webdesign & Nieuwe Website Laten Maken",
+  title: "Webdesign Haarlem — nieuwe website laten maken",
   description:
-    "Professioneel webdesign voor het MKB. Allesis bouwt snelle, moderne websites inclusief SEO, AVG-compliance en hosting. Vraag een vrijblijvende offerte aan.",
-  alternates: { canonical: "https://allesis.nl/webdesign" },
+    "Professioneel webdesign voor het MKB: snel, responsive, SEO en AVG-proof. Next.js-kwaliteit, persoonlijke begeleiding. Offerte aanvragen.",
+  alternates: pageAlternates("/webdesign"),
+  openGraph: {
+    title: "Webdesign & nieuwe website | Allesis",
+    description: "Moderne websites voor ondernemers — SEO, AVG en hosting onder één dak.",
+    url: `${SITE_URL}/webdesign`,
+    locale: "nl_NL",
+    type: "website",
+  },
 };
 
 const watKrijgJe = [

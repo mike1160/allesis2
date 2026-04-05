@@ -1,9 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
-export const metadata = {
-  title: "Thais-Nederlands-Engels Vertaling & Tolk | Allesis",
-  description: "Professionele Thais-Nederlandse en Engelse vertaal- en tolkdiensten. Specialist in offshore BOSIET training tolken.",
+export const metadata: Metadata = {
+  title: "Thais · Nederlands · Engels — vertaling & tolk",
+  description:
+    "Vertaal- en tolkdiensten Thai ↔ Nederlands ↔ Engels. Zakelijke en persoonlijke opdrachten. Ook BOSIET/offshore-tolken. Haarlem, landelijk en internationaal.",
+  alternates: pageAlternates("/vertaling"),
+  openGraph: {
+    title: "Vertaling & tolkdiensten | Allesis",
+    description: "Professionele Thai–Dutch–English translation and interpretation.",
+    url: `${SITE_URL}/vertaling`,
+    locale: "nl_NL",
+    alternateLocale: ["en_US", "th_TH"],
+    type: "website",
+  },
 };
 
 export default function VertaaldPage() {

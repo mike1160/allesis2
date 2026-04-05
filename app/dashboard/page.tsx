@@ -1,8 +1,12 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createServerSupabase } from "@/lib/supabase-server";
 import DashboardClient from "@/components/dashboard/DashboardClient";
 
-export const metadata = { title: "Mijn Dashboard | Allesis" };
+export const metadata: Metadata = {
+  title: "Mijn dashboard",
+  robots: { index: false, follow: false },
+};
 
 export default async function DashboardPage() {
   const supabase = await createServerSupabase();

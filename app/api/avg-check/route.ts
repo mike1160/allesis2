@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendAllesisEmail } from "@/lib/allesis-email";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 interface CheckResult {
@@ -294,7 +295,14 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  let body: { scanId: string; name: string; email: string; phone?: string };
+  let body: {
+    scanId: string;
+    name: string;
+    email: string;
+    phone?: string;
+    domain?: string;
+    score?: number;
+  };
   try {
     body = await req.json();
   } catch {
@@ -305,8 +313,16 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Ongeldige scan." }, { status: 400 });
   }
 
-  if (!body.email?.trim()) {
-    return NextResponse.json({ error: "scanId en email zijn verplicht." }, { status: 400 });
+  if (!body.email?.trim() || !body.name?.trim()) {
+    return NextResponse.json({ error: "Naam en e-mailadres zijn verplicht." }, { status: 400 });
+  }
+
+  if (body.domain === undefined || body.domain === null || String(body.domain).trim() === "") {
+    return NextResponse.json({ error: "Domein ontbreekt." }, { status: 400 });
+  }
+
+  if (body.score === undefined || body.score === null || Number.isNaN(Number(body.score))) {
+    return NextResponse.json({ error: "Score ontbreekt." }, { status: 400 });
   }
 
   const admin = getSupabaseAdmin();
@@ -327,6 +343,20 @@ export async function PATCH(req: NextRequest) {
 
   if (error) {
     return NextResponse.json({ error: "Opslaan mislukt." }, { status: 500 });
+  }
+
+  const mail = await sendAllesisEmail({
+    type: "avg_popup",
+    naam: body.name.trim(),
+    email: body.email.trim(),
+    telefoon: body.phone?.trim(),
+    domain: String(body.domain).trim(),
+    score: Number(body.score),
+    scanId: body.scanId,
+  });
+
+  if (!mail.ok) {
+    return NextResponse.json({ error: mail.message }, { status: 500 });
   }
 
   return NextResponse.json({ success: true });

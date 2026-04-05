@@ -45,6 +45,7 @@ export default function AvgCheckClient() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [popupLoading, setPopupLoading] = useState(false);
+  const [popupError, setPopupError] = useState<string | null>(null);
 
   useEffect(() => {
     const fromUrl = searchParams.get("domain") ?? searchParams.get("domein") ?? "";
@@ -64,6 +65,7 @@ export default function AvgCheckClient() {
     setResult(null);
     setShowPopup(false);
     setPopupSent(false);
+    setPopupError(null);
 
     try {
       const res = await fetch("/api/avg-check", {
@@ -91,6 +93,7 @@ export default function AvgCheckClient() {
       return;
     }
     setPopupLoading(true);
+    setPopupError(null);
     try {
       const res = await fetch("/api/avg-check", {
         method: "PATCH",
@@ -100,15 +103,18 @@ export default function AvgCheckClient() {
           name: contactName,
           email: contactEmail,
           phone: contactPhone,
+          domain: result.domain,
+          score: result.score,
         }),
       });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setPopupSent(true);
       } else {
-        setShowPopup(false);
+        setPopupError(typeof data.error === "string" ? data.error : "Verzenden mislukt. Probeer het opnieuw.");
       }
     } catch {
-      setShowPopup(false);
+      setPopupError("Kon de server niet bereiken. Probeer het opnieuw.");
     } finally {
       setPopupLoading(false);
     }
@@ -251,6 +257,7 @@ export default function AvgCheckClient() {
           setPhone={setContactPhone}
           loading={popupLoading}
           sent={popupSent}
+          error={popupError}
         />
       ) : null}
     </div>

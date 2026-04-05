@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
-  title: "AVG Regelgeving voor Websites | Wat bent u verplicht?",
+  title: "AVG voor websites — wat is verplicht?",
   description:
-    "Wat verplicht de AVG voor uw website? Privacybeleid, cookiebanner, verwerkersregister — Allesis regelt het voor u. Voorkom boetes van de Autoriteit Persoonsgegevens.",
-  alternates: { canonical: "https://allesis.nl/avg-regelgeving" },
+    "Privacybeleid, cookies, formulieren en verwerkers: de AVG in begrijpelijke taal. Allesis helpt MKB in Haarlem en heel NL compliant te worden.",
+  alternates: pageAlternates("/avg-regelgeving"),
+  openGraph: {
+    title: "AVG regelgeving | Allesis",
+    description: "Checklist en ondersteuning voor uw website.",
+    url: `${SITE_URL}/avg-regelgeving`,
+    locale: "nl_NL",
+    type: "website",
+  },
 };
 
 const verplichtingen = [

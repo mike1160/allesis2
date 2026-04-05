@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
-  title: "AVG Boetes — Wat Riskeert u als Ondernemer?",
+  title: "AVG-boetes — risico’s voor ondernemers",
   description:
-    "De AP legt steeds meer AVG-boetes op aan Nederlandse bedrijven. Ontdek wat u riskeert en hoe u uw website snel compliant maakt. Allesis helpt u.",
-  alternates: { canonical: "https://allesis.nl/avg-boetes" },
+    "Wat u riskeert bij AVG-overtredingen en hoe u uw site compliant maakt. Allesis: scan, beleid en techniek — vanaf €69,99 ex btw.",
+  alternates: pageAlternates("/avg-boetes"),
+  openGraph: {
+    title: "AVG boetes | Allesis",
+    description: "Inzicht in handhaving en stappen naar compliance.",
+    url: `${SITE_URL}/avg-boetes`,
+    locale: "nl_NL",
+    type: "website",
+  },
 };
 
 const bedragen = [

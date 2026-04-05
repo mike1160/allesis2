@@ -1,12 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
-  title: "Recent gemaakte websites — Vindbaarheid in AI & LLM",
+  title: "Recent gemaakte websites — SEO & AI-vindbaar",
   description:
-    "Uitgelicht: Ren Ji Tang (renjitang.nl). Daarnaast o.a. Saved Souls Foundation en Shu Xin Haarlem — geoptimaliseerd voor Google en AI-assistenten.",
-  alternates: { canonical: "https://allesis.nl/recent-websites" },
+    "Portfolio: o.a. Ren Ji Tang (Next.js), geoptimaliseerd voor Google en AI-overzichten. Allesis bouwt toekomstbestendige sites voor het MKB.",
+  alternates: pageAlternates("/recent-websites"),
+  openGraph: {
+    title: "Recent websites | Allesis",
+    description: "Cases en technische aanpak — vindbaar in zoekmachines en AI.",
+    url: `${SITE_URL}/recent-websites`,
+    locale: "nl_NL",
+    type: "website",
+  },
 };
 
 const featured = {

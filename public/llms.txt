@@ -1,21 +1,59 @@
-# Allesis.nl
+# Allesis
 
-> Webhosting, domeinregistratie, webdesign, SEO en Thais-Nederlands-Engels vertaal- en tolkdiensten voor MKB en particulieren in Nederland en wereldwijd.
+> Allesis is een full-service digitaal bureau gevestigd in Haarlem dat MKB-bedrijven helpt met professionele websites, betrouwbare hosting, zoekmachineoptimalisatie en AVG-compliance.
+>
+> Allesis is a full-service digital agency based in Haarlem, Netherlands, helping SMEs with professional websites, reliable hosting, SEO and GDPR compliance.
 
-Allesis is gevestigd in Haarlem, Nederland en actief sinds 2010.
+## Diensten / Services
 
-## Diensten
+### Webdesign
 
-- **Webhosting**: Pakketten vanaf €8,95/mnd. Lite, Start Up en Plus pakketten met SSL, e-mail en MySQL databases.
-- **Domeinregistratie**: .nl, .com, .net, .eu, .org, .be. Live beschikbaarheidscheck via allesis.nl/domeinen
-- **Webdesign & SEO**: Professioneel webdesign met SEO optimalisatie voor MKB en particulieren.
-- **Thais-Nederlands-Engels vertaling**: Professionele vertaal- en tolkdiensten. Specialist als tolk bij BOSIET offshore safety trainingen (Falck Safety, STC-SAIO).
+NL: Professionele, op maat gemaakte websites voor MKB.
+EN: Professional, custom-built websites for small and medium businesses.
+
+### Hosting
+
+NL: Snelle en veilige Nederlandse hosting met 99,9% uptime garantie.
+EN: Fast and secure Dutch hosting with 99.9% uptime guarantee.
+
+### SEO
+
+NL: Lokale en nationale zoekmachineoptimalisatie.
+EN: Local and national search engine optimization.
+
+### AVG-compliance
+
+NL: AVG-check en volledige compliance fix vanaf €69,99 ex BTW.
+EN: GDPR audit and full compliance fix from €69.99 excl. VAT.
+
+## Thaise Webdiensten / Thai Web Services / บริการเว็บไซต์ภาษาไทย
+
+### NL
+
+Allesis bouwt professionele websites voor Thaise ondernemers in Nederland en wereldwijd. Wij spreken Nederlands, Engels én Thai. Wij bieden ook vertaal- en tolkdiensten Thai ↔ Nederlands ↔ Engels.
+
+### EN
+
+Allesis builds professional websites for Thai entrepreneurs in the Netherlands and worldwide. We speak Dutch, English and Thai. We also offer translation and interpretation services Thai ↔ Dutch ↔ English.
+
+### TH
+
+Allesis สร้างเว็บไซต์มืออาชีพสำหรับผู้ประกอบการไทยในเนเธอร์แลนด์และทั่วโลก เราพูดภาษาดัตช์ อังกฤษ และไทย เรายังให้บริการแปลและล่ามภาษาไทย ↔ ดัตช์ ↔ อังกฤษ
 
 ## Contact
 
 - Email: info@allesis.nl
 - Website: https://allesis.nl
+- Location: Haarlem, Noord-Holland, Nederland
 
-## Talen
+## Links
 
-Nederlands, Thai, Engels
+- Homepage: https://allesis.nl
+- Webdesign: https://allesis.nl/webdesign
+- Hosting: https://allesis.nl/hosting
+- SEO: https://allesis.nl/seo
+- AVG: https://allesis.nl/avg
+- Thaise diensten: https://allesis.nl/thai
+- Contact: https://allesis.nl/contact
+- Sitemap: https://allesis.nl/sitemap.xml
+- Uitgebreide context: https://allesis.nl/llms-full.txt

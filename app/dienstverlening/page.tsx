@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
-export const metadata = {
-  title: "Bedrijfsdienstverlening | Allesis",
-  description: "Allesis biedt zakelijke dienstverlening voor MKB en particulieren in Amsterdam en omgeving.",
+export const metadata: Metadata = {
+  title: "Zakelijke dienstverlening — Allesis",
+  description:
+    "Zakelijke dienstverlening voor MKB en particulieren: web, hosting en aanverwante digitale ondersteuning. Regio Haarlem, Amsterdam en verder.",
+  alternates: pageAlternates("/dienstverlening"),
+  openGraph: {
+    title: "Dienstverlening | Allesis",
+    description: "Digitale diensten voor ondernemers.",
+    url: `${SITE_URL}/dienstverlening`,
+    locale: "nl_NL",
+    type: "website",
+  },
 };
 
 export default function DienstverleningPage() {

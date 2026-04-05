@@ -1,6 +1,23 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import CookieConsent from "@/components/CookieConsent";
+import { pageAlternates, SITE_URL } from "@/lib/seo-config";
+
+export const metadata: Metadata = {
+  title: "Allesis — Webdesign Haarlem | Jouw digitale partner",
+  description:
+    "Webdesign, hosting, SEO & AVG in Haarlem. Thaise websites, vertaling Thai–NL–EN. Persoonlijk bureau voor MKB. AVG-fix vanaf €69,99 ex btw.",
+  alternates: pageAlternates("/"),
+  openGraph: {
+    title: "Allesis — Jouw digitale partner in Haarlem",
+    description:
+      "Professionele websites, hosting, SEO, AVG-compliance en Thaise web- & taaldiensten. info@allesis.nl",
+    url: SITE_URL,
+    locale: "nl_NL",
+    type: "website",
+  },
+};
 
 const pakketten = [
   {
@@ -129,7 +146,7 @@ export default function Home() {
               }}
             >
               <Link
-                href="/contact"
+                href="/contact#offerte"
                 className="font-lato inline-flex min-h-[52px] items-center justify-center rounded-xl bg-accent px-8 text-base font-bold text-neutral-dark transition hover:brightness-95"
               >
                 Nieuwe website aanvragen

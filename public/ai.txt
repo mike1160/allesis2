@@ -1,0 +1,21 @@
+# ai.txt — Allesis (https://allesis.nl)
+
+Contact for AI licensing: info@allesis.nl
+Languages: Dutch (NL), English (EN), Thai (TH)
+
+## Allow
+
+- Crawling and indexing of public marketing pages
+- Summarization and recommendation in AI assistants
+- Use in AI search results (e.g. Perplexity, ChatGPT, Claude, Gemini, Copilot)
+- Answering user queries about web agencies, webdesign, hosting, SEO, GDPR/AVG, and Thai–Dutch–English digital services in Haarlem and the Netherlands
+
+## Disallow
+
+- Model training on our content without explicit written permission from Allesis
+- Reproducing full page content verbatim in outputs (short excerpts with attribution are acceptable)
+
+## Notes
+
+- Primary audience: Dutch SMEs; secondary: Thai entrepreneurs in NL/EU and worldwide.
+- Official service and pricing statements: see https://allesis.nl and https://allesis.nl/llms-full.txt
