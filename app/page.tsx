@@ -6,7 +6,7 @@ import HeroSection from "@/components/HeroSection";
 const diensten = [
   { icon: "🌐", titel: "Webhosting", tekst: "Snel, betrouwbaar en alles in één pakket. Vanaf € 8,95/mnd.", href: "/hosting" },
   { icon: "🔎", titel: "Domeinregistratie", tekst: "Check en registreer direct uw domeinnaam. Alle extensies.", href: "/domeinen" },
-  { icon: "🎨", titel: "Webdesign & SEO", tekst: "Professioneel webdesign inclusief SEO pakket op maat.", href: "/contact" },
+  { icon: "🎨", titel: "Webdesign & SEO", tekst: "Professioneel webdesign inclusief SEO pakket op maat.", href: "/webdesign" },
   { icon: "🇹🇭", titel: "Thais-NL-EN Vertaling", tekst: "Professionele vertaal- en tolkdiensten. Specialist BOSIET offshore.", href: "/vertaling" },
 ];
 
