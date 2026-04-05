@@ -7,6 +7,7 @@ const entries: Entry[] = [
   { path: "/webdesign", changeFrequency: "monthly", priority: 0.9 },
   { path: "/avg-regelgeving", changeFrequency: "monthly", priority: 0.9 },
   { path: "/avg-boetes", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/avg-check", changeFrequency: "monthly", priority: 0.9 },
   { path: "/hosting", changeFrequency: "monthly", priority: 0.9 },
   { path: "/domeinen", changeFrequency: "monthly", priority: 0.8 },
   { path: "/recent-websites", changeFrequency: "monthly", priority: 0.8 },

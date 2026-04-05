@@ -1,50 +1,42 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 type NavLink = { type: "link"; href: string; label: string };
-type NavDropdown = { type: "dropdown"; label: string; items: { href: string; label: string }[] };
+type NavDropdown = { type: "dropdown"; label: string; items: { href: string; label: string; badge?: string }[] };
 
 const navItems: (NavLink | NavDropdown)[] = [
   { type: "link", href: "/webdesign", label: "Webdesign" },
   { type: "link", href: "/hosting", label: "Hosting & Domeinen" },
-  { type: "link", href: "/vertaling", label: "Vertaling & Tolk" },
-  { type: "link", href: "/domeinen", label: "Domein checken" },
-  { type: "link", href: "/recent-websites", label: "Recent websites" },
   {
     type: "dropdown",
     label: "AVG & Compliance",
     items: [
-      { href: "/avg-regelgeving", label: "AVG-regelgeving" },
-      { href: "/avg-boetes", label: "AVG-boetes" },
+      { href: "/avg-regelgeving", label: "AVG Regelgeving" },
+      { href: "/avg-boetes", label: "AVG Boetes" },
+      { href: "/avg-check", label: "AVG Check", badge: "GRATIS" },
     ],
   },
+  { type: "link", href: "/recent-websites", label: "Recent Websites" },
   { type: "link", href: "/contact", label: "Contact" },
 ];
-
-const linkStyle = {
-  fontFamily: "Lato, sans-serif",
-  fontSize: 14,
-  fontWeight: 700,
-  color: "#374151",
-  textDecoration: "none",
-};
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [avgOpen, setAvgOpen] = useState(false);
   const [mobileAvgOpen, setMobileAvgOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{ id: string } | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", fn);
+    window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
@@ -57,307 +49,248 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    const client = createClient();
+    client.auth.getUser().then(({ data }) => setUser(data.user));
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_e, session) => {
+    } = client.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null);
     });
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setOpen(false);
     router.push("/");
     router.refresh();
   };
 
-  const hoverColor = (e: React.MouseEvent<HTMLElement>, c: string) => {
-    (e.currentTarget as HTMLElement).style.color = c;
+  const closeMobile = () => {
+    setOpen(false);
+    setMobileAvgOpen(false);
   };
 
   return (
-    <nav
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        background: scrolled ? "rgba(255,255,255,0.97)" : "white",
-        borderBottom: "1px solid #e2e6f0",
-        boxShadow: scrolled ? "0 1px 12px rgba(0,0,0,0.07)" : "none",
-        transition: "box-shadow .3s",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ width: 32, height: 32, background: "#1a3bcc", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "white", fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: 14 }}>A</span>
-          </div>
-          <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 18, color: "#0f172a" }}>
-            Allesis<span style={{ color: "#1a3bcc" }}>.nl</span>
-          </span>
-        </Link>
+    <>
+      <nav
+        className={`fixed top-0 right-0 left-0 z-50 transition-[box-shadow,background-color] duration-300 ${
+          scrolled ? "bg-white shadow-[0_4px_24px_-4px_rgba(10,15,30,0.12)]" : "bg-white/95 backdrop-blur-sm"
+        }`}
+      >
+        <div className="mx-auto flex h-[4.25rem] max-w-[1200px] items-center justify-between px-6">
+          <Link href="/" className="group flex items-center gap-2.5 no-underline" onClick={closeMobile}>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary transition group-hover:bg-primary-dark">
+              <span className="font-sora text-[15px] font-extrabold text-white">A</span>
+            </div>
+            <span className="font-sora text-[1.05rem] font-bold text-neutral-dark md:text-xl">
+              <span className="text-neutral-mid/50">·</span> Allesis<span className="text-primary">.nl</span>
+            </span>
+          </Link>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 22 }} className="hidden-mobile">
-          {navItems.map((item) =>
-            item.type === "link" ? (
-              <Link
-                key={item.href}
-                href={item.href}
-                style={{ ...linkStyle }}
-                onMouseEnter={(e) => hoverColor(e, "#1a3bcc")}
-                onMouseLeave={(e) => hoverColor(e, "#374151")}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <div
-                key={item.label}
-                ref={dropdownRef}
-                style={{ position: "relative" }}
-                onMouseEnter={() => setAvgOpen(true)}
-                onMouseLeave={() => setAvgOpen(false)}
-              >
-                <button
-                  type="button"
-                  onClick={() => setAvgOpen((o) => !o)}
-                  style={{
-                    ...linkStyle,
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                    padding: 0,
-                  }}
-                  onMouseEnter={(e) => hoverColor(e, "#1a3bcc")}
-                  onMouseLeave={(e) => hoverColor(e, "#374151")}
+          <div className="hidden items-center gap-7 lg:flex">
+            {navItems.map((item) =>
+              item.type === "link" ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="font-lato text-sm font-bold text-neutral-mid no-underline transition hover:text-primary"
                 >
                   {item.label}
-                  <span style={{ fontSize: 10, opacity: 0.7 }}>▼</span>
-                </button>
-                {avgOpen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "100%",
-                      left: 0,
-                      paddingTop: 8,
-                      minWidth: 200,
-                    }}
+                </Link>
+              ) : (
+                <div
+                  key={item.label}
+                  ref={dropdownRef}
+                  className="relative"
+                  onMouseEnter={() => setAvgOpen(true)}
+                  onMouseLeave={() => setAvgOpen(false)}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setAvgOpen((o) => !o)}
+                    className="font-lato flex cursor-pointer items-center gap-1 border-0 bg-transparent p-0 text-sm font-bold text-neutral-mid transition hover:text-primary"
                   >
-                    <div
-                      style={{
-                        background: "white",
-                        border: "1px solid #e2e6f0",
-                        borderRadius: 10,
-                        boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
-                        padding: "8px 0",
-                      }}
-                    >
+                    {item.label}
+                    <span className="text-[10px] opacity-60" aria-hidden>
+                      ▾
+                    </span>
+                  </button>
+                  {avgOpen ? (
+                    <div className="absolute top-full left-0 min-w-[220px] pt-2">
+                      <div className="rounded-xl bg-white py-2 shadow-[0_12px_40px_-8px_rgba(10,15,30,0.15)] ring-1 ring-black/5">
+                        {item.items.map((sub) => (
+                          <Link
+                            key={sub.href}
+                            href={sub.href}
+                            className="font-lato block px-4 py-2.5 text-sm font-semibold text-neutral-mid no-underline transition hover:bg-neutral-light hover:text-primary"
+                          >
+                            {sub.label}
+                            {sub.badge ? (
+                              <span
+                                style={{
+                                  background: "#e8ff47",
+                                  color: "#0a0f1e",
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  padding: "1px 6px",
+                                  borderRadius: "4px",
+                                  marginLeft: "4px",
+                                }}
+                              >
+                                {sub.badge}
+                              </span>
+                            ) : null}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ),
+            )}
+
+            {user ? (
+              <div className="ml-2 flex items-center gap-2 border-l border-neutral-light pl-6">
+                <Link
+                  href="/dashboard"
+                  className="font-lato rounded-lg bg-[#eef2ff] px-4 py-2 text-xs font-bold text-primary no-underline transition hover:bg-[#e0e7ff]"
+                >
+                  Mijn account
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="font-lato cursor-pointer rounded-lg border border-neutral-light px-4 py-2 text-xs font-bold text-neutral-mid transition hover:bg-neutral-light"
+                >
+                  Uitloggen
+                </button>
+              </div>
+            ) : (
+              <div className="ml-2 flex items-center gap-2 border-l border-neutral-light pl-6">
+                <Link
+                  href="/login"
+                  className="font-lato rounded-lg px-4 py-2 text-xs font-bold text-neutral-mid no-underline transition hover:bg-neutral-light hover:text-primary"
+                >
+                  Inloggen
+                </Link>
+                <Link
+                  href="/contact"
+                  className="font-lato rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white no-underline shadow-sm transition hover:bg-primary-dark"
+                >
+                  Offerte aanvragen
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            className="flex cursor-pointer items-center justify-center rounded-lg p-2 lg:hidden"
+            aria-expanded={open}
+            aria-label={open ? "Menu sluiten" : "Menu openen"}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-neutral-dark">
+              {open ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobiel: fullscreen overlay */}
+      {open ? (
+        <div className="fixed inset-0 z-[60] flex flex-col bg-white pt-[4.25rem] lg:hidden">
+          <div className="flex flex-1 flex-col gap-2 overflow-y-auto px-8 py-10">
+            {navItems.map((item) =>
+              item.type === "link" ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMobile}
+                  className="font-sora border-b border-neutral-light py-5 text-2xl font-bold text-neutral-dark no-underline"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <div key={item.label} className="border-b border-neutral-light py-2">
+                  <button
+                    type="button"
+                    onClick={() => setMobileAvgOpen((v) => !v)}
+                    className="font-sora flex w-full items-center justify-between py-4 text-left text-2xl font-bold text-neutral-dark"
+                  >
+                    {item.label}
+                    <span className="text-base opacity-50">{mobileAvgOpen ? "▲" : "▼"}</span>
+                  </button>
+                  {mobileAvgOpen ? (
+                    <div className="flex flex-col gap-3 pb-6 pl-1">
                       {item.items.map((sub) => (
                         <Link
                           key={sub.href}
                           href={sub.href}
-                          style={{
-                            display: "block",
-                            padding: "10px 16px",
-                            fontFamily: "Lato, sans-serif",
-                            fontSize: 14,
-                            fontWeight: 600,
-                            color: "#374151",
-                            textDecoration: "none",
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "#f8f9fc";
-                            e.currentTarget.style.color = "#1a3bcc";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "transparent";
-                            e.currentTarget.style.color = "#374151";
-                          }}
+                          onClick={closeMobile}
+                          className="font-lato text-lg font-semibold text-primary no-underline"
                         >
                           {sub.label}
+                          {sub.badge ? (
+                            <span
+                              style={{
+                                background: "#e8ff47",
+                                color: "#0a0f1e",
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                padding: "1px 6px",
+                                borderRadius: "4px",
+                                marginLeft: "4px",
+                              }}
+                            >
+                              {sub.badge}
+                            </span>
+                          ) : null}
                         </Link>
                       ))}
                     </div>
-                  </div>
-                )}
-              </div>
-            )
-          )}
+                  ) : null}
+                </div>
+              ),
+            )}
 
-          {user ? (
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <Link
-                href="/dashboard"
-                style={{
-                  padding: "7px 16px",
-                  background: "#eef2ff",
-                  color: "#1a3bcc",
-                  fontFamily: "Lato, sans-serif",
-                  fontWeight: 700,
-                  fontSize: 13,
-                  borderRadius: 8,
-                  textDecoration: "none",
-                }}
-              >
-                👤 Mijn account
-              </Link>
-              <button
-                onClick={handleLogout}
-                style={{
-                  padding: "7px 16px",
-                  background: "transparent",
-                  border: "1px solid #e2e6f0",
-                  color: "#64748b",
-                  fontFamily: "Lato, sans-serif",
-                  fontWeight: 700,
-                  fontSize: 13,
-                  borderRadius: 8,
-                  cursor: "pointer",
-                }}
-              >
-                Uitloggen
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: "flex", gap: 8 }}>
-              <Link
-                href="/login"
-                style={{
-                  padding: "7px 16px",
-                  border: "1px solid #e2e6f0",
-                  color: "#374151",
-                  fontFamily: "Lato, sans-serif",
-                  fontWeight: 700,
-                  fontSize: 13,
-                  borderRadius: 8,
-                  textDecoration: "none",
-                }}
-              >
-                Inloggen
-              </Link>
-              <Link
-                href="/registreren"
-                style={{
-                  padding: "7px 16px",
-                  background: "#1a3bcc",
-                  color: "white",
-                  fontFamily: "Lato, sans-serif",
-                  fontWeight: 700,
-                  fontSize: 13,
-                  borderRadius: 8,
-                  textDecoration: "none",
-                }}
-              >
-                Registreren
-              </Link>
-            </div>
-          )}
-        </div>
-
-        <button onClick={() => setOpen(!open)} style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }} className="show-mobile">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
-            {open ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M3 12h18M3 6h18M3 18h18" />}
-          </svg>
-        </button>
-      </div>
-
-      {open && (
-        <div style={{ background: "white", borderTop: "1px solid #e2e6f0", padding: "16px 24px 24px", display: "flex", flexDirection: "column", gap: 12 }} className="show-mobile">
-          {navItems.map((item) =>
-            item.type === "link" ? (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                style={{ fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, color: "#374151", textDecoration: "none" }}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <div key={item.label}>
-                <button
-                  type="button"
-                  onClick={() => setMobileAvgOpen((v) => !v)}
-                  style={{
-                    fontFamily: "Lato, sans-serif",
-                    fontWeight: 700,
-                    fontSize: 15,
-                    color: "#374151",
-                    background: "none",
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                  }}
-                >
-                  {item.label}
-                  <span style={{ fontSize: 10 }}>{mobileAvgOpen ? "▲" : "▼"}</span>
+            {user ? (
+              <div className="mt-6 flex flex-col gap-4 border-t border-neutral-light pt-8">
+                <Link href="/dashboard" onClick={closeMobile} className="font-lato text-lg font-bold text-primary no-underline">
+                  Mijn account
+                </Link>
+                <button type="button" onClick={handleLogout} className="font-lato text-left text-lg font-bold text-neutral-mid">
+                  Uitloggen
                 </button>
-                {mobileAvgOpen && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, paddingLeft: 12, borderLeft: "2px solid #e2e6f0" }}>
-                    {item.items.map((sub) => (
-                      <Link
-                        key={sub.href}
-                        href={sub.href}
-                        onClick={() => {
-                          setOpen(false);
-                          setMobileAvgOpen(false);
-                        }}
-                        style={{ fontFamily: "Lato, sans-serif", fontWeight: 600, fontSize: 14, color: "#1a3bcc", textDecoration: "none" }}
-                      >
-                        {sub.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
-            )
-          )}
-          <hr style={{ border: "none", borderTop: "1px solid #f1f3f9" }} />
-          {user ? (
-            <>
-              <Link href="/dashboard" onClick={() => setOpen(false)} style={{ fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, color: "#1a3bcc", textDecoration: "none" }}>
-                👤 Mijn account
-              </Link>
-              <button
-                onClick={handleLogout}
-                style={{
-                  background: "none",
-                  border: "none",
-                  fontFamily: "Lato, sans-serif",
-                  fontWeight: 700,
-                  fontSize: 15,
-                  color: "#64748b",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  padding: 0,
-                }}
-              >
-                Uitloggen
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/login" onClick={() => setOpen(false)} style={{ fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, color: "#374151", textDecoration: "none" }}>
-                Inloggen
-              </Link>
-              <Link href="/registreren" onClick={() => setOpen(false)} style={{ fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, color: "#1a3bcc", textDecoration: "none" }}>
-                Registreren →
-              </Link>
-            </>
-          )}
-        </div>
-      )}
+            ) : (
+              <div className="mt-6 flex flex-col gap-4 border-t border-neutral-light pt-8">
+                <Link href="/login" onClick={closeMobile} className="font-lato text-lg font-bold text-neutral-mid no-underline">
+                  Inloggen
+                </Link>
+                <Link href="/contact" onClick={closeMobile} className="font-lato text-lg font-bold text-primary no-underline">
+                  Offerte aanvragen →
+                </Link>
+              </div>
+            )}
+          </div>
 
-      <style>{`.hidden-mobile{display:flex!important;align-items:center}.show-mobile{display:none!important}@media(max-width:768px){.hidden-mobile{display:none!important}.show-mobile{display:block!important}}`}</style>
-    </nav>
+          <div className="border-t border-neutral-light px-8 py-8">
+            <a href="mailto:info@allesis.nl" className="font-lato block text-lg font-semibold text-primary no-underline">
+              info@allesis.nl
+            </a>
+            <p className="font-lato mt-2 text-sm font-light text-neutral-mid">Gevestigd in Haarlem</p>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }

@@ -86,6 +86,45 @@ export default function AvgRegelgevingPage() {
           <p style={{ fontFamily: "Lato, sans-serif", fontSize: 16, color: "#64748b", lineHeight: 1.75, marginBottom: 28 }}>
             Allesis levert standaard een AVG-compliant pakket bij elke nieuwe website: privacybeleid, cookiebanner, SSL en verwerkersovereenkomst — afgestemd op uw situatie.
           </p>
+          {/* AVG Check widget */}
+          <div
+            style={{
+              background: "#f7f8fc",
+              border: "2px solid #1a3bcc",
+              borderRadius: "1rem",
+              padding: "1.5rem",
+              marginBottom: "1.5rem",
+            }}
+          >
+            <p style={{ fontWeight: 700, marginBottom: "0.5rem" }}>Check uw eigen website direct:</p>
+            <form action="/avg-check" method="GET" style={{ display: "flex", gap: "0.5rem" }}>
+              <input
+                name="domain"
+                type="text"
+                placeholder="uwbedrijf.nl"
+                style={{
+                  flex: 1,
+                  padding: "0.5rem 1rem",
+                  border: "1px solid #cbd5e0",
+                  borderRadius: "0.5rem",
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  background: "#1a3bcc",
+                  color: "white",
+                  padding: "0.5rem 1.25rem",
+                  borderRadius: "0.5rem",
+                  fontWeight: 600,
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Check gratis →
+              </button>
+            </form>
+          </div>
           <Link
             href="/contact"
             style={{
