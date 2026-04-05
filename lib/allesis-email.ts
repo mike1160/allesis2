@@ -37,7 +37,7 @@ function wrapEmail(inner: string, title: string): string {
 }
 
 export type AllesisEmailPayload =
-  | { type: "contact"; naam: string; email: string; onderwerp?: string; bericht: string }
+  | { type: "contact"; naam: string; email: string; onderwerp?: string; bericht: string; nieuwsbrief?: boolean }
   | {
       type: "offerte";
       naam: string;
@@ -47,6 +47,7 @@ export type AllesisEmailPayload =
       gewensteDienst?: string;
       hostingPakket?: string;
       bericht?: string;
+      nieuwsbrief?: boolean;
     }
   | {
       type: "avg_popup";
@@ -56,8 +57,9 @@ export type AllesisEmailPayload =
       domain: string;
       score: number;
       scanId?: string;
+      nieuwsbrief?: boolean;
     }
-  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string };
+  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean };
 
 export async function sendAllesisEmail(
   payload: AllesisEmailPayload,
@@ -83,6 +85,8 @@ export async function sendAllesisEmail(
         { label: "Naam", value: payload.naam },
         { label: "E-mail", value: payload.email },
         { label: "Onderwerp", value: payload.onderwerp || "—" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+        { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ])}<hr style="border: none; border-top: 1px solid #e2e6f0; margin: 20px 0;" /><h3 style="color: #0f172a; margin: 0 0 12px;">Bericht</h3><p style="color: #374151; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(payload.bericht)}</p>`;
       html = wrapEmail(inner, "Nieuw bericht via allesis.nl");
       break;
@@ -98,6 +102,8 @@ export async function sendAllesisEmail(
         { label: "Gewenste dienst", value: payload.gewensteDienst || "—" },
         { label: "Hostingpakket", value: payload.hostingPakket || "—" },
         { label: "Toelichting", value: payload.bericht || "—" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+        { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "Nieuwe offerteaanvraag");
       break;
@@ -112,6 +118,8 @@ export async function sendAllesisEmail(
         { label: "Naam", value: payload.naam },
         { label: "E-mail", value: payload.email },
         { label: "Telefoon", value: payload.telefoon || "—" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+        { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "AVG-check: contactaanvraag (popup)");
       break;
@@ -125,6 +133,8 @@ export async function sendAllesisEmail(
         { label: "E-mail", value: payload.email },
         { label: "Telefoon", value: payload.telefoon },
         { label: "Opmerking", value: payload.bericht || "—" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+        { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "Hostingbestelling via allesis.nl");
       break;

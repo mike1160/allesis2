@@ -75,8 +75,11 @@ export default function Footer() {
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-10 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <p className="font-lato text-sm text-white/45">© 2026 Allesis</p>
           <div className="flex flex-wrap gap-6">
+            <Link href="/privacy" className="font-lato text-sm text-white/45 no-underline transition hover:text-white">
+              Privacyverklaring
+            </Link>
             <Link href="/disclaimer" className="font-lato text-sm text-white/45 no-underline transition hover:text-white">
-              Disclaimer &amp; Privacy
+              Disclaimer
             </Link>
             <span className="font-lato text-sm text-white/45">KvK 52339831</span>
           </div>

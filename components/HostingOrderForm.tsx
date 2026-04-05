@@ -2,8 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import FormConsentFields from "@/components/forms/FormConsentFields";
+import TurnstileWidget from "@/components/forms/TurnstileWidget";
+import { PRIVACY_CONSENT_ERROR } from "@/lib/form-consent";
 
 const PAKKETTEN = ["Lite", "Start Up", "Basic"] as const;
+
+const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
+const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
 
 export default function HostingOrderForm() {
   const searchParams = useSearchParams();
@@ -17,6 +23,10 @@ export default function HostingOrderForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [nieuwsbrief, setNieuwsbrief] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
 
   useEffect(() => {
     const q = searchParams.get("pakket")?.trim();
@@ -27,6 +37,11 @@ export default function HostingOrderForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      return;
+    }
+    if (!turnstileToken) return;
     setLoading(true);
     setError("");
 
@@ -34,10 +49,19 @@ export default function HostingOrderForm() {
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "hosting_order", ...form }),
+        body: JSON.stringify({ type: "hosting_order", turnstileToken, privacyAccepted: true, nieuwsbrief, ...form }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Er ging iets mis. Probeer het opnieuw.");
+      if (!res.ok) {
+        setTurnstileToken(null);
+        if (data.error === PRIVACY_CONSENT_ERROR) {
+          setPrivacyError(true);
+          setError("");
+        } else {
+          setError(data.error === VERIFY_SERVER ? VERIFY_CLIENT : data.error || "Er ging iets mis. Probeer het opnieuw.");
+        }
+        return;
+      }
       setSuccess(true);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Er ging iets mis. Probeer het opnieuw.");
@@ -66,6 +90,9 @@ export default function HostingOrderForm() {
     display: "block",
     marginBottom: 6,
   };
+
+  const submitDisabled = loading || !turnstileToken;
+  const submitLabel = loading ? "Verzenden…" : !turnstileToken ? "Bezig met verificatie..." : "Aanvraag versturen";
 
   if (success) {
     return (
@@ -183,9 +210,23 @@ export default function HostingOrderForm() {
             {error}
           </p>
         )}
+        <FormConsentFields
+          privacyAccepted={privacyAccepted}
+          onPrivacyChange={(v) => {
+            setPrivacyAccepted(v);
+            if (v) setPrivacyError(false);
+          }}
+          nieuwsbrief={nieuwsbrief}
+          onNieuwsbriefChange={setNieuwsbrief}
+          showPrivacyError={privacyError}
+        />
+        <TurnstileWidget
+          onToken={setTurnstileToken}
+          onVerificationFailed={() => setError(VERIFY_CLIENT)}
+        />
         <button
           type="submit"
-          disabled={loading}
+          disabled={submitDisabled}
           style={{
             padding: "14px",
             background: "#1a3bcc",
@@ -195,11 +236,11 @@ export default function HostingOrderForm() {
             fontFamily: "Lato, sans-serif",
             fontWeight: 700,
             fontSize: 15,
-            cursor: loading ? "not-allowed" : "pointer",
-            opacity: loading ? 0.7 : 1,
+            cursor: submitDisabled ? "not-allowed" : "pointer",
+            opacity: submitDisabled ? 0.7 : 1,
           }}
         >
-          {loading ? "Verzenden…" : "Aanvraag versturen"}
+          {submitLabel}
         </button>
       </div>
     </form>

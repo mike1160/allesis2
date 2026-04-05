@@ -34,6 +34,7 @@ export const SITEMAP_PRIORITY: Record<
   "/avg": { priority: 0.9, changeFrequency: "weekly" },
   "/thai": { priority: 0.9, changeFrequency: "weekly" },
   "/contact": { priority: 0.8, changeFrequency: "weekly" },
+  "/privacy": { priority: 0.55, changeFrequency: "yearly" },
   "/domeinen": { priority: 0.75, changeFrequency: "weekly" },
   "/vertaling": { priority: 0.75, changeFrequency: "weekly" },
   "/recent-websites": { priority: 0.7, changeFrequency: "weekly" },

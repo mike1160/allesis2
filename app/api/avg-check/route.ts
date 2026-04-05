@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendAllesisEmail } from "@/lib/allesis-email";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { PRIVACY_CONSENT_ERROR, parseNieuwsbrief, parsePrivacyAccepted } from "@/lib/form-consent";
+import { getClientIp, validateTurnstile } from "@/lib/validate-turnstile";
 
 interface CheckResult {
   ok: boolean;
@@ -302,11 +304,28 @@ export async function PATCH(req: NextRequest) {
     phone?: string;
     domain?: string;
     score?: number;
+    turnstileToken?: string;
+    privacyAccepted?: unknown;
+    nieuwsbrief?: unknown;
   };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Ongeldig verzoek." }, { status: 400 });
+  }
+
+  const token = typeof body.turnstileToken === "string" ? body.turnstileToken : "";
+  if (!token.trim()) {
+    return NextResponse.json({ error: "Verificatie mislukt. Probeer het opnieuw." }, { status: 400 });
+  }
+  const ip = getClientIp(req);
+  if (!(await validateTurnstile(token, ip))) {
+    return NextResponse.json({ error: "Verificatie mislukt. Probeer het opnieuw." }, { status: 400 });
+  }
+
+  const nieuwsbrief = parseNieuwsbrief(body.nieuwsbrief);
+  if (!parsePrivacyAccepted(body.privacyAccepted)) {
+    return NextResponse.json({ error: PRIVACY_CONSENT_ERROR }, { status: 400 });
   }
 
   if (!body.scanId || body.scanId === "unknown" || !UUID_RE.test(body.scanId)) {
@@ -353,6 +372,7 @@ export async function PATCH(req: NextRequest) {
     domain: String(body.domain).trim(),
     score: Number(body.score),
     scanId: body.scanId,
+    nieuwsbrief,
   });
 
   if (!mail.ok) {

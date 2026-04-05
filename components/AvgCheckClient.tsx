@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AVGHelpPopup from "@/components/AVGHelpPopup";
+import { PRIVACY_CONSENT_ERROR } from "@/lib/form-consent";
 
 interface CheckResult {
   ok: boolean;
@@ -33,6 +34,9 @@ const riskBadge: Record<AVGCheckResponse["riskLevel"], string> = {
   hoog: "🔴 Hoog risico",
 };
 
+const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
+const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
+
 export default function AvgCheckClient() {
   const searchParams = useSearchParams();
   const [domain, setDomain] = useState("");
@@ -46,6 +50,15 @@ export default function AvgCheckClient() {
   const [contactPhone, setContactPhone] = useState("");
   const [popupLoading, setPopupLoading] = useState(false);
   const [popupError, setPopupError] = useState<string | null>(null);
+  const [popupTurnstileToken, setPopupTurnstileToken] = useState<string | null>(null);
+  const [popupPrivacyAccepted, setPopupPrivacyAccepted] = useState(false);
+  const [popupNieuwsbrief, setPopupNieuwsbrief] = useState(false);
+  const [popupPrivacyError, setPopupPrivacyError] = useState(false);
+
+  const setPopupPrivacy = useCallback((v: boolean) => {
+    setPopupPrivacyAccepted(v);
+    if (v) setPopupPrivacyError(false);
+  }, []);
 
   useEffect(() => {
     const fromUrl = searchParams.get("domain") ?? searchParams.get("domein") ?? "";
@@ -58,6 +71,16 @@ export default function AvgCheckClient() {
     return () => window.clearTimeout(t);
   }, [result]);
 
+  useEffect(() => {
+    if (showPopup) {
+      setPopupTurnstileToken(null);
+      setPopupError(null);
+      setPopupPrivacyAccepted(false);
+      setPopupNieuwsbrief(false);
+      setPopupPrivacyError(false);
+    }
+  }, [showPopup]);
+
   const handleScan = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -66,6 +89,10 @@ export default function AvgCheckClient() {
     setShowPopup(false);
     setPopupSent(false);
     setPopupError(null);
+    setPopupTurnstileToken(null);
+    setPopupPrivacyAccepted(false);
+    setPopupNieuwsbrief(false);
+    setPopupPrivacyError(false);
 
     try {
       const res = await fetch("/api/avg-check", {
@@ -92,6 +119,11 @@ export default function AvgCheckClient() {
       setShowPopup(false);
       return;
     }
+    if (!popupPrivacyAccepted) {
+      setPopupPrivacyError(true);
+      return;
+    }
+    if (!popupTurnstileToken) return;
     setPopupLoading(true);
     setPopupError(null);
     try {
@@ -105,15 +137,31 @@ export default function AvgCheckClient() {
           phone: contactPhone,
           domain: result.domain,
           score: result.score,
+          turnstileToken: popupTurnstileToken,
+          privacyAccepted: true,
+          nieuwsbrief: popupNieuwsbrief,
         }),
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setPopupSent(true);
       } else {
-        setPopupError(typeof data.error === "string" ? data.error : "Verzenden mislukt. Probeer het opnieuw.");
+        setPopupTurnstileToken(null);
+        if (data.error === PRIVACY_CONSENT_ERROR) {
+          setPopupPrivacyError(true);
+          setPopupError("");
+        } else {
+          const msg =
+            typeof data.error === "string"
+              ? data.error === VERIFY_SERVER
+                ? VERIFY_CLIENT
+                : data.error
+              : "Verzenden mislukt. Probeer het opnieuw.";
+          setPopupError(msg);
+        }
       }
     } catch {
+      setPopupTurnstileToken(null);
       setPopupError("Kon de server niet bereiken. Probeer het opnieuw.");
     } finally {
       setPopupLoading(false);
@@ -258,6 +306,14 @@ export default function AvgCheckClient() {
           loading={popupLoading}
           sent={popupSent}
           error={popupError}
+          turnstileToken={popupTurnstileToken}
+          setTurnstileToken={setPopupTurnstileToken}
+          onTurnstileFailed={() => setPopupError(VERIFY_CLIENT)}
+          privacyAccepted={popupPrivacyAccepted}
+          setPrivacyAccepted={setPopupPrivacy}
+          nieuwsbrief={popupNieuwsbrief}
+          setNieuwsbrief={setPopupNieuwsbrief}
+          showPrivacyError={popupPrivacyError}
         />
       ) : null}
     </div>

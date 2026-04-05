@@ -1,5 +1,8 @@
 "use client";
 
+import FormConsentFields from "@/components/forms/FormConsentFields";
+import TurnstileWidget from "@/components/forms/TurnstileWidget";
+
 interface Props {
   domain: string;
   score: number;
@@ -14,6 +17,14 @@ interface Props {
   loading: boolean;
   sent: boolean;
   error?: string | null;
+  turnstileToken: string | null;
+  setTurnstileToken: (t: string | null) => void;
+  onTurnstileFailed: () => void;
+  privacyAccepted: boolean;
+  setPrivacyAccepted: (v: boolean) => void;
+  nieuwsbrief: boolean;
+  setNieuwsbrief: (v: boolean) => void;
+  showPrivacyError: boolean;
 }
 
 export default function AVGHelpPopup({
@@ -30,7 +41,18 @@ export default function AVGHelpPopup({
   loading,
   sent,
   error,
+  turnstileToken,
+  setTurnstileToken,
+  onTurnstileFailed,
+  privacyAccepted,
+  setPrivacyAccepted,
+  nieuwsbrief,
+  setNieuwsbrief,
+  showPrivacyError,
 }: Props) {
+  const submitDisabled = loading || !turnstileToken;
+  const submitLabel = loading ? "Bezig…" : !turnstileToken ? "Bezig met verificatie..." : "Ja, neem contact op";
+
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4"
@@ -41,7 +63,7 @@ export default function AVGHelpPopup({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-[0_25px_60px_rgba(0,0,0,0.3)]"
+        className="relative max-h-[min(90dvh,640px)] w-full max-w-md overflow-y-auto overscroll-contain rounded-3xl bg-white p-8 shadow-[0_25px_60px_rgba(0,0,0,0.3)]"
         style={{ animation: "avgModalUp 0.25s ease-out forwards" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -102,17 +124,28 @@ export default function AVGHelpPopup({
                   className="font-lato w-full rounded-xl border border-[#cbd5e0] px-4 py-3 text-neutral-dark outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </div>
+              <FormConsentFields
+                privacyAccepted={privacyAccepted}
+                onPrivacyChange={setPrivacyAccepted}
+                nieuwsbrief={nieuwsbrief}
+                onNieuwsbriefChange={setNieuwsbrief}
+                showPrivacyError={showPrivacyError}
+              />
               {error ? (
                 <p className="font-lato rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700" role="alert">
                   {error}
                 </p>
               ) : null}
+              <TurnstileWidget
+                onToken={setTurnstileToken}
+                onVerificationFailed={onTurnstileFailed}
+              />
               <button
                 type="submit"
-                disabled={loading}
+                disabled={submitDisabled}
                 className="font-lato mt-2 w-full rounded-xl bg-primary py-3.5 text-base font-bold text-white transition hover:bg-primary-dark disabled:opacity-60"
               >
-                {loading ? "Bezig…" : "Ja, neem contact op"}
+                {submitLabel}
               </button>
               <button
                 type="button"
