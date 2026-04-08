@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Gavel, ListChecks } from "lucide-react";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -32,125 +36,102 @@ const boetes = [
 
 export default function AvgRegelgevingPage() {
   return (
-    <div style={{ paddingTop: 100 }}>
-      <section style={{ padding: "80px 24px 40px", background: "linear-gradient(180deg, #f8f9fc 0%, #ffffff 100%)" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#1a3bcc", marginBottom: 16 }}>
-            AVG & compliance
-          </p>
-          <h1 style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(1.85rem, 4vw, 2.5rem)", color: "#0f172a", lineHeight: 1.25, marginBottom: 16 }}>
-            AVG en uw website — wat bent u verplicht?
-          </h1>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 17, color: "#64748b", lineHeight: 1.7 }}>
-            Een duidelijk overzicht van de belangrijkste verplichtingen — en hoe wij u helpen compliant te blijven.
-          </p>
-        </div>
-      </section>
+    <>
+      <SubpageHero
+        eyebrow="AVG & compliance"
+        title="AVG en uw website — wat bent u verplicht?"
+        subtitle="Een duidelijk overzicht van de belangrijkste verplichtingen — en hoe wij u helpen compliant te blijven."
+      />
 
-      <section style={{ padding: "40px 24px 48px", background: "white" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 22, color: "#0f172a", marginBottom: 20 }}>
-            De belangrijkste AVG-verplichtingen voor websites
-          </h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-            {verplichtingen.map((item) => (
-              <li key={item} style={{ fontFamily: "Lato, sans-serif", fontSize: 16, color: "#374151", display: "flex", gap: 12, lineHeight: 1.6 }}>
-                <span style={{ color: "#1a3bcc", fontWeight: 700 }}>•</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-2xl">
+          <PremiumCard>
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <ListChecks className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+            </div>
+            <h2 className="font-sora text-2xl font-bold text-neutral-dark">De belangrijkste AVG-verplichtingen voor websites</h2>
+            <ul className="font-lato mt-6 space-y-3.5">
+              {verplichtingen.map((item) => (
+                <li key={item} className="flex gap-3 leading-relaxed text-neutral-mid">
+                  <span className="font-sora shrink-0 font-bold text-primary" aria-hidden>
+                    ✓
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </PremiumCard>
         </div>
-      </section>
+      </Reveal>
 
-      <section style={{ padding: "48px 24px", background: "#f8f9fc" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 22, color: "#0f172a", marginBottom: 20 }}>
-            Wat zijn de boetes?
-          </h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-            {boetes.map((item) => (
-              <li key={item} style={{ fontFamily: "Lato, sans-serif", fontSize: 16, color: "#374151", display: "flex", gap: 12, lineHeight: 1.6 }}>
-                <span style={{ color: "#dc2626", fontWeight: 700 }}>!</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", marginTop: 20, lineHeight: 1.65 }}>
-            Meer over tarieven en risico&apos;s? Lees ook onze pagina over{" "}
-            <Link href="/avg-boetes" style={{ color: "#1a3bcc", fontWeight: 700, textDecoration: "none" }}>
-              AVG-boetes
-            </Link>
-            .
-          </p>
+      <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-2xl">
+          <PremiumCard>
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-600">
+              <Gavel className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+            </div>
+            <h2 className="font-sora text-2xl font-bold text-neutral-dark">Wat zijn de boetes?</h2>
+            <ul className="font-lato mt-6 space-y-3.5">
+              {boetes.map((item) => (
+                <li key={item} className="flex gap-3 leading-relaxed text-neutral-mid">
+                  <span className="shrink-0 font-bold text-red-600" aria-hidden>
+                    !
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="font-lato mt-6 text-sm text-neutral-mid">
+              Meer over tarieven en risico&apos;s? Lees ook onze pagina over{" "}
+              <Link href="/avg-boetes" className="font-semibold text-primary hover:underline">
+                AVG-boetes
+              </Link>
+              .
+            </p>
+          </PremiumCard>
         </div>
-      </section>
+      </Reveal>
 
-      <section style={{ padding: "48px 24px 72px", background: "white" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 22, color: "#0f172a", marginBottom: 16 }}>
-            Wij regelen het voor u
-          </h2>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 16, color: "#64748b", lineHeight: 1.75, marginBottom: 28 }}>
-            Allesis levert standaard een AVG-compliant pakket bij elke nieuwe website: privacybeleid, cookiebanner, SSL en verwerkersovereenkomst — afgestemd op uw situatie.
-          </p>
-          {/* AVG Check widget */}
-          <div
-            style={{
-              background: "#f7f8fc",
-              border: "2px solid #1a3bcc",
-              borderRadius: "1rem",
-              padding: "1.5rem",
-              marginBottom: "1.5rem",
-            }}
-          >
-            <p style={{ fontWeight: 700, marginBottom: "0.5rem" }}>Check uw eigen website direct:</p>
-            <form action="/avg-check" method="GET" style={{ display: "flex", gap: "0.5rem" }}>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <PremiumCard>
+            <h2 className="font-sora text-2xl font-bold text-neutral-dark">Wij regelen het voor u</h2>
+            <p className="font-lato mt-4 leading-relaxed text-neutral-mid">
+              Allesis levert standaard een AVG-compliant pakket bij elke nieuwe website: privacybeleid, cookiebanner, SSL en
+              verwerkersovereenkomst — afgestemd op uw situatie.
+            </p>
+          </PremiumCard>
+
+          <PremiumCard className="mt-8 border-2 border-primary/25 bg-neutral-light/30 !p-6 text-left">
+            <p className="font-lato font-bold text-neutral-dark">Check uw eigen website direct:</p>
+            <form action="/avg-check" method="get" className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <label htmlFor="avg-reg-domein" className="sr-only">
+                Domeinnaam
+              </label>
               <input
-                name="domain"
+                id="avg-reg-domein"
+                name="domein"
                 type="text"
                 placeholder="uwbedrijf.nl"
-                style={{
-                  flex: 1,
-                  padding: "0.5rem 1rem",
-                  border: "1px solid #cbd5e0",
-                  borderRadius: "0.5rem",
-                }}
+                className="font-lato min-h-[48px] flex-1 rounded-xl border border-neutral-light bg-white px-4 text-neutral-dark outline-none ring-primary/20 focus:ring-2"
               />
               <button
                 type="submit"
-                style={{
-                  background: "#1a3bcc",
-                  color: "white",
-                  padding: "0.5rem 1.25rem",
-                  borderRadius: "0.5rem",
-                  fontWeight: 600,
-                  border: "none",
-                  cursor: "pointer",
-                }}
+                className="font-lato min-h-[48px] shrink-0 rounded-xl bg-primary px-6 font-bold text-white transition hover:bg-primary-dark"
               >
                 Check gratis →
               </button>
             </form>
-          </div>
+          </PremiumCard>
+
           <Link
             href="/contact"
-            style={{
-              display: "inline-block",
-              padding: "14px 32px",
-              background: "#1a3bcc",
-              color: "white",
-              fontFamily: "Lato, sans-serif",
-              fontWeight: 700,
-              fontSize: 15,
-              borderRadius: 8,
-              textDecoration: "none",
-            }}
+            className="font-lato mt-10 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-8 font-bold text-white transition hover:bg-primary-dark"
           >
             Laat uw huidige website AVG-keuren →
           </Link>
         </div>
-      </section>
-    </div>
+      </Reveal>
+    </>
   );
 }

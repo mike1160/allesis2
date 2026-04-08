@@ -19,7 +19,7 @@ type Result = {
   price: string;
 };
 
-export default function DomainChecker() {
+export default function DomainChecker({ forDarkBackground = false }: { forDarkBackground?: boolean }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [searched, setSearched] = useState(false);
@@ -75,7 +75,15 @@ export default function DomainChecker() {
         </button>
       </div>
 
-      <p style={{ fontFamily: "Lato, sans-serif", fontSize: 12, color: "#94a3b8", marginTop: 10, textAlign: "center" }}>
+      <p
+        style={{
+          fontFamily: "Lato, sans-serif",
+          fontSize: 12,
+          color: forDarkBackground ? "rgba(255,255,255,0.58)" : "#94a3b8",
+          marginTop: 10,
+          textAlign: "center",
+        }}
+      >
         Controleer .nl, .com, .net, .eu, .org en .be tegelijk
       </p>
 

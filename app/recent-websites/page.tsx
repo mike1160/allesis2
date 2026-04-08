@@ -1,6 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { ExternalLink } from "lucide-react";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -37,206 +41,115 @@ const projects = [
     subtitle: "Dierenopvang Thailand",
     url: "https://www.savedsouls-foundation.com/nl",
     image: "/savedsouls-screenshot.png",
-    description: "Non-profit in Khon Kaen, Thailand, voor geredde en gehandicapte honden. Content en structuur zijn zo opgezet dat zoekmachines en AI-tools de missie en acties correct kunnen weergeven.",
+    description:
+      "Non-profit in Khon Kaen, Thailand, voor geredde en gehandicapte honden. Content en structuur zijn zo opgezet dat zoekmachines en AI-tools de missie en acties correct kunnen weergeven.",
   },
   {
     title: "Shu Xin Haarlem",
     subtitle: "Traditionele Chinese Geneeskunde & Acupunctuur",
     url: "https://shuxin.nl/",
     image: "/shuxin-screenshot.png",
-    description: "Praktijk voor acupunctuur en TCG in het hart van Haarlem. Website afgestemd op zoekgedrag in Google én op hoe AI's en taalmodellen informatie over de praktijk ophalen en samenvatten.",
+    description:
+      "Praktijk voor acupunctuur en TCG in het hart van Haarlem. Website afgestemd op zoekgedrag in Google én op hoe AI's en taalmodellen informatie over de praktijk ophalen en samenvatten.",
   },
 ];
 
 export default function RecentWebsitesPage() {
   return (
     <>
-      <section style={{ padding: "120px 24px 48px", background: "linear-gradient(180deg, #f8f9fc 0%, white 100%)" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".15em", textTransform: "uppercase", color: "#1a3bcc", marginBottom: 16 }}>
-            Portfolio & maart 2026
-          </p>
-          <h1 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "clamp(1.8rem, 4vw, 2.6rem)", color: "#0f172a", lineHeight: 1.25, marginBottom: 24 }}>
-            Recent gemaakte websites aangepast aan vindbaarheid in AI en large language models
-          </h1>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 17, color: "#64748b", lineHeight: 1.7 }}>
-            Steeds vaker zoeken mensen via AI-assistenten en grote taalmodellen. Wij bouwen en optimaliseren websites zodat ze niet alleen goed scoren in Google, maar ook correct worden weergegeven in ChatGPT, Perplexity en vergelijkbare tools. Hieronder ons uitgelichte project en meer recent werk.
-          </p>
-        </div>
-      </section>
+      <SubpageHero
+        eyebrow="Portfolio & cases"
+        title="Recent gemaakte websites aangepast aan vindbaarheid in AI en large language models"
+        subtitle="Steeds vaker zoeken mensen via AI-assistenten en grote taalmodellen. Wij bouwen en optimaliseren websites zodat ze niet alleen goed scoren in Google, maar ook correct worden weergegeven in ChatGPT, Perplexity en vergelijkbare tools. Hieronder ons uitgelichte project en meer recent werk."
+      />
 
-      {/* Uitgelicht: Ren Ji Tang */}
-      <section style={{ padding: "0 24px 48px", background: "white" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <article
-            className="recent-website-card featured-renjitang"
-            style={{
-              border: "2px solid #1a3bcc",
-              borderRadius: 16,
-              overflow: "hidden",
-              background: "#fff",
-              boxShadow: "0 12px 48px rgba(26,59,204,0.18)",
-            }}
-          >
-            <Link href={featured.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-12">
+        <div className="mx-auto max-w-4xl">
+          <Link href={featured.url} target="_blank" rel="noopener noreferrer" className="group block no-underline">
+            <PremiumCard className="overflow-hidden border-2 border-primary/40 !p-0 ring-0 transition group-hover:border-primary">
               <div
+                className="flex flex-col items-center justify-center px-6 py-12 text-center"
                 style={{
-                  position: "relative",
-                  width: "100%",
-                  minHeight: 220,
                   background: "linear-gradient(135deg, #1a3bcc 0%, #2d54e8 45%, #0f172a 100%)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "40px 24px",
-                  textAlign: "center",
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: "Lato, sans-serif",
-                    fontSize: 11,
-                    fontWeight: 700,
-                    letterSpacing: ".2em",
-                    textTransform: "uppercase",
-                    color: "#a5b4fc",
-                    marginBottom: 12,
-                  }}
-                >
-                  Uitgelicht project
-                </span>
-                <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "white", marginBottom: 8 }}>
-                  {featured.title}
-                </h2>
-                <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#c7d2fe", maxWidth: 420, lineHeight: 1.5 }}>
-                  {featured.subtitle}
-                </p>
+                <span className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">Uitgelicht project</span>
+                <h2 className="font-sora mt-3 text-3xl font-extrabold text-white md:text-4xl">{featured.title}</h2>
+                <p className="font-lato mt-2 max-w-md text-sm text-white/80">{featured.subtitle}</p>
               </div>
-              <div style={{ padding: "28px 32px 32px" }}>
-                <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", lineHeight: 1.7, marginBottom: 20 }}>
+              <div className="p-8">
+                <p className="font-lato text-sm leading-relaxed text-neutral-mid">
                   Volledige Next.js-website voor de acupunctuurpraktijk in &apos;s-Hertogenbosch — gebouwd door allesis.nl. Tech stack:{" "}
-                  <strong style={{ color: "#0f172a" }}>{featured.tech.join(" · ")}</strong>.
+                  <strong className="text-neutral-dark">{featured.tech.join(" · ")}</strong>.
                 </p>
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+                <ul className="font-lato mt-5 space-y-2 text-sm text-neutral-mid">
                   {featured.features.map((f) => (
-                    <li key={f} style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#374151", display: "flex", gap: 10 }}>
-                      <span style={{ color: "#16a34a", fontWeight: 700 }}>✓</span>
+                    <li key={f} className="flex gap-2">
+                      <span className="font-bold text-primary" aria-hidden>
+                        ✓
+                      </span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#0f172a", fontWeight: 600, marginBottom: 20 }}>
-                  Resultaat: {featured.resultaat}.
-                </p>
-                <span
-                  style={{
-                    fontFamily: "Lato, sans-serif",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#1a3bcc",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  Bezoek renjitang.nl →
+                <p className="font-lato mt-4 text-sm font-semibold text-neutral-dark">Resultaat: {featured.resultaat}.</p>
+                <span className="font-lato mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:underline">
+                  Bezoek renjitang.nl <ExternalLink className="h-4 w-4" aria-hidden />
                 </span>
               </div>
-            </Link>
-          </article>
+            </PremiumCard>
+          </Link>
         </div>
-      </section>
+      </Reveal>
 
-      {/* Overige projecten */}
-      <section style={{ padding: "0 24px 80px", background: "white" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 20, color: "#0f172a", marginBottom: 28, textAlign: "center" }}>
-            Meer recente sites
-          </h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+      <Reveal className="bg-neutral-light/40 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark">Meer recente sites</h2>
+          <div className="mt-10 flex flex-col gap-10">
             {projects.map((project) => (
-              <article
+              <Link
                 key={project.url}
-                className="recent-website-card"
-                style={{
-                  border: "1px solid #e2e6f0",
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  background: "#fff",
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-                }}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block no-underline"
               >
-                <Link href={project.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
-                  <div style={{ position: "relative", width: "100%", aspectRatio: "16/10", background: "#f1f3f9" }}>
+                <PremiumCard className="!p-0 overflow-hidden">
+                  <div className="relative aspect-[16/10] w-full bg-neutral-light">
                     <Image
                       src={project.image}
                       alt={`Screenshot van ${project.title}`}
                       fill
-                      sizes="(max-width: 768px) 100vw, 952px"
-                      style={{ objectFit: "cover" }}
+                      className="object-cover transition duration-300 group-hover:scale-[1.02]"
+                      sizes="(max-width: 768px) 100vw, 896px"
                     />
                   </div>
-                  <div style={{ padding: "28px 32px" }}>
-                    <h3 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 22, color: "#0f172a", marginBottom: 6 }}>
-                      {project.title}
-                    </h3>
-                    <p style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#1a3bcc", fontWeight: 600, marginBottom: 12 }}>
-                      {project.subtitle}
-                    </p>
-                    <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", lineHeight: 1.65, marginBottom: 16 }}>
-                      {project.description}
-                    </p>
-                    <span
-                      style={{
-                        fontFamily: "Lato, sans-serif",
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color: "#1a3bcc",
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 6,
-                      }}
-                    >
-                      Bezoek website →
+                  <div className="p-8">
+                    <h3 className="font-sora text-xl font-bold text-neutral-dark">{project.title}</h3>
+                    <p className="font-lato mt-1 text-sm font-semibold text-primary">{project.subtitle}</p>
+                    <p className="font-lato mt-3 text-sm leading-relaxed text-neutral-mid">{project.description}</p>
+                    <span className="font-lato mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:underline">
+                      Bezoek website <ExternalLink className="h-4 w-4" aria-hidden />
                     </span>
                   </div>
-                </Link>
-              </article>
+                </PremiumCard>
+              </Link>
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section style={{ padding: "64px 24px", background: "#f8f9fc" }}>
-        <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 16, color: "#64748b", marginBottom: 24 }}>
-            Ook uw site toekomstbestendig maken voor zoekmachines én AI? Wij helpen graag.
-          </p>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-lg text-center">
+          <p className="font-lato text-neutral-mid">Ook uw site toekomstbestendig maken voor zoekmachines én AI? Wij helpen graag.</p>
           <Link
             href="/contact"
-            style={{
-              display: "inline-block",
-              padding: "14px 32px",
-              background: "#1a3bcc",
-              color: "white",
-              fontFamily: "Lato, sans-serif",
-              fontWeight: 700,
-              fontSize: 15,
-              borderRadius: 8,
-              textDecoration: "none",
-            }}
+            className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 font-bold text-white transition hover:bg-primary-dark"
           >
             Neem contact op →
           </Link>
         </div>
-      </section>
-
-      <style>{`
-        .recent-website-card { transition: box-shadow 0.2s ease, border-color 0.2s ease; }
-        .recent-website-card:hover { box-shadow: 0 8px 32px rgba(26, 59, 204, 0.14); border-color: #c7d2fe; }
-        .featured-renjitang:hover { box-shadow: 0 16px 56px rgba(26, 59, 204, 0.22) !important; border-color: #4f46e5 !important; }
-      `}</style>
+      </Reveal>
     </>
   );
 }

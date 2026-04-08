@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Globe2, Languages, Sparkles } from "lucide-react";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
+import TriLingualFaqItem from "@/components/subpage/TriLingualFaqItem";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -44,74 +49,81 @@ const faqTri = [
   },
 ];
 
+const cards = [
+  {
+    icon: Globe2,
+    title: "Websites voor Thaise ondernemers",
+    nl: "Restaurants, wellness, retail en ZZP: wij bouwen snelle sites die in Thai, Nederlands en Engels kunnen — met oog voor cultuur en conversie.",
+    en: "Restaurants, wellness, shops and freelancers: fast sites in Thai, Dutch and English — culturally aware.",
+    th: "ร้านอาหาร สปา ร้านค้า และฟรีแลนซ์: เว็บไซต์เร็ว รองรับไทย ดัตช์ และอังกฤษ",
+  },
+  {
+    icon: Languages,
+    title: "Vertaal- en tolkdiensten",
+    nl: "Documenten, websites, vergaderingen en persoonlijke trajecten — Thai ↔ Nederlands ↔ Engels.",
+    en: "Documents, websites, meetings and personal matters — Thai ↔ Dutch ↔ English.",
+    th: "เอกสาร เว็บไซต์ ประชุม และงานส่วนตัว — ไทย ↔ ดัตช์ ↔ อังกฤษ",
+  },
+  {
+    icon: Sparkles,
+    title: "Waarom Allesis",
+    nl: "Lokaal in Haarlem, persoonlijk contact, technische kwaliteit (o.a. Next.js) en AVG-bewuste oplevering.",
+    en: "Haarlem-based, personal service, solid tech stack and GDPR-aware delivery.",
+    th: "ทีมใน Haarlem บริการเป็นกันเอง เทคโนโลยีทันสมัย และคำนึงถึง GDPR",
+  },
+];
+
 export default function ThaiServicesPage() {
   return (
-    <div className="pt-[100px]">
-      <section className="bg-gradient-to-b from-[#0a0f1e] to-primary px-6 py-16 text-white md:px-10 md:py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="font-sora text-3xl font-extrabold md:text-5xl">Thaise websites en vertaaldiensten</h1>
-          <p className="font-lato mt-4 text-xl font-light text-white/85">Thai websites and translation services</p>
-          <p className="font-lato mt-2 text-2xl text-accent" lang="th">
-            เว็บไซต์และบริการแปลภาษาไทย
-          </p>
-          <p className="font-lato mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/75">
-            Allesis is de schakel tussen Nederlandse en Thaise ondernemers — web, taal en cultuur in één team.
-          </p>
-        </div>
-      </section>
+    <>
+      <SubpageHero
+        eyebrow="Thaise web- & taaldiensten"
+        title="Thaise websites en vertaaldiensten"
+        subtitle={
+          <>
+            <p className="text-white/80">Thai websites and translation services</p>
+            <p className="mt-3 text-xl font-medium text-white/90" lang="th">
+              เว็บไซต์และบริการแปลภาษาไทย
+            </p>
+            <p className="font-lato mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
+              Allesis is de schakel tussen Nederlandse en Thaise ondernemers — web, taal en cultuur in één team.
+            </p>
+          </>
+        }
+      />
 
-      <section className="px-6 py-14 md:px-10">
-        <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-3">
-          <div className="rounded-2xl border border-neutral-light bg-white p-8 shadow-sm">
-            <h2 className="font-sora text-lg font-bold text-primary">Websites voor Thaise ondernemers</h2>
-            <p className="font-lato mt-3 text-sm text-neutral-mid leading-relaxed" lang="nl">
-              Restaurants, wellness, retail en ZZP: wij bouwen snelle sites die in Thai, Nederlands en Engels kunnen — met
-              oog voor cultuur en conversie.
-            </p>
-            <p className="font-lato mt-4 text-sm text-neutral-mid leading-relaxed" lang="en">
-              Restaurants, wellness, shops and freelancers: fast sites in Thai, Dutch and English — culturally aware.
-            </p>
-            <p className="font-lato mt-4 text-sm leading-relaxed text-neutral-mid" lang="th">
-              ร้านอาหาร สปา ร้านค้า และฟรีแลนซ์: เว็บไซต์เร็ว รองรับไทย ดัตช์ และอังกฤษ
-            </p>
-          </div>
-          <div className="rounded-2xl border border-neutral-light bg-white p-8 shadow-sm">
-            <h2 className="font-sora text-lg font-bold text-primary">Vertaal- en tolkdiensten</h2>
-            <p className="font-lato mt-3 text-sm text-neutral-mid leading-relaxed" lang="nl">
-              Documenten, websites, vergaderingen en persoonlijke trajecten — Thai ↔ Nederlands ↔ Engels.
-            </p>
-            <p className="font-lato mt-4 text-sm text-neutral-mid leading-relaxed" lang="en">
-              Documents, websites, meetings and personal matters — Thai ↔ Dutch ↔ English.
-            </p>
-            <p className="font-lato mt-4 text-sm leading-relaxed text-neutral-mid" lang="th">
-              เอกสาร เว็บไซต์ ประชุม และงานส่วนตัว — ไทย ↔ ดัตช์ ↔ อังกฤษ
-            </p>
-          </div>
-          <div className="rounded-2xl border border-neutral-light bg-white p-8 shadow-sm">
-            <h2 className="font-sora text-lg font-bold text-primary">Waarom Allesis</h2>
-            <p className="font-lato mt-3 text-sm text-neutral-mid leading-relaxed" lang="nl">
-              Lokaal in Haarlem, persoonlijk contact, technische kwaliteit (o.a. Next.js) en AVG-bewuste oplevering.
-            </p>
-            <p className="font-lato mt-4 text-sm text-neutral-mid leading-relaxed" lang="en">
-              Haarlem-based, personal service, solid tech stack and GDPR-aware delivery.
-            </p>
-            <p className="font-lato mt-4 text-sm leading-relaxed text-neutral-mid" lang="th">
-              ทีมใน Haarlem บริการเป็นกันเอง เทคโนโลยีทันสมัย และคำนึงถึง GDPR
-            </p>
-          </div>
+      <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+          {cards.map((c) => (
+            <PremiumCard key={c.title}>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <c.icon className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+              </div>
+              <h2 className="font-sora text-lg font-bold text-primary">{c.title}</h2>
+              <p className="font-lato mt-3 text-sm leading-relaxed text-neutral-dark" lang="nl">
+                {c.nl}
+              </p>
+              <p className="font-lato mt-4 text-sm leading-relaxed text-neutral-mid" lang="en">
+                {c.en}
+              </p>
+              <p className="font-lato mt-4 text-sm leading-relaxed text-[#0f172a]" lang="th">
+                {c.th}
+              </p>
+            </PremiumCard>
+          ))}
         </div>
-      </section>
+      </Reveal>
 
-      <section className="bg-neutral-light/60 px-6 py-14 md:px-10">
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-sora text-2xl font-bold text-neutral-dark">Prijzen / Pricing / ราคา</h2>
+          <h2 className="font-sora text-2xl font-bold text-neutral-dark md:text-3xl">Prijzen / Pricing / ราคา</h2>
           <p className="font-lato mt-4 text-neutral-mid" lang="nl">
             Maatwerk — offerte op aanvraag. Vertaling en tolken per uur of per project afgestemd op complexiteit.
           </p>
           <p className="font-lato mt-2 text-neutral-mid" lang="en">
             Custom quotes. Translation and interpretation billed per hour or per project.
           </p>
-          <p className="font-lato mt-2 text-neutral-mid" lang="th">
+          <p className="font-lato mt-2 text-[#0f172a]" lang="th">
             ราคาตามโปรเจกต์ — สอบถามใบเสนอราคา
           </p>
           <Link
@@ -121,35 +133,21 @@ export default function ThaiServicesPage() {
             Contact opnemen / Contact us / ติดต่อเรา
           </Link>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="px-6 py-14 md:px-10">
-        <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark">FAQ</h2>
-        <div className="mx-auto mt-10 max-w-3xl space-y-10">
-          {faqTri.map((f) => (
-            <div key={f.nl} className="rounded-2xl border border-neutral-light bg-white p-6">
-              <p className="font-bold text-neutral-dark" lang="nl">
-                NL: {f.nl}
-              </p>
-              <p className="font-lato mt-2 text-sm text-neutral-mid" lang="nl">
-                {f.aNl}
-              </p>
-              <p className="mt-4 font-bold text-neutral-dark" lang="en">
-                EN: {f.en}
-              </p>
-              <p className="font-lato mt-2 text-sm text-neutral-mid" lang="en">
-                {f.aEn}
-              </p>
-              <p className="mt-4 font-bold text-neutral-dark" lang="th">
-                TH: {f.th}
-              </p>
-              <p className="font-lato mt-2 text-sm text-neutral-mid" lang="th">
-                {f.aTh}
-              </p>
-            </div>
-          ))}
+      <Reveal className="bg-neutral-light/40 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">FAQ</h2>
+          <p className="font-lato mx-auto mt-2 max-w-xl text-center text-sm text-neutral-mid">
+            Kies een taal per vraag — NL · EN · TH
+          </p>
+          <div className="mt-10 space-y-6">
+            {faqTri.map((f) => (
+              <TriLingualFaqItem key={f.nl} {...f} />
+            ))}
+          </div>
         </div>
-      </section>
-    </div>
+      </Reveal>
+    </>
   );
 }

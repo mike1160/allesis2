@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import HostingOrderForm from "@/components/HostingOrderForm";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -20,48 +23,110 @@ export const metadata: Metadata = {
 
 export default function HostingPage() {
   const pakketten = [
-    { naam: "Lite", prijs: "4,95", features: ["1.000 MB schijfruimte","20 GB dataverkeer","5 e-mailaccounts","Onbeperkt e-mail forwarding","Onbeperkt subdomeinen","1 MySQL database","PHP / Perl CGI / SSI","FTP + Crontab","SSL certificaat","Helpdesk"] },
-    { naam: "Start Up", prijs: "8,95", highlight: true, features: ["4.000 MB schijfruimte","80 GB dataverkeer","10 e-mailaccounts","Onbeperkt e-mail forwarding","Onbeperkt subdomeinen","2 MySQL databases","PHP / Perl CGI / SSI","FTP + Crontab","SSL certificaat","Helpdesk"] },
-    { naam: "Basic", prijs: "14,95", features: ["8.000 MB schijfruimte","320 GB dataverkeer","50 e-mailaccounts","Onbeperkt e-mail forwarding","Onbeperkt subdomeinen","2 MySQL databases","PHP / Perl CGI / SSI","FTP + Crontab","SSL certificaat","Helpdesk"] },
+    {
+      naam: "Lite",
+      prijs: "4,95",
+      features: [
+        "1.000 MB schijfruimte",
+        "20 GB dataverkeer",
+        "5 e-mailaccounts",
+        "Onbeperkt e-mail forwarding",
+        "Onbeperkt subdomeinen",
+        "1 MySQL database",
+        "PHP / Perl CGI / SSI",
+        "FTP + Crontab",
+        "SSL certificaat",
+        "Helpdesk",
+      ],
+    },
+    {
+      naam: "Start Up",
+      prijs: "8,95",
+      highlight: true,
+      features: [
+        "4.000 MB schijfruimte",
+        "80 GB dataverkeer",
+        "10 e-mailaccounts",
+        "Onbeperkt e-mail forwarding",
+        "Onbeperkt subdomeinen",
+        "2 MySQL databases",
+        "PHP / Perl CGI / SSI",
+        "FTP + Crontab",
+        "SSL certificaat",
+        "Helpdesk",
+      ],
+    },
+    {
+      naam: "Basic",
+      prijs: "14,95",
+      features: [
+        "8.000 MB schijfruimte",
+        "320 GB dataverkeer",
+        "50 e-mailaccounts",
+        "Onbeperkt e-mail forwarding",
+        "Onbeperkt subdomeinen",
+        "2 MySQL databases",
+        "PHP / Perl CGI / SSI",
+        "FTP + Crontab",
+        "SSL certificaat",
+        "Helpdesk",
+      ],
+    },
   ];
+
   return (
-    <div style={{ paddingTop: 100 }}>
-      <section style={{ padding: "80px 24px", background: "linear-gradient(135deg, #f0f4ff, #ffffff)" }}>
-        <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#1a3bcc", marginBottom: 12 }}>Hosting</p>
-          <h1 style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 3rem)", color: "#0f172a", marginBottom: 16 }}>Alles in één pakket</h1>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 17, color: "#64748b", fontWeight: 300 }}>Snel, betrouwbaar en alles inbegrepen. Kies het pakket dat bij u past.</p>
-        </div>
-      </section>
-      <section style={{ padding: "64px 24px", background: "white" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24 }}>
-          {pakketten.map(p => (
-            <div key={p.naam} style={{ background: p.highlight ? "#1a3bcc" : "white", border: p.highlight ? "none" : "1px solid #e2e6f0", borderRadius: 16, padding: 32, boxShadow: p.highlight ? "0 8px 40px rgba(26,59,204,0.25)" : "0 1px 4px rgba(0,0,0,0.04)", transform: p.highlight ? "scale(1.03)" : "none" }}>
-              {p.highlight && <div style={{ fontFamily: "Lato, sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#a5b4fc", marginBottom: 12 }}>Meest gekozen</div>}
-              <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 20, color: p.highlight ? "white" : "#0f172a", marginBottom: 4 }}>{p.naam}</h2>
-              <div style={{ marginBottom: 24 }}>
-                <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: 36, color: p.highlight ? "white" : "#1a3bcc" }}>€ {p.prijs}</span>
-                <span style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: p.highlight ? "#a5b4fc" : "#94a3b8" }}>/mnd</span>
+    <>
+      <SubpageHero
+        eyebrow="Hosting"
+        title="Alles in één pakket"
+        subtitle="Snel, betrouwbaar en alles inbegrepen. Kies het pakket dat bij u past."
+      />
+
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3 md:items-stretch">
+          {pakketten.map((p) => (
+            <PremiumCard key={p.naam} highlighted={!!p.highlight} className={p.highlight ? "md:scale-[1.02] md:shadow-xl" : ""}>
+              {p.highlight ? (
+                <p className="font-lato text-[11px] font-bold uppercase tracking-[0.12em] text-white/70">Meest gekozen</p>
+              ) : null}
+              <h2 className={`font-sora mt-2 text-xl font-bold ${p.highlight ? "text-white" : "text-neutral-dark"}`}>{p.naam}</h2>
+              <div className="mt-4">
+                <span className={`font-sora text-4xl font-extrabold ${p.highlight ? "text-white" : "text-primary"}`}>€ {p.prijs}</span>
+                <span className={`font-lato ml-1 text-sm ${p.highlight ? "text-white/70" : "text-neutral-mid"}`}>/mnd</span>
               </div>
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 10 }}>
-                {p.features.map(f => (
-                  <li key={f} style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: p.highlight ? "#e0e7ff" : "#374151", display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ color: p.highlight ? "#a5b4fc" : "#16a34a" }}>✓</span> {f}
+              <ul className="mt-8 flex flex-1 flex-col gap-2.5">
+                {p.features.map((f) => (
+                  <li
+                    key={f}
+                    className={`font-lato flex items-start gap-2 text-sm ${p.highlight ? "text-white/90" : "text-neutral-mid"}`}
+                  >
+                    <span className={`mt-0.5 shrink-0 font-bold ${p.highlight ? "text-white" : "text-primary"}`} aria-hidden>
+                      ✓
+                    </span>
+                    {f}
                   </li>
                 ))}
               </ul>
-              <Link href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`} style={{ display: "block", textAlign: "center", padding: "12px 0", background: p.highlight ? "white" : "#1a3bcc", color: p.highlight ? "#1a3bcc" : "white", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, borderRadius: 8, textDecoration: "none" }}>Bestel nu →</Link>
-            </div>
+              <Link
+                href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`}
+                className={`font-lato mt-8 block min-h-[44px] rounded-xl py-3 text-center text-sm font-bold transition ${
+                  p.highlight ? "bg-white text-primary hover:bg-neutral-light" : "bg-primary text-white hover:bg-primary-dark"
+                }`}
+              >
+                Bestel nu →
+              </Link>
+            </PremiumCard>
           ))}
         </div>
+
         <Suspense
           fallback={
-            <p style={{ fontFamily: "Lato, sans-serif", textAlign: "center", color: "#94a3b8", marginTop: 32 }}>Formulier laden…</p>
+            <p className="font-lato mt-12 text-center text-neutral-mid">Formulier laden…</p>
           }
         >
           <HostingOrderForm />
         </Suspense>
-      </section>
-    </div>
+      </Reveal>
+    </>
   );
 }

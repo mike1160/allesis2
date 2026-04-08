@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Mail, MapPin } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import OfferteForm from "@/components/OfferteForm";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 const contactFaqLd = {
@@ -56,18 +60,7 @@ export const metadata: Metadata = {
 
 function FormSkeleton() {
   return (
-    <div
-      style={{
-        background: "white",
-        border: "1px solid #e2e6f0",
-        borderRadius: 16,
-        padding: "36px 32px",
-        minHeight: 200,
-        fontFamily: "Lato, sans-serif",
-        color: "#94a3b8",
-        textAlign: "center",
-      }}
-    >
+    <div className="font-lato min-h-[200px] rounded-2xl border border-neutral-light bg-white px-8 py-10 text-center text-neutral-mid">
       Formulier laden…
     </div>
   );
@@ -75,113 +68,53 @@ function FormSkeleton() {
 
 export default function ContactPage() {
   return (
-    <div style={{ paddingTop: 100 }}>
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactFaqLd) }} />
-      <section style={{ padding: "80px 24px", background: "linear-gradient(135deg, #f0f4ff, #ffffff)" }}>
-        <div style={{ maxWidth: 700, margin: "0 auto" }}>
-          <p
-            style={{
-              fontFamily: "Lato, sans-serif",
-              fontSize: 13,
-              fontWeight: 700,
-              letterSpacing: ".1em",
-              textTransform: "uppercase",
-              color: "#1a3bcc",
-              marginBottom: 12,
-            }}
-          >
-            Contact
-          </p>
-          <h1
-            style={{
-              fontFamily: "Sora, sans-serif",
-              fontWeight: 800,
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              color: "#0f172a",
-              marginBottom: 16,
-            }}
-          >
-            Offerte of bericht
-          </h1>
-          <p
-            style={{
-              fontFamily: "Lato, sans-serif",
-              fontSize: 17,
-              color: "#64748b",
-              marginBottom: 48,
-              fontWeight: 300,
-              lineHeight: 1.8,
-            }}
-          >
-            Vraag een vrijblijvende offerte aan of stuur een algemene vraag. Wij reageren binnen één werkdag.
-          </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 48 }}>
-            {[
-              { icon: "✉️", label: "E-mail", waarde: "info@allesis.nl", href: "mailto:info@allesis.nl" },
-              { icon: "📍", label: "Locatie", waarde: "Haarlem, Nederland", href: null },
-            ].map((c) => (
-              <div key={c.label} style={{ padding: "20px 24px", background: "white", border: "1px solid #e2e6f0", borderRadius: 12 }}>
-                <div style={{ fontSize: 24, marginBottom: 8 }}>{c.icon}</div>
-                <div
-                  style={{
-                    fontFamily: "Lato, sans-serif",
-                    fontSize: 12,
-                    color: "#94a3b8",
-                    textTransform: "uppercase",
-                    letterSpacing: ".06em",
-                    marginBottom: 4,
-                  }}
-                >
-                  {c.label}
-                </div>
-                {c.href ? (
-                  <a
-                    href={c.href}
-                    style={{ fontFamily: "Sora, sans-serif", fontWeight: 600, fontSize: 14, color: "#1a3bcc", textDecoration: "none" }}
-                  >
-                    {c.waarde}
-                  </a>
-                ) : (
-                  <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 600, fontSize: 14, color: "#0f172a" }}>{c.waarde}</span>
-                )}
+      <SubpageHero
+        eyebrow="Contact"
+        title="Offerte of bericht"
+        subtitle="Vraag een vrijblijvende offerte aan of stuur een algemene vraag. Wij reageren binnen één werkdag."
+      />
+
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-3xl">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <PremiumCard className="!p-6">
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden />
               </div>
-            ))}
+              <div className="font-lato text-xs font-bold uppercase tracking-wider text-neutral-mid">E-mail</div>
+              <a href="mailto:info@allesis.nl" className="font-sora mt-1 inline-block text-sm font-semibold text-primary hover:underline">
+                info@allesis.nl
+              </a>
+            </PremiumCard>
+            <PremiumCard className="!p-6">
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <MapPin className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+              </div>
+              <div className="font-lato text-xs font-bold uppercase tracking-wider text-neutral-mid">Locatie</div>
+              <span className="font-sora mt-1 block text-sm font-semibold text-neutral-dark">Haarlem, Nederland</span>
+            </PremiumCard>
           </div>
 
-          <section id="offerte" style={{ scrollMarginTop: 100, marginBottom: 56 }}>
-            <h2
-              style={{
-                fontFamily: "Sora, sans-serif",
-                fontWeight: 700,
-                fontSize: "1.35rem",
-                color: "#0f172a",
-                marginBottom: 16,
-              }}
-            >
-              Offerte aanvragen
-            </h2>
-            <Suspense fallback={<FormSkeleton />}>
-              <OfferteForm />
-            </Suspense>
+          <section id="offerte" className="mt-14 scroll-mt-28">
+            <h2 className="font-sora text-xl font-bold text-neutral-dark">Offerte aanvragen</h2>
+            <div className="mt-4">
+              <Suspense fallback={<FormSkeleton />}>
+                <OfferteForm />
+              </Suspense>
+            </div>
           </section>
 
-          <section id="contact-form" style={{ scrollMarginTop: 100 }}>
-            <h2
-              style={{
-                fontFamily: "Sora, sans-serif",
-                fontWeight: 700,
-                fontSize: "1.35rem",
-                color: "#0f172a",
-                marginBottom: 16,
-              }}
-            >
-              Algemeen contact
-            </h2>
-            <ContactForm />
+          <section id="contact-form" className="mt-14 scroll-mt-28">
+            <h2 className="font-sora text-xl font-bold text-neutral-dark">Algemeen contact</h2>
+            <div className="mt-4">
+              <ContactForm />
+            </div>
           </section>
         </div>
-      </section>
-    </div>
+      </Reveal>
+    </>
   );
 }

@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
+import CheckMarkList from "@/components/subpage/CheckMarkList";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -27,106 +32,57 @@ const watKrijgJe = [
 
 export default function WebdesignPage() {
   return (
-    <div style={{ paddingTop: 100 }}>
-      <section style={{ padding: "80px 24px 48px", background: "linear-gradient(180deg, #f8f9fc 0%, #ffffff 100%)" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#1a3bcc", marginBottom: 16 }}>
-            Webdesign Haarlem
-          </p>
-          <h1 style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 2.75rem)", color: "#0f172a", lineHeight: 1.2, marginBottom: 20 }}>
-            Nieuwe website laten maken?
-          </h1>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 18, color: "#64748b", lineHeight: 1.7, maxWidth: 600, margin: "0 auto" }}>
-            Wij bouwen snelle, moderne websites voor het MKB — inclusief SEO, hosting en AVG-compliant privacybeleid.
-          </p>
-        </div>
-      </section>
+    <>
+      <SubpageHero
+        eyebrow="Webdesign Haarlem"
+        title="Nieuwe website laten maken?"
+        subtitle="Wij bouwen snelle, moderne websites voor het MKB — inclusief SEO, hosting en AVG-compliant privacybeleid."
+      />
 
-      <section style={{ padding: "48px 24px 64px", background: "white" }}>
-        <div style={{ maxWidth: 640, margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: 24, color: "#0f172a", marginBottom: 24, textAlign: "center" }}>
-            Wat krijg je?
-          </h2>
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-            {watKrijgJe.map((item) => (
-              <li
-                key={item}
-                style={{
-                  fontFamily: "Lato, sans-serif",
-                  fontSize: 16,
-                  color: "#374151",
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 12,
-                  lineHeight: 1.55,
-                }}
-              >
-                <span style={{ color: "#16a34a", fontWeight: 700, flexShrink: 0 }}>✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-2xl">
+          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">Wat krijg je?</h2>
+          <PremiumCard className="mt-10">
+            <CheckMarkList items={watKrijgJe} />
+          </PremiumCard>
         </div>
-      </section>
+      </Reveal>
 
-      <section style={{ padding: "48px 24px 64px", background: "#f8f9fc" }}>
-        <div
-          style={{
-            maxWidth: 800,
-            margin: "0 auto",
-            border: "2px solid #1a3bcc",
-            borderRadius: 16,
-            padding: 36,
-            background: "white",
-            boxShadow: "0 8px 40px rgba(26,59,204,0.12)",
-          }}
-        >
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#1a3bcc", marginBottom: 12 }}>
-            Laatste project
-          </p>
-          <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "clamp(1.4rem, 3vw, 1.85rem)", color: "#0f172a", marginBottom: 16 }}>
-            Ren Ji Tang — acupunctuur &apos;s-Hertogenbosch
-          </h2>
-          <p style={{ fontFamily: "Lato, sans-serif", fontSize: 16, color: "#64748b", lineHeight: 1.75, marginBottom: 20 }}>
-            Allesis.nl heeft <strong style={{ color: "#0f172a" }}>renjitang.nl</strong> gebouwd: een moderne Next.js-website voor een acupunctuurpraktijk in &apos;s-Hertogenbosch. Met online boekingsmodule, integratie van Google-reviews, uitgebreide behandelingspagina&apos;s en volledige AVG-compliance. Resultaat:{" "}
-            <strong style={{ color: "#0f172a" }}>5 sterren op Google</strong>, volledig mobielvriendelijk en snel ladend.
-          </p>
-          <Link
-            href="https://www.renjitang.nl"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-block",
-              fontFamily: "Lato, sans-serif",
-              fontWeight: 700,
-              fontSize: 15,
-              color: "#1a3bcc",
-              textDecoration: "none",
-              marginBottom: 28,
-            }}
-          >
-            Bekijk renjitang.nl live →
-          </Link>
-          <div style={{ borderTop: "1px solid #e2e6f0", paddingTop: 28, textAlign: "center" }}>
+      <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-3xl">
+          <PremiumCard>
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <Sparkles className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+            </div>
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.12em] text-primary">Laatste project</p>
+            <h2 className="font-sora mt-2 text-2xl font-bold text-neutral-dark md:text-[1.65rem]">
+              Ren Ji Tang — acupunctuur &apos;s-Hertogenbosch
+            </h2>
+            <p className="font-lato mt-4 leading-relaxed text-neutral-mid">
+              Allesis.nl heeft <strong className="text-neutral-dark">renjitang.nl</strong> gebouwd: een moderne Next.js-website voor een
+              acupunctuurpraktijk in &apos;s-Hertogenbosch. Met online boekingsmodule, integratie van Google-reviews, uitgebreide
+              behandelingspagina&apos;s en volledige AVG-compliance. Resultaat:{" "}
+              <strong className="text-neutral-dark">5 sterren op Google</strong>, volledig mobielvriendelijk en snel ladend.
+            </p>
             <Link
-              href="/contact"
-              style={{
-                display: "inline-block",
-                padding: "14px 32px",
-                background: "#1a3bcc",
-                color: "white",
-                fontFamily: "Lato, sans-serif",
-                fontWeight: 700,
-                fontSize: 15,
-                borderRadius: 8,
-                textDecoration: "none",
-              }}
+              href="https://www.renjitang.nl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato mt-6 inline-block font-bold text-primary hover:underline"
             >
-              Vraag een vrijblijvende offerte aan →
+              Bekijk renjitang.nl live →
             </Link>
-          </div>
+            <div className="mt-8 border-t border-neutral-light pt-8 text-center">
+              <Link
+                href="/contact"
+                className="font-lato inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-8 font-bold text-white transition hover:bg-primary-dark"
+              >
+                Vraag een vrijblijvende offerte aan →
+              </Link>
+            </div>
+          </PremiumCard>
         </div>
-      </section>
-    </div>
+      </Reveal>
+    </>
   );
 }

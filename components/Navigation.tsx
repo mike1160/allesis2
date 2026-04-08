@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -83,10 +84,13 @@ export default function Navigation() {
 
   return (
     <>
-      <nav
+      <motion.nav
         className={`fixed top-0 right-0 left-0 z-50 transition-[box-shadow,background-color] duration-300 ${
           scrolled ? "bg-white shadow-[0_4px_24px_-4px_rgba(10,15,30,0.12)]" : "bg-white/95 backdrop-blur-sm"
         }`}
+        initial={{ y: -28, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="mx-auto flex h-[4.25rem] max-w-[1200px] items-center justify-between px-6">
           <Link href="/" className="group flex items-center gap-2.5 no-underline" onClick={closeMobile}>
@@ -206,11 +210,30 @@ export default function Navigation() {
             </svg>
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobiel: fullscreen overlay */}
       {open ? (
         <div className="fixed inset-0 z-[60] flex flex-col bg-white pt-[4.25rem] lg:hidden">
+          <button
+            type="button"
+            onClick={closeMobile}
+            className="absolute top-[calc(4.25rem+0.5rem)] right-6 z-10 flex cursor-pointer items-center justify-center rounded-lg p-2"
+            aria-label="Menu sluiten"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-neutral-dark"
+              aria-hidden
+            >
+              <path d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div className="flex flex-1 flex-col gap-2 overflow-y-auto px-8 py-10">
             {navItems.map((item) =>
               item.type === "link" ? (
@@ -287,7 +310,11 @@ export default function Navigation() {
           </div>
 
           <div className="border-t border-neutral-light px-8 py-8">
-            <a href="mailto:info@allesis.nl" className="font-lato block text-lg font-semibold text-primary no-underline">
+            <a
+              href="mailto:info@allesis.nl"
+              onClick={closeMobile}
+              className="font-lato block text-lg font-semibold text-primary no-underline"
+            >
               info@allesis.nl
             </a>
             <p className="font-lato mt-2 text-sm font-light text-neutral-mid">Gevestigd in Haarlem</p>

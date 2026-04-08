@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Briefcase, Home, Sparkles } from "lucide-react";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -16,38 +20,59 @@ export const metadata: Metadata = {
   },
 };
 
+const cards = [
+  {
+    icon: Home,
+    titel: "Schoonmaak",
+    tekst: "Professionele schoonmaakdiensten voor bedrijven en particulieren.",
+  },
+  {
+    icon: Briefcase,
+    titel: "Ontruiming",
+    tekst: "Snelle en betrouwbare woning- en bedrijfsontruiming.",
+  },
+  {
+    icon: Sparkles,
+    titel: "ZZP Inhuur",
+    tekst: "Flexibele inzet van vakmensen voor klussen en projecten.",
+  },
+];
+
 export default function DienstverleningPage() {
   return (
-    <div className="pt-32 pb-24 px-6 max-w-5xl mx-auto">
-      <p className="text-[#c8a96e] text-xs tracking-[0.3em] uppercase font-dm mb-4">Dienstverlening</p>
-      <h1 className="font-playfair text-5xl md:text-6xl font-bold text-white/90 mb-6">
-        Bedrijfs&shy;dienstverlening
-      </h1>
-      <p className="text-white/50 text-lg max-w-2xl mb-16 font-dm font-light leading-relaxed">
-        Naast web en vertalingen bieden wij ook diverse zakelijke diensten voor het MKB en particulieren in Amsterdam en omgeving.
-      </p>
+    <>
+      <SubpageHero
+        eyebrow="Dienstverlening"
+        title="Bedrijfsdienstverlening"
+        subtitle="Naast web en vertalingen bieden wij ook diverse zakelijke diensten voor het MKB en particulieren in Amsterdam en omgeving."
+      />
 
-      <div className="grid md:grid-cols-3 gap-6 mb-16">
-        {[
-          { icon: "🧹", titel: "Schoonmaak", tekst: "Professionele schoonmaakdiensten voor bedrijven en particulieren." },
-          { icon: "📦", titel: "Ontruiming", tekst: "Snelle en betrouwbare woning- en bedrijfsontruiming." },
-          { icon: "👷", titel: "ZZP Inhuur", tekst: "Flexibele inzet van vakmensen voor klussen en projecten." },
-        ].map((d) => (
-          <div key={d.titel} className="p-8 border border-white/8 hover:border-[#c8a96e]/40 transition-all">
-            <div className="text-3xl mb-4">{d.icon}</div>
-            <h2 className="font-playfair text-xl font-bold mb-3">{d.titel}</h2>
-            <p className="text-white/40 text-sm font-dm leading-relaxed">{d.tekst}</p>
-          </div>
-        ))}
-      </div>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+          {cards.map((d) => (
+            <PremiumCard key={d.titel}>
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <d.icon className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+              </div>
+              <h2 className="font-sora text-xl font-bold text-neutral-dark">{d.titel}</h2>
+              <p className="font-lato mt-3 text-sm leading-relaxed text-neutral-mid">{d.tekst}</p>
+            </PremiumCard>
+          ))}
+        </div>
 
-      <div className="border border-white/8 p-8 max-w-xl">
-        <h2 className="font-playfair text-2xl font-bold mb-3">Meer weten?</h2>
-        <p className="text-white/50 font-dm mb-6">Neem contact op voor een vrijblijvend gesprek over wat wij voor u kunnen betekenen.</p>
-        <Link href="/contact" className="inline-block px-6 py-3 bg-[#c8a96e] text-black font-dm hover:bg-[#d4b87e] transition-colors">
-          Contact opnemen →
-        </Link>
-      </div>
-    </div>
+        <div className="mx-auto mt-12 max-w-xl">
+          <PremiumCard>
+            <h2 className="font-sora text-2xl font-bold text-neutral-dark">Meer weten?</h2>
+            <p className="font-lato mt-3 text-neutral-mid">Neem contact op voor een vrijblijvend gesprek over wat wij voor u kunnen betekenen.</p>
+            <Link
+              href="/contact"
+              className="font-lato mt-8 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-8 font-bold text-white transition hover:bg-primary-dark"
+            >
+              Contact opnemen →
+            </Link>
+          </PremiumCard>
+        </div>
+      </Reveal>
+    </>
   );
 }

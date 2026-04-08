@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import LoginForm from "@/components/auth/LoginForm";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 
 export const metadata: Metadata = {
   title: "Inloggen",
@@ -9,18 +12,22 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div style={{ paddingTop: 100, minHeight: "80vh", background: "linear-gradient(135deg, #f0f4ff, #ffffff)", display: "flex", alignItems: "center" }}>
-      <div style={{ maxWidth: 440, margin: "0 auto", padding: "60px 24px", width: "100%" }}>
-        <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <div style={{ width: 48, height: 48, background: "#1a3bcc", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
-            <span style={{ color: "white", fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: 20 }}>A</span>
+    <>
+      <SubpageHero eyebrow="Klantenpaneel" title="Inloggen" subtitle="Toegang tot uw klantenpaneel" />
+      <Reveal className="flex min-h-[50vh] items-center justify-center bg-neutral-light/50 px-6 py-16 md:py-20">
+        <div className="w-full max-w-md">
+          <div className="mb-8 flex justify-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
+              <span className="font-sora text-xl font-extrabold text-white">A</span>
+            </div>
           </div>
-          <h1 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "1.8rem", color: "#0f172a", marginBottom: 8 }}>Inloggen</h1>
-          <p style={{ fontFamily: "Lato, sans-serif", color: "#64748b", fontSize: 15 }}>Toegang tot uw klantenpaneel</p>
+          <PremiumCard className="!p-8">
+            <LoginForm />
+          </PremiumCard>
         </div>
-        <LoginForm />
-      </div>
-    </div>
+      </Reveal>
+    </>
   );
 }
-export const dynamic = 'force-dynamic';
+
+export const dynamic = "force-dynamic";

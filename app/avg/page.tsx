@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import CheckMarkList from "@/components/subpage/CheckMarkList";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -95,76 +99,69 @@ const faqLd = {
 
 export default function AvgLandingPage() {
   return (
-    <div className="pt-[100px]">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
-      <section className="bg-gradient-to-b from-[#eef2ff] to-white px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="font-lato mb-3 text-xs font-bold tracking-[0.12em] text-primary uppercase">AVG / GDPR</p>
-          <h1 className="font-sora text-4xl font-extrabold text-neutral-dark md:text-5xl">Is uw website AVG-compliant?</h1>
-          <p className="font-lato mx-auto mt-5 max-w-2xl text-xl font-light leading-relaxed text-neutral-mid">
-            Wij controleren uw website en lossen de belangrijkste privacy- en cookieproblemen op — helder en uitvoerbaar.
-          </p>
-          <p className="font-lato mx-auto mt-4 max-w-xl rounded-xl bg-accent/30 px-4 py-3 text-lg font-bold text-neutral-dark">
-            Vanaf €69,99 ex btw &nbsp;·&nbsp; <span className="font-semibold">From €69.99 excl. VAT</span>
-          </p>
-          <Link
-            href="/contact#offerte"
-            className="font-lato mt-10 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 text-base font-bold text-white transition hover:bg-primary-dark"
-          >
-            Offerte aanvragen
-          </Link>
-        </div>
-      </section>
+      <SubpageHero
+        eyebrow="AVG / GDPR"
+        title="Is uw website AVG-compliant?"
+        subtitle={
+          <>
+            <p className="text-white/75">
+              Wij controleren uw website en lossen de belangrijkste privacy- en cookieproblemen op — helder en uitvoerbaar.
+            </p>
+            <p className="font-lato mx-auto mt-6 max-w-xl rounded-xl border border-white/15 bg-white/10 px-5 py-4 text-lg font-bold text-white backdrop-blur-sm">
+              Vanaf €69,99 ex btw · <span className="font-semibold text-white/85">From €69.99 excl. VAT</span>
+            </p>
+            <Link
+              href="/contact#offerte"
+              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-10 text-base font-bold text-primary transition hover:bg-neutral-light"
+            >
+              Offerte aanvragen
+            </Link>
+          </>
+        }
+      />
 
-      <section className="px-6 py-14 md:px-10">
-        <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-2">
-          <div>
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:items-start">
+          <PremiumCard>
             <h2 className="font-sora text-2xl font-bold text-neutral-dark">Wat zit er in de AVG-fix?</h2>
-            <ul className="font-lato mt-5 space-y-3 text-neutral-mid">
-              {checklist.map((x) => (
-                <li key={x} className="flex gap-2">
-                  <span className="text-green-600">✓</span>
-                  {x}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
+            <CheckMarkList items={checklist} />
+          </PremiumCard>
+          <PremiumCard>
             <h2 className="font-sora text-2xl font-bold text-neutral-dark">Waarom dit belangrijk is</h2>
             <p className="font-lato mt-4 leading-relaxed text-neutral-mid">
-              Toezichthouders controleren websites steeds vaker. Naast boetes en sancties schaadt non-compliance vertrouwen bij
-              klanten en partners. Een nette privacy-inrichting hoort bij professioneel ondernemerschap — net als SSL en
-              een werkend contactformulier.
+              Toezichthouders controleren websites steeds vaker. Naast boetes en sancties schaadt non-compliance vertrouwen bij klanten en
+              partners. Een nette privacy-inrichting hoort bij professioneel ondernemerschap — net als SSL en een werkend contactformulier.
             </p>
-            <p className="font-lato mt-4 text-sm text-neutral-mid">
-              <span className="font-semibold text-neutral-dark">EN:</span> GDPR compliance reduces legal risk and builds trust
-              with customers and partners.
+            <p lang="en" className="font-lato mt-4 text-sm leading-relaxed text-neutral-mid">
+              GDPR compliance reduces legal risk and builds trust with customers and partners.
             </p>
+          </PremiumCard>
+        </div>
+      </Reveal>
+
+      <Reveal className="border-t border-neutral-light bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">Veelgestelde vragen</h2>
+          <div className="font-lato mt-10 space-y-6">
+            {faq.map((item) => (
+              <PremiumCard key={item.q} className="!p-6">
+                <p className="font-sora font-bold text-neutral-dark">{item.q}</p>
+                <p className="mt-2 leading-relaxed text-neutral-mid">{item.a}</p>
+              </PremiumCard>
+            ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="border-t border-neutral-light bg-neutral-light/50 px-6 py-14 md:px-10">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark">Veelgestelde vragen</h2>
-          <dl className="font-lato mt-10 space-y-8">
-            {faq.map((item) => (
-              <div key={item.q}>
-                <dt className="font-bold text-neutral-dark">{item.q}</dt>
-                <dd className="mt-2 leading-relaxed text-neutral-mid">{item.a}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      <section className="px-6 py-16 text-center md:px-10">
-        <Link href="/avg-check" className="font-lato font-semibold text-primary underline-offset-2 hover:underline">
+      <Reveal className="px-6 py-16 text-center md:px-10">
+        <Link href="/avg-check" className="font-lato text-base font-semibold text-primary underline-offset-2 hover:underline">
           Start met de gratis AVG-check →
         </Link>
-      </section>
-    </div>
+      </Reveal>
+    </>
   );
 }

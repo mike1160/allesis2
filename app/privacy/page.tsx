@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PremiumCard from "@/components/subpage/PremiumCard";
+import { Reveal } from "@/components/subpage/Reveal";
+import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -93,51 +96,38 @@ const sections: { titel: string; body: string[] }[] = [
 
 export default function PrivacyPage() {
   return (
-    <div style={{ paddingTop: 100, paddingBottom: 80, minHeight: "85vh" }}>
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "48px 24px" }}>
-        <p
-          style={{
-            fontFamily: "Lato, sans-serif",
-            fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: "#1a3bcc",
-            marginBottom: 12,
-          }}
-        >
-          AVG / Privacy
-        </p>
-        <h1 style={{ fontFamily: "Sora, sans-serif", fontWeight: 800, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "#0f172a", marginBottom: 16 }}>
-          Privacyverklaring
-        </h1>
-        <p style={{ fontFamily: "Lato, sans-serif", color: "#64748b", fontSize: 15, lineHeight: 1.75, marginBottom: 40 }}>
-          Allesis respecteert uw privacy. Deze verklaring legt uit hoe wij omgaan met persoonsgegevens in lijn met de Algemene verordening
-          gegevensbescherming (AVG / GDPR).
-        </p>
+    <>
+      <SubpageHero
+        eyebrow="AVG / Privacy"
+        title="Privacyverklaring"
+        subtitle="Allesis respecteert uw privacy. Deze verklaring legt uit hoe wij omgaan met persoonsgegevens in lijn met de Algemene verordening gegevensbescherming (AVG / GDPR)."
+      />
 
-        {sections.map((s) => (
-          <section key={s.titel} style={{ marginBottom: 36 }}>
-            <h2 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "1.1rem", color: "#0f172a", marginBottom: 12 }}>{s.titel}</h2>
-            {s.body.map((p, i) => (
-              <p key={`${s.titel}-${i}`} style={{ fontFamily: "Lato, sans-serif", color: "#374151", fontSize: 15, lineHeight: 1.75, marginBottom: 12 }}>
-                {p}
-              </p>
-            ))}
-          </section>
-        ))}
+      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-3xl space-y-6">
+          {sections.map((s) => (
+            <PremiumCard key={s.titel} className="!p-6">
+              <h2 className="font-sora text-lg font-bold text-neutral-dark">{s.titel}</h2>
+              {s.body.map((p, i) => (
+                <p key={`${s.titel}-${i}`} className="font-lato mt-3 text-[15px] leading-relaxed text-neutral-mid">
+                  {p}
+                </p>
+              ))}
+            </PremiumCard>
+          ))}
 
-        <p style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#94a3b8", marginTop: 48 }}>
-          Vragen?{" "}
-          <a href="mailto:info@allesis.nl" style={{ color: "#1a3bcc", fontWeight: 600 }}>
-            info@allesis.nl
-          </a>
-          {" · "}
-          <Link href="/disclaimer" style={{ color: "#1a3bcc", fontWeight: 600 }}>
-            Disclaimer &amp; overige juridische teksten
-          </Link>
-        </p>
-      </div>
-    </div>
+          <p className="font-lato pt-6 text-center text-sm text-neutral-mid">
+            Vragen?{" "}
+            <a href="mailto:info@allesis.nl" className="font-semibold text-primary hover:underline">
+              info@allesis.nl
+            </a>
+            {" · "}
+            <Link href="/disclaimer" className="font-semibold text-primary hover:underline">
+              Disclaimer &amp; overige juridische teksten
+            </Link>
+          </p>
+        </div>
+      </Reveal>
+    </>
   );
 }
