@@ -1,6 +1,17 @@
 import { Resend } from "resend";
+import { SITE_URL } from "@/lib/seo-config";
 
 const FROM = "Allesis <noreply@allesis.nl>";
+
+const BRAND = {
+  primary: "#1a3bcc",
+  text: "#0f172a",
+  muted: "#64748b",
+  subtle: "#94a3b8",
+  surface: "#f8f9fc",
+  border: "#e2e6f0",
+  white: "#ffffff",
+} as const;
 
 function escapeHtml(text: string): string {
   return String(text)
@@ -34,6 +45,79 @@ function wrapEmail(inner: string, title: string): string {
       </div>
     </div>
   `;
+}
+
+function contactCustomerConfirmationHtml(payload: {
+  naam: string;
+  email: string;
+  onderwerp?: string;
+  bericht: string;
+  nieuwsbrief?: boolean;
+}): string {
+  const onderwerpDisplay = payload.onderwerp?.trim() || "Algemeen contact";
+  const summaryRows = tableHtml([
+    { label: "Naam", value: payload.naam },
+    { label: "E-mail", value: payload.email },
+    { label: "Onderwerp", value: onderwerpDisplay },
+    { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee" },
+  ]);
+  const logoUrl = `${SITE_URL}/logo.png`;
+
+  return `
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:${BRAND.surface};">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #f0f4ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(26,59,204,0.08);border:1px solid ${BRAND.border};">
+          <tr>
+            <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;">
+              <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />
+              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:rgba(255,255,255,0.9);margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">allesis.nl</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">Beste ${escapeHtml(payload.naam)},</p>
+              <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:${BRAND.text};line-height:1.35;letter-spacing:-0.02em;">Bedankt voor uw bericht</h1>
+              <p style="margin:0 0 24px;font-size:15px;color:${BRAND.muted};line-height:1.7;">
+                We hebben uw aanvraag veilig ontvangen. Ons team bekijkt uw bericht en neemt zo snel mogelijk contact met u op — meestal binnen <strong style="color:${BRAND.text};">één werkdag</strong>.
+              </p>
+              <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:20px 22px;margin-bottom:24px;">
+                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.primary};text-transform:uppercase;letter-spacing:0.06em;">Samenvatting van uw bericht</p>
+                ${summaryRows}
+                <hr style="border:none;border-top:1px solid ${BRAND.border};margin:20px 0;" />
+                <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:${BRAND.subtle};text-transform:uppercase;letter-spacing:0.05em;">Uw bericht</p>
+                <p style="margin:0;font-size:14px;color:${BRAND.text};line-height:1.65;white-space:pre-wrap;">${escapeHtml(payload.bericht)}</p>
+              </div>
+              <p style="margin:0;font-size:14px;color:${BRAND.muted};line-height:1.65;">
+                Heeft u nog vragen? Beantwoord gerust op deze e-mail of neem direct contact op via onderstaande gegevens.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 32px;background:${BRAND.surface};border-top:1px solid ${BRAND.border};font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:${BRAND.text};">Allesis</p>
+              <p style="margin:0 0 6px;font-size:14px;color:${BRAND.muted};line-height:1.6;">
+                <a href="mailto:info@allesis.nl" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">info@allesis.nl</a>
+                &nbsp;·&nbsp; Haarlem, Nederland
+              </p>
+              <p style="margin:12px 0 0;font-size:14px;">
+                <a href="${SITE_URL}" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">allesis.nl</a>
+              </p>
+              <p style="margin:20px 0 0;font-size:11px;color:${BRAND.subtle};line-height:1.5;">
+                U ontvangt deze e-mail omdat u het contactformulier op onze website heeft ingevuld. Dit is een automatische bevestiging; antwoorden op deze e-mail komen bij ons terecht indien uw mailclient dat ondersteunt.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
 }
 
 export type AllesisEmailPayload =
@@ -154,6 +238,21 @@ export async function sendAllesisEmail(
   if (error) {
     console.error("Resend:", error);
     return { ok: false, message: "Verzenden mislukt. Probeer het later opnieuw." };
+  }
+
+  if (payload.type === "contact") {
+    const confirmHtml = contactCustomerConfirmationHtml(payload);
+    const businessReply = process.env.BUSINESS_EMAIL || "info@allesis.nl";
+    const { error: confirmError } = await resend.emails.send({
+      from: FROM,
+      to: payload.email,
+      replyTo: businessReply,
+      subject: "Bevestiging: we hebben uw bericht ontvangen — Allesis",
+      html: confirmHtml,
+    });
+    if (confirmError) {
+      console.error("Resend (bevestiging klant):", confirmError);
+    }
   }
 
   return { ok: true };
