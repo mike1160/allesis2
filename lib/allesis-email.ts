@@ -1,11 +1,15 @@
 import { Resend } from "resend";
 import { SITE_URL } from "@/lib/seo-config";
 
-/** Moet een adres op een in Resend geverifieerd domein zijn. Overschrijf met RESEND_FROM indien nodig. */
+/**
+ * Moet een adres op een in Resend geverifieerd domein zijn.
+ * Standaard: Allesis <info@allesis.nl> (geen noreply — spamfilters / Resend-advies).
+ * Overschrijf met RESEND_FROM, bijv. Allesis <info@allesis.nl>
+ */
 function getFromAddress(): string {
   const raw = process.env.RESEND_FROM?.trim();
   if (raw) return raw;
-  return "Allesis <noreply@allesis.nl>";
+  return "Allesis <info@allesis.nl>";
 }
 
 type ResendErrorShape = { message: string; name?: string; statusCode?: number | null };
@@ -52,6 +56,19 @@ function tableHtml(rows: { label: string; value: string }[]): string {
   return `<table style="width: 100%; border-collapse: collapse;">${body}</table>`;
 }
 
+const PLAIN_LABEL_COL = 22;
+
+/** Eén veldregel: "Label:" links uitgelijnd, waarde erachter (eigen regel per veld). */
+function plainRow(label: string, value: string): string {
+  const base = label.replace(/:\s*$/, "").trim();
+  const left = `${base}:`;
+  return `${left.padEnd(PLAIN_LABEL_COL)}${String(value)}`;
+}
+
+function plainDivider(): string {
+  return "----------------------------------------";
+}
+
 function wrapEmail(inner: string, title: string): string {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -81,16 +98,127 @@ function contactCustomerConfirmationText(payload: {
     "",
     "Bedankt voor uw bericht. We hebben uw aanvraag ontvangen en nemen zo snel mogelijk contact met u op (meestal binnen één werkdag).",
     "",
-    "Samenvatting:",
-    `- Naam: ${payload.naam}`,
-    `- E-mail: ${payload.email}`,
-    `- Onderwerp: ${onderwerpDisplay}`,
-    `- Nieuwsbrief: ${nl}`,
+    "Samenvatting",
     "",
-    "Uw bericht:",
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Onderwerp", onderwerpDisplay),
+    plainRow("Nieuwsbrief", nl),
+    "",
+    "Bericht:",
+    "",
     payload.bericht,
     "",
+    plainDivider(),
+    "",
     "— Allesis · info@allesis.nl · Haarlem",
+  ].join("\n");
+}
+
+function businessContactNotificationText(payload: {
+  naam: string;
+  email: string;
+  onderwerp?: string;
+  bericht: string;
+  nieuwsbrief?: boolean;
+}): string {
+  return [
+    "Nieuw bericht via allesis.nl",
+    "",
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Onderwerp", payload.onderwerp?.trim() || "—"),
+    plainRow("Privacyverklaring", "Akkoord (formulier)"),
+    plainRow("Nieuwsbrief", payload.nieuwsbrief ? "Ja" : "Nee"),
+    "",
+    "Bericht:",
+    "",
+    payload.bericht,
+    "",
+    plainDivider(),
+  ].join("\n");
+}
+
+function businessOfferteNotificationText(payload: {
+  naam: string;
+  email: string;
+  telefoon: string;
+  bedrijf?: string;
+  gewensteDienst?: string;
+  hostingPakket?: string;
+  bericht?: string;
+  nieuwsbrief?: boolean;
+}): string {
+  const toelichting = payload.bericht?.trim() || "—";
+  return [
+    "Nieuwe offerteaanvraag",
+    "",
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Telefoon", payload.telefoon),
+    plainRow("Bedrijf", payload.bedrijf?.trim() || "—"),
+    plainRow("Gewenste dienst", payload.gewensteDienst?.trim() || "—"),
+    plainRow("Hostingpakket", payload.hostingPakket?.trim() || "—"),
+    plainRow("Privacyverklaring", "Akkoord (formulier)"),
+    plainRow("Nieuwsbrief", payload.nieuwsbrief ? "Ja" : "Nee"),
+    "",
+    "Toelichting:",
+    "",
+    toelichting,
+    "",
+    plainDivider(),
+  ].join("\n");
+}
+
+function businessHostingOrderNotificationText(payload: {
+  pakket: string;
+  naam: string;
+  email: string;
+  telefoon: string;
+  bericht?: string;
+  nieuwsbrief?: boolean;
+}): string {
+  const opmerking = payload.bericht?.trim() || "—";
+  return [
+    "Hostingbestelling via allesis.nl",
+    "",
+    plainRow("Pakket", payload.pakket),
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Telefoon", payload.telefoon),
+    plainRow("Privacyverklaring", "Akkoord (formulier)"),
+    plainRow("Nieuwsbrief", payload.nieuwsbrief ? "Ja" : "Nee"),
+    "",
+    "Opmerking:",
+    "",
+    opmerking,
+    "",
+    plainDivider(),
+  ].join("\n");
+}
+
+function businessAvgPopupNotificationText(payload: {
+  naam: string;
+  email: string;
+  telefoon?: string;
+  domain: string;
+  score: number;
+  scanId?: string;
+  nieuwsbrief?: boolean;
+}): string {
+  return [
+    "AVG-check: contactaanvraag (popup)",
+    "",
+    plainRow("Domein", payload.domain),
+    plainRow("Score", String(payload.score)),
+    plainRow("Scan-ID", payload.scanId?.trim() || "—"),
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Telefoon", payload.telefoon?.trim() || "—"),
+    plainRow("Privacyverklaring", "Akkoord (formulier)"),
+    plainRow("Nieuwsbrief", payload.nieuwsbrief ? "Ja" : "Nee"),
+    "",
+    plainDivider(),
   ].join("\n");
 }
 
@@ -211,6 +339,7 @@ export async function sendAllesisEmail(
 
   let subject: string;
   let html: string;
+  let text: string;
   let replyTo: string | undefined;
 
   switch (payload.type) {
@@ -225,6 +354,7 @@ export async function sendAllesisEmail(
         { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ])}<hr style="border: none; border-top: 1px solid #e2e6f0; margin: 20px 0;" /><h3 style="color: #0f172a; margin: 0 0 12px;">Bericht</h3><p style="color: #374151; line-height: 1.7; white-space: pre-wrap;">${escapeHtml(payload.bericht)}</p>`;
       html = wrapEmail(inner, "Nieuw bericht via allesis.nl");
+      text = businessContactNotificationText(payload);
       break;
     }
     case "offerte": {
@@ -242,6 +372,7 @@ export async function sendAllesisEmail(
         { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "Nieuwe offerteaanvraag");
+      text = businessOfferteNotificationText(payload);
       break;
     }
     case "avg_popup": {
@@ -258,6 +389,7 @@ export async function sendAllesisEmail(
         { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "AVG-check: contactaanvraag (popup)");
+      text = businessAvgPopupNotificationText(payload);
       break;
     }
     case "hosting_order": {
@@ -273,6 +405,7 @@ export async function sendAllesisEmail(
         { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "Hostingbestelling via allesis.nl");
+      text = businessHostingOrderNotificationText(payload);
       break;
     }
     default:
@@ -285,19 +418,21 @@ export async function sendAllesisEmail(
     replyTo,
     subject,
     html,
+    text,
   });
 
-  if (businessSend.error) {
-    logResendFailure("Resend API (notificatie naar bedrijf)", businessSend.error);
-    return { ok: false, message: "Verzenden mislukt. Probeer het later opnieuw." };
-  }
+  console.log("[debug] businessSend result:", JSON.stringify(businessSend));
 
-  console.info("[allesis-email] notificatie verzonden", {
-    resendId: businessSend.data?.id ?? null,
-    to,
-    from,
-  });
-
+  /**
+   * Guard die voorheen de klantmail blokkeerde: bij `payload.type === "contact"` werd de tweede
+   * send() alleen bereikt als we hier níét returnden. De check was:
+   *   if (businessSend.error) { return { ok: false }; }
+   * Als de SDK `error` anders invult dan verwacht (terwijl `data.id` wél bestaat), werd nooit
+   * een tweede API-call gedaan. Succes wordt nu afgeleid van `businessSend.data?.id`.
+   *
+   * TEMP: klantbevestiging altijd proberen vóór die return, zodat Resend altijd 2× wordt
+   * aangeroepen voor contact. Later: alleen klantmail na geslaagde bedrijfsmail indien gewenst.
+   */
   if (payload.type === "contact") {
     const customerEmail = payload.email.trim();
     console.log("[debug] sending to customer:", customerEmail);
@@ -310,7 +445,7 @@ export async function sendAllesisEmail(
       const businessReply = process.env.BUSINESS_EMAIL || "info@allesis.nl";
 
       try {
-        const confirmSend = await resend.emails.send({
+        const customerSend = await resend.emails.send({
           from,
           to: [customerEmail],
           replyTo: businessReply,
@@ -318,13 +453,18 @@ export async function sendAllesisEmail(
           html: confirmHtml,
           text: confirmText,
         });
+        console.log("[debug] customerSend:", JSON.stringify(customerSend));
 
-        if (confirmSend.error) {
-          console.error("[allesis-email] customer mail error:", confirmSend.error);
-          logResendFailure("Resend API (bevestiging naar klant)", confirmSend.error);
+        if (!customerSend.data?.id) {
+          if (customerSend.error) {
+            console.error("[allesis-email] customer mail error:", customerSend.error);
+            logResendFailure("Resend API (bevestiging naar klant)", customerSend.error);
+          } else {
+            console.error("[allesis-email] klantbevestiging zonder data.id", customerSend);
+          }
         } else {
           console.info("[allesis-email] klantbevestiging verzonden", {
-            resendId: confirmSend.data?.id ?? null,
+            resendId: customerSend.data.id,
             to: customerEmail,
             from,
           });
@@ -335,6 +475,21 @@ export async function sendAllesisEmail(
       }
     }
   }
+
+  if (!businessSend.data?.id) {
+    if (businessSend.error) {
+      logResendFailure("Resend API (notificatie naar bedrijf)", businessSend.error);
+    } else {
+      console.error("[allesis-email] bedrijfsmail zonder data.id", businessSend);
+    }
+    return { ok: false, message: "Verzenden mislukt. Probeer het later opnieuw." };
+  }
+
+  console.info("[allesis-email] notificatie verzonden", {
+    resendId: businessSend.data?.id ?? null,
+    to,
+    from,
+  });
 
   return { ok: true };
 }
