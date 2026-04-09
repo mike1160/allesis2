@@ -297,6 +297,119 @@ function contactCustomerConfirmationHtml(payload: {
 </html>`;
 }
 
+type OfferteCustomerPayload = {
+  naam: string;
+  email: string;
+  telefoon: string;
+  bedrijf?: string;
+  gewensteDienst?: string;
+  hostingPakket?: string;
+  bericht?: string;
+  nieuwsbrief?: boolean;
+};
+
+function offerteCustomerConfirmationText(payload: OfferteCustomerPayload): string {
+  const nl = payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee";
+  const toelichting = payload.bericht?.trim();
+  const lines = [
+    `Beste ${payload.naam},`,
+    "",
+    `Bedankt ${payload.naam}, we hebben uw offerteaanvraag ontvangen en nemen binnen 1 werkdag contact met u op.`,
+    "",
+    "Samenvatting",
+    "",
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Telefoon", payload.telefoon),
+    plainRow("Bedrijf", payload.bedrijf?.trim() || "—"),
+    plainRow("Gewenste dienst", payload.gewensteDienst?.trim() || "—"),
+    plainRow("Hostingpakket", payload.hostingPakket?.trim() || "—"),
+    plainRow("Nieuwsbrief", nl),
+  ];
+  if (toelichting) {
+    lines.push("", "Toelichting:", "", toelichting);
+  }
+  lines.push("", plainDivider(), "", "— Allesis · info@allesis.nl · Haarlem");
+  return lines.join("\n");
+}
+
+function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): string {
+  const summaryRows = tableHtml([
+    { label: "Naam", value: payload.naam },
+    { label: "E-mail", value: payload.email },
+    { label: "Telefoon", value: payload.telefoon },
+    { label: "Bedrijf", value: payload.bedrijf?.trim() || "—" },
+    { label: "Gewenste dienst", value: payload.gewensteDienst?.trim() || "—" },
+    { label: "Hostingpakket", value: payload.hostingPakket?.trim() || "—" },
+    { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee" },
+  ]);
+  const toelichting = payload.bericht?.trim();
+  const logoUrl = `${SITE_URL}/logo.png`;
+  const introSecond = `Bedankt ${escapeHtml(payload.naam)}, we hebben uw offerteaanvraag ontvangen en nemen binnen 1 werkdag contact met u op.`;
+
+  return `
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:${BRAND.surface};">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #f0f4ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(26,59,204,0.08);border:1px solid ${BRAND.border};">
+          <tr>
+            <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;color:${BRAND.white};">
+              <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />
+              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
+                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">Beste ${escapeHtml(payload.naam)},</p>
+              <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:${BRAND.text};line-height:1.35;letter-spacing:-0.02em;">Bedankt voor uw offerteaanvraag</h1>
+              <p style="margin:0 0 24px;font-size:15px;color:${BRAND.muted};line-height:1.7;">
+                ${introSecond}
+              </p>
+              <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:20px 22px;margin-bottom:24px;">
+                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.primary};text-transform:uppercase;letter-spacing:0.06em;">Samenvatting van uw aanvraag</p>
+                ${summaryRows}
+                ${
+                  toelichting
+                    ? `<hr style="border:none;border-top:1px solid ${BRAND.border};margin:20px 0;" />
+                <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:${BRAND.subtle};text-transform:uppercase;letter-spacing:0.05em;">Uw toelichting</p>
+                <p style="margin:0;font-size:14px;color:${BRAND.text};line-height:1.65;white-space:pre-wrap;">${escapeHtml(toelichting)}</p>`
+                    : ""
+                }
+              </div>
+              <p style="margin:0;font-size:14px;color:${BRAND.muted};line-height:1.65;">
+                Heeft u nog vragen? Beantwoord gerust op deze e-mail of neem direct contact op via onderstaande gegevens.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 32px;background:${BRAND.surface};border-top:1px solid ${BRAND.border};font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:${BRAND.text};">Allesis</p>
+              <p style="margin:0 0 6px;font-size:14px;color:${BRAND.muted};line-height:1.6;">
+                <a href="mailto:info@allesis.nl" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">info@allesis.nl</a>
+                &nbsp;·&nbsp; Haarlem, Nederland
+              </p>
+              <p style="margin:12px 0 0;font-size:14px;">
+                <a href="${SITE_URL}" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">allesis.nl</a>
+              </p>
+              <p style="margin:20px 0 0;font-size:11px;color:${BRAND.subtle};line-height:1.5;">
+                U ontvangt deze e-mail omdat u het offerteformulier op onze website heeft ingevuld. Dit is een automatische bevestiging; antwoorden op deze e-mail komen bij ons terecht indien uw mailclient dat ondersteunt.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
 export type AllesisEmailPayload =
   | { type: "contact"; naam: string; email: string; onderwerp?: string; bericht: string; nieuwsbrief?: boolean }
   | {
@@ -424,32 +537,36 @@ export async function sendAllesisEmail(
   console.log("[debug] businessSend result:", JSON.stringify(businessSend));
 
   /**
-   * Guard die voorheen de klantmail blokkeerde: bij `payload.type === "contact"` werd de tweede
-   * send() alleen bereikt als we hier níét returnden. De check was:
-   *   if (businessSend.error) { return { ok: false }; }
-   * Als de SDK `error` anders invult dan verwacht (terwijl `data.id` wél bestaat), werd nooit
-   * een tweede API-call gedaan. Succes wordt nu afgeleid van `businessSend.data?.id`.
-   *
-   * TEMP: klantbevestiging altijd proberen vóór die return, zodat Resend altijd 2× wordt
-   * aangeroepen voor contact. Later: alleen klantmail na geslaagde bedrijfsmail indien gewenst.
+   * Klantbevestiging vóór `businessSend.data?.id`-check, zodat een tweede Resend-call ook bij
+   * contact/offerte wordt geprobeerd. Succes bedrijfsmail: `businessSend.data?.id`.
    */
-  if (payload.type === "contact") {
+  if (payload.type === "contact" || payload.type === "offerte") {
     const customerEmail = payload.email.trim();
-    console.log("[debug] sending to customer:", customerEmail);
+    console.log("[debug] sending to customer:", { type: payload.type, customerEmail });
 
     if (!customerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
       console.error("[allesis-email] klantbevestiging overgeslagen: ongeldig e-mailadres", { customerEmail });
     } else {
-      const confirmHtml = contactCustomerConfirmationHtml(payload);
-      const confirmText = contactCustomerConfirmationText(payload);
       const businessReply = process.env.BUSINESS_EMAIL || "info@allesis.nl";
+      let confirmHtml: string;
+      let confirmText: string;
+      let confirmSubject: string;
+      if (payload.type === "contact") {
+        confirmHtml = contactCustomerConfirmationHtml(payload);
+        confirmText = contactCustomerConfirmationText(payload);
+        confirmSubject = "Bevestiging: we hebben uw bericht ontvangen — Allesis";
+      } else {
+        confirmHtml = offerteCustomerConfirmationHtml(payload);
+        confirmText = offerteCustomerConfirmationText(payload);
+        confirmSubject = "Bedankt voor uw offerteaanvraag — Allesis.nl";
+      }
 
       try {
         const customerSend = await resend.emails.send({
           from,
           to: [customerEmail],
           replyTo: businessReply,
-          subject: "Bevestiging: we hebben uw bericht ontvangen — Allesis",
+          subject: confirmSubject,
           html: confirmHtml,
           text: confirmText,
         });
