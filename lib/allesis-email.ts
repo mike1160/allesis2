@@ -1,7 +1,27 @@
 import { Resend } from "resend";
 import { SITE_URL } from "@/lib/seo-config";
 
-const FROM = "Allesis <noreply@allesis.nl>";
+/** Moet een adres op een in Resend geverifieerd domein zijn. Overschrijf met RESEND_FROM indien nodig. */
+function getFromAddress(): string {
+  const raw = process.env.RESEND_FROM?.trim();
+  if (raw) return raw;
+  return "Allesis <noreply@allesis.nl>";
+}
+
+type ResendErrorShape = { message: string; name?: string; statusCode?: number | null };
+
+function logResendFailure(context: string, error: unknown): void {
+  if (error && typeof error === "object" && "message" in error) {
+    const e = error as ResendErrorShape;
+    console.error(`[allesis-email] ${context}`, {
+      message: e.message,
+      code: e.name,
+      statusCode: e.statusCode,
+    });
+    return;
+  }
+  console.error(`[allesis-email] ${context}`, error);
+}
 
 const BRAND = {
   primary: "#1a3bcc",
@@ -35,8 +55,8 @@ function tableHtml(rows: { label: string; value: string }[]): string {
 function wrapEmail(inner: string, title: string): string {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: #1a3bcc; padding: 24px; border-radius: 8px 8px 0 0;">
-        <h1 style="color: white; margin: 0; font-size: 20px;">${escapeHtml(title)}</h1>
+      <div style="background: #1a3bcc; padding: 24px; border-radius: 8px 8px 0 0; color: #ffffff;">
+        <h1 style="color: #ffffff; margin: 0; font-size: 20px;">${escapeHtml(title)}</h1>
       </div>
       <div style="background: #f8f9fc; padding: 32px; border-radius: 0 0 8px 8px; border: 1px solid #e2e6f0;">
         ${inner}
@@ -45,6 +65,33 @@ function wrapEmail(inner: string, title: string): string {
       </div>
     </div>
   `;
+}
+
+function contactCustomerConfirmationText(payload: {
+  naam: string;
+  email: string;
+  onderwerp?: string;
+  bericht: string;
+  nieuwsbrief?: boolean;
+}): string {
+  const onderwerpDisplay = payload.onderwerp?.trim() || "Algemeen contact";
+  const nl = payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee";
+  return [
+    `Beste ${payload.naam},`,
+    "",
+    "Bedankt voor uw bericht. We hebben uw aanvraag ontvangen en nemen zo snel mogelijk contact met u op (meestal binnen één werkdag).",
+    "",
+    "Samenvatting:",
+    `- Naam: ${payload.naam}`,
+    `- E-mail: ${payload.email}`,
+    `- Onderwerp: ${onderwerpDisplay}`,
+    `- Nieuwsbrief: ${nl}`,
+    "",
+    "Uw bericht:",
+    payload.bericht,
+    "",
+    "— Allesis · info@allesis.nl · Haarlem",
+  ].join("\n");
 }
 
 function contactCustomerConfirmationHtml(payload: {
@@ -73,9 +120,11 @@ function contactCustomerConfirmationHtml(payload: {
       <td align="center">
         <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(26,59,204,0.08);border:1px solid ${BRAND.border};">
           <tr>
-            <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;">
+            <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;color:${BRAND.white};">
               <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />
-              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:rgba(255,255,255,0.9);margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">allesis.nl</div>
+              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
+                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
+              </div>
             </td>
           </tr>
           <tr>
@@ -150,11 +199,14 @@ export async function sendAllesisEmail(
 ): Promise<{ ok: true } | { ok: false; message: string }> {
   const key = process.env.RESEND_API_KEY?.trim();
   if (!key) {
-    console.error("RESEND_API_KEY ontbreekt");
+    console.error(
+      "[allesis-email] RESEND_API_KEY ontbreekt of is leeg — zet RESEND_API_KEY in .env.local (lokaal) en in de hosting-omgeving (bijv. Vercel).",
+    );
     return { ok: false, message: "E-mail is niet geconfigureerd op de server." };
   }
 
   const resend = new Resend(key);
+  const from = getFromAddress();
   const to = process.env.BUSINESS_EMAIL || "info@allesis.nl";
 
   let subject: string;
@@ -227,31 +279,60 @@ export async function sendAllesisEmail(
       return { ok: false, message: "Onbekend berichttype." };
   }
 
-  const { error } = await resend.emails.send({
-    from: FROM,
+  const businessSend = await resend.emails.send({
+    from,
     to,
     replyTo,
     subject,
     html,
   });
 
-  if (error) {
-    console.error("Resend:", error);
+  if (businessSend.error) {
+    logResendFailure("Resend API (notificatie naar bedrijf)", businessSend.error);
     return { ok: false, message: "Verzenden mislukt. Probeer het later opnieuw." };
   }
 
+  console.info("[allesis-email] notificatie verzonden", {
+    resendId: businessSend.data?.id ?? null,
+    to,
+    from,
+  });
+
   if (payload.type === "contact") {
-    const confirmHtml = contactCustomerConfirmationHtml(payload);
-    const businessReply = process.env.BUSINESS_EMAIL || "info@allesis.nl";
-    const { error: confirmError } = await resend.emails.send({
-      from: FROM,
-      to: payload.email,
-      replyTo: businessReply,
-      subject: "Bevestiging: we hebben uw bericht ontvangen — Allesis",
-      html: confirmHtml,
-    });
-    if (confirmError) {
-      console.error("Resend (bevestiging klant):", confirmError);
+    const customerEmail = payload.email.trim();
+    console.log("[debug] sending to customer:", customerEmail);
+
+    if (!customerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      console.error("[allesis-email] klantbevestiging overgeslagen: ongeldig e-mailadres", { customerEmail });
+    } else {
+      const confirmHtml = contactCustomerConfirmationHtml(payload);
+      const confirmText = contactCustomerConfirmationText(payload);
+      const businessReply = process.env.BUSINESS_EMAIL || "info@allesis.nl";
+
+      try {
+        const confirmSend = await resend.emails.send({
+          from,
+          to: [customerEmail],
+          replyTo: businessReply,
+          subject: "Bevestiging: we hebben uw bericht ontvangen — Allesis",
+          html: confirmHtml,
+          text: confirmText,
+        });
+
+        if (confirmSend.error) {
+          console.error("[allesis-email] customer mail error:", confirmSend.error);
+          logResendFailure("Resend API (bevestiging naar klant)", confirmSend.error);
+        } else {
+          console.info("[allesis-email] klantbevestiging verzonden", {
+            resendId: confirmSend.data?.id ?? null,
+            to: customerEmail,
+            from,
+          });
+        }
+      } catch (error) {
+        console.error("[allesis-email] customer mail error:", error);
+        logResendFailure("Resend API (bevestiging naar klant) uitzondering", error);
+      }
     }
   }
 

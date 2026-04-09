@@ -124,10 +124,43 @@ export async function POST(request: NextRequest) {
       return bad("Onbekend type.");
   }
 
-  const result = await sendAllesisEmail(payload);
-  if (!result.ok) {
-    return NextResponse.json({ error: result.message }, { status: 500 });
+  if (payload.type === "contact") {
+    console.log("[api] body:", {
+      type: payload.type,
+      naam: payload.naam,
+      email: payload.email,
+      onderwerp: payload.onderwerp,
+      berichtLen: payload.bericht.length,
+      nieuwsbrief: payload.nieuwsbrief,
+    });
+  } else if (payload.type === "offerte") {
+    console.log("[api] body:", {
+      type: payload.type,
+      naam: payload.naam,
+      email: payload.email,
+      telefoon: payload.telefoon,
+      gewensteDienst: payload.gewensteDienst,
+    });
+  } else {
+    console.log("[api] body:", {
+      type: payload.type,
+      naam: payload.naam,
+      email: payload.email,
+      pakket: payload.pakket,
+    });
   }
 
-  return NextResponse.json({ success: true });
+  try {
+    const result = await sendAllesisEmail(payload);
+    if (!result.ok) {
+      return NextResponse.json({ error: result.message }, { status: 500 });
+    }
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("[api/send-email] onverwachte fout bij verzenden", err);
+    return NextResponse.json(
+      { error: "Verzenden mislukt. Probeer het later opnieuw." },
+      { status: 500 },
+    );
+  }
 }
