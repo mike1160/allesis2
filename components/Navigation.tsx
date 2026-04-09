@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import AllesisLogo from "@/components/AllesisLogo";
 
 type NavLink = { type: "link"; href: string; label: string };
 type NavDropdown = { type: "dropdown"; label: string; items: { href: string; label: string; badge?: string }[] };
@@ -94,12 +95,7 @@ export default function Navigation() {
       >
         <div className="mx-auto flex h-[4.25rem] max-w-[1200px] items-center justify-between px-6">
           <Link href="/" className="group flex items-center gap-2.5 no-underline" onClick={closeMobile}>
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary transition group-hover:bg-primary-dark">
-              <span className="font-sora text-[15px] font-extrabold text-white">A</span>
-            </div>
-            <span className="font-sora text-[1.05rem] font-bold text-neutral-dark md:text-xl">
-              <span className="text-neutral-mid/50">·</span> Allesis<span className="text-primary">.nl</span>
-            </span>
+            <AllesisLogo />
           </Link>
 
           <div className="hidden items-center gap-7 lg:flex">

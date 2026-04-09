@@ -364,19 +364,24 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Opslaan mislukt." }, { status: 500 });
   }
 
-  const mail = await sendAllesisEmail({
-    type: "avg_popup",
-    naam: body.name.trim(),
-    email: body.email.trim(),
-    telefoon: body.phone?.trim(),
-    domain: String(body.domain).trim(),
-    score: Number(body.score),
-    scanId: body.scanId,
-    nieuwsbrief,
-  });
+  try {
+    const mail = await sendAllesisEmail({
+      type: "avg_popup",
+      naam: body.name.trim(),
+      email: body.email.trim(),
+      telefoon: body.phone?.trim(),
+      domain: String(body.domain).trim(),
+      score: Number(body.score),
+      scanId: body.scanId,
+      nieuwsbrief,
+    });
 
-  if (!mail.ok) {
-    return NextResponse.json({ error: mail.message }, { status: 500 });
+    if (!mail.ok) {
+      return NextResponse.json({ error: mail.message }, { status: 500 });
+    }
+  } catch (err) {
+    console.error("[api/avg-check] onverwachte fout bij e-mail", err);
+    return NextResponse.json({ error: "E-mail verzenden mislukt." }, { status: 500 });
   }
 
   return NextResponse.json({ success: true });
