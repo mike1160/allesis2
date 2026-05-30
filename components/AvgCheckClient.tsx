@@ -37,10 +37,23 @@ const riskBadge: Record<AVGCheckResponse["riskLevel"], string> = {
 const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
 const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
 
+const LOADING_STEPS = [
+  "Domein controleren…",
+  "SSL-certificaat checken…",
+  "Cookiebanner zoeken…",
+  "Privacybeleid scannen…",
+  "Rapport opstellen…",
+] as const;
+
+const NETWORK_ERROR = "Kon de server niet bereiken. Probeer het opnieuw.";
+
 export default function AvgCheckClient() {
   const searchParams = useSearchParams();
   const [domain, setDomain] = useState("");
+  const [platform, setPlatform] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingStepIndex, setLoadingStepIndex] = useState(0);
+  const [displayedScore, setDisplayedScore] = useState(0);
   const [result, setResult] = useState<AVGCheckResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -54,6 +67,8 @@ export default function AvgCheckClient() {
   const [popupPrivacyAccepted, setPopupPrivacyAccepted] = useState(false);
   const [popupNieuwsbrief, setPopupNieuwsbrief] = useState(false);
   const [popupPrivacyError, setPopupPrivacyError] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const setPopupPrivacy = useCallback((v: boolean) => {
     setPopupPrivacyAccepted(v);
@@ -81,8 +96,46 @@ export default function AvgCheckClient() {
     }
   }, [showPopup]);
 
-  const handleScan = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!loading) {
+      setLoadingStepIndex(0);
+      return;
+    }
+    const id = window.setInterval(() => {
+      setLoadingStepIndex((i) => (i + 1) % LOADING_STEPS.length);
+    }, 2000);
+    return () => window.clearInterval(id);
+  }, [loading]);
+
+  useEffect(() => {
+    if (!result) {
+      setDisplayedScore(0);
+      return;
+    }
+    let cancelled = false;
+    let raf = 0;
+    const target = result.score;
+    const durationMs = 1000;
+    const start = performance.now();
+    const tick = (now: number) => {
+      if (cancelled) return;
+      const t = Math.min(1, (now - start) / durationMs);
+      setDisplayedScore(Math.round(target * t));
+      if (t < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        setDisplayedScore(target);
+      }
+    };
+    setDisplayedScore(0);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+    };
+  }, [result]);
+
+  const performScan = useCallback(async () => {
     setLoading(true);
     setError(null);
     setResult(null);
@@ -107,10 +160,15 @@ export default function AvgCheckClient() {
       }
       setResult(data as AVGCheckResponse);
     } catch {
-      setError("Kon de server niet bereiken. Probeer het opnieuw.");
+      setError(NETWORK_ERROR);
     } finally {
       setLoading(false);
     }
+  }, [domain]);
+
+  const handleScan = (e: React.FormEvent) => {
+    e.preventDefault();
+    void performScan();
   };
 
   const handlePopupSubmit = async (e: React.FormEvent) => {
@@ -137,6 +195,7 @@ export default function AvgCheckClient() {
           phone: contactPhone,
           domain: result.domain,
           score: result.score,
+          platform,
           turnstileToken: popupTurnstileToken,
           privacyAccepted: true,
           nieuwsbrief: popupNieuwsbrief,
@@ -162,9 +221,37 @@ export default function AvgCheckClient() {
       }
     } catch {
       setPopupTurnstileToken(null);
-      setPopupError("Kon de server niet bereiken. Probeer het opnieuw.");
+      setPopupError(NETWORK_ERROR);
     } finally {
       setPopupLoading(false);
+    }
+  };
+
+  const handleBetalen = async () => {
+    if (!result) return;
+    setPaymentLoading(true);
+    setPaymentError(null);
+    try {
+      const res = await fetch("/api/payment/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          scanId: result.scanId,
+          domain: result.domain,
+          platform: platform,
+          email: contactEmail,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPaymentError(data.error || "Betaling aanmaken mislukt.");
+        return;
+      }
+      window.location.href = data.checkoutUrl;
+    } catch {
+      setPaymentError("Kon de server niet bereiken. Probeer het opnieuw.");
+    } finally {
+      setPaymentLoading(false);
     }
   };
 
@@ -188,7 +275,7 @@ export default function AvgCheckClient() {
             Vul uw domeinnaam in en ontvang direct een gratis rapport.
           </p>
 
-          <form onSubmit={handleScan} className="mx-auto mt-10 flex max-w-xl flex-col gap-3 sm:flex-row">
+          <form onSubmit={handleScan} className="mx-auto mt-10 flex max-w-xl flex-col gap-3">
             <label htmlFor="avg-domain" className="sr-only">
               Domeinnaam
             </label>
@@ -198,28 +285,62 @@ export default function AvgCheckClient() {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               placeholder="bijv. uwbedrijf.nl"
-              className="font-lato min-h-[56px] flex-1 rounded-xl border-2 border-white/10 bg-white/5 px-5 text-lg text-white placeholder:text-white/40 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+              className="font-lato min-h-[56px] w-full rounded-xl border-2 border-white/10 bg-white/5 px-5 text-lg text-white placeholder:text-white/40 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
             />
+            <label htmlFor="avg-platform" className="sr-only">
+              Platform
+            </label>
+            <select
+              id="avg-platform"
+              value={platform}
+              onChange={(e) => setPlatform(e.target.value)}
+              className="font-lato min-h-[56px] w-full rounded-xl border-2 border-white/10 bg-white/5 px-5 text-lg text-white outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+            >
+              <option value="">Platform (optioneel)</option>
+              <option value="WordPress">WordPress</option>
+              <option value="Wix">Wix</option>
+              <option value="Squarespace">Squarespace</option>
+              <option value="Shopify">Shopify</option>
+              <option value="Webflow">Webflow</option>
+              <option value="Anders">Anders</option>
+            </select>
             <button
               type="submit"
               disabled={loading || !domain.trim()}
-              className="font-lato min-h-[56px] rounded-xl bg-accent px-8 text-lg font-bold text-[#0a0f1e] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
+              className="font-lato min-h-[56px] w-full rounded-xl bg-accent px-8 text-lg font-bold text-[#0a0f1e] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Controleer nu →
             </button>
           </form>
 
           {loading ? (
-            <div className="font-lato mt-10 flex flex-col items-center gap-3 text-white/80">
-              <div className="border-accent h-10 w-10 rounded-full border-2 border-t-transparent spinner" />
-              <p>Uw website wordt gecontroleerd…</p>
-            </div>
+            <p className="font-lato mt-10 text-center text-lg text-white/80" aria-live="polite">
+              {LOADING_STEPS[loadingStepIndex]}
+            </p>
           ) : null}
 
           {error ? (
-            <p className="font-lato mt-8 rounded-xl bg-red-500/15 px-4 py-3 text-red-200" role="alert">
-              {error}
-            </p>
+            <div
+              className="font-lato mt-8 rounded-xl bg-red-500/15 px-4 py-3 text-red-200"
+              role="alert"
+            >
+              <p>{error}</p>
+              {error === NETWORK_ERROR ? (
+                <button
+                  type="button"
+                  onClick={() => void performScan()}
+                  className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-red-400/20 px-4 font-semibold text-red-100 underline-offset-2 hover:underline"
+                >
+                  Opnieuw proberen
+                </button>
+              ) : null}
+              <p className="mt-3 text-sm text-red-200/90">
+                Hulp nodig?{" "}
+                <a href="mailto:support@allesis.nl" className="font-semibold text-red-100 underline">
+                  support@allesis.nl
+                </a>
+              </p>
+            </div>
           ) : null}
         </div>
       </section>
@@ -232,7 +353,7 @@ export default function AvgCheckClient() {
                 className="font-sora flex h-40 w-40 items-center justify-center rounded-full border-4 text-4xl font-black text-white"
                 style={{ borderColor: scoreColor }}
               >
-                {result.score}
+                {displayedScore}
               </div>
               <p className="font-lato text-lg text-white/70">
                 Score voor <span className="font-semibold text-white">{result.domain}</span>
@@ -268,12 +389,27 @@ export default function AvgCheckClient() {
               <div className="font-lato mt-12 rounded-2xl bg-primary p-8 text-center text-white shadow-lg">
                 <p className="font-sora text-xl font-bold">Allesis lost dit voor u op</p>
                 <p className="mt-2 text-white/80">Van privacybeleid tot cookiebanner — wij maken uw site compliant.</p>
-                <Link
-                  href="/contact"
-                  className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-white px-8 font-bold text-primary transition hover:bg-neutral-light"
-                >
-                  Neem contact op
-                </Link>
+                <div className="mt-6 flex flex-col items-center gap-3">
+                  <input
+                    type="email"
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    placeholder="Uw e-mailadres voor de documenten"
+                    className="font-lato w-full rounded-xl border-2 border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleBetalen}
+                    disabled={paymentLoading}
+                    className="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-white px-8 font-bold text-primary transition hover:bg-neutral-light disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {paymentLoading ? "Bezig…" : "Fix mijn website voor €79 →"}
+                  </button>
+                  {paymentError ? <p className="text-sm text-red-300">{paymentError}</p> : null}
+                  <p className="text-xs text-white/50">
+                    Betalen via iDEAL · Binnen 10 minuten uw documenten per mail
+                  </p>
+                </div>
               </div>
             ) : (
               <div className="font-lato mt-12 rounded-2xl bg-[#166534] p-8 text-center text-white shadow-lg">
@@ -287,6 +423,16 @@ export default function AvgCheckClient() {
                 </Link>
               </div>
             )}
+
+            <div className="mt-10 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setResult(null)}
+                className="font-lato min-h-[48px] rounded-xl border-2 border-white/20 bg-white/5 px-6 font-semibold text-white transition hover:border-white/35 hover:bg-white/10"
+              >
+                Scan een andere website
+              </button>
+            </div>
           </div>
         </section>
       ) : null}

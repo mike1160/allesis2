@@ -4,6 +4,11 @@
 >
 > Allesis is a full-service digital agency based in Haarlem, Netherlands, helping SMEs with professional websites, reliable hosting, SEO and GDPR compliance.
 
+## Gratis tools
+
+- [AVG Check](https://allesis.nl/avg-check): Controleer of een website AVG-compliant is.
+- [Website Monitor](https://allesis.nl/tools/website-monitor): Controleer websites op bereikbaarheid, HTTPS, laadtijd, dode links, contactformulieren en donatie-buttons. AI-powered, gratis, met CSV/PDF-export en geschiedenis.
+
 ## Diensten / Services
 
 ### Webdesign
@@ -53,6 +58,8 @@ Allesis สร้างเว็บไซต์มืออาชีพสำห
 - Hosting: https://allesis.nl/hosting
 - SEO: https://allesis.nl/seo
 - AVG: https://allesis.nl/avg
+- AVG Check (gratis): https://allesis.nl/avg-check
+- Website Monitor (gratis): https://allesis.nl/tools/website-monitor
 - Thaise diensten: https://allesis.nl/thai
 - Contact: https://allesis.nl/contact
 - Sitemap: https://allesis.nl/sitemap.xml

@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendAllesisEmail } from "@/lib/allesis-email";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { PRIVACY_CONSENT_ERROR, parseNieuwsbrief, parsePrivacyAccepted } from "@/lib/form-consent";
+import { fetchRenderedHtml } from "@/lib/scan-with-browser";
 import { getClientIp, validateTurnstile } from "@/lib/validate-turnstile";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface CheckResult {
   ok: boolean;
@@ -26,13 +29,23 @@ interface AVGCheckResponse {
   generatedAt: string;
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+// ─── Rate limiting ─────────────────────────────────────────────────────────────
+
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+
+  // Ruim verlopen entries op (voorkomt geheugengroei op drukke servers)
+  for (const [key, val] of rateLimitMap) {
+    if (now > val.resetAt) rateLimitMap.delete(key);
+  }
+
   const entry = rateLimitMap.get(ip);
   if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + 3600000 });
+    rateLimitMap.set(ip, { count: 1, resetAt: now + 3_600_000 });
     return false;
   }
   if (entry.count >= 10) return true;
@@ -40,118 +53,344 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
 function normalizeDomain(input: string): string {
   return input
     .trim()
     .toLowerCase()
     .replace(/^https?:\/\//, "")
     .replace(/^www\./, "")
-    .replace(/\/.*$/, "");
+    .replace(/\/.*$/, "") // strip pad
+    .replace(/:[0-9]+$/, "") // strip poortnummer
+    .replace(/\.$/, ""); // strip trailing punt
 }
 
-async function checkSSL(domain: string): Promise<boolean> {
+/** Haal de homepage HTML op.
+ *  - null  → netwerk/TLS-fout (site onbereikbaar)
+ *  - ""    → site bereikbaar maar geen leesbare HTML (4xx/5xx of binary)
+ *  - string → HTML-inhoud
+ */
+async function fetchHtml(url: string, timeoutMs = 10_000): Promise<string | null> {
   try {
-    const res = await fetch(`https://${domain}`, {
-      method: "HEAD",
-      signal: AbortSignal.timeout(8000),
+    const res = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; AVGChecker/1.0; +https://allesis.nl)",
+        Accept: "text/html,application/xhtml+xml",
+      },
+      signal: AbortSignal.timeout(timeoutMs),
+      redirect: "follow",
     });
-    return res.status < 500;
-  } catch {
-    return false;
-  }
-}
-
-async function checkPrivacyPage(domain: string): Promise<boolean> {
-  const paths = ["/privacy", "/privacybeleid", "/privacy-policy", "/privacyverklaring", "/disclaimer"];
-  for (const path of paths) {
-    try {
-      const res = await fetch(`https://${domain}${path}`, {
-        method: "HEAD",
-        signal: AbortSignal.timeout(5000),
-      });
-      if (res.ok) return true;
-    } catch {
-      /* volgende pad */
+    // 4xx/5xx → site is bereikbaar (TLS werkt), maar geef lege string
+    if (!res.ok) return "";
+    const ct = res.headers.get("content-type") ?? "";
+    if (!ct.includes("text/html") && !ct.includes("text/plain") && ct !== "") {
+      return ""; // binary, maar bereikbaar
     }
-  }
-  try {
-    const res = await fetch(`https://${domain}`, {
-      signal: AbortSignal.timeout(8000),
-    });
-    const html = await res.text();
-    return html.toLowerCase().includes("privacy");
+    return await res.text();
   } catch {
-    return false;
+    // Netwerk/TLS-fout → null
+    return null;
   }
 }
 
-async function checkCookieBanner(domain: string): Promise<boolean> {
-  try {
-    const res = await fetch(`https://${domain}`, {
-      signal: AbortSignal.timeout(8000),
-    });
-    const html = await res.text();
-    const lower = html.toLowerCase();
-    const keywords = [
-      "cookieconsent",
-      "cookie-consent",
-      "cc-banner",
-      "cookie-notice",
-      "cookiebanner",
-      "gdpr-banner",
-      "cookiebot",
-      "klaro",
-      "tarteaucitron",
-      "onetrust",
-      "cookie-law",
-      "cookiepolicy",
-    ];
-    return keywords.some((kw) => lower.includes(kw));
-  } catch {
-    return false;
-  }
+// ─── SSL ──────────────────────────────────────────────────────────────────────
+//
+// Leid SSL af uit het fetchHtml resultaat:
+//  null  → netwerk/TLS-fout → false
+//  ""    → site bereikbaar, TLS werkt (4xx/5xx) → true
+//  string → HTML opgehaald over HTTPS → true
+//
+// Geen aparte fetch nodig — scheelt een volledige GET request.
+
+function checkSSL(homepageHtml: string | null): boolean {
+  // null betekent dat fetch() een exception gooide (TLS-fout of DNS-fout)
+  return homepageHtml !== null;
 }
 
-async function checkGAConsent(domain: string, cookieOk: boolean): Promise<boolean> {
-  try {
-    const res = await fetch(`https://${domain}`, {
-      signal: AbortSignal.timeout(8000),
-    });
-    const html = await res.text();
+// ─── Privacy pagina ───────────────────────────────────────────────────────────
+//
+// Uitgebreider dan voorheen:
+//  1. Controleer bekende URL-paden via HEAD
+//  2. Controleer ankerlinks in de homepage HTML (footer-links)
+//  3. Zoek op tekstinhoud in de homepage (als laatste vangnet)
+
+const PRIVACY_PATHS = [
+  "/privacy",
+  "/privacybeleid",
+  "/privacy-policy",
+  "/privacyverklaring",
+  "/privacystatement",
+  "/disclaimer",
+  "/cookiebeleid",
+  "/gdpr",
+  "/avg",
+];
+
+const PRIVACY_LINK_RE =
+  /href=["'][^"']*(?:privacy|privacybeleid|privacyverklaring|cookie(?:beleid)?|gdpr|avg|disclaimer)[^"']*["']/i;
+
+async function checkPrivacyPage(domain: string, html: string | null): Promise<boolean> {
+  // 1. Bekende paden parallel via HEAD (was sequentieel — tot 54s wachten)
+  const headChecks = PRIVACY_PATHS.map((path) =>
+    fetch(`https://${domain}${path}`, {
+      method: "HEAD",
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; AVGChecker/1.0; +https://allesis.nl)" },
+      signal: AbortSignal.timeout(5_000),
+      redirect: "follow",
+    })
+      .then((r) => r.ok)
+      .catch(() => false),
+  );
+  const headResults = await Promise.all(headChecks);
+  if (headResults.some(Boolean)) return true;
+
+  // 2. Ankerlinks in de homepage HTML
+  if (html && PRIVACY_LINK_RE.test(html)) return true;
+
+  // 3. Tekstinhoud fallback
+  if (html) {
     const lower = html.toLowerCase();
-    const hasGA =
-      lower.includes("google-analytics.com") || lower.includes("gtag(") || lower.includes("googletagmanager");
-    if (hasGA && !cookieOk) return false;
-    return true;
-  } catch {
-    return true;
+    const hits = [
+      "privacybeleid",
+      "privacyverklaring",
+      "privacy policy",
+      "cookiebeleid",
+      "persoonsgegevens",
+    ].filter((kw) => lower.includes(kw));
+    if (hits.length >= 1) return true;
   }
+
+  return false;
 }
+
+// ─── Cookie banner ────────────────────────────────────────────────────────────
+//
+// Drie lagen:
+//  A. Bekende CMP class/id namen (uitgebreid)
+//  B. Script-src URL patronen voor bekende CMP-leveranciers
+//  C. Generieke "consent" patronen in HTML
+
+const CMP_KEYWORDS = [
+  // Bekende CMP-tools
+  "cookiebot",
+  "onetrust",
+  "one-trust",
+  "trustarc",
+  "truste",
+  "cookiepro",
+  "klaro",
+  "tarteaucitron",
+  "cookiefirst",
+  "usercentrics",
+  "consentmanager",
+  "didomi",
+  "quantcast",
+  "cookieinformation",
+  "cookie-information",
+  "borlabs-cookie",
+  "complianz",
+  "cmplz", // Complianz WordPress plugin
+  "wp-gdpr",
+  "gdpr-cookie",
+  "real-cookie-banner",
+  // Generieke klasse/id namen
+  "cookie-consent",
+  "cookieconsent",
+  "cookie-banner",
+  "cookiebanner",
+  "cookie-notice",
+  "cookienotice",
+  "cookie-bar",
+  "cookiebar",
+  "cookie-popup",
+  "cookie-overlay",
+  "cookie-wall",
+  "gdpr-banner",
+  "gdpr-notice",
+  "gdpr-popup",
+  "privacy-banner",
+  "consent-banner",
+  "consent-popup",
+  "consent-notice",
+  "cc-banner",
+  "cc-window",
+  "cc-dialog",
+  // Taalvarianten NL
+  "cookiemelding",
+  "cookiewaarschuwing",
+  "cookie-melding",
+];
+
+const CMP_SCRIPT_PATTERNS = [
+  "cookiebot.com",
+  "onetrust.com",
+  "trustarc.com",
+  "cookiefirst.com",
+  "usercentrics.eu",
+  "consentmanager.net",
+  "didomi.io",
+  "quantcast.mgr",
+  "cookieinformation.com",
+  "tagcommander.com",
+  "cdn.cookie-script.com",
+  "cookie-script.com",
+  "insites.eu", // CookieConsent by Insites (meest gebruikte open source)
+  "cookieconsent.insites",
+];
+
+async function checkCookieBanner(html: string | null): Promise<boolean> {
+  if (!html) return false;
+
+  const lower = html.toLowerCase();
+
+  // A. CMP keyword in HTML (class, id, data-*, tekst)
+  if (CMP_KEYWORDS.some((kw) => lower.includes(kw))) return true;
+
+  // B. CMP script-src URL
+  if (CMP_SCRIPT_PATTERNS.some((pattern) => lower.includes(pattern))) return true;
+
+  // C. Generieke consent-indicatoren (combinatie vereist om false positives te vermijden)
+  const consentIndicators = [
+    "toestemming",
+    "accepteer cookies",
+    "accept cookies",
+    "cookies accepteren",
+    "cookie instellingen",
+    "cookie settings",
+    "beheer cookies",
+    "manage cookies",
+    "alle cookies",
+    "necessary cookies",
+    "functionele cookies",
+    "analytische cookies",
+    "weiger cookies",
+    "reject cookies",
+  ];
+  const hits = consentIndicators.filter((kw) => lower.includes(kw));
+  // Minimaal 2 indicatoren voor een betrouwbaar signaal
+  if (hits.length >= 2) return true;
+
+  return false;
+}
+
+// ─── GA / GTM Consent ─────────────────────────────────────────────────────────
+//
+// Controleert of tracking aanwezig is. Als tracking aanwezig is ZONDER
+// cookie consent, is dit een overtreding.
+
+const TRACKING_PATTERNS = [
+  "google-analytics.com/analytics.js",
+  "google-analytics.com/ga.js",
+  "googletagmanager.com/gtm.js",
+  "googletagmanager.com/gtag/js",
+  "gtag('config",
+  'gtag("config',
+  "ga('send",
+  'ga("send',
+  // Meta Pixel
+  "connect.facebook.net",
+  "fbq('init",
+  'fbq("init',
+  // Hotjar
+  "static.hotjar.com",
+  // LinkedIn Insight
+  "snap.licdn.com",
+  // TikTok
+  "analytics.tiktok.com",
+];
+
+async function checkGAConsent(html: string | null, cookieOk: boolean): Promise<boolean> {
+  if (!html) return true; // Kunnen het niet bepalen → geen straf geven
+
+  const lower = html.toLowerCase();
+  const hasTracking = TRACKING_PATTERNS.some((p) => lower.includes(p.toLowerCase()));
+
+  if (!hasTracking) return true; // Geen tracking → geen probleem
+
+  // Tracking aanwezig: alleen ok als er ook een consent-mechanisme is
+  return cookieOk;
+}
+
+// ─── HTTPS redirect ───────────────────────────────────────────────────────────
+//
+// Volg HTTP → kijk of eindURL HTTPS is. Gebruik GET want veel servers
+// antwoorden niet op HEAD. Controleer ook de Location-header bij 301/302.
 
 async function checkHttpsRedirect(domain: string): Promise<boolean> {
+  // HEAD met manual redirect: kijk of de eerste Location-header naar https:// wijst.
+  // Gebruik geen redirect:"follow" want dan zien we de eindURL maar niet de tussenstappe.
   try {
     const res = await fetch(`http://${domain}`, {
       method: "HEAD",
-      redirect: "follow",
-      signal: AbortSignal.timeout(8000),
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; AVGChecker/1.0; +https://allesis.nl)",
+      },
+      redirect: "manual", // onderschep 301/302 zelf
+      signal: AbortSignal.timeout(8_000),
     });
-    return res.url.startsWith("https://");
-  } catch {
+    // redirect: "manual" geeft status 0 + type "opaqueredirect" bij een redirect
+    // De Location-header bevat de doelURL
+    const location = res.headers.get("location") ?? "";
+    if (location.startsWith("https://")) return true;
+    // Sommige servers geven direct 200 op http:// zonder redirect → niet ok
+    if (res.status === 200) return false;
+    // Andere statussen (4xx op http): probeer of https:// wél werkt
     return false;
+  } catch {
+    // http:// helemaal niet bereikbaar → kijk of https:// wél luistert
+    try {
+      await fetch(`https://${domain}`, {
+        method: "HEAD",
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; AVGChecker/1.0; +https://allesis.nl)" },
+        signal: AbortSignal.timeout(6_000),
+      });
+      return true; // server luistert alleen op 443, dat is acceptabel
+    } catch {
+      return false;
+    }
   }
 }
 
+// ─── Sitemap ──────────────────────────────────────────────────────────────────
+//
+// Controleer sitemap.xml én robots.txt (die kan naar sitemap verwijzen).
+
 async function checkSitemap(domain: string): Promise<boolean> {
+  // 1. Directe sitemap.xml
   try {
     const res = await fetch(`https://${domain}/sitemap.xml`, {
       method: "HEAD",
-      signal: AbortSignal.timeout(5000),
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; AVGChecker/1.0; +https://allesis.nl)",
+      },
+      signal: AbortSignal.timeout(6_000),
     });
-    return res.ok;
+    if (res.ok) return true;
   } catch {
-    return false;
+    /* probeer robots.txt */
   }
+
+  // 2. robots.txt → Sitemap: directive
+  try {
+    const res = await fetch(`https://${domain}/robots.txt`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; AVGChecker/1.0; +https://allesis.nl)",
+      },
+      signal: AbortSignal.timeout(6_000),
+    });
+    if (res.ok) {
+      const text = await res.text();
+      if (text.toLowerCase().includes("sitemap:")) return true;
+    }
+  } catch {
+    /* geen robots.txt */
+  }
+
+  return false;
 }
+
+// ─── Score & risico ───────────────────────────────────────────────────────────
 
 function calculateScore(results: {
   ssl: boolean;
@@ -177,72 +416,53 @@ function getRiskLevel(score: number): "laag" | "gemiddeld" | "hoog" {
   return "hoog";
 }
 
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+// ─── POST ─────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.headers.get("x-real-ip") ||
-    "unknown";
-
+  const ip = getClientIp(req) ?? "unknown";
   if (isRateLimited(ip)) {
-    return NextResponse.json({ error: "Te veel aanvragen. Probeer het over een uur opnieuw." }, { status: 429 });
+    return NextResponse.json({ error: "Te veel verzoeken. Probeer het later opnieuw." }, { status: 429 });
   }
 
-  let body: { domain: string };
+  let body: { domain?: unknown };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Ongeldig verzoek." }, { status: 400 });
   }
 
-  const domain = normalizeDomain(body.domain || "");
-  if (!domain || domain.length < 3 || !domain.includes(".")) {
-    return NextResponse.json({ error: "Vul een geldige domeinnaam in." }, { status: 400 });
+  if (typeof body.domain !== "string" || !body.domain.trim()) {
+    return NextResponse.json({ error: "Domeinnaam ontbreekt." }, { status: 400 });
   }
 
-  const [ssl, privacy, cookie, httpsRedirect, sitemap] = await Promise.all([
-    checkSSL(domain),
-    checkPrivacyPage(domain),
-    checkCookieBanner(domain),
+  const domain = normalizeDomain(body.domain);
+  if (!domain || domain.length < 3 || !domain.includes(".")) {
+    return NextResponse.json({ error: "Ongeldige domeinnaam." }, { status: 400 });
+  }
+
+  // Haal homepage HTML éénmalig op — hergebruik in alle checks.
+  // null = TLS/netwerk fout, "" = bereikbaar maar geen HTML, string = HTML
+  const homepageHtml =
+    (await fetchRenderedHtml(`https://${domain}`)) ?? (await fetchHtml(`https://${domain}`));
+
+  // SSL afgeleid uit fetchHtml (null = onbereikbaar/TLS-fout)
+  const ssl = checkSSL(homepageHtml);
+
+  // Resterende checks parallel
+  const [privacy, cookie, httpsRedirect, sitemap] = await Promise.all([
+    checkPrivacyPage(domain, homepageHtml),
+    checkCookieBanner(homepageHtml),
     checkHttpsRedirect(domain),
     checkSitemap(domain),
   ]);
 
-  const gaConsent = await checkGAConsent(domain, cookie);
+  // GA consent hangt af van cookie resultaat
+  const gaConsent = await checkGAConsent(homepageHtml, cookie);
 
   const score = calculateScore({ ssl, privacy, cookie, gaConsent, httpsRedirect, sitemap });
   const riskLevel = getRiskLevel(score);
 
-  let scanId = "unknown";
-  const admin = getSupabaseAdmin();
-  if (admin) {
-    const { data: scanData, error: dbError } = await admin
-      .from("avg_scans")
-      .insert({
-        domain,
-        ip_address: ip,
-        score,
-        risk_level: riskLevel,
-        ssl_ok: ssl,
-        privacy_ok: privacy,
-        cookie_ok: cookie,
-        ga_consent_ok: gaConsent,
-        https_redirect_ok: httpsRedirect,
-        sitemap_ok: sitemap,
-      })
-      .select("id")
-      .single();
-
-    if (dbError) {
-      console.error("Database error:", dbError);
-    } else if (scanData?.id) {
-      scanId = scanData.id;
-    }
-  }
-
-  const result: AVGCheckResponse = {
-    scanId,
+  const result: Omit<AVGCheckResponse, "scanId"> = {
     domain,
     score,
     riskLevel,
@@ -251,50 +471,75 @@ export async function POST(req: NextRequest) {
         ok: ssl,
         label: "SSL-certificaat",
         detail: ssl
-          ? "Uw website heeft een geldig SSL-certificaat."
-          : "Geen SSL gevonden. Dit is verplicht en schaadt uw Google-ranking.",
+          ? "Uw website heeft een geldig SSL-certificaat en is bereikbaar via HTTPS."
+          : "Geen geldig SSL-certificaat gevonden. Bezoekers zien een beveiligingswaarschuwing.",
       },
       privacy: {
         ok: privacy,
         label: "Privacybeleid",
         detail: privacy
-          ? "Een privacypagina is aangetroffen op uw website."
-          : "Geen privacybeleid gevonden. Dit is wettelijk verplicht bij elk contactformulier of analytics.",
+          ? "Er is een privacybeleid of -pagina aangetroffen op uw website."
+          : "Geen privacybeleid gevonden. Dit is verplicht onder de AVG.",
       },
       cookie: {
         ok: cookie,
         label: "Cookiebanner",
         detail: cookie
-          ? "Een cookiebanner of consent-systeem is gedetecteerd."
-          : "Geen cookiebanner gevonden. Verplicht als u tracking of analytics gebruikt.",
+          ? "Er is een cookiebanner of consent-tool gevonden op uw website."
+          : "Geen cookiebanner gevonden. Zonder toestemming mogen geen tracking-cookies worden geplaatst.",
       },
       gaConsent: {
         ok: gaConsent,
-        label: "Analytics & toestemming",
+        label: "Tracking & toestemming",
         detail: gaConsent
-          ? "Geen probleem gevonden met analytics en toestemming."
-          : "Google Analytics gevonden zonder cookiebanner. Dit is een AVG-overtreding.",
+          ? "Tracking is aanwezig en er is een consent-mechanisme gevonden, of er is geen tracking actief."
+          : "Tracking (bijv. Google Analytics, Meta Pixel) gevonden zónder zichtbare cookieconsent. Dit is een AVG-overtreding.",
       },
       httpsRedirect: {
         ok: httpsRedirect,
-        label: "HTTPS-redirect",
+        label: "HTTPS-doorverwijzing",
         detail: httpsRedirect
-          ? "HTTP-bezoekers worden automatisch doorgestuurd naar HTTPS."
-          : "Geen automatische HTTPS-redirect. Bezoekers op http:// krijgen een onveilige verbinding.",
+          ? "HTTP-verkeer wordt correct doorgestuurd naar HTTPS."
+          : "HTTP wordt niet automatisch doorgestuurd naar HTTPS. Bezoekers kunnen onbeveiligd verbinding maken.",
       },
       sitemap: {
         ok: sitemap,
-        label: "Sitemap aanwezig",
+        label: "Sitemap",
         detail: sitemap
-          ? "Een sitemap.xml is gevonden — goed voor zoekmachines."
-          : "Geen sitemap gevonden. Dit helpt zoekmachines uw site beter te indexeren.",
+          ? "Er is een sitemap.xml gevonden (of een verwijzing in robots.txt)."
+          : "Geen sitemap.xml gevonden. Dit is geen AVG-verplichting, maar helpt bij vindbaarheid.",
       },
     },
     generatedAt: new Date().toISOString(),
   };
 
-  return NextResponse.json(result);
+  // Supabase opslaan
+  let scanId = "unknown";
+  const admin = getSupabaseAdmin();
+  if (admin) {
+    const { data, error } = await admin
+      .from("avg_scans")
+      .insert({
+        domain,
+        score,
+        risk_level: riskLevel,
+        ssl_ok: ssl,
+        privacy_ok: privacy,
+        cookie_ok: cookie,
+        ga_consent_ok: gaConsent,
+        https_redirect_ok: httpsRedirect,
+        sitemap_ok: sitemap,
+        created_at: result.generatedAt,
+      })
+      .select("id")
+      .single();
+    if (!error && data?.id) scanId = data.id;
+  }
+
+  return NextResponse.json({ ...result, scanId });
 }
+
+// ─── PATCH ────────────────────────────────────────────────────────────────────
 
 export async function PATCH(req: NextRequest) {
   let body: {
@@ -318,6 +563,7 @@ export async function PATCH(req: NextRequest) {
   if (!token.trim()) {
     return NextResponse.json({ error: "Verificatie mislukt. Probeer het opnieuw." }, { status: 400 });
   }
+
   const ip = getClientIp(req);
   if (!(await validateTurnstile(token, ip))) {
     return NextResponse.json({ error: "Verificatie mislukt. Probeer het opnieuw." }, { status: 400 });
@@ -336,7 +582,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Naam en e-mailadres zijn verplicht." }, { status: 400 });
   }
 
-  if (body.domain === undefined || body.domain === null || String(body.domain).trim() === "") {
+  if (!body.domain || String(body.domain).trim() === "") {
     return NextResponse.json({ error: "Domein ontbreekt." }, { status: 400 });
   }
 
@@ -375,7 +621,6 @@ export async function PATCH(req: NextRequest) {
       scanId: body.scanId,
       nieuwsbrief,
     });
-
     if (!mail.ok) {
       return NextResponse.json({ error: mail.message }, { status: 500 });
     }

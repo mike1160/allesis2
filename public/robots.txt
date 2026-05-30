@@ -85,6 +85,22 @@ Allow: /
 User-agent: Omgilibot
 Allow: /
 
+# ——— Website Monitor (expliciet voor AI & zoekmachines) ———
+User-agent: GPTBot
+Allow: /tools/website-monitor
+
+User-agent: ClaudeBot
+Allow: /tools/website-monitor
+
+User-agent: PerplexityBot
+Allow: /tools/website-monitor
+
+User-agent: Bingbot
+Allow: /tools/website-monitor
+
+User-agent: Googlebot
+Allow: /tools/website-monitor
+
 # ——— Ongewenste / SEO-spam bots ———
 User-agent: AhrefsBot
 Disallow: /

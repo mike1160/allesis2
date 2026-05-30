@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import AllesisLogo from "@/components/AllesisLogo";
 
 type NavLink = { type: "link"; href: string; label: string };
@@ -22,6 +22,7 @@ const navItems: (NavLink | NavDropdown)[] = [
       { href: "/avg-regelgeving", label: "AVG Regelgeving" },
       { href: "/avg-boetes", label: "AVG Boetes" },
       { href: "/avg-check", label: "AVG Check", badge: "GRATIS" },
+      { href: "/tools/website-monitor", label: "Website Monitor" },
     ],
   },
   { type: "link", href: "/thai", label: "Thaise diensten" },
@@ -37,7 +38,12 @@ export default function Navigation() {
   const [user, setUser] = useState<{ id: string } | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const supabase = createClient();
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  const isDropdownActive = (items: NavDropdown["items"]) => items.some((sub) => isActive(sub.href));
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
@@ -104,7 +110,10 @@ export default function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="font-lato text-sm font-bold text-neutral-mid no-underline transition hover:text-primary"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={`font-lato text-sm font-bold no-underline transition hover:text-primary ${
+                    isActive(item.href) ? "text-primary" : "text-neutral-mid"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -119,7 +128,11 @@ export default function Navigation() {
                   <button
                     type="button"
                     onClick={() => setAvgOpen((o) => !o)}
-                    className="font-lato flex cursor-pointer items-center gap-1 border-0 bg-transparent p-0 text-sm font-bold text-neutral-mid transition hover:text-primary"
+                    aria-expanded={avgOpen}
+                    aria-current={isDropdownActive(item.items) ? "true" : undefined}
+                    className={`font-lato flex cursor-pointer items-center gap-1 border-0 bg-transparent p-0 text-sm font-bold transition hover:text-primary ${
+                      isDropdownActive(item.items) ? "text-primary" : "text-neutral-mid"
+                    }`}
                   >
                     {item.label}
                     <span className="text-[10px] opacity-60" aria-hidden>
@@ -133,7 +146,10 @@ export default function Navigation() {
                           <Link
                             key={sub.href}
                             href={sub.href}
-                            className="font-lato block px-4 py-2.5 text-sm font-semibold text-neutral-mid no-underline transition hover:bg-neutral-light hover:text-primary"
+                            aria-current={isActive(sub.href) ? "page" : undefined}
+                            className={`font-lato block px-4 py-2.5 text-sm font-semibold no-underline transition hover:bg-neutral-light hover:text-primary ${
+                              isActive(sub.href) ? "bg-neutral-light text-primary" : "text-neutral-mid"
+                            }`}
                           >
                             {sub.label}
                             {sub.badge ? (
@@ -237,7 +253,10 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobile}
-                  className="font-sora border-b border-neutral-light py-5 text-2xl font-bold text-neutral-dark no-underline"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={`font-sora border-b border-neutral-light py-5 text-2xl font-bold no-underline ${
+                    isActive(item.href) ? "text-primary" : "text-neutral-dark"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -246,7 +265,10 @@ export default function Navigation() {
                   <button
                     type="button"
                     onClick={() => setMobileAvgOpen((v) => !v)}
-                    className="font-sora flex w-full items-center justify-between py-4 text-left text-2xl font-bold text-neutral-dark"
+                    aria-expanded={mobileAvgOpen}
+                    className={`font-sora flex min-h-12 w-full items-center justify-between py-4 text-left text-2xl font-bold ${
+                      isDropdownActive(item.items) ? "text-primary" : "text-neutral-dark"
+                    }`}
                   >
                     {item.label}
                     <span className="text-base opacity-50">{mobileAvgOpen ? "▲" : "▼"}</span>
@@ -258,7 +280,10 @@ export default function Navigation() {
                           key={sub.href}
                           href={sub.href}
                           onClick={closeMobile}
-                          className="font-lato text-lg font-semibold text-primary no-underline"
+                          aria-current={isActive(sub.href) ? "page" : undefined}
+                          className={`font-lato flex min-h-12 items-center text-lg font-semibold text-primary no-underline ${
+                            isActive(sub.href) ? "font-bold" : ""
+                          }`}
                         >
                           {sub.label}
                           {sub.badge ? (
