@@ -18,4 +18,4 @@ Languages: Dutch (NL), English (EN), Thai (TH)
 ## Notes
 
 - Primary audience: Dutch SMEs; secondary: Thai entrepreneurs in NL/EU and worldwide.
-- Official service and pricing statements: see https://allesis.nl and https://allesis.nl/llms-full.txt
+- Official service and pricing statements: see https://allesis.nl/llms.txt and https://allesis.nl/llms-full.txt

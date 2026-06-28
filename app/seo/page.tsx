@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Euro, LineChart, Search } from "lucide-react";
+import FaqSection from "@/components/seo/FaqSection";
+import JsonLd from "@/components/seo/JsonLd";
 import CheckMarkList from "@/components/subpage/CheckMarkList";
 import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
+import { SEO_FAQ } from "@/lib/faq-data";
+import { buildFaqPageSchema, buildServiceSchema } from "@/lib/json-ld";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -31,9 +35,19 @@ const checks = [
   "Richtlijnen voor content die ook door AI-systemen wordt begrepen",
 ];
 
+const serviceSchema = buildServiceSchema({
+  id: `${SITE_URL}/seo#service`,
+  name: "SEO & vindbaarheid",
+  description:
+    "Technische SEO, contentstructuur en lokale vindbaarheid voor Google en AI-zoeksystemen.",
+  url: `${SITE_URL}/seo`,
+});
+
 export default function SeoPage() {
   return (
     <>
+      <JsonLd data={[serviceSchema, buildFaqPageSchema(SEO_FAQ)]} />
+
       <SubpageHero
         eyebrow="SEO Haarlem"
         title="SEO die écht iets oplevert"
@@ -89,6 +103,8 @@ export default function SeoPage() {
           </PremiumCard>
         </div>
       </Reveal>
+
+      <FaqSection items={SEO_FAQ} id="seo-faq" />
     </>
   );
 }

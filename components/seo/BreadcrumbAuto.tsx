@@ -10,6 +10,8 @@ const LABELS: Record<string, string> = {
   seo: "SEO",
   avg: "AVG-compliance",
   "avg-check": "AVG-check",
+  "pagespeed-check": "PageSpeed-check",
+  "ai-vindbaarheid-check": "AI-vindbaarheidscheck",
   "avg-regelgeving": "AVG-regelgeving",
   "avg-boetes": "AVG-boetes",
   contact: "Contact",

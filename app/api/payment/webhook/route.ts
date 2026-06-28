@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createMollieClient, type Payment } from "@mollie/api-client";
+import type { Payment } from "@mollie/api-client";
 import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
+import { getMollieClient } from "@/lib/mollie-client";
 
-const mollie = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY! });
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
-const resend = new Resend(process.env.RESEND_API_KEY!);
+function getAnthropicClient() {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  return apiKey ? new Anthropic({ apiKey }) : null;
+}
+
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  return apiKey ? new Resend(apiKey) : null;
+}
 
 // Mollie stuurt id als form-urlencoded body
 export async function POST(req: NextRequest) {
@@ -23,6 +30,12 @@ export async function POST(req: NextRequest) {
   }
 
   // Haal betaling op bij Mollie
+  const mollie = getMollieClient();
+  if (!mollie) {
+    console.error("[webhook] MOLLIE_API_KEY ontbreekt");
+    return new NextResponse("ok", { status: 200 });
+  }
+
   let payment: Payment;
   try {
     payment = await mollie.payments.get(paymentId);
@@ -57,7 +70,12 @@ export async function POST(req: NextRequest) {
   let privacyText = "";
   let snippetText = "";
 
+  const anthropic = getAnthropicClient();
+  const resend = getResendClient();
+
   try {
+    if (!anthropic) throw new Error("ANTHROPIC_API_KEY ontbreekt");
+
     const [privacyRes, snippetRes] = await Promise.all([
       anthropic.messages.create({
         model: "claude-sonnet-4-20250514",
@@ -135,6 +153,8 @@ Geef alleen de instructie terug, geen uitleg eromheen.`,
 </html>`;
 
   try {
+    if (!resend) throw new Error("RESEND_API_KEY ontbreekt");
+
     await resend.emails.send({
       from: "Allesis AVG <noreply@allesis.nl>",
       to: email,

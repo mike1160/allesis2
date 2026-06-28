@@ -22,6 +22,8 @@ const navItems: (NavLink | NavDropdown)[] = [
       { href: "/avg-regelgeving", label: "AVG Regelgeving" },
       { href: "/avg-boetes", label: "AVG Boetes" },
       { href: "/avg-check", label: "AVG Check", badge: "GRATIS" },
+      { href: "/pagespeed-check", label: "PageSpeed Check", badge: "GRATIS" },
+      { href: "/ai-vindbaarheid-check", label: "AI-vindbaarheid", badge: "GRATIS" },
       { href: "/tools/website-monitor", label: "Website Monitor" },
     ],
   },

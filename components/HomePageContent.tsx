@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import CinematicHero from "@/components/CinematicHero";
 import CookieConsent from "@/components/CookieConsent";
 import HomeServiceIconBlock from "@/components/home/HomeServiceIcons";
 
@@ -217,31 +218,6 @@ type Props = {
   renJiTags: string[];
 };
 
-const heroContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.06 },
-  },
-};
-
-const heroItem = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.52, ease: easeOut },
-  },
-};
-
-const heroCard = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.52, ease: easeOut, delay: 0.38 },
-  },
-};
-
 function RevealSection({
   children,
   className,
@@ -271,131 +247,8 @@ export default function HomePageContent({ pakketten, diensten, reviews, renJiTag
     >
       <CookieConsent />
 
-      {/* Sectie 1 — Hero */}
-      <section
-        className="grain-dark flex min-h-[100dvh] flex-col justify-center bg-neutral-dark px-6 pb-28 pt-28 md:px-10 md:pb-32 md:pt-32"
-        style={{ position: "relative", overflow: "hidden", minHeight: "100vh" }}
-      >
-        <motion.div
-          className="absolute inset-0"
-          aria-hidden
-          animate={{ y: [0, -6, 0], scale: [1, 1.012, 1] }}
-          transition={{
-            duration: 5.5,
-            repeat: Infinity,
-            ease: easeOut,
-            repeatType: "mirror",
-          }}
-        >
-          <Image
-            src="/images/allesis-header.webp"
-            alt="Allesis webdesign hero"
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: "right center" }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to right, #0a0f1e 40%, rgba(10,15,30,0.7) 70%, rgba(10,15,30,0.3) 100%)",
-            }}
-          />
-        </motion.div>
-
-        <div
-          className="flex min-h-[100dvh] w-full flex-1 flex-col justify-center"
-          style={{ position: "relative", zIndex: 10 }}
-        >
-          <motion.div
-            className="relative z-[1] mx-auto w-full max-w-6xl"
-            variants={heroContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.h1
-              className="font-sora fu1 max-w-4xl text-[clamp(2.5rem,8vw,6rem)] font-black leading-[1.05] tracking-tight text-white"
-              style={{
-                fontSize: "clamp(2.5rem, 6vw, 5rem)",
-                fontWeight: 900,
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
-              }}
-              variants={heroItem}
-            >
-              Uw nieuwe website. Gevonden. Compliant.
-            </motion.h1>
-            <motion.p
-              className="font-lato fu2 mt-6 max-w-2xl text-xl font-light leading-relaxed text-white/70 md:text-[20px]"
-              style={{
-                fontWeight: 500,
-                maxWidth: "520px",
-                lineHeight: 1.6,
-                opacity: 0.9,
-              }}
-              variants={heroItem}
-            >
-              Allesis bouwt snelle websites voor het MKB — inclusief hosting, SEO en AVG-compliance. Gevestigd in Haarlem.
-            </motion.p>
-            <motion.div
-              className="fu3 mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                maxWidth: "340px",
-              }}
-              variants={heroItem}
-            >
-              <MotionLink
-                href="/contact#offerte"
-                className="font-lato inline-flex min-h-[52px] items-center justify-center rounded-xl bg-accent px-8 text-base font-bold text-neutral-dark transition hover:brightness-95"
-                whileHover={{ scale: 1.05, transition: transitionSnappy }}
-                whileTap={{ scale: 0.98, transition: transitionSnappy }}
-                transition={ctaPulseTransition}
-                animate={{
-                  boxShadow: [
-                    "0 6px 20px -8px rgba(232,255,71,0.14)",
-                    "0 14px 36px -4px rgba(232,255,71,0.32)",
-                    "0 6px 20px -8px rgba(232,255,71,0.14)",
-                  ],
-                }}
-              >
-                Nieuwe website aanvragen
-              </MotionLink>
-              <MotionLink
-                href="/recent-websites"
-                className="font-lato inline-flex min-h-[52px] items-center justify-center rounded-xl border-2 border-white/90 bg-transparent px-8 text-base font-bold text-white transition hover:bg-white/10"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                transition={transitionSnappy}
-              >
-                Bekijk ons werk
-              </MotionLink>
-            </motion.div>
-          </motion.div>
-
-          <motion.a
-            href="https://www.renjitang.nl"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="fu4 font-lato relative z-[1] mt-14 flex max-w-full items-start gap-3 rounded-xl border border-white/15 bg-white/5 p-4 text-sm text-white/90 shadow-lg backdrop-blur-md transition hover:border-accent/50 hover:bg-white/10 sm:max-w-[280px] md:absolute md:right-10 md:bottom-10 md:mt-0"
-            variants={heroCard}
-            initial="hidden"
-            animate="visible"
-          >
-            <span className="text-accent mt-0.5 shrink-0 text-lg" aria-hidden>
-              ↗
-            </span>
-            <span>
-              <span className="block text-xs font-semibold uppercase tracking-wider text-white/50">Laatste project</span>
-              <span className="font-sora mt-1 block font-bold text-white">Ren Ji Tang</span>
-            </span>
-          </motion.a>
-        </div>
-      </section>
+      {/* Sectie 1 — Cinematic hero */}
+      <CinematicHero />
 
       {/* Sectie 2 — Social proof */}
       <RevealSection className="border-b border-black/5 bg-neutral-light px-6 py-10 md:px-10">
@@ -425,9 +278,9 @@ export default function HomePageContent({ pakketten, diensten, reviews, renJiTag
         </div>
       </RevealSection>
 
-      {/* Sectie 3 — Diensten */}
+      {/* Sectie 3 — Diensten (clip-path reveal via CinematicHero + GSAP) */}
       <section className="scroll-mt-20 px-6 py-[120px] md:px-10">
-        <div className="relative mx-auto max-w-6xl">
+        <div id="home-diensten-reveal" className="relative mx-auto max-w-6xl">
           <span
             className="font-sora pointer-events-none absolute -left-2 top-0 hidden text-[120px] font-black leading-none text-neutral-light select-none xl:-left-4 xl:block"
             aria-hidden

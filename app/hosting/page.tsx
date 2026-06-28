@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import HostingOrderForm from "@/components/HostingOrderForm";
+import FaqSection from "@/components/seo/FaqSection";
+import JsonLd from "@/components/seo/JsonLd";
 import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
+import { HOSTING_FAQ } from "@/lib/faq-data";
+import { buildFaqPageSchema, buildServiceSchema } from "@/lib/json-ld";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -20,6 +24,13 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+const serviceSchema = buildServiceSchema({
+  id: `${SITE_URL}/hosting#service`,
+  name: "Webhosting",
+  description: "Snelle Nederlandse webhosting met SSL, e-mail, MySQL en helpdesk voor het MKB.",
+  url: `${SITE_URL}/hosting`,
+});
 
 export default function HostingPage() {
   const pakketten = [
@@ -76,6 +87,8 @@ export default function HostingPage() {
 
   return (
     <>
+      <JsonLd data={[serviceSchema, buildFaqPageSchema(HOSTING_FAQ)]} />
+
       <SubpageHero
         eyebrow="Hosting"
         title="Alles in één pakket"
@@ -83,40 +96,43 @@ export default function HostingPage() {
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
-        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3 md:items-stretch">
-          {pakketten.map((p) => (
-            <PremiumCard key={p.naam} highlighted={!!p.highlight} className={p.highlight ? "md:scale-[1.02] md:shadow-xl" : ""}>
-              {p.highlight ? (
-                <p className="font-lato text-[11px] font-bold uppercase tracking-[0.12em] text-white/70">Meest gekozen</p>
-              ) : null}
-              <h2 className={`font-sora mt-2 text-xl font-bold ${p.highlight ? "text-white" : "text-neutral-dark"}`}>{p.naam}</h2>
-              <div className="mt-4">
-                <span className={`font-sora text-4xl font-extrabold ${p.highlight ? "text-white" : "text-primary"}`}>€ {p.prijs}</span>
-                <span className={`font-lato ml-1 text-sm ${p.highlight ? "text-white/70" : "text-neutral-mid"}`}>/mnd</span>
-              </div>
-              <ul className="mt-8 flex flex-1 flex-col gap-2.5">
-                {p.features.map((f) => (
-                  <li
-                    key={f}
-                    className={`font-lato flex items-start gap-2 text-sm ${p.highlight ? "text-white/90" : "text-neutral-mid"}`}
-                  >
-                    <span className={`mt-0.5 shrink-0 font-bold ${p.highlight ? "text-white" : "text-primary"}`} aria-hidden>
-                      ✓
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`}
-                className={`font-lato mt-8 block min-h-[44px] rounded-xl py-3 text-center text-sm font-bold transition ${
-                  p.highlight ? "bg-white text-primary hover:bg-neutral-light" : "bg-primary text-white hover:bg-primary-dark"
-                }`}
-              >
-                Bestel nu →
-              </Link>
-            </PremiumCard>
-          ))}
+        <div className="mx-auto max-w-6xl">
+          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">Hostingpakketten</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3 md:items-stretch">
+            {pakketten.map((p) => (
+              <PremiumCard key={p.naam} highlighted={!!p.highlight} className={p.highlight ? "md:scale-[1.02] md:shadow-xl" : ""}>
+                {p.highlight ? (
+                  <p className="font-lato text-[11px] font-bold uppercase tracking-[0.12em] text-white/70">Meest gekozen</p>
+                ) : null}
+                <h3 className={`font-sora mt-2 text-xl font-bold ${p.highlight ? "text-white" : "text-neutral-dark"}`}>{p.naam}</h3>
+                <div className="mt-4">
+                  <span className={`font-sora text-4xl font-extrabold ${p.highlight ? "text-white" : "text-primary"}`}>€ {p.prijs}</span>
+                  <span className={`font-lato ml-1 text-sm ${p.highlight ? "text-white/70" : "text-neutral-mid"}`}>/mnd</span>
+                </div>
+                <ul className="mt-8 flex flex-1 flex-col gap-2.5">
+                  {p.features.map((f) => (
+                    <li
+                      key={f}
+                      className={`font-lato flex items-start gap-2 text-sm ${p.highlight ? "text-white/90" : "text-neutral-mid"}`}
+                    >
+                      <span className={`mt-0.5 shrink-0 font-bold ${p.highlight ? "text-white" : "text-primary"}`} aria-hidden>
+                        ✓
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`}
+                  className={`font-lato mt-8 block min-h-[44px] rounded-xl py-3 text-center text-sm font-bold transition ${
+                    p.highlight ? "bg-white text-primary hover:bg-neutral-light" : "bg-primary text-white hover:bg-primary-dark"
+                  }`}
+                >
+                  Bestel nu →
+                </Link>
+              </PremiumCard>
+            ))}
+          </div>
         </div>
 
         <Suspense
@@ -127,6 +143,8 @@ export default function HostingPage() {
           <HostingOrderForm />
         </Suspense>
       </Reveal>
+
+      <FaqSection items={HOSTING_FAQ} id="hosting-faq" />
     </>
   );
 }

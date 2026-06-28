@@ -29,7 +29,10 @@ export default function MonitorCounter() {
   }, []);
 
   useEffect(() => {
-    void loadCount();
+    const frame = requestAnimationFrame(() => {
+      void loadCount();
+    });
+    return () => cancelAnimationFrame(frame);
   }, [loadCount]);
 
   useEffect(() => {

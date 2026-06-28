@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import HomePageContent from "@/components/HomePageContent";
+import FaqSection from "@/components/seo/FaqSection";
+import JsonLd from "@/components/seo/JsonLd";
+import { HOME_FAQ } from "@/lib/faq-data";
+import { buildFaqPageSchema } from "@/lib/json-ld";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -83,6 +87,10 @@ const renJiTags = ["Next.js", "Tailwind CSS", "AVG-compliant", "Online Boeking",
 
 export default function Home() {
   return (
-    <HomePageContent pakketten={pakketten} diensten={diensten} reviews={reviews} renJiTags={renJiTags} />
+    <>
+      <JsonLd data={buildFaqPageSchema(HOME_FAQ)} />
+      <HomePageContent pakketten={pakketten} diensten={diensten} reviews={reviews} renJiTags={renJiTags} />
+      <FaqSection items={HOME_FAQ} id="home-faq" />
+    </>
   );
 }

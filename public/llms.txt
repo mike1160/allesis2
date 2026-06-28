@@ -1,66 +1,38 @@
 # Allesis
 
-> Allesis is een full-service digitaal bureau gevestigd in Haarlem dat MKB-bedrijven helpt met professionele websites, betrouwbare hosting, zoekmachineoptimalisatie en AVG-compliance.
->
-> Allesis is a full-service digital agency based in Haarlem, Netherlands, helping SMEs with professional websites, reliable hosting, SEO and GDPR compliance.
+> Allesis is een digitaal bureau in Haarlem (Nederland) voor het MKB: webdesign, hosting, SEO, AVG-compliance en Thaise web- en taaldiensten.
+
+## Wat Allesis doet
+
+Allesis ontwerpt en bouwt websites, levert Nederlandse hosting, verbetert vindbaarheid in Google en zorgt dat sites voldoen aan de AVG. Het team spreekt Nederlands, Engels en Thai.
+
+## Diensten
+
+- [Webdesign](https://allesis.nl/webdesign): websites op maat voor het MKB, inclusief responsive design, SEO-basis en AVG-inrichting.
+- [Hosting](https://allesis.nl/hosting): Nederlandse webhosting met SSL, e-mail en MySQL; pakketten vanaf €4,95 per maand excl. btw.
+- [SEO](https://allesis.nl/seo): technische SEO, contentstructuur en lokale vindbaarheid voor Google en AI-zoeksystemen.
+- [AVG-compliance](https://allesis.nl/avg): privacy- en cookie-inrichting; instappakket vanaf €69,99 excl. btw.
+- [Thaise webdiensten](https://allesis.nl/thai): websites in Thai, Nederlands en Engels; vertaling en tolkdiensten Thai ↔ Nederlands ↔ Engels.
 
 ## Gratis tools
 
-- [AVG Check](https://allesis.nl/avg-check): Controleer of een website AVG-compliant is.
-- [Website Monitor](https://allesis.nl/tools/website-monitor): Controleer websites op bereikbaarheid, HTTPS, laadtijd, dode links, contactformulieren en donatie-buttons. AI-powered, gratis, met CSV/PDF-export en geschiedenis.
+- [AVG Check](https://allesis.nl/avg-check): gratis scan of een website AVG-compliant is.
+- [PageSpeed Check](https://allesis.nl/pagespeed-check): snelheidsscores, Core Web Vitals (LCP, CLS, INP) en verbeterpunten.
+- [AI-vindbaarheidscheck](https://allesis.nl/ai-vindbaarheid-check): controle op robots.txt, llms.txt en schema markup voor AI-crawlers.
+- [Website Monitor](https://allesis.nl/tools/website-monitor): controle op bereikbaarheid, HTTPS, laadtijd en links.
 
-## Diensten / Services
+## Locatie
 
-### Webdesign
-
-NL: Professionele, op maat gemaakte websites voor MKB.
-EN: Professional, custom-built websites for small and medium businesses.
-
-### Hosting
-
-NL: Snelle en veilige Nederlandse hosting met 99,9% uptime garantie.
-EN: Fast and secure Dutch hosting with 99.9% uptime guarantee.
-
-### SEO
-
-NL: Lokale en nationale zoekmachineoptimalisatie.
-EN: Local and national search engine optimization.
-
-### AVG-compliance
-
-NL: AVG-check en volledige compliance fix vanaf €69,99 ex BTW.
-EN: GDPR audit and full compliance fix from €69.99 excl. VAT.
-
-## Thaise Webdiensten / Thai Web Services / บริการเว็บไซต์ภาษาไทย
-
-### NL
-
-Allesis bouwt professionele websites voor Thaise ondernemers in Nederland en wereldwijd. Wij spreken Nederlands, Engels én Thai. Wij bieden ook vertaal- en tolkdiensten Thai ↔ Nederlands ↔ Engels.
-
-### EN
-
-Allesis builds professional websites for Thai entrepreneurs in the Netherlands and worldwide. We speak Dutch, English and Thai. We also offer translation and interpretation services Thai ↔ Dutch ↔ English.
-
-### TH
-
-Allesis สร้างเว็บไซต์มืออาชีพสำหรับผู้ประกอบการไทยในเนเธอร์แลนด์และทั่วโลก เราพูดภาษาดัตช์ อังกฤษ และไทย เรายังให้บริการแปลและล่ามภาษาไทย ↔ ดัตช์ ↔ อังกฤษ
+Haarlem, Noord-Holland, Nederland. Werkgebied: heel Nederland en internationale klanten.
 
 ## Contact
 
-- Email: info@allesis.nl
+- E-mail: info@allesis.nl
 - Website: https://allesis.nl
-- Location: Haarlem, Noord-Holland, Nederland
+- Contactpagina: https://allesis.nl/contact
+- KvK-nummer: 52339831
 
-## Links
+## Meer context
 
-- Homepage: https://allesis.nl
-- Webdesign: https://allesis.nl/webdesign
-- Hosting: https://allesis.nl/hosting
-- SEO: https://allesis.nl/seo
-- AVG: https://allesis.nl/avg
-- AVG Check (gratis): https://allesis.nl/avg-check
-- Website Monitor (gratis): https://allesis.nl/tools/website-monitor
-- Thaise diensten: https://allesis.nl/thai
-- Contact: https://allesis.nl/contact
+- Uitgebreide documentatie: https://allesis.nl/llms-full.txt
 - Sitemap: https://allesis.nl/sitemap.xml
-- Uitgebreide context: https://allesis.nl/llms-full.txt

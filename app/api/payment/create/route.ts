@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createMollieClient } from "@mollie/api-client";
-
-const mollie = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY! });
+import { getMollieClient } from "@/lib/mollie-client";
 
 const ALLOWED_PLATFORMS = ["WordPress", "Wix", "Squarespace", "Shopify", "Webflow", "Anders"] as const;
 
 export async function POST(req: NextRequest) {
+  const mollie = getMollieClient();
+  if (!mollie) {
+    return NextResponse.json({ error: "Betalingen zijn tijdelijk niet beschikbaar." }, { status: 503 });
+  }
+
   let body: { scanId?: unknown; domain?: unknown; platform?: unknown; email?: unknown };
   try {
     body = await req.json();
@@ -22,7 +25,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "scanId en domain zijn verplicht." }, { status: 400 });
   }
 
-  const resolvedPlatform = ALLOWED_PLATFORMS.includes(platform as typeof ALLOWED_PLATFORMS[number])
+  const resolvedPlatform = ALLOWED_PLATFORMS.includes(platform as (typeof ALLOWED_PLATFORMS)[number])
     ? platform
     : "Anders";
 

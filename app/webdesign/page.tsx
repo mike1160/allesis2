@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
+import FaqSection from "@/components/seo/FaqSection";
+import JsonLd from "@/components/seo/JsonLd";
 import CheckMarkList from "@/components/subpage/CheckMarkList";
 import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
+import { WEBDESIGN_FAQ } from "@/lib/faq-data";
+import { buildFaqPageSchema, buildServiceSchema } from "@/lib/json-ld";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -30,9 +34,19 @@ const watKrijgJe = [
   "Koppeling met Google Analytics / Search Console",
 ];
 
+const serviceSchema = buildServiceSchema({
+  id: `${SITE_URL}/webdesign#service`,
+  name: "Webdesign & nieuwe website",
+  description:
+    "Professioneel webdesign voor het MKB in Haarlem: responsive websites met SEO-basis en AVG-compliance.",
+  url: `${SITE_URL}/webdesign`,
+});
+
 export default function WebdesignPage() {
   return (
     <>
+      <JsonLd data={[serviceSchema, buildFaqPageSchema(WEBDESIGN_FAQ)]} />
+
       <SubpageHero
         eyebrow="Webdesign Haarlem"
         title="Nieuwe website laten maken?"
@@ -83,6 +97,8 @@ export default function WebdesignPage() {
           </PremiumCard>
         </div>
       </Reveal>
+
+      <FaqSection items={WEBDESIGN_FAQ} id="webdesign-faq" />
     </>
   );
 }

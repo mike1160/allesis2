@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FaqSection from "@/components/seo/FaqSection";
+import JsonLd from "@/components/seo/JsonLd";
 import PremiumCard from "@/components/subpage/PremiumCard";
 import CheckMarkList from "@/components/subpage/CheckMarkList";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
+import { AVG_FAQ } from "@/lib/faq-data";
+import { buildFaqPageSchema, buildServiceSchema } from "@/lib/json-ld";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
@@ -28,50 +32,15 @@ const checklist = [
   "Technische tips: analytics, embeds, fonts",
 ];
 
-const faq = [
-  {
-    q: "Is mijn website verplicht AVG-proof?",
-    a: "Verwerkt u persoonsgegevens (formulieren, nieuwsbrief, analytics)? Dan moet u kunnen aantonen dat u voldoet aan de AVG: o.a. informatie aan bezoekers en rechtmatige grondslag.",
-  },
-  {
-    q: "Wat houdt de instap-fix vanaf €69,99 ex btw in?",
-    a: "Een vast pakket met de belangrijkste documenten en instellingen om kleine sites compliant te maken. Grotere sites of maatwerk krijgen een offerte op basis van scan en wensen.",
-  },
-  {
-    q: "Do you offer GDPR fixes for English-only sites?",
-    a: "Yes. We provide GDPR-compliant policies and implementations for Dutch and international audiences; documentation can be delivered in Dutch and/or English.",
-  },
-  {
-    q: "Hoe snel kan ik live met een compliant site?",
-    a: "Vaak binnen enkele werkdagen na akkoord, afhankelijk van uw CMS, analytics en het aantal integraties.",
-  },
-  {
-    q: "Werkt Allesis samen met mijn bestaande webbouwer?",
-    a: "Ja. Wij leveren beleid en concrete aanwijzingen; uw bouwer of wij voeren technische wijzigingen door.",
-  },
-  {
-    q: "What fines apply if I ignore GDPR?",
-    a: "Supervisory authorities can impose significant fines; reputational damage and blocked campaigns are also common risks.",
-  },
-  {
-    q: "Is een gratis AVG-check beschikbaar?",
-    a: "Ja, gebruik onze online AVG-check op allesis.nl/avg-check voor een eerste risicoscan.",
-  },
-  {
-    q: "Maken jullie ook websites in het Thai?",
-    a: "Ja, Allesis bouwt professionele websites in het Thai, Nederlands en Engels voor Thaise ondernemers wereldwijd.",
-  },
-  {
-    q: "Do you make websites for Thai businesses?",
-    a: "Yes, Allesis specializes in websites for Thai entrepreneurs in the Netherlands and worldwide. We speak Thai, Dutch and English.",
-  },
-  {
-    q: "คุณสร้างเว็บไซต์ภาษาไทยได้ไหม?",
-    a: "ได้ Allesis สร้างเว็บไซต์ภาษาไทย ดัตช์ และอังกฤษ สำหรับผู้ประกอบการไทยทั่วโลก",
-  },
-];
+const serviceSchema = buildServiceSchema({
+  id: `${SITE_URL}/avg#service`,
+  name: "AVG-compliance & privacy",
+  description:
+    "AVG-check, privacybeleid, cookiebanner en compliance-trajecten voor websites. Instappakket vanaf €69,99 excl. btw.",
+  url: `${SITE_URL}/avg`,
+});
 
-const offerLd = {
+const offerSchema = {
   "@context": "https://schema.org",
   "@type": "Offer",
   name: "AVG-compliance fix — instappakket",
@@ -80,28 +49,13 @@ const offerLd = {
   priceCurrency: "EUR",
   availability: "https://schema.org/InStock",
   url: `${SITE_URL}/avg`,
-  seller: {
-    "@type": "Organization",
-    name: "Allesis",
-    url: SITE_URL,
-  },
-};
-
-const faqLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
+  seller: { "@id": `${SITE_URL}/#organization` },
 };
 
 export default function AvgLandingPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <JsonLd data={[serviceSchema, offerSchema, buildFaqPageSchema(AVG_FAQ)]} />
 
       <SubpageHero
         eyebrow="AVG / GDPR"
@@ -143,25 +97,13 @@ export default function AvgLandingPage() {
         </div>
       </Reveal>
 
-      <Reveal className="border-t border-neutral-light bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">Veelgestelde vragen</h2>
-          <div className="font-lato mt-10 space-y-6">
-            {faq.map((item) => (
-              <PremiumCard key={item.q} className="!p-6">
-                <p className="font-sora font-bold text-neutral-dark">{item.q}</p>
-                <p className="mt-2 leading-relaxed text-neutral-mid">{item.a}</p>
-              </PremiumCard>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+      <FaqSection items={AVG_FAQ} id="avg-faq" />
 
-      <Reveal className="px-6 py-16 text-center md:px-10">
+      <section className="px-6 py-16 text-center md:px-10">
         <Link href="/avg-check" className="font-lato text-base font-semibold text-primary underline-offset-2 hover:underline">
           Start met de gratis AVG-check →
         </Link>
-      </Reveal>
+      </section>
     </>
   );
 }

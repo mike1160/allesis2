@@ -6,8 +6,10 @@ export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem("cookie-consent");
-    if (!accepted) setVisible(true);
+    const frame = requestAnimationFrame(() => {
+      if (!localStorage.getItem("cookie-consent")) setVisible(true);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const accept = () => {

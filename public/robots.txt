@@ -1,13 +1,22 @@
-# Allesis.nl — Webdesign in NL, EN and TH |
-# Thaise webdiensten en vertaaldiensten
+# Allesis.nl — Webdesign in NL, EN and TH
 # Meer context voor AI-systemen: https://allesis.nl/llms.txt
 
 # ——— Legitieme zoekmachines ———
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: Bingbot
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: Slurp
 Allow: /
@@ -33,24 +42,62 @@ Allow: /
 User-agent: ia_archiver
 Allow: /
 
-# ——— AI-crawlers (toegestaan) ———
+# ——— AI-crawlers (expliciet toegestaan, beschermde paden uitgesloten) ———
 User-agent: GPTBot
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: ChatGPT-User
 Allow: /
-
-User-agent: Claude-Web
-Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /registreren
+Disallow: /dashboard
+Disallow: /admin
 
 User-agent: Amazonbot
 Allow: /
@@ -62,9 +109,6 @@ User-agent: YouBot
 Allow: /
 
 User-agent: CCBot
-Allow: /
-
-User-agent: Google-Extended
 Allow: /
 
 User-agent: Bytespider
@@ -84,22 +128,6 @@ Allow: /
 
 User-agent: Omgilibot
 Allow: /
-
-# ——— Website Monitor (expliciet voor AI & zoekmachines) ———
-User-agent: GPTBot
-Allow: /tools/website-monitor
-
-User-agent: ClaudeBot
-Allow: /tools/website-monitor
-
-User-agent: PerplexityBot
-Allow: /tools/website-monitor
-
-User-agent: Bingbot
-Allow: /tools/website-monitor
-
-User-agent: Googlebot
-Allow: /tools/website-monitor
 
 # ——— Ongewenste / SEO-spam bots ———
 User-agent: AhrefsBot
@@ -123,7 +151,7 @@ Disallow: /
 User-agent: PetalBot
 Disallow: /
 
-# ——— Standaard + crawl-delay (o.a. Bing) ———
+# ——— Standaard ———
 User-agent: *
 Allow: /
 Disallow: /api/
