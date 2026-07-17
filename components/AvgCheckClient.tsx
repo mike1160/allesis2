@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AVGHelpPopup from "@/components/AVGHelpPopup";
+import PageHero from "@/components/PageHero";
 import { PRIVACY_CONSENT_ERROR } from "@/lib/form-consent";
 
 interface CheckResult {
@@ -265,101 +266,96 @@ export default function AvgCheckClient() {
   const checkEntries = result ? (Object.entries(result.checks) as [string, CheckResult][]) : [];
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] pb-20 pt-24">
-      <section className="px-6 py-12 md:px-10 md:py-16">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="font-sora text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-            Is uw website AVG-compliant?
-          </h1>
-          <p className="font-lato mx-auto mt-5 max-w-lg text-lg font-light text-white/70">
-            Vul uw domeinnaam in en ontvang direct een gratis rapport.
+    <div className="min-h-screen bg-gray-50 pb-20">
+      <PageHero
+        eyebrow="Gratis AVG-check"
+        title="Is uw website"
+        titleAccent="AVG-compliant?"
+        description="Vul uw domeinnaam in en ontvang direct een gratis rapport."
+        orchidOpacity={0.2}
+        className="pt-28 md:pt-32"
+      >
+        <form onSubmit={handleScan} className="flex max-w-xl flex-col gap-3">
+          <label htmlFor="avg-domain" className="sr-only">
+            Domeinnaam
+          </label>
+          <input
+            id="avg-domain"
+            type="text"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            placeholder="bijv. uwbedrijf.nl"
+            className="font-lato min-h-[56px] w-full rounded-xl border-2 border-gray-200 bg-white px-5 text-lg text-neutral-dark placeholder:text-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          />
+          <label htmlFor="avg-platform" className="sr-only">
+            Platform
+          </label>
+          <select
+            id="avg-platform"
+            value={platform}
+            onChange={(e) => setPlatform(e.target.value)}
+            className="font-lato min-h-[56px] w-full rounded-xl border-2 border-gray-200 bg-white px-5 text-lg text-neutral-dark outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          >
+            <option value="">Platform (optioneel)</option>
+            <option value="WordPress">WordPress</option>
+            <option value="Wix">Wix</option>
+            <option value="Squarespace">Squarespace</option>
+            <option value="Shopify">Shopify</option>
+            <option value="Webflow">Webflow</option>
+            <option value="Anders">Anders</option>
+          </select>
+          <button
+            type="submit"
+            disabled={loading || !domain.trim()}
+            className="font-lato min-h-[56px] w-full rounded-xl bg-primary px-8 text-lg font-bold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Controleer nu →
+          </button>
+        </form>
+
+        {loading ? (
+          <p className="font-lato mt-8 text-lg text-gray-500" aria-live="polite">
+            {LOADING_STEPS[loadingStepIndex]}
           </p>
+        ) : null}
 
-          <form onSubmit={handleScan} className="mx-auto mt-10 flex max-w-xl flex-col gap-3">
-            <label htmlFor="avg-domain" className="sr-only">
-              Domeinnaam
-            </label>
-            <input
-              id="avg-domain"
-              type="text"
-              value={domain}
-              onChange={(e) => setDomain(e.target.value)}
-              placeholder="bijv. uwbedrijf.nl"
-              className="font-lato min-h-[56px] w-full rounded-xl border-2 border-white/10 bg-white/5 px-5 text-lg text-white placeholder:text-white/40 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
-            />
-            <label htmlFor="avg-platform" className="sr-only">
-              Platform
-            </label>
-            <select
-              id="avg-platform"
-              value={platform}
-              onChange={(e) => setPlatform(e.target.value)}
-              className="font-lato min-h-[56px] w-full rounded-xl border-2 border-white/10 bg-white/5 px-5 text-lg text-white outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
-            >
-              <option value="">Platform (optioneel)</option>
-              <option value="WordPress">WordPress</option>
-              <option value="Wix">Wix</option>
-              <option value="Squarespace">Squarespace</option>
-              <option value="Shopify">Shopify</option>
-              <option value="Webflow">Webflow</option>
-              <option value="Anders">Anders</option>
-            </select>
-            <button
-              type="submit"
-              disabled={loading || !domain.trim()}
-              className="font-lato min-h-[56px] w-full rounded-xl bg-accent px-8 text-lg font-bold text-[#0a0f1e] transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Controleer nu →
-            </button>
-          </form>
-
-          {loading ? (
-            <p className="font-lato mt-10 text-center text-lg text-white/80" aria-live="polite">
-              {LOADING_STEPS[loadingStepIndex]}
+        {error ? (
+          <div className="font-lato mt-8 max-w-xl rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700" role="alert">
+            <p>{error}</p>
+            {error === NETWORK_ERROR ? (
+              <button
+                type="button"
+                onClick={() => void performScan()}
+                className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-red-100 px-4 font-semibold text-red-800 underline-offset-2 hover:underline"
+              >
+                Opnieuw proberen
+              </button>
+            ) : null}
+            <p className="mt-3 text-sm text-red-600">
+              Hulp nodig?{" "}
+              <a href="mailto:support@allesis.nl" className="font-semibold underline">
+                support@allesis.nl
+              </a>
             </p>
-          ) : null}
-
-          {error ? (
-            <div
-              className="font-lato mt-8 rounded-xl bg-red-500/15 px-4 py-3 text-red-200"
-              role="alert"
-            >
-              <p>{error}</p>
-              {error === NETWORK_ERROR ? (
-                <button
-                  type="button"
-                  onClick={() => void performScan()}
-                  className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-red-400/20 px-4 font-semibold text-red-100 underline-offset-2 hover:underline"
-                >
-                  Opnieuw proberen
-                </button>
-              ) : null}
-              <p className="mt-3 text-sm text-red-200/90">
-                Hulp nodig?{" "}
-                <a href="mailto:support@allesis.nl" className="font-semibold text-red-100 underline">
-                  support@allesis.nl
-                </a>
-              </p>
-            </div>
-          ) : null}
-        </div>
-      </section>
+          </div>
+        ) : null}
+      </PageHero>
 
       {result ? (
-        <section className="border-t border-white/10 bg-[#0a0f1e] px-6 py-12 md:px-10 md:py-16">
+        <section className="border-t border-gray-200 bg-white px-6 py-12 md:px-10 md:py-16">
           <div className="mx-auto max-w-3xl">
             <div className="flex flex-col items-center gap-6 text-center">
               <div
-                className="font-sora flex h-40 w-40 items-center justify-center rounded-full border-4 text-4xl font-black text-white"
+                className="font-sora flex h-40 w-40 items-center justify-center rounded-full border-4 text-4xl font-black text-neutral-dark"
                 style={{ borderColor: scoreColor }}
               >
                 {displayedScore}
               </div>
-              <p className="font-lato text-lg text-white/70">
-                Score voor <span className="font-semibold text-white">{result.domain}</span>
+              <p className="font-lato text-lg text-gray-500">
+                Score voor <span className="font-semibold text-neutral-dark">{result.domain}</span>
               </p>
-              <p className="font-sora text-xl font-bold text-white">{riskBadge[result.riskLevel]}</p>
-              <p className="font-lato text-sm text-white/50">
+              <p className="font-sora text-xl font-bold text-neutral-dark">{riskBadge[result.riskLevel]}</p>
+              <p className="font-lato text-sm text-gray-400">
                 Rapport gegenereerd: {new Date(result.generatedAt).toLocaleString("nl-NL")}
               </p>
             </div>
@@ -369,7 +365,7 @@ export default function AvgCheckClient() {
                 <li
                   key={key}
                   className={`font-lato rounded-2xl border-2 p-5 text-left ${
-                    check.ok ? "border-green-500/30 bg-green-500/10" : "border-amber-500/35 bg-amber-500/10"
+                    check.ok ? "border-green-200 bg-green-50" : "border-amber-200 bg-amber-50"
                   }`}
                 >
                   <div className="flex items-start gap-3">
@@ -377,8 +373,8 @@ export default function AvgCheckClient() {
                       {check.ok ? "✅" : "❌"}
                     </span>
                     <div>
-                      <p className="font-sora font-bold text-white">{check.label}</p>
-                      <p className="mt-2 text-base leading-relaxed text-white/75">{check.detail}</p>
+                      <p className="font-sora font-bold text-neutral-dark">{check.label}</p>
+                      <p className="mt-2 text-base leading-relaxed text-gray-600">{check.detail}</p>
                     </div>
                   </div>
                 </li>
@@ -395,7 +391,7 @@ export default function AvgCheckClient() {
                     value={contactEmail}
                     onChange={(e) => setContactEmail(e.target.value)}
                     placeholder="Uw e-mailadres voor de documenten"
-                    className="font-lato w-full rounded-xl border-2 border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
+                    className="font-lato w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
                   />
                   <button
                     type="button"
@@ -405,10 +401,8 @@ export default function AvgCheckClient() {
                   >
                     {paymentLoading ? "Bezig…" : "Fix mijn website voor €79 →"}
                   </button>
-                  {paymentError ? <p className="text-sm text-red-300">{paymentError}</p> : null}
-                  <p className="text-xs text-white/50">
-                    Betalen via iDEAL · Binnen 10 minuten uw documenten per mail
-                  </p>
+                  {paymentError ? <p className="text-sm text-red-200">{paymentError}</p> : null}
+                  <p className="text-xs text-white/70">Betalen via iDEAL · Binnen 10 minuten uw documenten per mail</p>
                 </div>
               </div>
             ) : (
@@ -428,7 +422,7 @@ export default function AvgCheckClient() {
               <button
                 type="button"
                 onClick={() => setResult(null)}
-                className="font-lato min-h-[48px] rounded-xl border-2 border-white/20 bg-white/5 px-6 font-semibold text-white transition hover:border-white/35 hover:bg-white/10"
+                className="font-lato min-h-[48px] rounded-xl border-2 border-gray-200 bg-white px-6 font-semibold text-neutral-dark transition hover:border-primary hover:text-primary"
               >
                 Scan een andere website
               </button>

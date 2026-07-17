@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 function Fallback() {
   return (
-    <div className="font-lato flex min-h-screen items-center justify-center bg-[#0a0f1e] pt-24 text-white/80">
+    <div className="font-lato flex min-h-screen items-center justify-center bg-gray-50 pt-24 text-gray-500">
       Laden…
     </div>
   );

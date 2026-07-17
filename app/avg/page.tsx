@@ -59,18 +59,19 @@ export default function AvgLandingPage() {
 
       <SubpageHero
         eyebrow="AVG / GDPR"
-        title="Is uw website AVG-compliant?"
+        title="Is uw website"
+        titleAccent="AVG-compliant?"
         subtitle={
           <>
-            <p className="text-white/75">
+            <p>
               Wij controleren uw website en lossen de belangrijkste privacy- en cookieproblemen op — helder en uitvoerbaar.
             </p>
-            <p className="font-lato mx-auto mt-6 max-w-xl rounded-xl border border-white/15 bg-white/10 px-5 py-4 text-lg font-bold text-white backdrop-blur-sm">
-              Vanaf €69,99 ex btw · <span className="font-semibold text-white/85">From €69.99 excl. VAT</span>
+            <p className="font-lato mt-6 max-w-xl rounded-xl border border-primary/15 bg-primary/5 px-5 py-4 text-lg font-bold text-neutral-dark">
+              Vanaf €69,99 ex btw · <span className="font-semibold text-neutral-mid">From €69.99 excl. VAT</span>
             </p>
             <Link
               href="/contact#offerte"
-              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-10 text-base font-bold text-primary transition hover:bg-neutral-light"
+              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 text-base font-bold text-white transition hover:bg-primary-dark"
             >
               Offerte aanvragen
             </Link>

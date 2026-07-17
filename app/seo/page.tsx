@@ -50,13 +50,15 @@ export default function SeoPage() {
 
       <SubpageHero
         eyebrow="SEO Haarlem"
-        title="SEO die écht iets oplevert"
+        title="SEO die écht"
+        titleAccent="iets oplevert"
         subtitle={
           <>
-            <p className="text-white/75">
-              Geen trucjes, maar een solide strategie: uw site snel, duidelijk voor bezoekers én goed vindbaar — lokaal en landelijk.
+            <p>
+              Geen trucjes, maar een solide strategie: uw site snel, duidelijk voor bezoekers én goed vindbaar — lokaal en
+              landelijk.
             </p>
-            <p lang="en" className="mt-4 text-base leading-relaxed text-white/55">
+            <p lang="en" className="mt-4 text-base leading-relaxed text-gray-400">
               Search engine optimization that connects your services with the right customers — locally and nationally.
             </p>
           </>

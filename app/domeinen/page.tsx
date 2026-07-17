@@ -36,8 +36,8 @@ export default function DomeinenPage() {
         title="Is uw domeinnaam nog vrij?"
         subtitle="Controleer direct de beschikbaarheid van .nl, .com, .net, .eu, .org en .be tegelijk."
       >
-        <div className="mx-auto mt-10 max-w-xl">
-          <DomainChecker forDarkBackground />
+        <div className="mt-2 max-w-xl">
+          <DomainChecker />
         </div>
       </SubpageHero>
 

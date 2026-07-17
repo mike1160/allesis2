@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
+import FeatureGrid from "@/components/FeatureGrid";
 import FaqSection from "@/components/seo/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
-import CheckMarkList from "@/components/subpage/CheckMarkList";
 import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
@@ -25,13 +25,43 @@ export const metadata: Metadata = {
   },
 };
 
-const watKrijgJe = [
-  "Professioneel design op maat",
-  "Mobielvriendelijk (responsive)",
-  "SEO-geoptimaliseerd vanaf dag één",
-  "AVG-compliant — privacybeleid, cookiebanner, verwerkersregister",
-  "SSL-certificaat inbegrepen",
-  "Koppeling met Google Analytics / Search Console",
+const watKrijgJeFeatures = [
+  {
+    icon: "🎨",
+    titel: "Professioneel design op maat",
+    beschrijving: "Geen templates. Elk ontwerp is uniek en afgestemd op uw merk.",
+    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+  },
+  {
+    icon: "📱",
+    titel: "Mobielvriendelijk",
+    beschrijving: "Perfect op telefoon, tablet én desktop. Altijd.",
+    foto: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+  },
+  {
+    icon: "🔍",
+    titel: "SEO vanaf dag één",
+    beschrijving: "Gevonden worden in Google vanaf het moment van lancering.",
+    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80",
+  },
+  {
+    icon: "🔒",
+    titel: "AVG-compliant",
+    beschrijving: "Privacybeleid, cookiebanner en verwerkersregister standaard inbegrepen.",
+    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80",
+  },
+  {
+    icon: "⚡",
+    titel: "Razendsnel",
+    beschrijving: "Next.js geeft PageSpeed scores boven de 95. Geen trage laadtijden.",
+    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+  },
+  {
+    icon: "🛠️",
+    titel: "Helpdesk & onderhoud",
+    beschrijving: "Na oplevering staan wij klaar voor updates, vragen en kleine aanpassingen.",
+    foto: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+  },
 ];
 
 const serviceSchema = buildServiceSchema({
@@ -50,17 +80,14 @@ export default function WebdesignPage() {
       <SubpageHero
         eyebrow="Webdesign Haarlem"
         title="Nieuwe website laten maken?"
-        subtitle="Wij bouwen snelle, moderne websites voor het MKB — inclusief SEO, hosting en AVG-compliant privacybeleid."
+        subtitle="Allesis bouwt snelle, moderne websites voor het MKB — inclusief SEO, hosting en AVG-compliant privacybeleid."
       />
 
-      <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">Wat krijg je?</h2>
-          <PremiumCard className="mt-10">
-            <CheckMarkList items={watKrijgJe} />
-          </PremiumCard>
-        </div>
-      </Reveal>
+      <FeatureGrid
+        titel="Wat krijgt u bij Allesis?"
+        gradient="from-blue-900/90 via-blue-900/50 to-transparent"
+        features={watKrijgJeFeatures}
+      />
 
       <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl">

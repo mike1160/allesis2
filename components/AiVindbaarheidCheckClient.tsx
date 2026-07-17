@@ -94,7 +94,9 @@ export default function AiVindbaarheidCheckClient() {
 
   return (
     <FreeToolShell
-      title="Gratis AI-vindbaarheidscheck"
+      eyebrow="Gratis AI-check"
+      title="Wordt u gevonden"
+      titleAccent="door AI?"
       subtitle="Controleer of uw site toegankelijk is voor AI-crawlers (ChatGPT, Claude, Perplexity, Google AI) — direct resultaat, geen registratie."
       domain={domain}
       onDomainChange={setDomain}
@@ -111,15 +113,15 @@ export default function AiVindbaarheidCheckClient() {
         <ToolReportSection onReset={() => setResult(null)}>
           <div className="flex flex-col items-center gap-4 text-center">
             <div
-              className="font-sora flex h-36 w-36 items-center justify-center rounded-full border-4 text-4xl font-black text-white"
+              className="font-sora flex h-36 w-36 items-center justify-center rounded-full border-4 text-4xl font-black text-neutral-dark"
               style={{ borderColor: scoreColor(result.score) }}
             >
               {displayedScore}%
             </div>
-            <p className="font-lato text-lg text-white/70">
-              AI-vindbaarheid voor <span className="font-semibold text-white">{result.domain}</span>
+            <p className="font-lato text-lg text-gray-500">
+              AI-vindbaarheid voor <span className="font-semibold text-neutral-dark">{result.domain}</span>
             </p>
-            <p className="font-lato text-sm text-white/45">
+            <p className="font-lato text-sm text-gray-400">
               {result.checks.filter((c) => c.ok).length} van {result.checks.length} checks geslaagd ·{" "}
               {new Date(result.generatedAt).toLocaleString("nl-NL")}
             </p>
@@ -130,7 +132,7 @@ export default function AiVindbaarheidCheckClient() {
               <li
                 key={check.id}
                 className={`font-lato rounded-2xl border-2 p-5 text-left ${
-                  check.ok ? "border-green-500/30 bg-green-500/10" : "border-red-500/35 bg-red-500/10"
+                  check.ok ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -138,18 +140,18 @@ export default function AiVindbaarheidCheckClient() {
                     {check.ok ? "✅" : "❌"}
                   </span>
                   <div>
-                    <p className="font-sora font-bold text-white">{check.label}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/60">
-                      <span className="font-semibold text-white/75">Waarom belangrijk: </span>
+                    <p className="font-sora font-bold text-neutral-dark">{check.label}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                      <span className="font-semibold text-gray-700">Waarom belangrijk: </span>
                       {check.why}
                     </p>
                     {!check.ok ? (
-                      <p className="mt-3 text-base leading-relaxed text-white/80">
-                        <span className="font-semibold text-white">Actie: </span>
+                      <p className="mt-3 text-base leading-relaxed text-gray-700">
+                        <span className="font-semibold text-neutral-dark">Actie: </span>
                         {check.advice}
                       </p>
                     ) : (
-                      <p className="mt-3 text-sm leading-relaxed text-white/65">{check.advice}</p>
+                      <p className="mt-3 text-sm leading-relaxed text-gray-600">{check.advice}</p>
                     )}
                   </div>
                 </div>

@@ -46,6 +46,19 @@ export const SITEMAP_PRIORITY: Record<
   "/avg-boetes": { priority: 0.7, changeFrequency: "monthly" },
   "/dienstverlening": { priority: 0.6, changeFrequency: "monthly" },
   "/disclaimer": { priority: 0.5, changeFrequency: "yearly" },
+  "/voorwaarden": { priority: 0.5, changeFrequency: "yearly" },
+  "/gratis-website": { priority: 0.9, changeFrequency: "weekly" },
+  "/horeca": { priority: 0.8, changeFrequency: "monthly" },
+  "/beauty": { priority: 0.8, changeFrequency: "monthly" },
+  "/bouw": { priority: 0.8, changeFrequency: "monthly" },
+  "/zorg": { priority: 0.8, changeFrequency: "monthly" },
+  "/zzp": { priority: 0.8, changeFrequency: "monthly" },
+  "/non-profit": { priority: 0.8, changeFrequency: "monthly" },
+  "/webshop": { priority: 0.8, changeFrequency: "monthly" },
+  "/tandarts": { priority: 0.8, changeFrequency: "monthly" },
+  "/vastgoed": { priority: 0.8, changeFrequency: "monthly" },
+  "/sport": { priority: 0.8, changeFrequency: "monthly" },
+  "/advocaat": { priority: 0.8, changeFrequency: "monthly" },
 };
 
 export const SITEMAP_EXCLUDE_PATHS = new Set([

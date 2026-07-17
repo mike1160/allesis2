@@ -52,12 +52,11 @@ export default function DisclaimerPage() {
     <>
       <SubpageHero
         eyebrow="Juridisch"
-        title="Disclaimer & privacybeleid"
-        subtitle={
-          <p className="text-sm text-white/55">
-            Laatste update: {new Date().toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}
-          </p>
-        }
+        title="Disclaimer &"
+        titleAccent="privacybeleid"
+        subtitle={`Laatste update: ${new Date().toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" })}`}
+        orchidOpacity={0.15}
+        tint="rgba(255,255,255,0)"
       />
 
       <Reveal className="bg-neutral-light/40 px-6 py-16 md:px-10 md:py-20">

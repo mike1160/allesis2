@@ -20,6 +20,11 @@
   --neutral-mid: #4a5568;
   --neutral-light: #f7f8fc;
   --white: #ffffff;
+
+  /* Extra brand accents (naast bestaand palet, geen vervanging) */
+  --lime: #c8ff00;
+  --orchid: #c2449f;
+  --ssf-orange: #e85d26;
 }
 
 @theme {
@@ -29,6 +34,9 @@
   --color-neutral-dark: #0a0f1e;
   --color-neutral-mid: #4a5568;
   --color-neutral-light: #f7f8fc;
+  --color-lime: #c8ff00;
+  --color-orchid: #c2449f;
+  --color-ssf-orange: #e85d26;
   --font-sora: "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-lato: "Lato", ui-sans-serif, system-ui, sans-serif;
 }
@@ -48,6 +56,40 @@ body {
 }
 .font-lato {
   font-family: var(--font-lato), "Lato", sans-serif;
+}
+
+/* Homepagehero: orchidee + overlay. Base styles zitten in de component;
+   hier alleen desktop-verfijning (horizontale fade + position). */
+@media (min-width: 769px) {
+  .hero-orchid {
+    background-position: right center !important;
+  }
+
+  .hero-fade {
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 255, 255, 0.55) 42%,
+      rgba(255, 255, 255, 0.2) 100%
+    ) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hero-copy blijft donker en zonder text-shadow. */
+  .hero-content h1,
+  .hero-content p {
+    color: #0f172a;
+    text-shadow: none;
+  }
+
+  /* De voorwaardenvoetnoot krijgt extra contrast boven de foto. */
+  .hero-content .hero-disclaimer {
+    padding: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #334155;
+  }
 }
 
 @keyframes fadeUp {
@@ -269,4 +311,10 @@ body {
 
 .main-nav-drawer.is-open {
   transform: translateX(0);
+}
+
+/* Zorg dat geen enkele pagina-hero meer donker navy is */
+.page-hero-dark {
+  /* DEPRECATED — gebruik PageHero component */
+  display: none !important;
 }

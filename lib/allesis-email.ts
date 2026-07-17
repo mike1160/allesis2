@@ -197,6 +197,75 @@ function businessHostingOrderNotificationText(payload: {
   ].join("\n");
 }
 
+function businessGratisWebsiteNotificationText(payload: {
+  naam: string;
+  email: string;
+  bedrijf: string;
+  branche: string;
+  domein?: string;
+  beschrijving: string;
+  nieuwsbrief?: boolean;
+}): string {
+  return [
+    "Nieuwe gratis one-pager aanvraag",
+    "",
+    plainRow("Pakket", "🐾 Gratis one-pager"),
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Bedrijf", payload.bedrijf),
+    plainRow("Branche", payload.branche),
+    plainRow("Domein", payload.domein?.trim() || "—"),
+    plainRow("SSF-link + branding", "Akkoord"),
+    plainRow("Nieuwsbrief", payload.nieuwsbrief ? "Ja" : "Nee"),
+    "",
+    "Beschrijving:",
+    "",
+    payload.beschrijving,
+    "",
+    plainDivider(),
+  ].join("\n");
+}
+
+function gratisWebsiteCustomerConfirmationText(payload: { naam: string; bedrijf: string; branche: string }): string {
+  return [
+    `Beste ${payload.naam},`,
+    "",
+    "Bedankt! Wij hebben uw aanvraag voor een gratis one-pager ontvangen.",
+    "We nemen binnen één werkdag contact met u op.",
+    "",
+    plainRow("Bedrijf", payload.bedrijf),
+    plainRow("Branche", payload.branche),
+    plainRow("Pakket", "🐾 Gratis one-pager"),
+    "",
+    "Op uw website komt een donatie-link naar Saved Souls Foundation en Allesis-branding in de footer.",
+    "",
+    "— Allesis · info@allesis.nl · Haarlem",
+  ].join("\n");
+}
+
+function gratisWebsiteCustomerConfirmationHtml(payload: { naam: string; bedrijf: string; branche: string }): string {
+  const inner = `
+    <p style="margin:0 0 16px;color:#374151;line-height:1.7;">Beste ${escapeHtml(payload.naam)},</p>
+    <p style="margin:0 0 16px;color:#374151;line-height:1.7;">
+      Bedankt! Wij hebben uw aanvraag voor een <strong>gratis one-pager</strong> ontvangen.
+      We nemen binnen één werkdag contact met u op.
+    </p>
+    ${tableHtml([
+      { label: "Bedrijf", value: payload.bedrijf },
+      { label: "Branche", value: payload.branche },
+      { label: "Pakket", value: "🐾 Gratis one-pager" },
+    ])}
+    <div style="margin:20px 0;padding:16px;background:#FFF8F0;border:1px solid #FED7AA;border-radius:8px;">
+      <p style="margin:0;color:#92400E;font-size:14px;line-height:1.6;">
+        🐾 Op uw website komt een donatie-link naar
+        <a href="https://www.savedsouls-foundation.org/nl" style="color:#E85D26;font-weight:700;">Saved Souls Foundation</a>
+        en Allesis-branding in de footer.
+      </p>
+    </div>
+  `;
+  return wrapEmail(inner, "Aanvraag ontvangen");
+}
+
 function businessAvgPopupNotificationText(payload: {
   naam: string;
   email: string;
@@ -424,6 +493,16 @@ export type AllesisEmailPayload =
       nieuwsbrief?: boolean;
     }
   | {
+      type: "gratis_website";
+      naam: string;
+      email: string;
+      bedrijf: string;
+      branche: string;
+      domein?: string;
+      beschrijving: string;
+      nieuwsbrief?: boolean;
+    }
+  | {
       type: "avg_popup";
       naam: string;
       email: string;
@@ -521,6 +600,25 @@ export async function sendAllesisEmail(
       text = businessHostingOrderNotificationText(payload);
       break;
     }
+    case "gratis_website": {
+      replyTo = payload.email;
+      subject = `Gratis one-pager — ${payload.bedrijf} (${payload.branche})`;
+      const inner = tableHtml([
+        { label: "Pakket", value: "🐾 Gratis one-pager" },
+        { label: "Naam", value: payload.naam },
+        { label: "E-mail", value: payload.email },
+        { label: "Bedrijf", value: payload.bedrijf },
+        { label: "Branche", value: payload.branche },
+        { label: "Domein", value: payload.domein || "—" },
+        { label: "Beschrijving", value: payload.beschrijving },
+        { label: "SSF-link + branding", value: "Akkoord" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+        { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
+      ]);
+      html = wrapEmail(inner, "Nieuwe gratis one-pager aanvraag");
+      text = businessGratisWebsiteNotificationText(payload);
+      break;
+    }
     default:
       return { ok: false, message: "Onbekend berichttype." };
   }
@@ -540,7 +638,7 @@ export async function sendAllesisEmail(
    * Klantbevestiging vóór `businessSend.data?.id`-check, zodat een tweede Resend-call ook bij
    * contact/offerte wordt geprobeerd. Succes bedrijfsmail: `businessSend.data?.id`.
    */
-  if (payload.type === "contact" || payload.type === "offerte") {
+  if (payload.type === "contact" || payload.type === "offerte" || payload.type === "gratis_website") {
     const customerEmail = payload.email.trim();
     console.log("[debug] sending to customer:", { type: payload.type, customerEmail });
 
@@ -555,10 +653,14 @@ export async function sendAllesisEmail(
         confirmHtml = contactCustomerConfirmationHtml(payload);
         confirmText = contactCustomerConfirmationText(payload);
         confirmSubject = "Bevestiging: we hebben uw bericht ontvangen — Allesis";
-      } else {
+      } else if (payload.type === "offerte") {
         confirmHtml = offerteCustomerConfirmationHtml(payload);
         confirmText = offerteCustomerConfirmationText(payload);
         confirmSubject = "Bedankt voor uw offerteaanvraag — Allesis.nl";
+      } else {
+        confirmHtml = gratisWebsiteCustomerConfirmationHtml(payload);
+        confirmText = gratisWebsiteCustomerConfirmationText(payload);
+        confirmSubject = "Uw gratis website-aanvraag is ontvangen — Allesis";
       }
 
       try {

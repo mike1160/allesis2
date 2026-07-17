@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Globe2, Languages, Sparkles } from "lucide-react";
-import PremiumCard from "@/components/subpage/PremiumCard";
+import BrancheCTA from "@/components/BrancheCTA";
+import FeatureGrid from "@/components/FeatureGrid";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
 import TriLingualFaqItem from "@/components/subpage/TriLingualFaqItem";
@@ -21,6 +21,49 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+const thaiFeatures = [
+  {
+    icon: "🌐",
+    titel: "Websites voor Thaise ondernemers",
+    beschrijving:
+      "Restaurants, wellness, retail en ZZP: snelle sites in Thai, Nederlands én Engels — met oog voor cultuur en conversie.",
+    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+  },
+  {
+    icon: "🗣️",
+    titel: "Vertaal- en tolkdiensten",
+    beschrijving: "Documenten, websites, vergaderingen en persoonlijke trajecten — Thai ↔ Nederlands ↔ Engels.",
+    foto: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+  },
+  {
+    icon: "⭐",
+    titel: "Waarom Allesis?",
+    beschrijving:
+      "Lokaal in Haarlem, persoonlijk contact, technische kwaliteit en AVG-bewuste oplevering. Wij begrijpen beide culturen.",
+    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+  },
+  {
+    icon: "🇹🇭",
+    titel: "Thai webdesign",
+    beschrijving:
+      "Snelle websites met ondersteuning voor Thai, Nederlands én Engels — afgestemd op uw doelgroep.",
+    foto: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=800&q=80",
+  },
+  {
+    icon: "📄",
+    titel: "Documentvertaling",
+    beschrijving: "Officiële documenten, contracten, certificaten — professioneel vertaald Thai ↔ NL ↔ EN.",
+    foto: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+  },
+  {
+    icon: "🤝",
+    titel: "Culturele brugfunctie",
+    beschrijving:
+      "Meer dan vertalen — wij begrijpen de nuances van beide culturen en communiceren dat in uw website.",
+    foto: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80",
+  },
+];
 
 const faqTri = [
   {
@@ -49,88 +92,47 @@ const faqTri = [
   },
 ];
 
-const cards = [
-  {
-    icon: Globe2,
-    title: "Websites voor Thaise ondernemers",
-    nl: "Restaurants, wellness, retail en ZZP: wij bouwen snelle sites die in Thai, Nederlands en Engels kunnen — met oog voor cultuur en conversie.",
-    en: "Restaurants, wellness, shops and freelancers: fast sites in Thai, Dutch and English — culturally aware.",
-    th: "ร้านอาหาร สปา ร้านค้า และฟรีแลนซ์: เว็บไซต์เร็ว รองรับไทย ดัตช์ และอังกฤษ",
-  },
-  {
-    icon: Languages,
-    title: "Vertaal- en tolkdiensten",
-    nl: "Documenten, websites, vergaderingen en persoonlijke trajecten — Thai ↔ Nederlands ↔ Engels.",
-    en: "Documents, websites, meetings and personal matters — Thai ↔ Dutch ↔ English.",
-    th: "เอกสาร เว็บไซต์ ประชุม และงานส่วนตัว — ไทย ↔ ดัตช์ ↔ อังกฤษ",
-  },
-  {
-    icon: Sparkles,
-    title: "Waarom Allesis",
-    nl: "Lokaal in Haarlem, persoonlijk contact, technische kwaliteit (o.a. Next.js) en AVG-bewuste oplevering.",
-    en: "Haarlem-based, personal service, solid tech stack and GDPR-aware delivery.",
-    th: "ทีมใน Haarlem บริการเป็นกันเอง เทคโนโลยีทันสมัย และคำนึงถึง GDPR",
-  },
-];
-
 export default function ThaiServicesPage() {
   return (
     <>
       <SubpageHero
         eyebrow="Thaise web- & taaldiensten"
-        title="Thaise websites en vertaaldiensten"
+        title="Thaise websites en"
+        titleAccent="vertaaldiensten"
         subtitle={
           <>
-            <p className="text-white/80">Thai websites and translation services</p>
-            <p className="mt-3 text-xl font-medium text-white/90" lang="th">
-              เว็บไซต์และบริการแปลภาษาไทย
-            </p>
-            <p className="font-lato mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
+            <p className="font-lato max-w-xl text-lg leading-relaxed text-gray-500">
               Allesis is de schakel tussen Nederlandse en Thaise ondernemers — web, taal en cultuur in één team.
+            </p>
+            <p className="mt-2 text-sm text-gray-500">Thai websites and translation services</p>
+            <p className="text-sm text-gray-400" lang="th">
+              เว็บไซต์และบริการแปลภาษาไทย
             </p>
           </>
         }
       />
 
-      <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
-        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
-          {cards.map((c) => (
-            <PremiumCard key={c.title}>
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <c.icon className="h-6 w-6" strokeWidth={1.75} aria-hidden />
-              </div>
-              <h2 className="font-sora text-lg font-bold text-primary">{c.title}</h2>
-              <p className="font-lato mt-3 text-sm leading-relaxed text-neutral-dark" lang="nl">
-                {c.nl}
-              </p>
-              <p className="font-lato mt-4 text-sm leading-relaxed text-neutral-mid" lang="en">
-                {c.en}
-              </p>
-              <p className="font-lato mt-4 text-sm leading-relaxed text-[#0f172a]" lang="th">
-                {c.th}
-              </p>
-            </PremiumCard>
-          ))}
-        </div>
-      </Reveal>
+      <FeatureGrid
+        titel="Wat bieden wij aan?"
+        gradient="from-red-900/90 via-red-900/50 to-transparent"
+        features={thaiFeatures}
+      />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-sora text-2xl font-bold text-neutral-dark md:text-3xl">Prijzen / Pricing / ราคา</h2>
-          <p className="font-lato mt-4 text-neutral-mid" lang="nl">
+          <h2 className="font-sora text-2xl font-bold text-neutral-dark md:text-3xl">Prijzen</h2>
+          <p className="font-lato mt-4 text-neutral-mid">
             Maatwerk — offerte op aanvraag. Vertaling en tolken per uur of per project afgestemd op complexiteit.
           </p>
-          <p className="font-lato mt-2 text-neutral-mid" lang="en">
-            Custom quotes. Translation and interpretation billed per hour or per project.
-          </p>
-          <p className="font-lato mt-2 text-[#0f172a]" lang="th">
+          <p className="mt-2 text-sm text-gray-500">Custom quotes — translation and interpretation per hour or per project.</p>
+          <p className="text-sm text-gray-400" lang="th">
             ราคาตามโปรเจกต์ — สอบถามใบเสนอราคา
           </p>
           <Link
             href="/contact#offerte"
             className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 font-bold text-white transition hover:bg-primary-dark"
           >
-            Contact opnemen / Contact us / ติดต่อเรา
+            Contact opnemen →
           </Link>
         </div>
       </Reveal>
@@ -148,6 +150,7 @@ export default function ThaiServicesPage() {
           </div>
         </div>
       </Reveal>
+      <BrancheCTA branche="thai" />
     </>
   );
 }

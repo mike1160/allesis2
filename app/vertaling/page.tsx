@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Anchor, FileText, Globe, Mic, PenLine, Subtitles } from "lucide-react";
+import FeatureGrid from "@/components/FeatureGrid";
 import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
@@ -22,36 +22,46 @@ export const metadata: Metadata = {
   },
 };
 
-const diensten = [
+const thaiFeatures = [
   {
-    icon: Mic,
-    titel: "Tolkdiensten voor bedrijven",
-    tekst: "Zakelijke bijeenkomsten, seminars, persoonlijk gesprek, trainingen en offshore safety. Wij leveren naar internationale standaard.",
+    icon: "🌐",
+    titel: "Websites voor Thaise ondernemers",
+    beschrijving:
+      "Restaurants, wellness, retail en ZZP: snelle sites in Thai, Nederlands én Engels — met oog voor cultuur en conversie.",
+    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
   },
   {
-    icon: FileText,
+    icon: "🗣️",
+    titel: "Vertaal- en tolkdiensten",
+    beschrijving: "Documenten, websites, vergaderingen en persoonlijke trajecten — Thai ↔ Nederlands ↔ Engels.",
+    foto: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+  },
+  {
+    icon: "⭐",
+    titel: "Waarom Allesis?",
+    beschrijving:
+      "Lokaal in Haarlem, persoonlijk contact, technische kwaliteit en AVG-bewuste oplevering. Wij begrijpen beide culturen.",
+    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+  },
+  {
+    icon: "🇹🇭",
+    titel: "Thai webdesign",
+    beschrijving:
+      "Snelle websites met ondersteuning voor Thai, Nederlands én Engels — afgestemd op uw doelgroep.",
+    foto: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=800&q=80",
+  },
+  {
+    icon: "📄",
     titel: "Documentvertaling",
-    tekst: "Zakelijke documenten, huwelijkse voorwaarden, arbeidsovereenkomst, commerciële flyers, menu's en meer. Thais–Nederlands–Engels.",
+    beschrijving: "Officiële documenten, contracten, certificaten — professioneel vertaald Thai ↔ NL ↔ EN.",
+    foto: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
   },
   {
-    icon: Subtitles,
-    titel: "Ondertiteling & Transcriptie",
-    tekst: "Ondertiteling voor Nederlandse televisie en video content. Transcriptie van audio- en videomateriaal.",
-  },
-  {
-    icon: Anchor,
-    titel: "Offshore & Technisch",
-    tekst: "Specialist als tolk bij BOSIET en andere offshore safety trainingen. Ervaring met technische en maritieme terminologie.",
-  },
-  {
-    icon: PenLine,
-    titel: "Officiële documenten",
-    tekst: "Persoonlijke en officiële documenten: financiën, boekhouding, juridische stukken. In HTML, MS Word, Excel en PDF.",
-  },
-  {
-    icon: Globe,
-    titel: "Wereldwijd",
-    tekst: "Gevestigd in Haarlem maar actief in Nederland en internationaal. Native speakers in de doeltaal voor elk project.",
+    icon: "🤝",
+    titel: "Culturele brugfunctie",
+    beschrijving:
+      "Meer dan vertalen — wij begrijpen de nuances van beide culturen en communiceren dat in uw website.",
+    foto: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80",
   },
 ];
 
@@ -78,7 +88,7 @@ export default function VertaaldPage() {
             </p>
             <Link
               href="/contact"
-              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-10 text-base font-bold text-primary transition hover:bg-neutral-light"
+              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 text-base font-bold text-white transition hover:bg-primary-dark"
             >
               Offerte aanvragen →
             </Link>
@@ -114,22 +124,11 @@ export default function VertaaldPage() {
         </div>
       </Reveal>
 
-      <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="font-sora text-center text-2xl font-bold text-neutral-dark md:text-3xl">Onze vertaal- en tolkdiensten</h2>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {diensten.map((d) => (
-              <PremiumCard key={d.titel}>
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <d.icon className="h-6 w-6" strokeWidth={1.75} aria-hidden />
-                </div>
-                <h3 className="font-sora text-base font-bold text-neutral-dark">{d.titel}</h3>
-                <p className="font-lato mt-2 text-sm leading-relaxed text-neutral-mid">{d.tekst}</p>
-              </PremiumCard>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+      <FeatureGrid
+        titel="Wat bieden wij aan?"
+        gradient="from-red-900/90 via-red-900/50 to-transparent"
+        features={thaiFeatures}
+      />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl">

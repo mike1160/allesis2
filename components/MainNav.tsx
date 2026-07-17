@@ -36,8 +36,21 @@ const MENU_GROUPS: MenuGroup[] = [
     ],
   },
   {
-    title: "Thaise diensten",
-    links: [{ href: "/thai", label: "Thaise webdiensten" }],
+    title: "Branches",
+    links: [
+      { href: "/horeca", label: "Horeca & restaurants" },
+      { href: "/beauty", label: "Beauty & salons" },
+      { href: "/bouw", label: "Bouw & vakmensen" },
+      { href: "/zorg", label: "Zorg & coaches" },
+      { href: "/zzp", label: "ZZP'ers & freelancers" },
+      { href: "/non-profit", label: "Non-profit & stichtingen" },
+      { href: "/webshop", label: "Webshops & e-commerce" },
+      { href: "/tandarts", label: "Tandartsen & huisartsen" },
+      { href: "/vastgoed", label: "Vastgoed & makelaars" },
+      { href: "/sport", label: "Sport & fitness" },
+      { href: "/advocaat", label: "Advocaten" },
+      { href: "/thai", label: "Thaise ondernemers" },
+    ],
   },
   {
     title: "Portfolio",
@@ -45,7 +58,11 @@ const MENU_GROUPS: MenuGroup[] = [
   },
   {
     title: "Contact",
-    links: [{ href: "/contact", label: "Neem contact op" }],
+    links: [
+      { href: "/contact", label: "Neem contact op" },
+      { href: "/gratis-website", label: "Gratis website", badge: "🐾" },
+      { href: "/voorwaarden", label: "Voorwaarden" },
+    ],
   },
 ];
 

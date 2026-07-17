@@ -120,6 +120,31 @@ export async function POST(request: NextRequest) {
       };
       break;
     }
+    case "gratis_website": {
+      const b = body as {
+        naam?: string;
+        email?: string;
+        bedrijf?: string;
+        branche?: string;
+        domein?: string;
+        beschrijving?: string;
+        type?: string;
+      };
+      if (!b.naam?.trim() || !b.email?.trim() || !b.bedrijf?.trim() || !b.branche?.trim() || !b.beschrijving?.trim()) {
+        return bad("Vul naam, e-mail, bedrijf, branche en omschrijving in.");
+      }
+      payload = {
+        type: "gratis_website",
+        naam: b.naam.trim(),
+        email: b.email.trim(),
+        bedrijf: b.bedrijf.trim(),
+        branche: b.branche.trim(),
+        domein: b.domein?.trim(),
+        beschrijving: b.beschrijving.trim(),
+        nieuwsbrief,
+      };
+      break;
+    }
     default:
       return bad("Onbekend type.");
   }
@@ -140,6 +165,14 @@ export async function POST(request: NextRequest) {
       email: payload.email,
       telefoon: payload.telefoon,
       gewensteDienst: payload.gewensteDienst,
+    });
+  } else if (payload.type === "gratis_website") {
+    console.log("[api] body:", {
+      type: payload.type,
+      naam: payload.naam,
+      email: payload.email,
+      bedrijf: payload.bedrijf,
+      branche: payload.branche,
     });
   } else {
     console.log("[api] body:", {
