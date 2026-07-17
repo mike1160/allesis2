@@ -23,7 +23,7 @@ Prijzen:
 - Joomla/Drupal migratie: vanaf €299
 
 Voordelen Next.js vs WordPress/Wix/Shopify:
-- Laadtijd: van 5-8 seconden naar onder 2 seconden
+- Laadtijd: van 5-8 seconden naar onder 3 seconden
 - PageSpeed: van 40-60 naar 95+
 - Geen maandelijkse platform kosten
 - Geen plugins of beveiligingsproblemen

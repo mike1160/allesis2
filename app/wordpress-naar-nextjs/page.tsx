@@ -12,7 +12,7 @@ import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 export const metadata: Metadata = {
   title: "Van WordPress naar Next.js | Allesis Haarlem",
   description:
-    "Allesis migreert WordPress websites naar Next.js. Behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 2 seconden. Vanaf €299.",
+    "Allesis migreert WordPress websites naar Next.js. Behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 3 seconden. Vanaf €299.",
   keywords: [
     "wordpress naar nextjs migreren",
     "wordpress migratie next.js",
@@ -35,7 +35,7 @@ const serviceSchema = buildServiceSchema({
   id: `${SITE_URL}/wordpress-naar-nextjs#service`,
   name: "WordPress naar Next.js migratie",
   description:
-    "Allesis migreert WordPress websites naar Next.js. Behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 2 seconden. Vanaf €299.",
+    "Allesis migreert WordPress websites naar Next.js. Behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 3 seconden. Vanaf €299.",
   url: `${SITE_URL}/wordpress-naar-nextjs`,
 });
 
@@ -47,7 +47,7 @@ export default function WordpressNaarNextjsPage() {
         eyebrow="⚡ Migratie · WordPress → Next.js"
         title="Trage WordPress site?"
         titleAccent="Wij fixen het."
-        description="Allesis migreert WordPress websites naar Next.js — met behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 2 seconden. Vanaf €299."
+        description="Allesis migreert WordPress websites naar Next.js — met behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 3 seconden. Vanaf €299."
         foto="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=75"
         gradient="from-gray-900 via-gray-800/80 to-gray-700/20"
       >
@@ -124,7 +124,7 @@ export default function WordpressNaarNextjsPage() {
               </div>
               <ul className="space-y-3">
                 {[
-                  "Laadt in minder dan 2 seconden",
+                  "Laadt in minder dan 3 seconden",
                   "Geen plugins of updates nodig",
                   "Maximale beveiliging",
                   "Goedkope hosting via Vercel",
@@ -163,7 +163,7 @@ export default function WordpressNaarNextjsPage() {
           {
             icon: "⚡",
             titel: "Snelheidsoptimalisatie",
-            beschrijving: "Laadtijd van 5 seconden naar onder de 2 seconden.",
+            beschrijving: "Laadtijd van 5 seconden naar onder de 3 seconden.",
             foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=70",
           },
           {

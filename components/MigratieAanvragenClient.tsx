@@ -320,7 +320,7 @@ export default function MigratieAanvragenClient() {
           <div className="flex flex-wrap justify-center gap-10">
             {[
               { getal: "€299", label: "Vanaf", kleur: "text-[#C8FF00]" },
-              { getal: "<2s", label: "Laadtijd", kleur: "text-green-400" },
+              { getal: "<3s", label: "Laadtijd", kleur: "text-green-400" },
               { getal: "95+", label: "PageSpeed", kleur: "text-blue-400" },
               { getal: "100%", label: "SEO behoud", kleur: "text-white" },
             ].map((stat) => (

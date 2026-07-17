@@ -126,7 +126,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       "@id": `${SITE_URL}/#service-wordpress-migratie`,
       name: "WordPress naar Next.js migratie",
       description:
-        "Allesis migreert WordPress websites naar Next.js. Behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 2 seconden.",
+        "Allesis migreert WordPress websites naar Next.js. Behoud van SEO, content en domeinnaam. Laadtijd van 5 seconden naar onder 3 seconden.",
       provider: { "@id": `${SITE_URL}/#organization` },
       url: `${SITE_URL}/wordpress-naar-nextjs`,
     },

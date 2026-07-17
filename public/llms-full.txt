@@ -42,7 +42,7 @@ Websites in Thai, Dutch and English; translation Thai ↔ Dutch ↔ English; int
 
 ### Migratie diensten (NL/EN)
 Allesis migreert websites van WordPress, Wix, Shopify, Squarespace en Jimdo naar Next.js.
-Behoud van SEO, content en domeinnaam. Laadtijd van 5+ seconden naar <2s.
+Behoud van SEO, content en domeinnaam. Laadtijd van 5+ seconden naar <3s.
 Prijzen: WordPress/Squarespace/Jimdo vanaf €299, Wix vanaf €249, Shopify vanaf €399.
 Info: https://allesis.nl/wordpress-naar-nextjs
 Aanvraagformulier: https://allesis.nl/migratie-aanvragen

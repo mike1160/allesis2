@@ -24,6 +24,20 @@ const transitionSnappy = { duration: 0.45, ease: easeOut };
 
 const MotionLink = motion.create(Link);
 
+type SimpleIcon = { path: string; title: string; slug: string };
+
+const MIGRATION_LOGO_COLORS: Record<string, string> = {
+  wordpress: "#21759B",
+  wix: "#FAAD00",
+  shopify: "#96BF48",
+  squarespace: "#888888",
+  webflow: "#4353FF",
+  joomla: "#F4A818",
+};
+
+const MIGRATION_LOGO_ROW_1 = [siWordpress, siWix, siShopify, siSquarespace, siWebflow, siJoomla];
+const MIGRATION_LOGO_ROW_2 = [siShopify, siWordpress, siJoomla, siWix, siSquarespace, siWebflow];
+
 type Dienst = {
   naam: string;
   beschrijving: string;
@@ -297,6 +311,39 @@ function RevealSection({ children, className }: { children: React.ReactNode; cla
   );
 }
 
+function MigrationStatsBackgroundLogo({ icon }: { icon: SimpleIcon }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-24 w-24 shrink-0 md:h-32 md:w-32"
+      style={{ fill: MIGRATION_LOGO_COLORS[icon.slug] ?? "#64748B", opacity: 0.42 }}
+      aria-hidden
+    >
+      <path d={icon.path} />
+    </svg>
+  );
+}
+
+function MigrationStatsBackgroundLogos() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 md:gap-4">
+        <div className="flex w-full min-w-[760px] justify-around px-4">
+          {MIGRATION_LOGO_ROW_1.map((icon) => (
+            <MigrationStatsBackgroundLogo key={icon.slug} icon={icon} />
+          ))}
+        </div>
+        <div className="flex w-full min-w-[760px] translate-x-8 justify-around px-4">
+          {MIGRATION_LOGO_ROW_2.map((icon) => (
+            <MigrationStatsBackgroundLogo key={`${icon.slug}-stats`} icon={icon} />
+          ))}
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-gray-900/25 backdrop-blur-[1px]" />
+    </div>
+  );
+}
+
 /* ---------- Hero met orchidee-foto ----------
    Orchidee full-bleed op de achtergrond (zichtbaar, opacity 0.38),
    met een lichte witte overlay zodat tekst leesbaar blijft. */
@@ -478,11 +525,12 @@ export default function HomePageContent() {
             ))}
           </div>
 
-          <div className="flex flex-col items-center gap-8 rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-8 md:flex-row">
-            <div className="flex flex-wrap justify-center gap-10">
+          <div className="relative flex flex-col items-center gap-8 overflow-hidden rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-8 md:flex-row">
+            <MigrationStatsBackgroundLogos />
+            <div className="relative z-10 flex flex-wrap justify-center gap-10">
               {[
                 { getal: "€299", label: "Vanaf", kleur: "text-[#C8FF00]" },
-                { getal: "<2s", label: "Laadtijd", kleur: "text-green-400" },
+                { getal: "<3s", label: "Laadtijd", kleur: "text-green-400" },
                 { getal: "95+", label: "PageSpeed", kleur: "text-blue-400" },
                 { getal: "100%", label: "SEO behoud", kleur: "text-white" },
               ].map((stat) => (
@@ -492,7 +540,7 @@ export default function HomePageContent() {
                 </div>
               ))}
             </div>
-            <div className="flex-1 md:text-right">
+            <div className="relative z-10 flex-1 md:text-right">
               <Link
                 href="/migratie-aanvragen"
                 className="inline-flex items-center gap-2 rounded-xl bg-[#C8FF00] px-8 py-4 text-base font-black text-gray-900 transition-colors hover:bg-[#B4EF00]"
