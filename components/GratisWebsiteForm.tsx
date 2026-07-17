@@ -8,6 +8,7 @@ import FormConsentFields from "@/components/forms/FormConsentFields";
 import TurnstileWidget from "@/components/forms/TurnstileWidget";
 import PageHero from "@/components/PageHero";
 import { PRIVACY_CONSENT_ERROR } from "@/lib/form-consent";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
 const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
@@ -113,6 +114,10 @@ export default function GratisWebsiteForm() {
               alt="Saved Souls Foundation"
               width={40}
               height={40}
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              priority={false}
               className="h-10 w-10 flex-shrink-0 object-contain"
             />
             <p className="font-lato text-sm leading-relaxed text-green-800">
@@ -148,6 +153,10 @@ export default function GratisWebsiteForm() {
             alt="Saved Souls Foundation"
             width={64}
             height={64}
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
+            priority={false}
             className="h-16 w-16 flex-shrink-0 object-contain"
           />
           <div>

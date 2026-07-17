@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 export type PageHeroProps = {
@@ -34,15 +35,22 @@ export default function PageHero({
     <section
       className={`relative flex min-h-[50vh] items-center overflow-hidden bg-white px-6 py-24 md:px-12 ${className}`}
     >
-      {/* Orchidee — altijd rechts */}
+      {/* Orchidee — LCP hero: priority */}
       <div
-        className="pointer-events-none absolute top-0 right-0 h-full w-full bg-cover bg-right-top md:w-1/2"
-        style={{
-          backgroundImage: "url('/images/orchid.jpg')",
-          opacity: orchidOpacity,
-        }}
+        className="pointer-events-none absolute top-0 right-0 h-full w-full md:w-1/2"
+        style={{ opacity: orchidOpacity }}
         aria-hidden
-      />
+      >
+        <Image
+          src="/images/orchid.jpg"
+          alt=""
+          fill
+          priority
+          loading="eager"
+          className="object-cover object-right-top"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
 
       {/* Kleur tint per branche */}
       {tint ? (

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 export type FeatureGridItem = {
   icon: string;
@@ -35,6 +36,10 @@ export default function FeatureGrid({
                 src={feature.foto}
                 alt={feature.titel}
                 fill
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
+                priority={false}
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 sizes="(max-width: 768px) 50vw, 33vw"
               />

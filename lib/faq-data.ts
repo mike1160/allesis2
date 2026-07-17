@@ -7,37 +7,37 @@ export const HOME_FAQ_GRID: FAQGridItem[] = [
     vraag: "Wat doet Allesis?",
     antwoord:
       "Allesis is een digitaal bureau in Haarlem voor het MKB. Wij bouwen websites, leveren hosting, verbeteren SEO en zorgen voor AVG-compliance — vaak alles via één aanspreekpunt.",
-    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=70",
   },
   {
     vraag: "Hoe lang duurt het bouwen van een website?",
     antwoord:
       "Een gratis one-pager kan vanaf 24 uur** online zijn bij tijdige aanlevering van content en logo. Maatwerk is meestal binnen vier weken live.",
-    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=70",
   },
   {
     vraag: "Wat kost een AVG-compliant website?",
     antwoord:
       "Een nieuwe website is op maat geprijsd. AVG-inrichting is standaard onderdeel van onze oplevering. Een losse AVG-fix voor bestaande sites start vanaf €69,99 excl. btw.",
-    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&q=70",
   },
   {
     vraag: "Biedt Allesis ook hosting en SEO aan?",
     antwoord:
       "Ja. Allesis levert Nederlandse hosting vanaf €8,95 per maand excl. btw en SEO-trajecten op maat voor lokale en landelijke vindbaarheid.",
-    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=70",
   },
   {
     vraag: "Wat is de gratis one-pager precies?",
     antwoord:
       "Een professionele enkelvoudige pagina met uw bedrijfsinfo, contactformulier en SSF-donatie link. Bouw gratis, hosting v.a. €8,95/mnd. Zie voorwaarden.*",
-    foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=70",
   },
   {
     vraag: "Werkt Allesis ook voor Thaise ondernemers?",
     antwoord:
       "Ja. Wij bouwen websites in Thai, Nederlands en Engels en bieden vertaling en tolkdiensten voor ondernemers in Nederland en internationaal.",
-    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=600&q=70",
   },
 ];
 

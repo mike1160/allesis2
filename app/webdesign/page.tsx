@@ -30,37 +30,37 @@ const watKrijgJeFeatures = [
     icon: "🎨",
     titel: "Professioneel design op maat",
     beschrijving: "Geen templates. Elk ontwerp is uniek en afgestemd op uw merk.",
-    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=70",
   },
   {
     icon: "📱",
     titel: "Mobielvriendelijk",
     beschrijving: "Perfect op telefoon, tablet én desktop. Altijd.",
-    foto: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=70",
   },
   {
     icon: "🔍",
     titel: "SEO vanaf dag één",
     beschrijving: "Gevonden worden in Google vanaf het moment van lancering.",
-    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=70",
   },
   {
     icon: "🔒",
     titel: "AVG-compliant",
     beschrijving: "Privacybeleid, cookiebanner en verwerkersregister standaard inbegrepen.",
-    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&q=70",
   },
   {
     icon: "⚡",
     titel: "Razendsnel",
     beschrijving: "Next.js geeft PageSpeed scores boven de 95. Geen trage laadtijden.",
-    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=70",
   },
   {
     icon: "🛠️",
     titel: "Helpdesk & onderhoud",
     beschrijving: "Na oplevering staan wij klaar voor updates, vragen en kleine aanpassingen.",
-    foto: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=70",
   },
 ];
 

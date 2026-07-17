@@ -6,6 +6,7 @@ import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 export const metadata: Metadata = {
   title: "Recent gemaakte websites — SEO & AI-vindbaar",
@@ -120,6 +121,10 @@ export default function RecentWebsitesPage() {
                       src={project.image}
                       alt={`Screenshot van ${project.title}`}
                       fill
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
+                      priority={false}
                       className="object-cover transition duration-300 group-hover:scale-[1.02]"
                       sizes="(max-width: 768px) 100vw, 896px"
                     />

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 export type FAQGridItem = {
   vraag: string;
@@ -41,6 +42,10 @@ export default function FAQGrid({
                 src={item.foto}
                 alt={item.vraag}
                 fill
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL={BLUR_DATA_URL}
+                priority={false}
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />

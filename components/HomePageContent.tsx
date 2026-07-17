@@ -9,6 +9,7 @@ import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
 import SSFMissie from "@/components/SSFMissie";
 import TechStrip from "@/components/TechStrip";
 import { HOME_FAQ_GRID } from "@/lib/faq-data";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 const easeOut = "easeOut" as const;
 const transitionSnappy = { duration: 0.45, ease: easeOut };
@@ -29,7 +30,7 @@ const DIENSTEN: Dienst[] = [
     naam: "Webdesign",
     beschrijving: "Online binnen 24 uur** mogelijk. Modern, snel en mobielvriendelijk. Maatwerk in 4 weken.",
     href: "/webdesign",
-    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=70",
     gradient: "from-blue-900/80 to-blue-600/40",
     emoji: "🎨",
   },
@@ -37,7 +38,7 @@ const DIENSTEN: Dienst[] = [
     naam: "AVG & Compliance",
     beschrijving: "Wij leveren elke website AVG-compliant op. Privacybeleid, cookiebanner, SSL.",
     href: "/avg",
-    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&q=70",
     gradient: "from-green-900/80 to-green-600/40",
     emoji: "🔒",
   },
@@ -45,7 +46,7 @@ const DIENSTEN: Dienst[] = [
     naam: "Hosting & Domeinen",
     beschrijving: "Nederlandse hosting met 99,9% uptime. Alles onder één dak.",
     href: "/hosting",
-    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=70",
     gradient: "from-slate-900/80 to-slate-600/40",
     emoji: "⚡",
   },
@@ -53,7 +54,7 @@ const DIENSTEN: Dienst[] = [
     naam: "Thaise webdiensten",
     beschrijving: "Websites in Thai, NL en EN. Vertaling en tolkdiensten.",
     href: "/thai",
-    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=400&q=70",
     gradient: "from-orange-900/80 to-orange-500/40",
     emoji: "🇹🇭",
   },
@@ -64,7 +65,7 @@ const BRANCHES = [
     naam: "Horeca",
     beschrijving: "Online menu, reserveringen & reviews.",
     href: "/horeca",
-    foto: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70",
     gradient: "from-orange-900/90 via-orange-800/70 to-transparent",
     icon: "🍽️",
   },
@@ -72,7 +73,7 @@ const BRANCHES = [
     naam: "Beauty",
     beschrijving: "Online afspraken & behandelmenu.",
     href: "/beauty",
-    foto: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=70",
     gradient: "from-pink-900/90 via-pink-800/70 to-transparent",
     icon: "💆",
   },
@@ -80,7 +81,7 @@ const BRANCHES = [
     naam: "Bouw",
     beschrijving: "Portfolio, offerte-aanvraag & werkgebied.",
     href: "/bouw",
-    foto: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=70",
     gradient: "from-amber-900/90 via-amber-800/70 to-transparent",
     icon: "🔨",
   },
@@ -88,7 +89,7 @@ const BRANCHES = [
     naam: "Zorg",
     beschrijving: "Afspraken & vertrouwenwekkend design.",
     href: "/zorg",
-    foto: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=70",
     gradient: "from-cyan-900/90 via-cyan-800/70 to-transparent",
     icon: "🏥",
   },
@@ -96,7 +97,7 @@ const BRANCHES = [
     naam: "ZZP",
     beschrijving: "Online in een dag, gratis mogelijk.*",
     href: "/zzp",
-    foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=70",
     gradient: "from-blue-900/90 via-blue-800/70 to-transparent",
     icon: "💼",
   },
@@ -104,7 +105,7 @@ const BRANCHES = [
     naam: "Non-profit",
     beschrijving: "Donaties, vrijwilligers & impact tonen.",
     href: "/non-profit",
-    foto: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400&q=70",
     gradient: "from-green-900/90 via-green-800/70 to-transparent",
     icon: "❤️",
   },
@@ -112,7 +113,7 @@ const BRANCHES = [
     naam: "Webshop",
     beschrijving: "Producten, betalen & SEO.",
     href: "/webshop",
-    foto: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=70",
     gradient: "from-violet-900/90 via-violet-800/70 to-transparent",
     icon: "🛒",
   },
@@ -120,7 +121,7 @@ const BRANCHES = [
     naam: "Tandarts",
     beschrijving: "Afspraken & praktijkpresentatie.",
     href: "/tandarts",
-    foto: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&q=70",
     gradient: "from-sky-900/90 via-sky-800/70 to-transparent",
     icon: "🦷",
   },
@@ -128,7 +129,7 @@ const BRANCHES = [
     naam: "Vastgoed",
     beschrijving: "Panden presenteren & leads genereren.",
     href: "/vastgoed",
-    foto: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=70",
     gradient: "from-stone-900/90 via-stone-800/70 to-transparent",
     icon: "🏠",
   },
@@ -136,7 +137,7 @@ const BRANCHES = [
     naam: "Sport",
     beschrijving: "Ledenwerving, schema's & online inschrijven.",
     href: "/sport",
-    foto: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=70",
     gradient: "from-lime-900/90 via-lime-800/70 to-transparent",
     icon: "⚽",
   },
@@ -144,7 +145,7 @@ const BRANCHES = [
     naam: "Advocaat",
     beschrijving: "Professioneel, betrouwbaar & AVG-compliant.",
     href: "/advocaat",
-    foto: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=70",
     gradient: "from-slate-900/90 via-slate-800/70 to-transparent",
     icon: "⚖️",
   },
@@ -152,7 +153,7 @@ const BRANCHES = [
     naam: "Thais",
     beschrijving: "Meertalig: Thai, Nederlands & Engels.",
     href: "/thai",
-    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=400&q=70",
     gradient: "from-red-900/90 via-red-800/70 to-transparent",
     icon: "🇹🇭",
   },
@@ -165,7 +166,7 @@ const PAKKETTEN = [
     naam: "Gratis one-pager*",
     prijs: "€ 0",
     prijsDetail: "eenmalig · hosting vanaf €8,95/mnd",
-    foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=70",
     gradient: "from-slate-900/95 via-slate-800/90 to-slate-700/70",
     featured: false,
     features: [
@@ -185,7 +186,7 @@ const PAKKETTEN = [
     naam: "Starter",
     prijs: "€ 199",
     prijsDetail: "eenmalig · zonder verplichte branding",
-    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=70",
     gradient: "from-blue-900/95 via-blue-800/90 to-blue-700/70",
     featured: true,
     features: [
@@ -205,7 +206,7 @@ const PAKKETTEN = [
     naam: "Maatwerk",
     prijs: "Op maat",
     prijsDetail: "offerte op basis van wensen",
-    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=70",
     gradient: "from-gray-900/95 via-gray-800/90 to-gray-700/70",
     featured: false,
     features: [
@@ -226,25 +227,25 @@ const WERKWIJZE = [
     nummer: "01",
     titel: "Kennismaking",
     beschrijving: "We bespreken uw wensen, doelen en doelgroep — vrijblijvend.",
-    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=70",
   },
   {
     nummer: "02",
     titel: "Ontwerp",
     beschrijving: "U ontvangt een ontwerp op maat en denkt mee over de richting.",
-    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=70",
   },
   {
     nummer: "03",
     titel: "Bouw",
     beschrijving: "Wij bouwen uw snelle, AVG-compliant website in Next.js.",
-    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=70",
   },
   {
     nummer: "04",
     titel: "Live & groei",
     beschrijving: "We gaan live, meten resultaten en optimaliseren voor Google.",
-    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=400&q=70",
   },
 ];
 
@@ -254,21 +255,21 @@ const REVIEWS = [
     tekst: "Dankzij Allesis staat mijn website al jaren bij de eerste 3 zoekresultaten van Google — zonder Google Adwords.",
     naam: "M. Kleinjans",
     bedrijf: "Snelontruiming",
-    foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=70",
   },
   {
     sterren: 5,
     tekst: "Mijn website werd geredesignd met mooie foto's, goed vindbaar op Google en alle sociale netwerken werden ook bijgehouden.",
     naam: "Runee",
     bedrijf: "Bangkokwellness",
-    foto: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=70",
   },
   {
     sterren: 5,
     tekst: "Snelle, persoonlijke service en een prachtige website die precies bij mijn praktijk past. Een echte aanrader.",
     naam: "Ren Ji Tang",
     bedrijf: "Acupunctuur & TCM",
-    foto: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=70",
   },
 ];
 
@@ -294,15 +295,15 @@ function RevealSection({ children, className }: { children: React.ReactNode; cla
 function OrchidHero() {
   return (
     <section className="hero relative overflow-hidden bg-white">
-      {/* Orchidee */}
-      <div
-        className="hero-orchid pointer-events-none absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url('/images/orchid.jpg')",
-          backgroundPosition: "right top",
-          backgroundSize: "cover",
-          opacity: 0.38,
-        }}
+      {/* Orchidee — LCP hero: priority */}
+      <Image
+        src="/images/orchid.jpg"
+        alt=""
+        fill
+        priority
+        loading="eager"
+        className="hero-orchid pointer-events-none object-cover object-right-top opacity-[0.38]"
+        sizes="100vw"
         aria-hidden
       />
 
@@ -405,6 +406,10 @@ export default function HomePageContent() {
                   src={pakket.foto}
                   alt={pakket.naam}
                   fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
@@ -468,6 +473,10 @@ export default function HomePageContent() {
                   src={dienst.foto}
                   alt={dienst.naam}
                   fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -498,7 +507,7 @@ export default function HomePageContent() {
             </h2>
           </div>
           <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {BRANCHES.map((branche) => (
+            {BRANCHES.map((branche, index) => (
               <Link
                 key={branche.naam}
                 href={branche.href}
@@ -508,6 +517,8 @@ export default function HomePageContent() {
                   src={branche.foto}
                   alt={branche.naam}
                   fill
+                  loading={index < 6 ? "eager" : "lazy"}
+                  priority={false}
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
@@ -548,6 +559,10 @@ export default function HomePageContent() {
                   src="/savedsouls-screenshot.png"
                   alt="Website van Saved Souls Foundation"
                   fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-top"
                 />
@@ -577,6 +592,10 @@ export default function HomePageContent() {
                   src="/portfolio/renjitang.jpg"
                   alt="Ren Ji Tang — Acupunctuur & TCM website"
                   fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
@@ -628,6 +647,10 @@ export default function HomePageContent() {
                   src={stap.foto}
                   alt={stap.titel}
                   fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
@@ -661,6 +684,10 @@ export default function HomePageContent() {
                   src={review.foto}
                   alt={review.bedrijf}
                   fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
@@ -731,9 +758,13 @@ export default function HomePageContent() {
       {/* Sectie 12 — CTA */}
       <RevealSection className="relative overflow-hidden px-6 py-24 md:px-16">
         <Image
-          src="https://images.unsplash.com/photo-1528181304800-259b08848526?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200&q=75"
           alt="Thailand achtergrond"
           fill
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+          priority={false}
           className="object-cover object-center"
           sizes="100vw"
         />
@@ -753,6 +784,10 @@ export default function HomePageContent() {
               alt="Saved Souls Foundation"
               width={24}
               height={24}
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              priority={false}
               className="h-6 w-6 object-contain"
             />
             <span className="font-lato text-xs font-bold text-white/80">

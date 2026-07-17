@@ -37,6 +37,7 @@ export default function FeaturedRenJiTangImage({ alt, className }: Props) {
       alt={alt}
       width={1600}
       height={1000}
+      loading="lazy"
       decoding="async"
       onError={onError}
       className={className}

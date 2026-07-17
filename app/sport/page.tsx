@@ -26,7 +26,7 @@ export default function SportPage() {
         title="Uw club."
         titleAccent="Meer leden online."
         description="Nieuwe leden zoeken online naar sportclubs en fitnesscentra. Een moderne website met schema's, inschrijfformulier en nieuws maakt het makkelijk."
-        foto="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80"
+        foto="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=75"
         gradient="from-lime-900 via-lime-800/80 to-lime-700/20"
       />
       <FeatureGrid
@@ -37,37 +37,37 @@ export default function SportPage() {
             icon: "👥",
             titel: "Ledenwerving",
             beschrijving: "Online inschrijfformulier voor nieuwe leden.",
-            foto: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=70",
           },
           {
             icon: "📅",
             titel: "Trainingsschema's",
             beschrijving: "Overzichtelijke roosters en evenementen kalender.",
-            foto: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&q=70",
           },
           {
             icon: "📰",
             titel: "Nieuws & updates",
             beschrijving: "Wedstrijduitslagen, nieuws en clubberichten.",
-            foto: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=70",
           },
           {
             icon: "📸",
             titel: "Foto galerie",
             beschrijving: "Sfeervolle foto's van trainingen en wedstrijden.",
-            foto: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=70",
           },
           {
             icon: "🏆",
             titel: "Uitslagen & standen",
             beschrijving: "Actuele competitiestanden en resultaten.",
-            foto: "https://images.unsplash.com/photo-1552667466-07770ae110d0?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1552667466-07770ae110d0?w=600&q=70",
           },
           {
             icon: "🔒",
             titel: "AVG-compliant",
             beschrijving: "Privacybeleid, cookiebanner en SSL inbegrepen.",
-            foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=600&q=70",
           },
         ]}
       />
@@ -77,22 +77,22 @@ export default function SportPage() {
           {
             vraag: "Kunnen leden online inschrijven?",
             antwoord: "Ja. Via een inschrijfformulier melden nieuwe leden zich direct aan.",
-            foto: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=70",
           },
           {
             vraag: "Kan ik zelf nieuws plaatsen?",
             antwoord: "Ja. Via het CMS plaatst u eenvoudig nieuws, uitslagen en foto's.",
-            foto: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=70",
           },
           {
             vraag: "Is er een gratis optie?",
             antwoord: "Ja. Gratis one-pager beschikbaar met SSF-donatie link en Allesis-branding.*",
-            foto: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=600&q=70",
           },
           {
             vraag: "Wat kost een sportwebsite?",
             antwoord: "Starter vanaf €199 eenmalig. Maatwerk op aanvraag. Hosting v.a. €8,95/mnd.",
-            foto: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+            foto: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=70",
           },
         ]}
       />

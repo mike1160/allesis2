@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 const branchLinks: [string, string][] = [
   ["Horeca", "/horeca"],
@@ -48,9 +49,13 @@ export default function Footer() {
       {/* SSF BANNER — foto achtergrond */}
       <div className="relative overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1200&q=75"
           alt="Saved Souls Foundation"
           fill
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL={BLUR_DATA_URL}
+          priority={false}
           className="object-cover object-center"
           sizes="100vw"
         />
@@ -63,6 +68,10 @@ export default function Footer() {
               alt="Saved Souls Foundation"
               width={80}
               height={80}
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              priority={false}
               className="h-20 w-20 flex-shrink-0 object-contain"
             />
             <div className="flex-1">

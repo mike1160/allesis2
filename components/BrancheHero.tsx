@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 export type BrancheHeroProps = {
@@ -27,10 +28,15 @@ export default function BrancheHero({
 }: BrancheHeroProps) {
   return (
     <section className="relative flex min-h-[60vh] items-center overflow-hidden px-6 py-28 md:px-16 md:pt-32">
-      {/* ACHTERGROND FOTO */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700"
-        style={{ backgroundImage: `url('${foto}')` }}
+      {/* ACHTERGROND FOTO — LCP: altijd priority */}
+      <Image
+        src={foto}
+        alt=""
+        fill
+        priority
+        loading="eager"
+        className="object-cover object-center"
+        sizes="100vw"
         aria-hidden
       />
 

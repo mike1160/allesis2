@@ -6,6 +6,7 @@ import PremiumCard from "@/components/subpage/PremiumCard";
 import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
+import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 export const metadata: Metadata = {
   title: "Thais · Nederlands · Engels — vertaling & tolk",
@@ -28,40 +29,40 @@ const thaiFeatures = [
     titel: "Websites voor Thaise ondernemers",
     beschrijving:
       "Restaurants, wellness, retail en ZZP: snelle sites in Thai, Nederlands én Engels — met oog voor cultuur en conversie.",
-    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=600&q=70",
   },
   {
     icon: "🗣️",
     titel: "Vertaal- en tolkdiensten",
     beschrijving: "Documenten, websites, vergaderingen en persoonlijke trajecten — Thai ↔ Nederlands ↔ Engels.",
-    foto: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=70",
   },
   {
     icon: "⭐",
     titel: "Waarom Allesis?",
     beschrijving:
       "Lokaal in Haarlem, persoonlijk contact, technische kwaliteit en AVG-bewuste oplevering. Wij begrijpen beide culturen.",
-    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=70",
   },
   {
     icon: "🇹🇭",
     titel: "Thai webdesign",
     beschrijving:
       "Snelle websites met ondersteuning voor Thai, Nederlands én Engels — afgestemd op uw doelgroep.",
-    foto: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=600&q=70",
   },
   {
     icon: "📄",
     titel: "Documentvertaling",
     beschrijving: "Officiële documenten, contracten, certificaten — professioneel vertaald Thai ↔ NL ↔ EN.",
-    foto: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=70",
   },
   {
     icon: "🤝",
     titel: "Culturele brugfunctie",
     beschrijving:
       "Meer dan vertalen — wij begrijpen de nuances van beide culturen en communiceren dat in uw website.",
-    foto: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&q=70",
   },
 ];
 
@@ -112,7 +113,17 @@ export default function VertaaldPage() {
             {fotos.map((foto) => (
               <PremiumCard key={foto.src} className="!p-0 overflow-hidden">
                 <div className="relative aspect-[5/3] w-full bg-neutral-light">
-                  <Image src={foto.src} alt={foto.titel} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image
+                    src={foto.src}
+                    alt={foto.titel}
+                    fill
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
+                    priority={false}
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
                 <div className="bg-neutral-light/60 p-4">
                   <p className="font-lato text-sm font-bold text-neutral-dark">— {foto.titel}</p>
