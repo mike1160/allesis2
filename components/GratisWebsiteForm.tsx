@@ -215,7 +215,7 @@ export default function GratisWebsiteForm() {
             <p className="mt-3 text-xs text-amber-600">
               Wilt u dit niet? Kies dan voor het{" "}
               <Link href="/contact" className="font-bold underline">
-                Starter pakket (€199)
+                Starter pakket (€299)
               </Link>
               .
             </p>

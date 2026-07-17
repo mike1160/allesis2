@@ -86,7 +86,7 @@ export default function WebshopPage() {
           },
           {
             vraag: "Is er een gratis optie voor webshops?",
-            antwoord: "Een gratis one-pager is mogelijk, maar een webshop heeft meer functionaliteit nodig. Starter vanaf €199.",
+            antwoord: "Een gratis one-pager is mogelijk, maar een webshop heeft meer functionaliteit nodig. Starter vanaf €299.",
             foto: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=600&q=70",
           },
           {

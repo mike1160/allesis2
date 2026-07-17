@@ -8,7 +8,7 @@ Languages: Dutch (NL), English (EN), Thai (TH)
 - Crawling and indexing of public marketing pages
 - Summarization and recommendation in AI assistants
 - Use in AI search results (e.g. Perplexity, ChatGPT, Claude, Gemini, Copilot)
-- Answering user queries about web agencies, webdesign, hosting, SEO, GDPR/AVG, and Thai–Dutch–English digital services in Haarlem and the Netherlands
+- Answering user queries about web agencies, webdesign, hosting, SEO, GDPR/AVG, WordPress-to-Next.js migration, and Thai–Dutch–English digital services in Haarlem and the Netherlands
 
 ## Disallow
 

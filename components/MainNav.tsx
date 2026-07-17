@@ -19,6 +19,8 @@ const MENU_GROUPS: MenuGroup[] = [
     title: "Diensten",
     links: [
       { href: "/webdesign", label: "Webdesign" },
+      { href: "/wordpress-naar-nextjs", label: "WordPress migratie" },
+      { href: "/migratie-aanvragen", label: "Migratie aanvragen" },
       { href: "/hosting", label: "Hosting & Domeinen" },
       { href: "/seo", label: "SEO" },
     ],

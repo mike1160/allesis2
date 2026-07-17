@@ -19,6 +19,8 @@ const branchLinks: [string, string][] = [
 
 const dienstLinks: [string, string][] = [
   ["Webdesign", "/webdesign"],
+  ["WordPress migratie", "/wordpress-naar-nextjs"],
+  ["Migratie aanvragen", "/migratie-aanvragen"],
   ["Hosting", "/hosting"],
   ["SEO", "/seo"],
   ["Domeinen", "/domeinen"],

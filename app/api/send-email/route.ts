@@ -145,6 +145,35 @@ export async function POST(request: NextRequest) {
       };
       break;
     }
+    case "migratie_aanvraag": {
+      const b = body as {
+        naam?: string;
+        email?: string;
+        bedrijf?: string;
+        platform?: string;
+        platformLabel?: string;
+        huidigeUrl?: string;
+        extraAntwoorden?: Record<string, string>;
+        bericht?: string;
+        type?: string;
+      };
+      if (!b.naam?.trim() || !b.email?.trim() || !b.platform?.trim() || !b.huidigeUrl?.trim()) {
+        return bad("Vul naam, e-mail, platform en huidige website URL in.");
+      }
+      payload = {
+        type: "migratie_aanvraag",
+        naam: b.naam.trim(),
+        email: b.email.trim(),
+        bedrijf: b.bedrijf?.trim(),
+        platform: b.platform.trim(),
+        platformLabel: b.platformLabel?.trim() || b.platform.trim(),
+        huidigeUrl: b.huidigeUrl.trim(),
+        extraAntwoorden: b.extraAntwoorden ?? {},
+        bericht: b.bericht?.trim(),
+        nieuwsbrief,
+      };
+      break;
+    }
     default:
       return bad("Onbekend type.");
   }
@@ -173,6 +202,14 @@ export async function POST(request: NextRequest) {
       email: payload.email,
       bedrijf: payload.bedrijf,
       branche: payload.branche,
+    });
+  } else if (payload.type === "migratie_aanvraag") {
+    console.log("[api] body:", {
+      type: payload.type,
+      naam: payload.naam,
+      email: payload.email,
+      platform: payload.platform,
+      huidigeUrl: payload.huidigeUrl,
     });
   } else {
     console.log("[api] body:", {

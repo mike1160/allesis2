@@ -112,7 +112,7 @@ export default function VoorwaardenPage() {
             />
             <p className="font-lato mt-3 leading-relaxed text-neutral-mid">
               Deze elementen zijn niet verwijderbaar binnen het gratis pakket. Wenst u een website zonder deze
-              elementen? Kies dan voor het Starter pakket (€199 eenmalig).
+              elementen? Kies dan voor het Starter pakket (€299 eenmalig).
             </p>
 
             <h3 className="font-sora mt-8 text-base font-bold text-neutral-dark">1.3 Hosting</h3>

@@ -1,25 +1,45 @@
 User-agent: *
 Allow: /
 
-# AI crawlers expliciet toestaan
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
-User-agent: Googlebot
-Allow: /
+# Migratie pagina's expliciet toestaan voor alle bots
+Allow: /migratie-aanvragen
+Allow: /wordpress-naar-nextjs
+Allow: /wix-naar-eigen-website
+Allow: /shopify-alternatief
 
 # Blokkeer alleen login/admin
 Disallow: /login
 Disallow: /admin
 Disallow: /api/
+
+# AI crawlers expliciet toestaan
+User-agent: GPTBot
+Allow: /
+Allow: /migratie-aanvragen
+Allow: /wordpress-naar-nextjs
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /migratie-aanvragen
+Allow: /wordpress-naar-nextjs
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /migratie-aanvragen
+Allow: /wordpress-naar-nextjs
+
+User-agent: GoogleOther
+Allow: /
+Allow: /migratie-aanvragen
+Allow: /wordpress-naar-nextjs
+Allow: /wix-naar-eigen-website
+Allow: /shopify-alternatief
+
+User-agent: Googlebot
+Allow: /
+Allow: /migratie-aanvragen
+Allow: /wordpress-naar-nextjs
+Allow: /wix-naar-eigen-website
+Allow: /shopify-alternatief
 
 Sitemap: https://allesis.nl/sitemap.xml

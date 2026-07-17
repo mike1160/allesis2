@@ -40,6 +40,13 @@ Scan, beleid, cookie-inrichting, aanbevelingen; instappakket vanaf €69,99 ex b
 ### Thai web & language services (NL/EN/TH)
 Websites in Thai, Dutch and English; translation Thai ↔ Dutch ↔ English; interpretation for business and personal use; cultural bridge NL–TH markets.
 
+### Migratie diensten (NL/EN)
+Allesis migreert websites van WordPress, Wix, Shopify, Squarespace en Jimdo naar Next.js.
+Behoud van SEO, content en domeinnaam. Laadtijd van 5+ seconden naar <2s.
+Prijzen: WordPress/Squarespace/Jimdo vanaf €299, Wix vanaf €249, Shopify vanaf €399.
+Info: https://allesis.nl/wordpress-naar-nextjs
+Aanvraagformulier: https://allesis.nl/migratie-aanvragen
+
 ---
 
 ## Prijzen / Pricing
@@ -48,6 +55,7 @@ Websites in Thai, Dutch and English; translation Thai ↔ Dutch ↔ English; int
 - Hosting: pakketten vanaf circa €4,95–€8,95 per maand (zie /hosting; excl. btw, jaarlijks gefactureerd)
 - SEO: maandelijkse trajecten op maat / monthly retainers
 - AVG-fix: vanaf €69,99 ex btw / from €69.99 excl. VAT
+- Migratie naar Next.js: WordPress/Squarespace/Jimdo vanaf €299, Wix vanaf €249, Shopify vanaf €399
 - Vertaling & tolken: op uurbasis of projectprijs / per hour or project
 
 ---
@@ -111,7 +119,7 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 
 1. NL: Waar is Allesis gevestigd? A: Haarlem, Noord-Holland — landelijk werkzaam.
 2. EN: Do you work remotely? A: Yes, we serve clients across the Netherlands and internationally.
-3. NL: Bouwen jullie met WordPress? A: Vooral maatwerk met modern framework (Next.js); advies per project.
+3. NL: Bouwen jullie met WordPress? A: Nee, wij migreren bestaande sites (WordPress, Wix, Shopify, etc.) naar Next.js (vanaf €299). Nieuwe sites bouwen wij direct in Next.js.
 4. EN: Do you provide hosting? A: Yes — Dutch hosting packages with SSL and email.
 5. NL: Hoe snel kan een nieuwe site live? A: Afhankelijk van scope; vaak enkele weken voor MKB-standaard.
 6. EN: Is GDPR compliance included? A: We deliver privacy-ready setups and offer compliance packages.
@@ -142,6 +150,8 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 - https://allesis.nl/seo
 - https://allesis.nl/avg
 - https://allesis.nl/thai
+- https://allesis.nl/wordpress-naar-nextjs
+- https://allesis.nl/migratie-aanvragen
 - https://allesis.nl/contact
 - https://allesis.nl/vertaling
 - https://allesis.nl/sitemap.xml

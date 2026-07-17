@@ -232,7 +232,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
         {
           vraag: "Wat kost een salonwebsite?",
           antwoord:
-            "Gratis one-pager beschikbaar* of Starter pakket vanaf €199. Maatwerk op aanvraag. Hosting v.a. €8,95/mnd.",
+            "Gratis one-pager beschikbaar* of Starter pakket vanaf €299. Maatwerk op aanvraag. Hosting v.a. €8,95/mnd.",
           foto: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=70",
         },
       ],
@@ -374,7 +374,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     metadata: meta(
       "/zorg",
       "Website voor zorg & coaches | Allesis Haarlem",
-      "Rustige, vertrouwenwekkende websites voor zorgverleners, therapeuten en coaches. Afsprakensysteem, GDPR-compliant. Vanaf €199 of gratis one-pager.*",
+      "Rustige, vertrouwenwekkende websites voor zorgverleners, therapeuten en coaches. Afsprakensysteem, GDPR-compliant. Vanaf €299 of gratis one-pager.*",
       "Website voor zorg & coaches | Allesis",
       "Vertrouwenwekkende websites voor zorgverleners en coaches, volledig AVG-proof."
     ),
@@ -482,7 +482,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     metadata: meta(
       "/zzp",
       "Website voor ZZP'ers & freelancers | Allesis Haarlem",
-      "Snelle, betaalbare websites voor ZZP'ers en freelancers. Portfolio, diensten, tarieven en contact. Online in een dag. Vanaf €199 of gratis one-pager.*",
+      "Snelle, betaalbare websites voor ZZP'ers en freelancers. Portfolio, diensten, tarieven en contact. Online in een dag. Vanaf €299 of gratis one-pager.*",
       "Website voor ZZP'ers & freelancers | Allesis",
       "Professioneel online in een dag: portfolio, diensten, tarieven en contact."
     ),
@@ -590,7 +590,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     metadata: meta(
       "/non-profit",
       "Website voor non-profits & stichtingen | Allesis Haarlem",
-      "Websites voor stichtingen en non-profits: missie, donaties, impact en vrijwilligers. Vanaf €199 of gratis one-pager.*",
+      "Websites voor stichtingen en non-profits: missie, donaties, impact en vrijwilligers. Vanaf €299 of gratis one-pager.*",
       "Website voor non-profits | Allesis",
       "Meer impact online: missie, donaties en verhalen die raken."
     ),
@@ -671,7 +671,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     metadata: meta(
       "/webshop",
       "Website & webshop laten maken | Allesis Haarlem",
-      "Webshops en e-commerce sites: productpagina's, betaalintegratie, SEO. Vanaf €199 of gratis one-pager.*",
+      "Webshops en e-commerce sites: productpagina's, betaalintegratie, SEO. Vanaf €299 of gratis one-pager.*",
       "Webshop & e-commerce | Allesis",
       "Meer omzet online: snelle webshops die verkopen."
     ),
@@ -721,7 +721,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     metadata: meta(
       "/tandarts",
       "Website voor tandartsen & huisartsen | Allesis Haarlem",
-      "Praktijkwebsites voor tandartsen en huisartsen: afspraken, team, behandelingen. AVG-proof. Vanaf €199 of gratis one-pager.*",
+      "Praktijkwebsites voor tandartsen en huisartsen: afspraken, team, behandelingen. AVG-proof. Vanaf €299 of gratis one-pager.*",
       "Website voor tandartsen & huisartsen | Allesis",
       "Patiënten vinden u: afspraken, team en behandelingen online."
     ),
@@ -771,7 +771,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     metadata: meta(
       "/vastgoed",
       "Website voor vastgoed & makelaars | Allesis Haarlem",
-      "Makelaar- en vastgoedwebsites: objecten, zoeken, contact. Vanaf €199 of gratis one-pager.*",
+      "Makelaar- en vastgoedwebsites: objecten, zoeken, contact. Vanaf €299 of gratis one-pager.*",
       "Website voor vastgoed & makelaars | Allesis",
       "Uw panden online gepresenteerd: objecten, foto's en leads."
     ),

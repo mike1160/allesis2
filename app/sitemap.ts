@@ -38,6 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/gratis-website`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
 
+    // Migratie
+    { url: `${baseUrl}/migratie-aanvragen`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${baseUrl}/wordpress-naar-nextjs`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 },
+    { url: `${baseUrl}/wix-naar-eigen-website`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 },
+    { url: `${baseUrl}/shopify-alternatief`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 },
+
     // Branches
     ...branches.map((branch) => ({
       url: `${baseUrl}/${branch}`,

@@ -11,12 +11,34 @@ Allesis is een webdesign bureau gevestigd in Haarlem, Nederland. Wij bouwen snel
 - Gratis one-pager (met SSF-donatie link)
 - Thaise webdiensten (Thai/NL/EN, vertaling, tolkdiensten)
 
+## Migratie diensten
+Allesis migreert websites van WordPress, Wix, Shopify, Squarespace, Webflow en Joomla naar Next.js.
+Behoud van SEO-waarde, content en domeinnaam. Razendsnel resultaat.
+
+Prijzen:
+- WordPress migratie: vanaf €299
+- Wix migratie: vanaf €249 (geen export mogelijk, extra werk)
+- Shopify alternatief: vanaf €399 (webshop functionaliteit)
+- Squarespace migratie: vanaf €299
+- Joomla/Drupal migratie: vanaf €299
+
+Voordelen Next.js vs WordPress/Wix/Shopify:
+- Laadtijd: van 5-8 seconden naar onder 2 seconden
+- PageSpeed: van 40-60 naar 95+
+- Geen maandelijkse platform kosten
+- Geen plugins of beveiligingsproblemen
+- 100% SEO-waarde behoud
+- AVG-compliant opgeleverd
+
+Aanvraagformulier: https://allesis.nl/migratie-aanvragen
+WordPress specifiek: https://allesis.nl/wordpress-naar-nextjs
+
 ## Branches
 Horeca, beauty, bouw, zorg, ZZP, non-profit, webshops, tandartsen, vastgoed, sport, advocaten, Thaise ondernemers
 
 ## Pakketten
 - Gratis one-pager: €0 bouw + hosting v.a. €8,95/mnd (met SSF-link en Allesis-branding)
-- Starter: €199 eenmalig
+- Starter: €299 eenmalig
 - Maatwerk: op aanvraag
 
 ## Contact

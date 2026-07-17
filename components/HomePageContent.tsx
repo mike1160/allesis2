@@ -9,6 +9,14 @@ import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
 import SSFMissie from "@/components/SSFMissie";
 import TechStrip from "@/components/TechStrip";
 import { HOME_FAQ_GRID } from "@/lib/faq-data";
+import {
+  siWordpress,
+  siWix,
+  siShopify,
+  siSquarespace,
+  siWebflow,
+  siJoomla,
+} from "simple-icons";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 const easeOut = "easeOut" as const;
@@ -184,7 +192,7 @@ const PAKKETTEN = [
     badge: "Meest gekozen",
     badgeKleur: "text-white",
     naam: "Starter",
-    prijs: "€ 199",
+    prijs: "€ 299",
     prijsDetail: "eenmalig · zonder verplichte branding",
     foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=70",
     gradient: "from-blue-900/95 via-blue-800/90 to-blue-700/70",
@@ -384,7 +392,120 @@ export default function HomePageContent() {
       {/* Sectie 2 — Tech strip */}
       <TechStrip />
 
-      {/* Sectie 3 — Pakketten (Gratis / Starter / Maatwerk) */}
+      {/* Sectie 3 — Prominente migratie service */}
+      <section className="border-y border-gray-100 bg-white px-6 py-16 md:px-16">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 text-center">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-600">⚡ Migratie service</p>
+            <h2 className="font-sora mb-4 text-4xl font-black text-neutral-dark">Klaar met uw huidige platform?</h2>
+            <p className="mx-auto max-w-xl text-gray-500">
+              WordPress traag? Wix te duur? Shopify eet uw winst op? Allesis migreert uw site naar Next.js — snel,
+              veilig en betaalbaar.
+            </p>
+          </div>
+
+          <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {[
+              {
+                naam: "WordPress",
+                slug: "wordpress",
+                icon: siWordpress,
+                color: "#21759B",
+                pijn: "Traag & onveilig",
+                borderKleur: "border-blue-200 hover:border-blue-400",
+              },
+              {
+                naam: "Wix",
+                slug: "wix",
+                icon: siWix,
+                color: "#FAAD00",
+                pijn: "Niet van u",
+                borderKleur: "border-yellow-200 hover:border-yellow-400",
+              },
+              {
+                naam: "Shopify",
+                slug: "shopify",
+                icon: siShopify,
+                color: "#96BF48",
+                pijn: "€299/mnd",
+                borderKleur: "border-green-200 hover:border-green-400",
+              },
+              {
+                naam: "Squarespace",
+                slug: "squarespace",
+                icon: siSquarespace,
+                color: "#000000",
+                pijn: "Beperkt maatwerk",
+                borderKleur: "border-gray-300 hover:border-gray-500",
+              },
+              {
+                naam: "Webflow",
+                slug: "webflow",
+                icon: siWebflow,
+                color: "#4353FF",
+                pijn: "Te technisch & duur",
+                borderKleur: "border-indigo-200 hover:border-indigo-400",
+              },
+              {
+                naam: "Joomla",
+                slug: "joomla",
+                icon: siJoomla,
+                color: "#F4A818",
+                pijn: "Verouderd",
+                borderKleur: "border-orange-200 hover:border-orange-400",
+              },
+            ].map((p) => (
+              <Link
+                key={p.naam}
+                href={`/migratie-aanvragen?platform=${p.slug}`}
+                className={`rounded-2xl border-2 bg-white p-5 text-center transition-all hover:scale-105 hover:shadow-md ${p.borderKleur}`}
+              >
+                <svg
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width={32}
+                  height={32}
+                  className="mx-auto mb-2"
+                  style={{ fill: p.color }}
+                  aria-hidden
+                >
+                  <path d={p.icon.path} />
+                </svg>
+                <div className="text-sm font-black text-gray-900">{p.naam}</div>
+                <div className="mt-1 text-xs font-semibold text-red-500">❌ {p.pijn}</div>
+                <div className="mt-1 text-xs font-bold text-green-600">→ Next.js</div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex flex-col items-center gap-8 rounded-3xl bg-gradient-to-r from-gray-900 to-gray-800 p-8 md:flex-row">
+            <div className="flex flex-wrap justify-center gap-10">
+              {[
+                { getal: "€299", label: "Vanaf", kleur: "text-[#C8FF00]" },
+                { getal: "<2s", label: "Laadtijd", kleur: "text-green-400" },
+                { getal: "95+", label: "PageSpeed", kleur: "text-blue-400" },
+                { getal: "100%", label: "SEO behoud", kleur: "text-white" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className={`text-3xl font-black ${stat.kleur}`}>{stat.getal}</div>
+                  <div className="mt-1 text-xs text-gray-500">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="flex-1 md:text-right">
+              <Link
+                href="/migratie-aanvragen"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#C8FF00] px-8 py-4 text-base font-black text-gray-900 transition-colors hover:bg-[#B4EF00]"
+              >
+                ⚡ Start uw migratie →
+              </Link>
+              <p className="mt-3 text-xs text-gray-500">Vrijblijvende offerte · Binnen 1 werkdag reactie</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sectie 4 — Pakketten (Gratis / Starter / Maatwerk) */}
       <RevealSection className="px-6 py-[110px] md:px-10">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">

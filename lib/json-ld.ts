@@ -119,7 +119,7 @@ export function buildLocalBusinessSchema() {
     sameAs: ["https://www.savedsouls-foundation.org/nl", ...ORGANIZATION_SAME_AS],
     knowsLanguage: ["nl", "en", "th"],
     areaServed: "Nederland",
-    serviceType: ["Webdesign", "SEO", "AVG-compliance", "Hosting", "Thaise webdiensten"],
+    serviceType: ["Webdesign", "SEO", "AVG-compliance", "Hosting", "WordPress migratie", "Thaise webdiensten"],
     parentOrganization: { "@id": ORGANIZATION_ID },
   };
 }

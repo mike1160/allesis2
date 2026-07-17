@@ -197,6 +197,78 @@ function businessHostingOrderNotificationText(payload: {
   ].join("\n");
 }
 
+function businessMigratieNotificationText(payload: {
+  naam: string;
+  email: string;
+  bedrijf?: string;
+  platform: string;
+  platformLabel: string;
+  huidigeUrl: string;
+  extraAntwoorden?: Record<string, string>;
+  bericht?: string;
+  nieuwsbrief?: boolean;
+}): string {
+  const extraLines = Object.entries(payload.extraAntwoorden ?? {})
+    .filter(([, value]) => value.trim())
+    .flatMap(([label, value]) => [plainRow(label, value)]);
+
+  return [
+    "Nieuwe migratie-aanvraag",
+    "",
+    plainRow("Platform", payload.platformLabel),
+    plainRow("Naam", payload.naam),
+    plainRow("E-mail", payload.email),
+    plainRow("Bedrijf", payload.bedrijf?.trim() || "—"),
+    plainRow("Huidige URL", payload.huidigeUrl),
+    plainRow("Privacyverklaring", "Akkoord (formulier)"),
+    plainRow("Nieuwsbrief", payload.nieuwsbrief ? "Ja" : "Nee"),
+    ...extraLines,
+    "",
+    "Opmerking:",
+    "",
+    payload.bericht?.trim() || "—",
+    "",
+    plainDivider(),
+  ].join("\n");
+}
+
+function migratieCustomerConfirmationText(payload: {
+  naam: string;
+  platformLabel: string;
+  huidigeUrl: string;
+}): string {
+  return [
+    `Beste ${payload.naam},`,
+    "",
+    "Bedankt! Wij hebben uw migratie-aanvraag ontvangen en nemen binnen één werkdag contact op met een vrijblijvende offerte.",
+    "",
+    plainRow("Platform", payload.platformLabel),
+    plainRow("Huidige website", payload.huidigeUrl),
+    plainRow("Migratie naar", "Next.js via Allesis"),
+    "",
+    "— Allesis · info@allesis.nl · Haarlem",
+  ].join("\n");
+}
+
+function migratieCustomerConfirmationHtml(payload: {
+  naam: string;
+  platformLabel: string;
+  huidigeUrl: string;
+}): string {
+  const inner = `
+    <p style="margin:0 0 16px;color:#374151;line-height:1.7;">Beste ${escapeHtml(payload.naam)},</p>
+    <p style="margin:0 0 16px;color:#374151;line-height:1.7;">
+      Bedankt! Wij hebben uw migratie-aanvraag ontvangen en nemen binnen één werkdag contact op met een vrijblijvende offerte.
+    </p>
+    ${tableHtml([
+      { label: "Platform", value: payload.platformLabel },
+      { label: "Huidige website", value: payload.huidigeUrl },
+      { label: "Migratie naar", value: "Next.js via Allesis" },
+    ])}
+  `;
+  return wrapEmail(inner, "Migratie-aanvraag ontvangen");
+}
+
 function businessGratisWebsiteNotificationText(payload: {
   naam: string;
   email: string;
@@ -512,6 +584,18 @@ export type AllesisEmailPayload =
       scanId?: string;
       nieuwsbrief?: boolean;
     }
+  | {
+      type: "migratie_aanvraag";
+      naam: string;
+      email: string;
+      bedrijf?: string;
+      platform: string;
+      platformLabel: string;
+      huidigeUrl: string;
+      extraAntwoorden?: Record<string, string>;
+      bericht?: string;
+      nieuwsbrief?: boolean;
+    }
   | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean };
 
 export async function sendAllesisEmail(
@@ -619,6 +703,27 @@ export async function sendAllesisEmail(
       text = businessGratisWebsiteNotificationText(payload);
       break;
     }
+    case "migratie_aanvraag": {
+      replyTo = payload.email;
+      subject = `Migratie-aanvraag — ${payload.platformLabel}`;
+      const extraRows = Object.entries(payload.extraAntwoorden ?? {})
+        .filter(([, value]) => value.trim())
+        .map(([label, value]) => ({ label, value }));
+      const inner = `${tableHtml([
+        { label: "Platform", value: payload.platformLabel },
+        { label: "Naam", value: payload.naam },
+        { label: "E-mail", value: payload.email },
+        { label: "Bedrijf", value: payload.bedrijf || "—" },
+        { label: "Huidige URL", value: payload.huidigeUrl },
+        ...extraRows,
+        { label: "Opmerking", value: payload.bericht || "—" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+        { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
+      ])}`;
+      html = wrapEmail(inner, "Nieuwe migratie-aanvraag");
+      text = businessMigratieNotificationText(payload);
+      break;
+    }
     default:
       return { ok: false, message: "Onbekend berichttype." };
   }
@@ -638,7 +743,12 @@ export async function sendAllesisEmail(
    * Klantbevestiging vóór `businessSend.data?.id`-check, zodat een tweede Resend-call ook bij
    * contact/offerte wordt geprobeerd. Succes bedrijfsmail: `businessSend.data?.id`.
    */
-  if (payload.type === "contact" || payload.type === "offerte" || payload.type === "gratis_website") {
+  if (
+    payload.type === "contact" ||
+    payload.type === "offerte" ||
+    payload.type === "gratis_website" ||
+    payload.type === "migratie_aanvraag"
+  ) {
     const customerEmail = payload.email.trim();
     console.log("[debug] sending to customer:", { type: payload.type, customerEmail });
 
@@ -657,6 +767,10 @@ export async function sendAllesisEmail(
         confirmHtml = offerteCustomerConfirmationHtml(payload);
         confirmText = offerteCustomerConfirmationText(payload);
         confirmSubject = "Bedankt voor uw offerteaanvraag — Allesis.nl";
+      } else if (payload.type === "migratie_aanvraag") {
+        confirmHtml = migratieCustomerConfirmationHtml(payload);
+        confirmText = migratieCustomerConfirmationText(payload);
+        confirmSubject = "Uw migratie-aanvraag is ontvangen — Allesis";
       } else {
         confirmHtml = gratisWebsiteCustomerConfirmationHtml(payload);
         confirmText = gratisWebsiteCustomerConfirmationText(payload);

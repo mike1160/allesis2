@@ -91,7 +91,7 @@ export default function SportPage() {
           },
           {
             vraag: "Wat kost een sportwebsite?",
-            antwoord: "Starter vanaf €199 eenmalig. Maatwerk op aanvraag. Hosting v.a. €8,95/mnd.",
+            antwoord: "Starter vanaf €299 eenmalig. Maatwerk op aanvraag. Hosting v.a. €8,95/mnd.",
             foto: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=70",
           },
         ]}

@@ -18,6 +18,8 @@ const LABELS: Record<string, string> = {
   domeinen: "Domeinen",
   vertaling: "Vertaling",
   thai: "Thaise webdiensten",
+  "wordpress-naar-nextjs": "WordPress migratie",
+  "migratie-aanvragen": "Migratie aanvragen",
   disclaimer: "Disclaimer",
   dienstverlening: "Dienstverlening",
   "recent-websites": "Recent websites",
