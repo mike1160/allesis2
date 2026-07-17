@@ -8,6 +8,8 @@ import FAQGrid from "@/components/FAQGrid";
 import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
 import SSFMissie from "@/components/SSFMissie";
 import TechStrip from "@/components/TechStrip";
+import StripPill from "@/components/StripPill";
+import { aiItems } from "@/lib/strip-items";
 import { HOME_FAQ_GRID } from "@/lib/faq-data";
 import {
   siWordpress,
@@ -189,7 +191,7 @@ const PAKKETTEN = [
     prijs: "€ 0",
     prijsDetail: "eenmalig · hosting vanaf €8,95/mnd",
     foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=70",
-    gradient: "from-slate-900/95 via-slate-800/90 to-slate-700/70",
+    gradient: "from-slate-900/80 via-slate-800/65 to-slate-700/45",
     featured: false,
     features: [
       "Professionele one-pager",
@@ -229,7 +231,7 @@ const PAKKETTEN = [
     prijs: "Op maat",
     prijsDetail: "offerte op basis van wensen",
     foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=70",
-    gradient: "from-gray-900/95 via-gray-800/90 to-gray-700/70",
+    gradient: "from-gray-900/80 via-gray-800/65 to-gray-700/45",
     featured: false,
     features: [
       "Volledig maatwerk in Next.js",
@@ -387,6 +389,17 @@ function OrchidHero() {
             Uw nieuwe website.
             <span className="mt-1 block text-primary">Gevonden. Compliant.</span>
           </h1>
+
+          <div className="mt-5 overflow-x-auto">
+            <div className="flex min-w-max items-center gap-2">
+              <span className="flex-shrink-0 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                AI vindbaar
+              </span>
+              {aiItems.map((item) => (
+                <StripPill key={item.naam} item={item} />
+              ))}
+            </div>
+          </div>
           <p className="font-lato mt-6 max-w-xl text-lg leading-relaxed text-gray-600 md:text-xl">
             Allesis bouwt snelle, vindbare websites voor het MKB — hosting, SEO en AVG inbegrepen. Persoonlijk. Betaalbaar.
             En elke website die wij bouwen{" "}
