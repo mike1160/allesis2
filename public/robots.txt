@@ -1,166 +1,25 @@
-# Allesis.nl — Webdesign in NL, EN and TH
-# Meer context voor AI-systemen: https://allesis.nl/llms.txt
-
-# ——— Legitieme zoekmachines ———
-User-agent: Googlebot
-Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-
-User-agent: Bingbot
-Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-
-User-agent: Slurp
+User-agent: *
 Allow: /
 
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: Yandex
-Allow: /
-
-User-agent: Sogou
-Allow: /
-
-User-agent: Exabot
-Allow: /
-
-User-agent: facebot
-Allow: /
-
-User-agent: ia_archiver
-Allow: /
-
-# ——— AI-crawlers (expliciet toegestaan, beschermde paden uitgesloten) ———
+# AI crawlers expliciet toestaan
 User-agent: GPTBot
 Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-
-User-agent: Claude-Web
-Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-
-User-agent: anthropic-ai
-Allow: /
-Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /api/
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Blokkeer alleen login/admin
 Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
 Disallow: /admin
-
-User-agent: Google-Extended
-Allow: /
 Disallow: /api/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: FacebookBot
-Allow: /
-
-User-agent: Applebot
-Allow: /
-
-User-agent: Diffbot
-Allow: /
-
-User-agent: ImagesiftBot
-Allow: /
-
-User-agent: Omgilibot
-Allow: /
-
-# ——— Ongewenste / SEO-spam bots ———
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: BLEXBot
-Disallow: /
-
-User-agent: DataForSeoBot
-Disallow: /
-
-User-agent: PetalBot
-Disallow: /
-
-# ——— Standaard ———
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /_next/
-Disallow: /login
-Disallow: /registreren
-Disallow: /dashboard
-Disallow: /admin
-Crawl-delay: 1
 
 Sitemap: https://allesis.nl/sitemap.xml
-Sitemap: https://allesis.nl/sitemap-images.xml

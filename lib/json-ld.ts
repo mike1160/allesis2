@@ -90,9 +90,9 @@ export function buildLocalBusinessSchema() {
     name: "Allesis",
     url: SITE_URL,
     image: `${SITE_URL}/logo.svg`,
-    description: "Webdesign, hosting, SEO en AVG bureau in Haarlem — persoonlijk en all-in-one.",
+    description: "Webdesign bureau in Haarlem voor het MKB — hosting, SEO en AVG-compliance.",
     email: "info@allesis.nl",
-    priceRange: "€€",
+    priceRange: "€0 - €€€",
     identifier: {
       "@type": "PropertyValue",
       propertyID: "KvK",
@@ -104,14 +104,22 @@ export function buildLocalBusinessSchema() {
       addressRegion: "Noord-Holland",
       addressCountry: "NL",
     },
-    areaServed: ["Haarlem", "Amsterdam", "Alkmaar", "Noord-Holland", "Nederland"],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 52.3873878,
+      longitude: 4.6462194,
+    },
+    openingHours: "Mo-Fr 09:00-17:00",
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "09:00",
       closes: "17:00",
     },
+    sameAs: ["https://www.savedsouls-foundation.org/nl", ...ORGANIZATION_SAME_AS],
     knowsLanguage: ["nl", "en", "th"],
+    areaServed: "Nederland",
+    serviceType: ["Webdesign", "SEO", "AVG-compliance", "Hosting", "Thaise webdiensten"],
     parentOrganization: { "@id": ORGANIZATION_ID },
   };
 }

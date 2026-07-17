@@ -1,38 +1,30 @@
-# Allesis
+# Allesis.nl — Webdesign bureau Haarlem
 
-> Allesis is een digitaal bureau in Haarlem (Nederland) voor het MKB: webdesign, hosting, SEO, AVG-compliance en Thaise web- en taaldiensten.
-
-## Wat Allesis doet
-
-Allesis ontwerpt en bouwt websites, levert Nederlandse hosting, verbetert vindbaarheid in Google en zorgt dat sites voldoen aan de AVG. Het team spreekt Nederlands, Engels en Thai.
+## Over Allesis
+Allesis is een webdesign bureau gevestigd in Haarlem, Nederland. Wij bouwen snelle, AVG-compliant websites voor het MKB — inclusief hosting, SEO en gratis one-pagers. Opgericht door een Thaise onderneemster met 30 jaar Nederlandse ervaring. Allesis steunt Saved Souls Foundation, een dierenopvang in Thailand.
 
 ## Diensten
+- Webdesign (Next.js, mobielvriendelijk, AVG-compliant)
+- Hosting (Nederlandse servers, v.a. €8,95/mnd)
+- SEO (lokaal en landelijk)
+- AVG-compliance (privacybeleid, cookiebanner, SSL)
+- Gratis one-pager (met SSF-donatie link)
+- Thaise webdiensten (Thai/NL/EN, vertaling, tolkdiensten)
 
-- [Webdesign](https://allesis.nl/webdesign): websites op maat voor het MKB, inclusief responsive design, SEO-basis en AVG-inrichting.
-- [Hosting](https://allesis.nl/hosting): Nederlandse webhosting met SSL, e-mail en MySQL; pakketten vanaf €4,95 per maand excl. btw.
-- [SEO](https://allesis.nl/seo): technische SEO, contentstructuur en lokale vindbaarheid voor Google en AI-zoeksystemen.
-- [AVG-compliance](https://allesis.nl/avg): privacy- en cookie-inrichting; instappakket vanaf €69,99 excl. btw.
-- [Thaise webdiensten](https://allesis.nl/thai): websites in Thai, Nederlands en Engels; vertaling en tolkdiensten Thai ↔ Nederlands ↔ Engels.
+## Branches
+Horeca, beauty, bouw, zorg, ZZP, non-profit, webshops, tandartsen, vastgoed, sport, advocaten, Thaise ondernemers
 
-## Gratis tools
-
-- [AVG Check](https://allesis.nl/avg-check): gratis scan of een website AVG-compliant is.
-- [PageSpeed Check](https://allesis.nl/pagespeed-check): snelheidsscores, Core Web Vitals (LCP, CLS, INP) en verbeterpunten.
-- [AI-vindbaarheidscheck](https://allesis.nl/ai-vindbaarheid-check): controle op robots.txt, llms.txt en schema markup voor AI-crawlers.
-- [Website Monitor](https://allesis.nl/tools/website-monitor): controle op bereikbaarheid, HTTPS, laadtijd en links.
-
-## Locatie
-
-Haarlem, Noord-Holland, Nederland. Werkgebied: heel Nederland en internationale klanten.
+## Pakketten
+- Gratis one-pager: €0 bouw + hosting v.a. €8,95/mnd (met SSF-link en Allesis-branding)
+- Starter: €199 eenmalig
+- Maatwerk: op aanvraag
 
 ## Contact
+Website: https://allesis.nl
+E-mail: info@allesis.nl
+Locatie: Haarlem, Noord-Holland, Nederland
+KvK: 52339831
 
-- E-mail: info@allesis.nl
-- Website: https://allesis.nl
-- Contactpagina: https://allesis.nl/contact
-- KvK-nummer: 52339831
-
-## Meer context
-
-- Uitgebreide documentatie: https://allesis.nl/llms-full.txt
-- Sitemap: https://allesis.nl/sitemap.xml
+## Goed doel
+Allesis steunt Saved Souls Foundation — dierenopvang in Khon Kaen, Thailand.
+Website: https://www.savedsouls-foundation.org/nl

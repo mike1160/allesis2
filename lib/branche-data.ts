@@ -23,11 +23,13 @@ function meta(
   title: string,
   description: string,
   ogTitle: string,
-  ogDescription: string
+  ogDescription: string,
+  keywords?: string[]
 ): Metadata {
   return {
     title,
     description,
+    ...(keywords ? { keywords } : {}),
     alternates: pageAlternates(path),
     openGraph: {
       title: ogTitle,
@@ -44,10 +46,11 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     slug: "horeca",
     metadata: meta(
       "/horeca",
-      "Website voor horeca & restaurants | Allesis Haarlem",
-      "Allesis bouwt professionele websites voor restaurants en horecazaken. Online menu, reserveringen, Google reviews. Vanaf €199 of gratis one-pager.*",
-      "Website voor horeca & restaurants | Allesis",
-      "Horecasites die converteren: online menu, reserveringen en Google reviews."
+      "Website voor horeca & restaurants",
+      "7,5 miljoen Nederlanders zoeken maandelijks naar restaurants. Staat u bovenaan? Allesis bouwt horecasites die converteren. Gratis one-pager beschikbaar.*",
+      "Website voor horeca & restaurants",
+      "7,5 miljoen Nederlanders zoeken maandelijks naar restaurants. Staat u bovenaan? Allesis bouwt horecasites die converteren.",
+      ["website horeca", "restaurant website laten maken", "horecawebsite Haarlem", "online menu restaurant"]
     ),
     config: {
       eyebrow: "🍽️ Branche · Horeca & restaurants",
@@ -151,10 +154,11 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     slug: "beauty",
     metadata: meta(
       "/beauty",
-      "Website voor beauty & schoonheidssalons | Allesis Haarlem",
-      "Websites voor schoonheidssalons, kappers en beautyprofessionals. Online afspraken, behandelmenu, voor & na foto's. Vanaf €199 of gratis one-pager.*",
-      "Website voor beauty & salons | Allesis",
-      "Salonwebsites die volgeboekt raken: online afspraken, behandelmenu en cadeaubonnen."
+      "Website voor beauty & schoonheidssalons",
+      "Online afspraken, behandelmenu en voor & na foto's. Allesis bouwt salonwebsites die volboeking opleveren. Gratis one-pager beschikbaar.*",
+      "Website voor beauty & schoonheidssalons",
+      "Online afspraken, behandelmenu en voor & na foto's. Allesis bouwt salonwebsites die volboeking opleveren.",
+      ["website schoonheidssalon", "beauty salon website", "online afspraken salon"]
     ),
     config: {
       eyebrow: "💆 Branche · Beauty & schoonheidssalons",
@@ -259,10 +263,11 @@ export const BRANCHES: Record<string, BrancheEntry> = {
     slug: "bouw",
     metadata: meta(
       "/bouw",
-      "Website voor bouwbedrijven & vakmensen | Allesis Haarlem",
-      "Websites voor bouwbedrijven, aannemers en vakmensen. Portfolio met foto's, werkgebied, referenties en offerte-aanvraag. Vanaf €199 of gratis one-pager.*",
-      "Website voor bouwbedrijven & vakmensen | Allesis",
-      "Toon uw vakmanschap online: portfolio, werkgebied en offerte-aanvragen."
+      "Website voor bouwbedrijven & vakmensen",
+      "Portfolio, offerte-aanvraag en werkgebied kaart. Allesis bouwt bouwwebsites die opdrachtgevers overtuigen. Gratis one-pager beschikbaar.*",
+      "Website voor bouwbedrijven & vakmensen",
+      "Portfolio, offerte-aanvraag en werkgebied kaart. Allesis bouwt bouwwebsites die opdrachtgevers overtuigen.",
+      ["website bouwbedrijf", "aannemer website laten maken", "website loodgieter", "bouwwebsite Haarlem"]
     ),
     config: {
       eyebrow: "🔨 Branche · Bouwbedrijven & vakmensen",

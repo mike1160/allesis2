@@ -1,41 +1,62 @@
 import type { MetadataRoute } from "next";
-import { discoverAppRoutes, getLastModified } from "@/lib/discover-app-routes";
-import { SITE_URL, SITEMAP_EXCLUDE_PATHS, SITEMAP_PRIORITY } from "@/lib/seo-config";
-
-function hrefAlternates(path: string): MetadataRoute.Sitemap[0]["alternates"] {
-  const base = SITE_URL;
-  const url = `${base}${path}`;
-  return {
-    languages: {
-      nl: url,
-      en: url,
-      th: `${base}/thai`,
-      "x-default": url,
-    },
-  };
-}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = SITE_URL;
-  const discovered = discoverAppRoutes();
+  const baseUrl = "https://allesis.nl";
 
-  const rows: MetadataRoute.Sitemap = [];
+  const branches = [
+    "horeca",
+    "beauty",
+    "bouw",
+    "zorg",
+    "zzp",
+    "non-profit",
+    "webshop",
+    "tandarts",
+    "vastgoed",
+    "sport",
+    "advocaat",
+    "thai",
+  ];
 
-  for (const { path, pageFile } of discovered) {
-    if (SITEMAP_EXCLUDE_PATHS.has(path)) continue;
-    if (path === "/th") continue;
+  const diensten = [
+    "webdesign",
+    "hosting",
+    "seo",
+    "avg",
+    "avg-regelgeving",
+    "avg-boetes",
+    "avg-check",
+    "domeinen",
+    "vertaling",
+  ];
 
-    const cfg = SITEMAP_PRIORITY[path] ?? { priority: 0.6, changeFrequency: "monthly" as const };
+  return [
+    // Homepage
+    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
 
-    rows.push({
-      url: `${base}${path}`,
-      lastModified: getLastModified(pageFile),
-      changeFrequency: cfg.changeFrequency,
-      priority: cfg.priority,
-      alternates: hrefAlternates(path),
-    });
-  }
+    // Pakketten
+    { url: `${baseUrl}/gratis-website`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
 
-  rows.sort((a, b) => a.url.localeCompare(b.url));
-  return rows;
+    // Branches
+    ...branches.map((branch) => ({
+      url: `${baseUrl}/${branch}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+
+    // Diensten
+    ...diensten.map((dienst) => ({
+      url: `${baseUrl}/${dienst}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+
+    // Juridisch
+    { url: `${baseUrl}/voorwaarden`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/disclaimer`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+  ];
 }
