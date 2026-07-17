@@ -18,7 +18,15 @@ export default function Image() {
           justifyContent: "center",
         }}
       >
-        <div style={{ color: "#fff", fontSize: 64, fontWeight: 900 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            color: "#fff",
+            fontSize: 64,
+            fontWeight: 900,
+          }}
+        >
           Allesis<span style={{ color: "#3B82F6" }}>.nl</span>
         </div>
         <div style={{ color: "#94A3B8", fontSize: 28, marginTop: 16 }}>
