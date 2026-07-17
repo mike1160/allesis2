@@ -8,8 +8,6 @@ import FAQGrid from "@/components/FAQGrid";
 import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
 import SSFMissie from "@/components/SSFMissie";
 import TechStrip from "@/components/TechStrip";
-import StripPill from "@/components/StripPill";
-import { aiItems } from "@/lib/strip-items";
 import { HOME_FAQ_GRID } from "@/lib/faq-data";
 import {
   siWordpress,
@@ -389,17 +387,6 @@ function OrchidHero() {
             Uw nieuwe website.
             <span className="mt-1 block text-primary">Gevonden. Compliant.</span>
           </h1>
-
-          <div className="mt-5 overflow-x-auto">
-            <div className="flex min-w-max items-center gap-2">
-              <span className="flex-shrink-0 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                AI vindbaar
-              </span>
-              {aiItems.map((item) => (
-                <StripPill key={item.naam} item={item} />
-              ))}
-            </div>
-          </div>
           <p className="font-lato mt-6 max-w-xl text-lg leading-relaxed text-gray-600 md:text-xl">
             Allesis bouwt snelle, vindbare websites voor het MKB — hosting, SEO en AVG inbegrepen. Persoonlijk. Betaalbaar.
             En elke website die wij bouwen{" "}
