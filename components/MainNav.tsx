@@ -17,7 +17,7 @@ type MenuGroup = {
 
 const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/webdesign", label: "Diensten" },
-  { href: "/horeca", label: "Branches" },
+  { href: "/branches", label: "Branches" },
   { href: "/recent-websites", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ];
