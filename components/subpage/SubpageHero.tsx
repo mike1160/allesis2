@@ -8,9 +8,8 @@ export default function SubpageHero({
   subtitle,
   children,
   className = "",
-  tint,
-  orchidOpacity = 0.25,
-  accentColor,
+  accentColor = "#3B6D11",
+  backgroundImage,
   imageSrc,
   imageLayout,
   compact = false,
@@ -21,12 +20,15 @@ export default function SubpageHero({
   subtitle?: ReactNode;
   children?: ReactNode;
   className?: string;
-  tint?: string;
-  orchidOpacity?: number;
   accentColor?: string;
+  backgroundImage?: string;
   imageSrc?: string;
   imageLayout?: "side" | "cloud";
   compact?: boolean;
+  /** @deprecated */
+  tint?: string;
+  /** @deprecated */
+  orchidOpacity?: number;
 }) {
   const description = typeof subtitle === "string" ? subtitle : undefined;
 
@@ -36,13 +38,12 @@ export default function SubpageHero({
       title={title}
       titleAccent={titleAccent}
       description={description}
-      tint={tint}
-      orchidOpacity={orchidOpacity}
       accentColor={accentColor}
+      backgroundImage={backgroundImage}
       imageSrc={imageSrc}
       imageLayout={imageLayout}
       compact={compact}
-      className={compact ? className : `pt-28 md:pt-32 ${className}`}
+      className={className}
     >
       {typeof subtitle !== "string" && subtitle ? (
         <div className="font-lato mb-8 max-w-xl text-lg leading-relaxed text-gray-500">{subtitle}</div>

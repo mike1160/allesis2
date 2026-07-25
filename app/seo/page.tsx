@@ -49,20 +49,11 @@ export default function SeoPage() {
       <JsonLd data={[serviceSchema, buildFaqPageSchema(SEO_FAQ)]} />
 
       <SubpageHero
-        eyebrow="SEO Haarlem"
+        eyebrow="SEO"
         title="SEO die écht"
         titleAccent="iets oplevert"
-        subtitle={
-          <>
-            <p>
-              Geen trucjes, maar een solide strategie: uw site snel, duidelijk voor bezoekers én goed vindbaar — lokaal en
-              landelijk.
-            </p>
-            <p lang="en" className="mt-4 text-base leading-relaxed text-gray-400">
-              Search engine optimization that connects your services with the right customers — locally and nationally.
-            </p>
-          </>
-        }
+        backgroundImage="https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg"
+        subtitle="Geen trucjes, maar een solide strategie: uw site snel, duidelijk voor bezoekers én goed vindbaar — lokaal en landelijk."
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">

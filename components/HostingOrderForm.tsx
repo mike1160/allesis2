@@ -229,7 +229,7 @@ export default function HostingOrderForm() {
           disabled={submitDisabled}
           style={{
             padding: "14px",
-            background: "#1a3bcc",
+            background: "#3B6D11",
             color: "white",
             border: "none",
             borderRadius: 8,

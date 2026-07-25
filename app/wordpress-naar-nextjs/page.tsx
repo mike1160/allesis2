@@ -74,7 +74,7 @@ export default function WordpressNaarNextjsPage() {
           <h2 className="font-sora mt-6 mb-4 text-3xl font-black">
             Allesis regelt de migratie.
             <br />
-            <span className="text-blue-600">U regelt uw bedrijf.</span>
+            <span className="text-[#3B6D11]">U regelt uw bedrijf.</span>
           </h2>
           <p className="font-lato text-lg leading-relaxed text-gray-500">
             Uw bestaande content, pagina&apos;s en SEO-waarde blijven behouden. Wij bouwen uw site opnieuw op in

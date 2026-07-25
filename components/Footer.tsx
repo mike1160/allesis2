@@ -164,11 +164,11 @@ export default function Footer() {
             {/* Brand kolom */}
             <div className="col-span-2 md:col-span-1">
               <Link href="/" className="mb-4 flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-black text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-black text-white" style={{ backgroundColor: "#3B6D11" }}>
                   A
                 </div>
                 <span className="font-sora text-lg font-black text-gray-900">
-                  Allesis<span className="text-blue-600">.nl</span>
+                  Allesis<span style={{ color: "#3B6D11" }}>.nl</span>
                 </span>
               </Link>
               <p className="font-lato mb-4 text-sm leading-relaxed text-gray-500">
@@ -177,7 +177,8 @@ export default function Footer() {
               <p className="font-lato text-xs text-gray-400">Gevestigd in Haarlem, Nederland</p>
               <a
                 href="mailto:info@allesis.nl"
-                className="font-lato mt-3 block text-sm text-blue-600 transition-colors hover:text-blue-700"
+                className="font-lato mt-3 block text-sm transition-colors hover:opacity-80"
+                style={{ color: "#3B6D11" }}
               >
                 info@allesis.nl
               </a>
@@ -226,7 +227,7 @@ export default function Footer() {
                 <a href="mailto:info@allesis.nl" className="font-lato text-sm text-gray-500 transition-colors hover:text-gray-900">
                   info@allesis.nl
                 </a>
-                <Link href="/contact" className="font-lato text-sm font-bold text-blue-600 transition-colors hover:text-blue-700">
+                <Link href="/contact" className="font-lato text-sm font-bold transition-colors hover:opacity-80" style={{ color: "#3B6D11" }}>
                   Contactpagina →
                 </Link>
                 <Link

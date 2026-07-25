@@ -15,7 +15,7 @@ export default function GratisVoorwaardenNote({
   const base = variant === "dark" ? "text-white/70" : "text-neutral-mid/80";
   const link =
     variant === "dark"
-      ? "text-blue-300 underline underline-offset-2 hover:text-white"
+      ? "text-[#C5D9A8] underline underline-offset-2 hover:text-white"
       : "text-primary hover:underline";
 
   return (

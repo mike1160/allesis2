@@ -61,14 +61,14 @@ export default function RegisterForm() {
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required style={inputStyle} />
         </div>
         {error && <p style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#dc2626", background: "#fef2f2", padding: "10px 14px", borderRadius: 8, margin: 0 }}>{error}</p>}
-        <button type="submit" disabled={loading} style={{ padding: "13px", background: "#1a3bcc", color: "white", border: "none", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}>
+        <button type="submit" disabled={loading} style={{ padding: "13px", background: "#3B6D11", color: "white", border: "none", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}>
           {loading ? "Bezig..." : "Account aanmaken →"}
         </button>
       </form>
       <div style={{ marginTop: 24, textAlign: "center" }}>
         <p style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#64748b" }}>
           Al een account?{" "}
-          <Link href="/login" style={{ color: "#1a3bcc", fontWeight: 700, textDecoration: "none" }}>Inloggen</Link>
+          <Link href="/login" style={{ color: "#3B6D11", fontWeight: 700, textDecoration: "none" }}>Inloggen</Link>
         </p>
       </div>
     </div>

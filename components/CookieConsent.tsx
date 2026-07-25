@@ -26,7 +26,7 @@ export default function CookieConsent() {
         <Link href="/disclaimer" style={{ color: "#818cf8", textDecoration: "underline" }}>disclaimer</Link> voor meer informatie.
       </p>
       <div style={{ display: "flex", gap: 12 }}>
-        <button onClick={accept} style={{ padding: "10px 24px", background: "#1a3bcc", color: "white", border: "none", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, cursor: "pointer" }}>
+        <button onClick={accept} style={{ padding: "10px 24px", background: "#3B6D11", color: "white", border: "none", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, cursor: "pointer" }}>
           Accepteren
         </button>
         <button onClick={() => setVisible(false)} style={{ padding: "10px 24px", background: "transparent", color: "#64748b", border: "1px solid #1e293b", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, cursor: "pointer" }}>

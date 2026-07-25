@@ -15,8 +15,6 @@ export default function BedanktClient() {
         title="Bedankt!"
         titleAccent="U bent bijna klaar."
         description="U ontvangt binnen enkele minuten een e-mail op het opgegeven adres met uw privacyverklaring en cookiebanner-instructies."
-        orchidOpacity={0.2}
-        className="pt-28 md:pt-32"
       >
         {domain ? (
           <p className="font-lato mb-8 text-base text-gray-500">

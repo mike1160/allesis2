@@ -3,7 +3,7 @@ import type { BrancheConfig } from "@/components/branche/BranchePageLayout";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 const ACCENT = {
-  blue: "#1a3bcc",
+  blue: "#3B6D11",
   orchid: "#C2449F",
   amber: "#d97706",
   green: "#16a34a",

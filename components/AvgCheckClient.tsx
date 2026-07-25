@@ -272,8 +272,6 @@ export default function AvgCheckClient() {
         title="Is uw website"
         titleAccent="AVG-compliant?"
         description="Vul uw domeinnaam in en ontvang direct een gratis rapport."
-        orchidOpacity={0.2}
-        className="pt-28 md:pt-32"
       >
         <form onSubmit={handleScan} className="flex max-w-xl flex-col gap-3">
           <label htmlFor="avg-domain" className="sr-only">

@@ -66,11 +66,11 @@ export default function HeroSection() {
           fontSize: 13, fontWeight: 700,
           letterSpacing: ".12em",
           textTransform: "uppercase",
-          color: progress > 0.5 ? "#1a3bcc" : "rgba(255,255,255,0.85)",
+          color: progress > 0.5 ? "#3B6D11" : "rgba(255,255,255,0.85)",
           marginBottom: 16,
           transition: "color 0.3s",
         }}>
-          Haarlem, Nederland — Webhosting & Vertaling
+          Webhosting & Vertaling
         </p>
 
         <h1 style={{
@@ -84,7 +84,7 @@ export default function HeroSection() {
           textShadow: progress > 0.5 ? "none" : "0 2px 20px rgba(0,0,0,0.3)",
         }}>
           Alles voor uw website,<br />
-          <span style={{ color: progress > 0.5 ? "#1a3bcc" : "#93c5fd" }}>
+          <span style={{ color: progress > 0.5 ? "#3B6D11" : "#93c5fd" }}>
             onder één dak
           </span>
         </h1>
@@ -107,14 +107,14 @@ export default function HeroSection() {
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
           <Link href="/hosting" style={{
             padding: "15px 32px",
-            background: "#1a3bcc",
+            background: "#3B6D11",
             color: "white",
             fontFamily: "Lato, sans-serif",
             fontWeight: 700,
             fontSize: 15,
             borderRadius: 10,
             textDecoration: "none",
-            boxShadow: "0 4px 20px rgba(26,59,204,0.4)",
+            boxShadow: "0 4px 20px rgba(59,109,17,0.4)",
           }}>
             Bekijk hosting →
           </Link>

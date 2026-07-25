@@ -80,7 +80,7 @@ export default function AdminClient({ klanten }: { klanten: Klant[] }) {
                     <div style={{ fontFamily: "Lato, sans-serif", fontSize: 13, color: "#64748b" }}>{k.email}</div>
                   </div>
                   <div style={{ display: "flex", gap: 6 }}>
-                    <span style={{ padding: "2px 8px", background: "#eef2ff", color: "#1a3bcc", borderRadius: 999, fontFamily: "Lato, sans-serif", fontSize: 11, fontWeight: 700 }}>
+                    <span style={{ padding: "2px 8px", background: "#eef2ff", color: "#3B6D11", borderRadius: 999, fontFamily: "Lato, sans-serif", fontSize: 11, fontWeight: 700 }}>
                       {k.hosting_pakketten.length} hosting
                     </span>
                     <span style={{ padding: "2px 8px", background: "#fff7ed", color: "#ea580c", borderRadius: 999, fontFamily: "Lato, sans-serif", fontSize: 11, fontWeight: 700 }}>

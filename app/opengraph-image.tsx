@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Allesis — Webdesign Haarlem";
+export const alt = "Allesis — Webdesign";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -27,10 +27,10 @@ export default function Image() {
             fontWeight: 900,
           }}
         >
-          Allesis<span style={{ color: "#3B82F6" }}>.nl</span>
+          Allesis<span style={{ color: "#3B6D11" }}>.nl</span>
         </div>
         <div style={{ color: "#94A3B8", fontSize: 28, marginTop: 16 }}>
-          Webdesign · Haarlem · AVG · SEO
+          Webdesign · Hosting · AVG · SEO
         </div>
         <div style={{ color: "#C8FF00", fontSize: 22, marginTop: 24 }}>
           🐾 Elke website doet ook goed

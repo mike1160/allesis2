@@ -49,7 +49,7 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
         {/* Tabs */}
         <div style={{ display: "flex", gap: 4, marginBottom: 32, background: "white", padding: 4, borderRadius: 10, border: "1px solid #e2e6f0", width: "fit-content" }}>
           {(["overzicht", "hosting", "domeinen"] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)} style={{ padding: "8px 20px", borderRadius: 8, border: "none", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, cursor: "pointer", background: tab === t ? "#1a3bcc" : "transparent", color: tab === t ? "white" : "#64748b", textTransform: "capitalize" }}>
+            <button key={t} onClick={() => setTab(t)} style={{ padding: "8px 20px", borderRadius: 8, border: "none", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, cursor: "pointer", background: tab === t ? "#3B6D11" : "transparent", color: tab === t ? "white" : "#64748b", textTransform: "capitalize" }}>
               {t === "overzicht" ? "Overzicht" : t === "hosting" ? "Hosting" : "Domeinen"}
             </button>
           ))}
@@ -77,7 +77,7 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
                 <div style={{ fontSize: 48, marginBottom: 16 }}>📦</div>
                 <h3 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "1.1rem", color: "#0f172a", marginBottom: 8 }}>Nog geen diensten</h3>
                 <p style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#64748b", marginBottom: 24 }}>U heeft nog geen hosting of domeinen. Bekijk onze pakketten.</p>
-                <Link href="/hosting" style={{ padding: "10px 24px", background: "#1a3bcc", color: "white", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>
+                <Link href="/hosting" style={{ padding: "10px 24px", background: "#3B6D11", color: "white", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>
                   Bekijk pakketten →
                 </Link>
               </div>
@@ -92,14 +92,14 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
             {pakketten.length === 0 ? (
               <div style={{ background: "white", border: "1px solid #e2e6f0", borderRadius: 12, padding: 48, textAlign: "center" }}>
                 <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", marginBottom: 20 }}>Geen hosting pakketten gevonden.</p>
-                <Link href="/hosting" style={{ padding: "10px 24px", background: "#1a3bcc", color: "white", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>Bestel een pakket →</Link>
+                <Link href="/hosting" style={{ padding: "10px 24px", background: "#3B6D11", color: "white", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>Bestel een pakket →</Link>
               </div>
             ) : pakketten.map(p => (
               <div key={p.id} style={{ background: "white", border: "1px solid #e2e6f0", borderRadius: 12, padding: 24, marginBottom: 16 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
                   <div>
                     <h3 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "1.1rem", color: "#0f172a", margin: "0 0 4px" }}>{p.naam}</h3>
-                    <span style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#1a3bcc", fontWeight: 700 }}>€ {p.prijs}/mnd</span>
+                    <span style={{ fontFamily: "Lato, sans-serif", fontSize: 14, color: "#3B6D11", fontWeight: 700 }}>€ {p.prijs}/mnd</span>
                   </div>
                   <span style={{ padding: "4px 12px", borderRadius: 999, fontFamily: "Lato, sans-serif", fontSize: 12, fontWeight: 700, background: statusBg(p.status), color: statusKleur(p.status) }}>
                     {p.status}
@@ -129,7 +129,7 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
             {domeinen.length === 0 ? (
               <div style={{ background: "white", border: "1px solid #e2e6f0", borderRadius: 12, padding: 48, textAlign: "center" }}>
                 <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", marginBottom: 20 }}>Geen domeinen gevonden.</p>
-                <Link href="/domeinen" style={{ padding: "10px 24px", background: "#1a3bcc", color: "white", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>Domein registreren →</Link>
+                <Link href="/domeinen" style={{ padding: "10px 24px", background: "#3B6D11", color: "white", borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>Domein registreren →</Link>
               </div>
             ) : domeinen.map(d => (
               <div key={d.id} style={{ background: "white", border: "1px solid #e2e6f0", borderRadius: 12, padding: 24, marginBottom: 16, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>

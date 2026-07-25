@@ -28,7 +28,7 @@ function logResendFailure(context: string, error: unknown): void {
 }
 
 const BRAND = {
-  primary: "#1a3bcc",
+  primary: "#3B6D11",
   text: "#0f172a",
   muted: "#64748b",
   subtle: "#94a3b8",
@@ -72,7 +72,7 @@ function plainDivider(): string {
 function wrapEmail(inner: string, title: string): string {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: #1a3bcc; padding: 24px; border-radius: 8px 8px 0 0; color: #ffffff;">
+      <div style="background: #3B6D11; padding: 24px; border-radius: 8px 8px 0 0; color: #ffffff;">
         <h1 style="color: #ffffff; margin: 0; font-size: 20px;">${escapeHtml(title)}</h1>
       </div>
       <div style="background: #f8f9fc; padding: 32px; border-radius: 0 0 8px 8px; border: 1px solid #e2e6f0;">
@@ -387,7 +387,7 @@ function contactCustomerConfirmationHtml(payload: {
   <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #f0f4ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
     <tr>
       <td align="center">
-        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(26,59,204,0.08);border:1px solid ${BRAND.border};">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(59,109,17,0.08);border:1px solid ${BRAND.border};">
           <tr>
             <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;color:${BRAND.white};">
               <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />
@@ -496,7 +496,7 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
   <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #f0f4ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
     <tr>
       <td align="center">
-        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(26,59,204,0.08);border:1px solid ${BRAND.border};">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(59,109,17,0.08);border:1px solid ${BRAND.border};">
           <tr>
             <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;color:${BRAND.white};">
               <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />

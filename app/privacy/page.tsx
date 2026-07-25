@@ -102,8 +102,6 @@ export default function PrivacyPage() {
         title="Privacy"
         titleAccent="verklaring"
         subtitle="Allesis respecteert uw privacy. Deze verklaring legt uit hoe wij omgaan met persoonsgegevens in lijn met de Algemene verordening gegevensbescherming (AVG / GDPR)."
-        orchidOpacity={0.15}
-        tint="rgba(255,255,255,0)"
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">

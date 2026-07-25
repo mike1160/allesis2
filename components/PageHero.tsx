@@ -1,18 +1,23 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
+export const PAGE_HERO_FALLBACK_BG =
+  "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg";
+
 export type PageHeroProps = {
   eyebrow?: string;
   title: string;
   titleAccent?: string;
-  /** Optionele kleur voor titleAccent (default: primary blauw) */
+  /** Optionele kleur voor titleAccent (default: Allesis groen) */
   accentColor?: string;
   description?: string;
-  /** Kleur overlay over de orchidee, per branche */
+  /** @deprecated Niet meer gebruikt — overlay is vast wit */
   tint?: string;
-  /** 0.15 subtiel, 0.35 prominent */
+  /** @deprecated Niet meer gebruikt */
   orchidOpacity?: number;
-  /** Optionele hero-foto rechts (2-koloms); anders orchidee-overlay */
+  /** Full-bleed achtergrond (CSS background-image). Default: neutrale Pexels-foto */
+  backgroundImage?: string;
+  /** Optionele hero-foto rechts (2-koloms) of cloud-layout */
   imageSrc?: string;
   /** `side` = 2 kolommen; `cloud` = tekst boven, pagina-brede wolk eronder */
   imageLayout?: "side" | "cloud";
@@ -23,17 +28,16 @@ export type PageHeroProps = {
 };
 
 /**
- * Herbruikbare pagina-hero met orchidee rechts, witte fade links,
- * en optionele branchetint over de foto.
+ * Herbruikbare pagina-hero: full-bleed foto + witte overlay,
+ * of 2-koloms / cloud-layout met imageSrc.
  */
 export default function PageHero({
   eyebrow,
   title,
   titleAccent,
-  accentColor = "#1a3bcc",
+  accentColor = "#3B6D11",
   description,
-  tint = "rgba(255,255,255,0)",
-  orchidOpacity = 0.25,
+  backgroundImage,
   imageSrc,
   imageLayout = "side",
   compact = false,
@@ -46,7 +50,6 @@ export default function PageHero({
         className={`relative overflow-hidden bg-white ${className}`}
         style={compact ? { minHeight: "auto", padding: "80px 32px" } : undefined}
       >
-        {/* Wolk — hoger, achter de tekst */}
         <div
           className={`pointer-events-none absolute inset-x-0 z-0 w-full ${
             compact ? "top-10 sm:top-8" : "top-16 sm:top-12 md:top-8"
@@ -94,7 +97,6 @@ export default function PageHero({
           </div>
         </div>
 
-        {/* Tekst boven de wolk */}
         <div
           className={`relative z-10 mx-auto max-w-3xl text-center ${
             compact
@@ -131,7 +133,8 @@ export default function PageHero({
   if (imageSrc) {
     return (
       <section
-        className={`relative overflow-hidden bg-white px-6 py-24 md:px-12 ${className}`}
+        className={`relative overflow-hidden bg-white ${className}`}
+        style={{ padding: "80px 32px" }}
       >
         <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 md:grid-cols-2 md:gap-12">
           <div className="max-w-xl">
@@ -174,43 +177,24 @@ export default function PageHero({
     );
   }
 
+  const bg = backgroundImage ?? PAGE_HERO_FALLBACK_BG;
+
   return (
     <section
-      className={`relative flex min-h-[50vh] items-center overflow-hidden bg-white px-6 py-24 md:px-12 ${className}`}
+      className={`relative overflow-hidden ${className}`}
+      style={{
+        padding: "80px 32px",
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      {/* Orchidee — LCP hero: priority */}
       <div
-        className="pointer-events-none absolute top-0 right-0 h-full w-full md:w-1/2"
-        style={{ opacity: orchidOpacity }}
-        aria-hidden
-      >
-        <Image
-          src="/images/orchid.jpg"
-          alt=""
-          fill
-          priority
-          loading="eager"
-          className="object-cover object-right-top"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-      </div>
-
-      {/* Kleur tint per branche */}
-      {tint ? (
-        <div
-          className="pointer-events-none absolute top-0 right-0 h-full w-full md:w-1/2"
-          style={{ background: tint }}
-          aria-hidden
-        />
-      ) : null}
-
-      {/* Witte fade links zodat tekst leesbaar blijft */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"
+        className="pointer-events-none absolute inset-0"
+        style={{ backgroundColor: "rgba(255,255,255,0.82)" }}
         aria-hidden
       />
 
-      {/* Content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="max-w-3xl">
           {eyebrow ? (
@@ -240,7 +224,7 @@ export default function PageHero({
   );
 }
 
-/** Helper: hex → rgba tint voor orchidee-overlay */
+/** Helper: hex → rgba tint */
 export function hexToTint(hex: string, alpha = 0.18): string {
   const raw = hex.replace("#", "");
   const full =
@@ -251,7 +235,7 @@ export function hexToTint(hex: string, alpha = 0.18): string {
           .join("")
       : raw;
   const n = Number.parseInt(full, 16);
-  if (Number.isNaN(n)) return `rgba(26,59,204,${alpha})`;
+  if (Number.isNaN(n)) return `rgba(59,109,17,${alpha})`;
   const r = (n >> 16) & 255;
   const g = (n >> 8) & 255;
   const b = n & 255;

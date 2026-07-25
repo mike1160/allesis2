@@ -68,7 +68,7 @@ function ResultCard({ site }: { site: SiteResult }) {
       >
         <div className="flex items-center gap-3">
           <div
-            className="h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-[#1a3bcc]"
+            className="h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-[#3B6D11]"
             role="status"
             aria-label="Laden"
           />
@@ -318,7 +318,7 @@ export default function WebsiteMonitor({ counter }: { counter?: React.ReactNode 
               aria-selected={tab === "check"}
               onClick={() => setTab("check")}
               className={`flex-1 rounded-lg px-4 py-2.5 font-lato text-sm font-semibold transition ${
-                tab === "check" ? "bg-[#1a3bcc] text-white" : "text-white/70 hover:text-white"
+                tab === "check" ? "bg-[#3B6D11] text-white" : "text-white/70 hover:text-white"
               }`}
             >
               Controle
@@ -329,7 +329,7 @@ export default function WebsiteMonitor({ counter }: { counter?: React.ReactNode 
               aria-selected={tab === "history"}
               onClick={() => setTab("history")}
               className={`flex-1 rounded-lg px-4 py-2.5 font-lato text-sm font-semibold transition ${
-                tab === "history" ? "bg-[#1a3bcc] text-white" : "text-white/70 hover:text-white"
+                tab === "history" ? "bg-[#3B6D11] text-white" : "text-white/70 hover:text-white"
               }`}
             >
               Geschiedenis
@@ -352,7 +352,7 @@ export default function WebsiteMonitor({ counter }: { counter?: React.ReactNode 
                   rows={5}
                   placeholder={"https://voorbeeld.nl\nhttps://andere-site.com"}
                   disabled={running}
-                  className="font-lato mt-3 w-full resize-y rounded-xl border border-white/15 bg-[#0a0f1e] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none focus:border-[#1a3bcc] disabled:opacity-60"
+                  className="font-lato mt-3 w-full resize-y rounded-xl border border-white/15 bg-[#0a0f1e] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none focus:border-[#3B6D11] disabled:opacity-60"
                 />
                 {error && (
                   <p className="mt-3 font-lato text-sm text-red-300" role="alert">
@@ -363,7 +363,7 @@ export default function WebsiteMonitor({ counter }: { counter?: React.ReactNode 
                   type="submit"
                   disabled={running || !urlInput.trim()}
                   aria-label="Start websitecontrole"
-                  className="font-sora mt-4 w-full rounded-xl bg-[#1a3bcc] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#0f2490] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                  className="font-sora mt-4 w-full rounded-xl bg-[#3B6D11] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#2F5610] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
                 >
                   {running ? "Bezig met controleren…" : "Start controle"}
                 </button>

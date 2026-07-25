@@ -17,7 +17,7 @@ export default function PremiumCard({
   if (highlighted) {
     return (
       <motion.div
-        className={`rounded-2xl bg-primary p-8 text-white shadow-[0_20px_50px_-12px_rgba(26,59,204,0.45)] ${className}`}
+        className={`rounded-2xl bg-primary p-8 text-white shadow-[0_20px_50px_-12px_rgba(59,109,17,0.45)] ${className}`}
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
@@ -38,8 +38,8 @@ export default function PremiumCard({
       transition={{ duration: 0.5, ease: easeOut }}
       whileHover={{
         y: -8,
-        boxShadow: "0 24px 56px -14px rgba(26,59,204,0.22)",
-        borderColor: "rgba(26, 59, 204, 0.25)",
+        boxShadow: "0 24px 56px -14px rgba(59,109,17,0.22)",
+        borderColor: "rgba(59, 109, 17, 0.25)",
         transition: { duration: 0.35, ease: easeOut },
       }}
     >

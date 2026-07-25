@@ -126,7 +126,7 @@ export default function ContactForm() {
           onVerificationFailed={() => setError(VERIFY_CLIENT)}
         />
         <button type="submit" disabled={submitDisabled} style={{
-          padding: "14px", background: "#1a3bcc", color: "white", border: "none",
+          padding: "14px", background: "#3B6D11", color: "white", border: "none",
           borderRadius: 8, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15,
           cursor: submitDisabled ? "not-allowed" : "pointer", opacity: submitDisabled ? 0.7 : 1,
         }}>

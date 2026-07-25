@@ -93,6 +93,7 @@ export default function HostingPage() {
         eyebrow="Hosting"
         title="Alles in één pakket"
         subtitle="Snel, betrouwbaar en alles inbegrepen. Kies het pakket dat bij u past."
+        backgroundImage="https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg"
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">

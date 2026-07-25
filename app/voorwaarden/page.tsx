@@ -29,8 +29,8 @@ function HighlightBox({ title, children }: { title: string; children: React.Reac
 
 function BlueBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border-2 border-[#BFDBFE] bg-[#EFF6FF] p-6">
-      <p className="font-lato text-sm leading-relaxed text-primary-dark">{children}</p>
+    <div className="rounded-2xl border-2 p-6" style={{ borderColor: "#C5D9A8", backgroundColor: "#F4F8EC" }}>
+      <p className="font-lato text-sm leading-relaxed" style={{ color: "#2F5610" }}>{children}</p>
     </div>
   );
 }
@@ -56,8 +56,8 @@ export default function VoorwaardenPage() {
         title="Voorwaarden &"
         titleAccent="Disclaimer"
         subtitle="De volledige voorwaarden rondom ons gratis one-pager pakket, de 24-uurs belofte en de algemene disclaimer."
-        orchidOpacity={0.15}
-        tint="rgba(255,255,255,0)"
+        backgroundImage="https://images.pexels.com/photos/5669602/pexels-photo-5669602.jpeg"
+        accentColor="#3B6D11"
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">

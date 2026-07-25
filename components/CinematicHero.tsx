@@ -12,9 +12,9 @@ const CinematicHeroGsap = dynamic(() => import("@/components/CinematicHeroGsap")
 
 /** Gedeelde hero-achtergrond — staat op .hero-bg-drift voor CSS-animatie (punt 4) */
 export const HERO_BG_LAYERS = [
-  "radial-gradient(ellipse 72% 58% at 78% 28%, rgba(26,59,204,0.28) 0%, transparent 62%)",
+  "radial-gradient(ellipse 72% 58% at 78% 28%, rgba(59,109,17,0.28) 0%, transparent 62%)",
   "radial-gradient(ellipse 48% 40% at 12% 88%, rgba(15,36,144,0.35) 0%, transparent 55%)",
-  "linear-gradient(168deg, #0f2490 0%, #0a0f1e 42%, #050810 100%)",
+  "linear-gradient(168deg, #2F5610 0%, #0a0f1e 42%, #050810 100%)",
 ].join(", ");
 
 /**

@@ -142,10 +142,8 @@ export default function GratisWebsiteForm() {
         title="Gratis website."
         titleAccent="Voor een goed doel."
         description="Allesis bouwt uw one-pager gratis. Op uw site komt een donatie-link naar Saved Souls Foundation — dierenopvang in Thailand. Eerlijk en transparant."
-        tint="rgba(34,197,94,0.05)"
-        orchidOpacity={0.2}
-        accentColor="#16a34a"
-        className="pt-28 md:pt-32"
+        backgroundImage="https://images.pexels.com/photos/6177645/pexels-photo-6177645.jpeg"
+        accentColor="#3B6D11"
       >
         <div className="flex max-w-xl items-center gap-4 rounded-2xl border border-green-200 bg-green-50/95 p-5 text-left shadow-sm backdrop-blur-sm">
           <Image

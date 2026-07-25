@@ -61,6 +61,7 @@ export default function AvgLandingPage() {
         eyebrow="AVG / GDPR"
         title="Is uw website"
         titleAccent="AVG-compliant?"
+        backgroundImage="https://images.pexels.com/photos/5669619/pexels-photo-5669619.jpeg"
         subtitle={
           <>
             <p>
@@ -71,7 +72,8 @@ export default function AvgLandingPage() {
             </p>
             <Link
               href="/contact#offerte"
-              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 text-base font-bold text-white transition hover:bg-primary-dark"
+              className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl px-10 text-base font-bold text-white transition hover:opacity-90"
+              style={{ backgroundColor: "#3B6D11" }}
             >
               Offerte aanvragen
             </Link>

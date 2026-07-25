@@ -241,7 +241,7 @@ const PAKKETTEN = [
     ],
     cta: "Starter aanvragen →",
     ctaHref: "/contact?pakket=starter",
-    ctaStijl: "bg-white text-blue-600",
+    ctaStijl: "bg-white text-[#3B6D11]",
   },
   {
     badge: "Zonder branding",
@@ -581,7 +581,7 @@ export default function HomePageContent() {
                 icon: siWordpress,
                 color: "#21759B",
                 pijn: "Traag & onveilig",
-                borderKleur: "border-blue-200 hover:border-blue-400",
+                borderKleur: "border-[#C5D9A8] hover:border-[#3B6D11]",
               },
               {
                 naam: "Wix",
@@ -653,7 +653,7 @@ export default function HomePageContent() {
               {[
                 { getal: "€299", label: "Vanaf", kleur: "text-[#C8FF00]" },
                 { getal: "<3s", label: "Laadtijd", kleur: "text-green-400" },
-                { getal: "95+", label: "PageSpeed", kleur: "text-blue-400" },
+                { getal: "95+", label: "PageSpeed", kleur: "text-[#3B6D11]" },
                 { getal: "100%", label: "SEO behoud", kleur: "text-white" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
@@ -1060,13 +1060,7 @@ export default function HomePageContent() {
           sizes="100vw"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/95 via-blue-900/80 to-blue-800/60" />
-
-        <div
-          className="absolute top-0 right-0 h-full w-1/3 bg-cover bg-right opacity-20"
-          style={{ backgroundImage: "url('/images/orchid.jpg')" }}
-          aria-hidden
-        />
+        <div className="absolute inset-0" style={{ backgroundColor: "rgba(47,86,16,0.88)" }} />
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2">
@@ -1099,7 +1093,8 @@ export default function HomePageContent() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/contact"
-              className="font-lato rounded-xl bg-white px-8 py-4 font-black text-blue-600 transition-colors hover:bg-gray-100"
+              className="font-lato rounded-xl bg-white px-8 py-4 font-black transition-colors hover:bg-gray-100"
+              style={{ color: "#3B6D11" }}
             >
               Stuur een bericht →
             </Link>

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Check, Globe, Palette, Search, Shield } from "lucide-react";
 
-const BRAND = "#1a3bcc";
+const BRAND = "#3B6D11";
 const easeOut = "easeOut" as const;
 
 const floatTransition = (delay: number) => ({
@@ -198,14 +198,14 @@ function ShieldEpic({ index, cardHovered }: { index: number; cardHovered: boolea
             scale: cardHovered ? [1, 1.12, 1.08] : [1, 1.04, 1],
             boxShadow: cardHovered
               ? [
-                  `0 0 20px rgba(26,59,204,0.55), 0 0 40px rgba(26,59,204,0.45)`,
-                  `0 0 36px rgba(26,59,204,0.95), 0 0 60px rgba(91,124,255,0.5)`,
-                  `0 0 20px rgba(26,59,204,0.55), 0 0 40px rgba(26,59,204,0.45)`,
+                  `0 0 20px rgba(59,109,17,0.55), 0 0 40px rgba(59,109,17,0.45)`,
+                  `0 0 36px rgba(59,109,17,0.95), 0 0 60px rgba(91,124,255,0.5)`,
+                  `0 0 20px rgba(59,109,17,0.55), 0 0 40px rgba(59,109,17,0.45)`,
                 ]
               : [
-                  `0 0 14px rgba(26,59,204,0.35)`,
-                  `0 0 28px rgba(26,59,204,0.65)`,
-                  `0 0 14px rgba(26,59,204,0.35)`,
+                  `0 0 14px rgba(59,109,17,0.35)`,
+                  `0 0 28px rgba(59,109,17,0.65)`,
+                  `0 0 14px rgba(59,109,17,0.35)`,
                 ],
           }}
           transition={{

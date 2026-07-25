@@ -215,7 +215,7 @@ export function MonitorExportButtons({ results, timestamp, className = "" }: Exp
         type="button"
         aria-label="Exporteer resultaten als CSV"
         onClick={() => downloadCsv(buildExportRows(results, timestamp))}
-        className="rounded-lg border border-[#1a3bcc] bg-white px-4 py-2.5 font-lato text-sm font-semibold text-[#1a3bcc] transition hover:bg-[#eef2ff]"
+        className="rounded-lg border border-[#3B6D11] bg-white px-4 py-2.5 font-lato text-sm font-semibold text-[#3B6D11] transition hover:bg-[#eef2ff]"
       >
         Exporteer als CSV
       </button>
@@ -223,7 +223,7 @@ export function MonitorExportButtons({ results, timestamp, className = "" }: Exp
         type="button"
         aria-label="Exporteer resultaten als PDF"
         onClick={() => downloadPdf(results, timestamp)}
-        className="rounded-lg bg-[#1a3bcc] px-4 py-2.5 font-lato text-sm font-semibold text-white transition hover:bg-[#0f2490]"
+        className="rounded-lg bg-[#3B6D11] px-4 py-2.5 font-lato text-sm font-semibold text-white transition hover:bg-[#2F5610]"
       >
         Exporteer als PDF
       </button>

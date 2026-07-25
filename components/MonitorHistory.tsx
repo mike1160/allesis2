@@ -114,7 +114,7 @@ export default function MonitorHistory({ entries, onSelect, onClear }: MonitorHi
               <button
                 type="button"
                 onClick={() => onSelect(entry)}
-                className="flex w-full items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-left transition hover:border-[#1a3bcc]/60 hover:bg-white/10"
+                className="flex w-full items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-left transition hover:border-[#3B6D11]/60 hover:bg-white/10"
                 aria-label={`Controle van ${formatEntryDate(entry.timestamp)} met ${entry.urls.length} URL(s)`}
               >
                 <div>

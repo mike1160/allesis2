@@ -280,7 +280,7 @@ export default function MigratieAanvragenClient() {
             Wij nemen binnen één werkdag contact op met een vrijblijvende offerte voor uw migratie van{" "}
             {gekozenPlatform?.label ?? "uw huidige platform"}.
           </p>
-          <Link href="/" className="font-bold text-blue-600 hover:underline">
+          <Link href="/" className="font-bold text-[#3B6D11] hover:underline">
             ← Terug naar homepage
           </Link>
         </div>
@@ -307,7 +307,7 @@ export default function MigratieAanvragenClient() {
         <FrostedPlatformLogos dark />
 
         <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-blue-400">⚡ Migratie service</p>
+          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#3B6D11]">⚡ Migratie service</p>
           <h1 className="font-sora mb-6 text-5xl font-black leading-tight text-white">
             Weg van uw huidige platform.
             <br />
@@ -321,7 +321,7 @@ export default function MigratieAanvragenClient() {
             {[
               { getal: "€299", label: "Vanaf", kleur: "text-[#C8FF00]" },
               { getal: "<3s", label: "Laadtijd", kleur: "text-green-400" },
-              { getal: "95+", label: "PageSpeed", kleur: "text-blue-400" },
+              { getal: "95+", label: "PageSpeed", kleur: "text-[#3B6D11]" },
               { getal: "100%", label: "SEO behoud", kleur: "text-white" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
@@ -346,7 +346,7 @@ export default function MigratieAanvragenClient() {
                 onClick={() => setPlatform(p.value)}
                 className={`rounded-2xl border-2 p-4 text-left transition-all ${
                   platform === p.value
-                    ? "scale-105 border-blue-600 bg-blue-50 shadow-lg"
+                    ? "scale-105 border-[#3B6D11] bg-[#F4F8EC] shadow-lg"
                     : "border-gray-200 bg-white hover:border-gray-300"
                 }`}
               >
@@ -450,7 +450,7 @@ export default function MigratieAanvragenClient() {
               <button
                 type="submit"
                 disabled={loading || !turnstileToken}
-                className="w-full rounded-xl bg-blue-600 py-4 text-base font-black text-white transition-colors hover:bg-blue-700 disabled:opacity-60"
+                className="w-full rounded-xl bg-[#3B6D11] py-4 text-base font-black text-white transition-colors hover:bg-[#2F5610] disabled:opacity-60"
               >
                 {loading
                   ? "Versturen..."
@@ -459,7 +459,7 @@ export default function MigratieAanvragenClient() {
 
               <p className="mt-4 text-center text-xs text-gray-400">
                 Vrijblijvende offerte binnen één werkdag ·
-                <Link href="/voorwaarden" className="ml-1 text-blue-500 hover:underline">
+                <Link href="/voorwaarden" className="ml-1 text-[#3B6D11] hover:underline">
                   Voorwaarden
                 </Link>
               </p>
@@ -521,7 +521,7 @@ export default function MigratieAanvragenClient() {
                     <td className="px-6 py-4 text-sm text-gray-600">{row.probleem}</td>
                   </tr>
                 ))}
-                <tr className="bg-blue-600 text-white">
+                <tr className="bg-[#3B6D11] text-white">
                   <td className="px-6 py-4 font-black">⚡ Next.js via Allesis</td>
                   <td className="px-6 py-4 font-black">v.a. €8,95</td>
                   <td className="px-6 py-4 font-black">v.a. €107</td>
@@ -535,7 +535,7 @@ export default function MigratieAanvragenClient() {
           </p>
           <p className="mt-6 text-center text-gray-600">
             Klaar met betalen?
-            <Link href="/migratie-aanvragen" className="ml-1 font-bold text-blue-600 hover:underline">
+            <Link href="/migratie-aanvragen" className="ml-1 font-bold text-[#3B6D11] hover:underline">
               Migratie vanaf €299 eenmalig →
             </Link>
           </p>

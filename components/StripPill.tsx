@@ -39,7 +39,7 @@ export default function StripPill({ item, linked = true }: StripPillProps) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${className} hover:border-blue-300`}
+      className={`${className} hover:border-[#C5D9A8]`}
     >
       {content}
     </a>

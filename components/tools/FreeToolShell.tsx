@@ -44,8 +44,6 @@ export default function FreeToolShell({
         title={title}
         titleAccent={titleAccent}
         description={subtitle}
-        orchidOpacity={0.2}
-        className="pt-28 md:pt-32"
       >
         <form onSubmit={onSubmit} className="flex max-w-xl flex-col gap-3">
           <label htmlFor={inputId} className="sr-only">

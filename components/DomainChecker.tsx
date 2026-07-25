@@ -58,7 +58,7 @@ export default function DomainChecker({ forDarkBackground = false }: { forDarkBa
 
   return (
     <div style={{ width: "100%" }}>
-      <div style={{ display: "flex", maxWidth: 580, margin: "0 auto", boxShadow: "0 4px 32px rgba(26,59,204,0.15)", borderRadius: 12, overflow: "hidden", border: "2px solid #1a3bcc" }}>
+      <div style={{ display: "flex", maxWidth: 580, margin: "0 auto", boxShadow: "0 4px 32px rgba(59,109,17,0.15)", borderRadius: 12, overflow: "hidden", border: "2px solid #3B6D11" }}>
         <input
           type="text"
           value={query}
@@ -70,7 +70,7 @@ export default function DomainChecker({ forDarkBackground = false }: { forDarkBa
         <button
           onClick={checkDomains}
           disabled={checking || !query}
-          style={{ padding: "16px 28px", background: checking ? "#4f72e8" : "#1a3bcc", color: "white", border: "none", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, cursor: query && !checking ? "pointer" : "not-allowed", whiteSpace: "nowrap", transition: "background .2s" }}>
+          style={{ padding: "16px 28px", background: checking ? "#4f72e8" : "#3B6D11", color: "white", border: "none", fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 15, cursor: query && !checking ? "pointer" : "not-allowed", whiteSpace: "nowrap", transition: "background .2s" }}>
           {checking ? "Bezig..." : "Controleer →"}
         </button>
       </div>
@@ -99,7 +99,7 @@ export default function DomainChecker({ forDarkBackground = false }: { forDarkBa
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {r.loading ? (
-                  <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid #e2e6f0", borderTopColor: "#1a3bcc", animation: "spin .8s linear infinite" }} />
+                  <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid #e2e6f0", borderTopColor: "#3B6D11", animation: "spin .8s linear infinite" }} />
                 ) : r.available === true ? (
                   <span style={{ fontSize: 20 }}>✅</span>
                 ) : r.available === false ? (
@@ -119,7 +119,7 @@ export default function DomainChecker({ forDarkBackground = false }: { forDarkBa
                 )}
                 {!r.loading && r.available === true && (
                   <a href={`mailto:info@allesis.nl?subject=Domein registreren: ${domainName}${r.ext}`}
-                    style={{ padding: "6px 14px", background: "#1a3bcc", color: "white", borderRadius: 6, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 12, textDecoration: "none" }}>
+                    style={{ padding: "6px 14px", background: "#3B6D11", color: "white", borderRadius: 6, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 12, textDecoration: "none" }}>
                     Registreer →
                   </a>
                 )}

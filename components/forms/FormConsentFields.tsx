@@ -33,13 +33,13 @@ export default function FormConsentFields({
           type="checkbox"
           checked={privacyAccepted}
           onChange={(e) => onPrivacyChange(e.target.checked)}
-          style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#1a3bcc" }}
+          style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#3B6D11" }}
           aria-invalid={showPrivacyError || undefined}
           aria-describedby={showPrivacyError ? "privacy-consent-error" : undefined}
         />
         <span>
           Ik ga akkoord met de verwerking van mijn gegevens volgens de{" "}
-          <Link href="/privacy" className="font-semibold text-primary underline-offset-2 hover:underline" style={{ color: "#1a3bcc" }}>
+          <Link href="/privacy" className="font-semibold text-primary underline-offset-2 hover:underline" style={{ color: "#3B6D11" }}>
             privacyverklaring
           </Link>
           <span style={{ color: "#dc2626" }}>*</span>
@@ -55,7 +55,7 @@ export default function FormConsentFields({
           type="checkbox"
           checked={nieuwsbrief}
           onChange={(e) => onNieuwsbriefChange(e.target.checked)}
-          style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#1a3bcc" }}
+          style={{ marginTop: 3, width: 18, height: 18, flexShrink: 0, accentColor: "#3B6D11" }}
         />
         <span>Ik wil graag de nieuwsbrief ontvangen</span>
       </label>
