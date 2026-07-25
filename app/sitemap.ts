@@ -62,6 +62,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
+      videos: [
+        {
+          title: "Nene Royal Live @ Naka Market Phuket",
+          thumbnail_loc: "https://img.youtube.com/vi/9LDEYSnRl6M/maxresdefault.jpg",
+          description:
+            "Nene Royal live concert bij Naka Market Phuket Thailand — 18 juli 2026",
+          player_loc: "https://www.youtube.com/embed/9LDEYSnRl6M",
+        },
+      ],
     },
 
     // Branches overzicht + individuele branches
