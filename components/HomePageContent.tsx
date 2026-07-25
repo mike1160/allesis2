@@ -739,6 +739,70 @@ export default function HomePageContent() {
         </div>
       </RevealSection>
 
+      {/* Featured — Nene Royal Live */}
+      <section
+        className="bg-white"
+        style={{
+          padding: "80px 32px",
+          borderTop: "0.5px solid #e5e7eb",
+        }}
+      >
+        <div className="text-center" style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p
+            className="font-lato"
+            style={{ color: "#3B6D11", fontSize: 12, fontWeight: 500, marginBottom: 12 }}
+          >
+            ✦ FEATURED · LIVE MUZIEK
+          </p>
+          <h2
+            className="font-sora text-neutral-dark"
+            style={{ fontSize: 28, fontWeight: 500, margin: "0 0 12px" }}
+          >
+            Nene Royal Live @ Naka Market Phuket
+          </h2>
+          <p
+            className="font-lato mx-auto"
+            style={{ fontSize: 16, color: "#6b7280", maxWidth: 560, marginBottom: 8 }}
+          >
+            Bekijk waarom online aanwezigheid voor artiesten onmisbaar is — live opgenomen door
+            Allesis
+          </p>
+          <div
+            style={{
+              position: "relative",
+              paddingBottom: "56.25%",
+              height: 0,
+              overflow: "hidden",
+              borderRadius: 12,
+              margin: "24px 0",
+            }}
+          >
+            <iframe
+              src="https://www.youtube.com/embed/9LDEYSnRl6M"
+              title="Nene Royal Live Naka Market Phuket"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+          <Link
+            href="/muziek"
+            className="font-lato inline-block no-underline hover:underline"
+            style={{ color: "#3B6D11", fontSize: 14 }}
+          >
+            Lees het volledige artikel →
+          </Link>
+        </div>
+      </section>
+
       {/* Sectie 4 — Diensten */}
       <section className="scroll-mt-20 bg-neutral-light px-6 py-[110px] md:px-10">
         <div id="home-diensten-reveal" className="relative mx-auto max-w-6xl">

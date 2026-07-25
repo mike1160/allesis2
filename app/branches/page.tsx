@@ -21,6 +21,8 @@ type BranchCard = {
   href: string;
   icon: string;
   foto?: string;
+  badge?: string;
+  overlay?: string;
 };
 
 const BRANCH_CARDS: BranchCard[] = [
@@ -42,6 +44,14 @@ const BRANCH_CARDS: BranchCard[] = [
     href: "/bouw",
     icon: "🔨",
     foto: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=70",
+  },
+  {
+    naam: "Muzikanten & Artiesten",
+    href: "/muziek",
+    icon: "🎸",
+    foto: "/nene-royal-hero.jpg",
+    badge: "✦ Case study",
+    overlay: "rgba(0,0,0,0.45)",
   },
   {
     naam: "Zorg & Coaches",
@@ -315,12 +325,6 @@ const BRANCH_CARDS: BranchCard[] = [
     foto: "https://images.pexels.com/photos/975250/pexels-photo-975250.jpeg",
   },
   {
-    naam: "Muziekwinkels & Instrumenten",
-    href: "/muziek",
-    icon: "🎸",
-    foto: "https://images.pexels.com/photos/164743/pexels-photo-164743.jpeg",
-  },
-  {
     naam: "Wijnhandel & Slijterijen",
     href: "/wijn",
     icon: "🍷",
@@ -366,9 +370,18 @@ export default function BranchesPage() {
               {branch.foto && (
                 <div
                   className="absolute inset-0"
-                  style={{ backgroundColor: "rgba(0,0,0,0.42)" }}
+                  style={{ backgroundColor: branch.overlay ?? "rgba(0,0,0,0.42)" }}
                   aria-hidden
                 />
+              )}
+
+              {branch.badge && (
+                <span
+                  className="font-lato absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-[11px] font-bold text-white"
+                  style={{ backgroundColor: "#3B6D11" }}
+                >
+                  {branch.badge}
+                </span>
               )}
 
               <div className="absolute inset-0 flex flex-col justify-end p-5">

@@ -96,7 +96,7 @@ export const SITEMAP_PRIORITY: Record<
   "/bloemist": { priority: 0.8, changeFrequency: "monthly" },
   "/apotheek": { priority: 0.8, changeFrequency: "monthly" },
   "/opticien": { priority: 0.8, changeFrequency: "monthly" },
-  "/muziek": { priority: 0.8, changeFrequency: "monthly" },
+  "/muziek": { priority: 0.9, changeFrequency: "weekly" },
   "/wijn": { priority: 0.8, changeFrequency: "monthly" },
 };
 

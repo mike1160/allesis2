@@ -1,45 +1,35 @@
 User-agent: *
 Allow: /
 
-# Migratie pagina's expliciet toestaan voor alle bots
-Allow: /migratie-aanvragen
-Allow: /wordpress-naar-nextjs
-Allow: /wix-naar-eigen-website
-Allow: /shopify-alternatief
-
 # Blokkeer alleen login/admin
 Disallow: /login
 Disallow: /admin
 Disallow: /api/
 
-# AI crawlers expliciet toestaan
 User-agent: GPTBot
 Allow: /
-Allow: /migratie-aanvragen
-Allow: /wordpress-naar-nextjs
 
 User-agent: ClaudeBot
 Allow: /
-Allow: /migratie-aanvragen
-Allow: /wordpress-naar-nextjs
 
 User-agent: PerplexityBot
 Allow: /
-Allow: /migratie-aanvragen
-Allow: /wordpress-naar-nextjs
 
-User-agent: GoogleOther
+User-agent: Google-Extended
 Allow: /
-Allow: /migratie-aanvragen
-Allow: /wordpress-naar-nextjs
-Allow: /wix-naar-eigen-website
-Allow: /shopify-alternatief
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
 
 User-agent: Googlebot
 Allow: /
-Allow: /migratie-aanvragen
-Allow: /wordpress-naar-nextjs
-Allow: /wix-naar-eigen-website
-Allow: /shopify-alternatief
 
 Sitemap: https://allesis.nl/sitemap.xml
+
+# Nene Royal - Naka Market Phuket - Thai Rock

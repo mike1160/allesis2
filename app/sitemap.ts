@@ -20,7 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "thai",
   ];
 
-  const branches = [...coreBranches, ...EXTRA_BRANCH_SLUGS];
+  const branches = [...coreBranches, ...EXTRA_BRANCH_SLUGS].filter(
+    (slug) => slug !== "muziek",
+  );
 
   const diensten = [
     "webdesign",
@@ -53,6 +55,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Migratie
     { url: `${baseUrl}/migratie-aanvragen`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/wordpress-naar-nextjs`, lastModified, changeFrequency: "monthly", priority: 0.85 },
+
+    // Featured case study — Nene Royal
+    {
+      url: `${baseUrl}/muziek`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
 
     // Branches overzicht + individuele branches
     { url: `${baseUrl}/branches`, lastModified, changeFrequency: "monthly", priority: 0.8 },
