@@ -7,7 +7,6 @@ import CookieConsent from "@/components/CookieConsent";
 import FAQGrid from "@/components/FAQGrid";
 import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
 import SSFMissie from "@/components/SSFMissie";
-import TechStrip from "@/components/TechStrip";
 import { HOME_FAQ_GRID } from "@/lib/faq-data";
 import {
   siWordpress,
@@ -16,15 +15,37 @@ import {
   siSquarespace,
   siWebflow,
   siJoomla,
+  siGooglegemini,
+  siClaude,
+  siPerplexity,
+  siGithubcopilot,
 } from "simple-icons";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
 const easeOut = "easeOut" as const;
 const transitionSnappy = { duration: 0.45, ease: easeOut };
 
-const MotionLink = motion.create(Link);
-
 type SimpleIcon = { path: string; title: string; slug: string };
+
+/** OpenAI-pad uit simple-icons (niet meer in huidige package-export) */
+const siOpenai = {
+  title: "OpenAI",
+  slug: "openai",
+  path: "M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z",
+} as const;
+
+const AI_STRIP_ITEMS: {
+  naam: string;
+  icon: { path: string };
+  color: string;
+  variant?: "circle" | "gradient";
+}[] = [
+  { naam: "ChatGPT", icon: siOpenai, color: "#ffffff", variant: "circle" },
+  { naam: "Gemini", icon: siGooglegemini, color: `#${siGooglegemini.hex}` },
+  { naam: "Perplexity", icon: siPerplexity, color: `#${siPerplexity.hex}` },
+  { naam: "Claude", icon: siClaude, color: `#${siClaude.hex}` },
+  { naam: "Copilot", icon: siGithubcopilot, color: "#00A4EF", variant: "gradient" },
+];
 
 const MIGRATION_LOGO_COLORS: Record<string, string> = {
   wordpress: "#21759B",
@@ -344,80 +365,97 @@ function MigrationStatsBackgroundLogos() {
   );
 }
 
-/* ---------- Hero met orchidee-foto ----------
-   Orchidee full-bleed op de achtergrond (zichtbaar, opacity 0.38),
-   met een lichte witte overlay zodat tekst leesbaar blijft. */
+/* ---------- Hero — centered, accent #3B6D11 ---------- */
+const HERO_ACCENT = "#3B6D11";
+
+const HERO_CHECKS = ["AVG-compliant", "SEO & hosting inbegrepen", "Reactie binnen 1 werkdag"];
+
 function OrchidHero() {
   return (
-    <section className="hero relative overflow-hidden bg-white">
-      {/* Orchidee — LCP hero: priority */}
-      <Image
-        src="/images/orchid.jpg"
-        alt=""
-        fill
-        priority
-        loading="eager"
-        className="hero-orchid pointer-events-none object-cover object-right-top opacity-[0.38]"
-        sizes="100vw"
-        aria-hidden
-      />
-
-      {/* Overlay — lichter wit, orchidee blijft zichtbaar */}
+    <section
+      className="relative overflow-hidden"
+      style={{
+        backgroundImage: "url('/hero.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div
-        className="hero-fade pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.50) 50%, rgba(255,255,255,0.60) 100%)",
-        }}
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{ backgroundColor: "rgba(255,255,255,0.82)" }}
         aria-hidden
       />
 
-      {/* Tekst altijd boven de foto */}
-      <div className="hero-content relative z-[2] mx-auto max-w-6xl px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-32">
+      <div className="relative z-[1] mx-auto flex max-w-3xl flex-col items-center px-6 pb-20 pt-32 text-center md:px-10 md:pb-28 md:pt-36">
         <motion.div
-          className="max-w-2xl"
+          className="flex w-full flex-col items-center"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: easeOut }}
         >
-          <p className="font-lato text-xs font-bold uppercase tracking-[0.24em] text-primary">
-            Webdesign · Haarlem
-          </p>
-          <h1 className="font-sora mt-4 text-[clamp(2.5rem,6.5vw,4.75rem)] font-black leading-[1.04] tracking-[-0.03em] text-neutral-dark">
-            Uw nieuwe website.
-            <span className="mt-1 block text-primary">Gevonden. Compliant.</span>
+          <span
+            className="font-lato inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em]"
+            style={{
+              color: HERO_ACCENT,
+              borderColor: "rgba(59,109,17,0.25)",
+              backgroundColor: "rgba(59,109,17,0.06)",
+            }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: HERO_ACCENT }} aria-hidden />
+            ✦ Persoonlijk · Professioneel · Nederland
+          </span>
+
+          <h1 className="font-sora mt-7 text-[clamp(2.4rem,6.5vw,4.25rem)] font-black leading-[1.08] tracking-[-0.03em] text-neutral-dark">
+            Een website die{" "}
+            <span style={{ color: HERO_ACCENT }}>écht werkt</span>.
           </h1>
+
           <p className="font-lato mt-6 max-w-xl text-lg leading-relaxed text-gray-600 md:text-xl">
-            Allesis bouwt snelle, vindbare websites voor het MKB — hosting, SEO en AVG inbegrepen. Persoonlijk. Betaalbaar.
-            En elke website die wij bouwen{" "}
-            <a
-              href="https://www.savedsouls-foundation.org/nl"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 whitespace-nowrap font-bold text-green-600 hover:underline"
-            >
-              doet ook goed 🐾
-            </a>
+            Allesis bouwt websites die gevonden worden — door mensen én door AI. Hosting, SEO
+            en AVG inbegrepen. Persoonlijk contact, vaste prijs.
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <MotionLink
-              href="/contact?pakket=starter"
-              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-xl bg-primary px-8 text-base font-bold text-white transition hover:bg-primary-dark"
-              whileHover={{ scale: 1.04, transition: transitionSnappy }}
-              whileTap={{ scale: 0.98, transition: transitionSnappy }}
+
+          <form
+            action="/contact"
+            method="get"
+            className="mt-10 flex w-full max-w-lg flex-col gap-3 sm:flex-row sm:items-stretch"
+          >
+            <label htmlFor="hero-email" className="sr-only">
+              E-mailadres
+            </label>
+            <input
+              id="hero-email"
+              name="email"
+              type="email"
+              required
+              placeholder="Wat voor bedrijf heb jij?"
+              className="font-lato min-h-[54px] flex-1 rounded-full border border-gray-200 bg-white px-5 text-base text-neutral-dark outline-none placeholder:text-gray-400 focus:border-[#3B6D11] focus:ring-2 focus:ring-[#3B6D11]/20"
+            />
+            <button
+              type="submit"
+              className="font-lato inline-flex min-h-[54px] shrink-0 items-center justify-center rounded-full px-7 text-base font-bold text-white transition hover:opacity-90"
+              style={{ backgroundColor: HERO_ACCENT }}
             >
-              Website aanvragen →
-            </MotionLink>
-            <MotionLink
-              href="/gratis-website"
-              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-xl border-2 border-ssf-orange bg-white/70 px-8 text-base font-bold text-ssf-orange backdrop-blur-sm transition hover:bg-ssf-orange/10"
-              whileHover={{ scale: 1.04, transition: transitionSnappy }}
-              whileTap={{ scale: 0.98, transition: transitionSnappy }}
-            >
-              🐾 Gratis one-pager*
-            </MotionLink>
-          </div>
-          <GratisVoorwaardenNote className="hero-disclaimer mt-5 max-w-xl" />
+              Gratis gesprek
+            </button>
+          </form>
+
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            {HERO_CHECKS.map((item) => (
+              <li key={item} className="font-lato flex items-center gap-2 text-sm text-gray-600">
+                <span
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-full text-white"
+                  style={{ backgroundColor: HERO_ACCENT }}
+                  aria-hidden
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </motion.div>
       </div>
     </section>
@@ -433,17 +471,101 @@ export default function HomePageContent() {
     >
       <CookieConsent />
 
-      {/* Sectie 1 — Hero met orchidee */}
+      {/* Sectie 1 — Hero */}
       <OrchidHero />
 
-      {/* Sectie 2 — Tech strip */}
-      <TechStrip />
+      {/* Trust badges */}
+      <div
+        className="flex items-center justify-center bg-white"
+        style={{ padding: "16px 32px", borderBottom: "0.5px solid #e5e7eb" }}
+      >
+        {[
+          { icon: "⭐", value: "4.9/5", label: "Google Reviews" },
+          { icon: "🔒", value: "Gecertificeerd", label: "AVG Compliant" },
+          { icon: "⚡", value: "98/100", label: "PageSpeed" },
+        ].map((item, i) => (
+          <div key={item.label} className="flex items-center">
+            {i > 0 ? (
+              <div className="mx-6 h-8 w-px shrink-0 self-center" style={{ backgroundColor: "#e5e7eb" }} aria-hidden />
+            ) : null}
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-1.5" style={{ fontSize: 18, fontWeight: 600, color: "#111" }}>
+                <span aria-hidden>{item.icon}</span>
+                <span>{item.value}</span>
+              </div>
+              <div style={{ fontSize: 12, color: "#6b7280" }}>{item.label}</div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-      {/* Sectie 3 — Prominente migratie service */}
+      {/* AI vindbaarheid */}
+      <div
+        className="flex flex-wrap items-center justify-center gap-3"
+        style={{ backgroundColor: "#EAF3DE", padding: "14px 32px" }}
+      >
+        <span style={{ fontSize: 13, color: "#3B6D11", fontWeight: 500 }}>✦ Jouw website vindbaar via AI</span>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {AI_STRIP_ITEMS.map((item) => (
+            <span
+              key={item.naam}
+              className="inline-flex items-center gap-1.5"
+              style={{
+                height: 32,
+                fontSize: 12,
+                color: "#3B6D11",
+                backgroundColor: "#fff",
+                border: "1px solid #C0DD97",
+                borderRadius: 20,
+                padding: "0 12px",
+              }}
+            >
+              {item.variant === "circle" ? (
+                <span
+                  className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-black"
+                  aria-hidden
+                >
+                  <svg viewBox="0 0 24 24" width={10} height={10} style={{ fill: item.color }}>
+                    <path d={item.icon.path} />
+                  </svg>
+                </span>
+              ) : item.variant === "gradient" ? (
+                <svg viewBox="0 0 24 24" width={16} height={16} className="shrink-0" aria-hidden>
+                  <defs>
+                    <linearGradient id="copilot-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00A4EF" />
+                      <stop offset="40%" stopColor="#8764B8" />
+                      <stop offset="70%" stopColor="#F25022" />
+                      <stop offset="100%" stopColor="#7FBA00" />
+                    </linearGradient>
+                  </defs>
+                  <path d={item.icon.path} fill="url(#copilot-grad)" />
+                </svg>
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  width={16}
+                  height={16}
+                  className="shrink-0"
+                  style={{ fill: item.color }}
+                  aria-hidden
+                >
+                  <path d={item.icon.path} />
+                </svg>
+              )}
+              {item.naam}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Sectie 2 — Prominente migratie service */}
       <section className="border-y border-gray-100 bg-white px-6 py-16 md:px-16">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 text-center">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-blue-600">⚡ Migratie service</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest" style={{ color: "#3B6D11" }}>
+              ⚡ Migratie service
+            </p>
             <h2 className="font-sora mb-4 text-4xl font-black text-neutral-dark">Klaar met uw huidige platform?</h2>
             <p className="mx-auto max-w-xl text-gray-500">
               WordPress traag? Wix te duur? Shopify eet uw winst op? Allesis migreert uw site naar Next.js — snel,

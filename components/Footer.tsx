@@ -256,6 +256,10 @@ export default function Footer() {
       {/* Trust badges — lichtgrijs */}
       <div className="border-t border-gray-200 bg-gray-100 px-6 py-10 md:px-16">
         <div className="mx-auto max-w-6xl">
+          <p className="mb-6 text-center italic" style={{ fontSize: 13, color: "#6b7280" }}>
+            Meer dan 20 technologieën, standaarden en certificeringen — inbegrepen bij elk project.
+          </p>
+
           <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
             <span className="mr-2 text-xs font-semibold uppercase tracking-widest text-gray-400">Gebouwd met</span>
             {BUILT_WITH.map((item) => (

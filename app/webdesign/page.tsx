@@ -64,6 +64,18 @@ const watKrijgJeFeatures = [
   },
 ];
 
+const integraties = [
+  { emoji: "💳", naam: "Mollie betalingen" },
+  { emoji: "📊", naam: "Google Analytics" },
+  { emoji: "📅", naam: "Calendly afspraken" },
+  { emoji: "📧", naam: "E-mail notificaties" },
+  { emoji: "🗺️", naam: "Google Maps" },
+  { emoji: "⭐", naam: "Google Reviews" },
+  { emoji: "📱", naam: "PWA Ready" },
+  { emoji: "🌍", naam: "Meertalig mogelijk" },
+  { emoji: "♿", naam: "Toegankelijk (WCAG)" },
+];
+
 const serviceSchema = buildServiceSchema({
   id: `${SITE_URL}/webdesign#service`,
   name: "Webdesign & nieuwe website",
@@ -78,48 +90,88 @@ export default function WebdesignPage() {
       <JsonLd data={[serviceSchema, buildFaqPageSchema(WEBDESIGN_FAQ)]} />
 
       <SubpageHero
-        eyebrow="Webdesign Haarlem"
+        eyebrow="Webdesign"
         title="Nieuwe website laten maken?"
         subtitle="Allesis bouwt snelle, moderne websites voor het MKB — inclusief SEO, hosting en AVG-compliant privacybeleid."
+        imageSrc="/hero-webdesign.jpg"
+        accentColor="#3B6D11"
       />
 
       <FeatureGrid
         titel="Wat krijgt u bij Allesis?"
-        gradient="from-blue-900/90 via-blue-900/50 to-transparent"
+        gradient="from-[rgba(17,24,39,0.35)] via-[rgba(17,24,39,0.35)] to-[rgba(17,24,39,0.35)]"
         features={watKrijgJeFeatures}
       />
 
+      <section className="px-6 py-16 md:px-16" style={{ backgroundColor: "#f9fafb" }}>
+        <div className="mx-auto max-w-6xl">
+          <h2 className="font-sora mb-3 text-center text-3xl font-black text-neutral-dark md:text-4xl">
+            Integraties &amp; extra&apos;s — standaard inbegrepen
+          </h2>
+          <p className="font-lato mb-10 text-center text-gray-500">Geen extra kosten, geen verrassingen</p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {integraties.map((item) => (
+              <div
+                key={item.naam}
+                className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-sm"
+              >
+                <span className="text-base leading-none" aria-hidden>
+                  {item.emoji}
+                </span>
+                <span className="font-lato text-sm font-medium text-gray-700">{item.naam}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Reveal className="bg-neutral-light/50 px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl">
-          <PremiumCard>
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Sparkles className="h-6 w-6" strokeWidth={1.75} aria-hidden />
-            </div>
-            <p className="font-lato text-xs font-bold uppercase tracking-[0.12em] text-primary">Laatste project</p>
-            <h2 className="font-sora mt-2 text-2xl font-bold text-neutral-dark md:text-[1.65rem]">
-              Ren Ji Tang — acupunctuur &apos;s-Hertogenbosch
-            </h2>
-            <p className="font-lato mt-4 leading-relaxed text-neutral-mid">
-              Allesis.nl heeft <strong className="text-neutral-dark">renjitang.nl</strong> gebouwd: een moderne Next.js-website voor een
-              acupunctuurpraktijk in &apos;s-Hertogenbosch. Met online boekingsmodule, integratie van Google-reviews, uitgebreide
-              behandelingspagina&apos;s en volledige AVG-compliance. Resultaat:{" "}
-              <strong className="text-neutral-dark">5 sterren op Google</strong>, volledig mobielvriendelijk en snel ladend.
-            </p>
-            <Link
-              href="https://www.renjitang.nl"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-lato mt-6 inline-block font-bold text-primary hover:underline"
-            >
-              Bekijk renjitang.nl live →
-            </Link>
-            <div className="mt-8 border-t border-neutral-light pt-8 text-center">
+          <PremiumCard className="relative overflow-hidden !bg-transparent">
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage: "url('/renjitang1.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "top center",
+              }}
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{ backgroundColor: "rgba(255,255,255,0.65)" }}
+              aria-hidden
+            />
+            <div className="relative z-10">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Sparkles className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+              </div>
+              <p className="font-lato text-xs font-bold uppercase tracking-[0.12em] text-primary">Laatste project</p>
+              <h2 className="font-sora mt-2 text-2xl font-bold text-neutral-dark md:text-[1.65rem]">
+                Ren Ji Tang — acupunctuur &apos;s-Hertogenbosch
+              </h2>
+              <p className="font-lato mt-4 leading-relaxed text-neutral-mid">
+                Allesis.nl heeft <strong className="text-neutral-dark">renjitang.nl</strong> gebouwd: een moderne Next.js-website voor een
+                acupunctuurpraktijk in &apos;s-Hertogenbosch. Met online boekingsmodule, integratie van Google-reviews, uitgebreide
+                behandelingspagina&apos;s en volledige AVG-compliance. Resultaat:{" "}
+                <strong className="text-neutral-dark">5 sterren op Google</strong>, volledig mobielvriendelijk en snel ladend.
+              </p>
               <Link
-                href="/contact"
-                className="font-lato inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-8 font-bold text-white transition hover:bg-primary-dark"
+                href="https://www.renjitang.nl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-lato mt-6 inline-block font-bold text-primary hover:underline"
               >
-                Vraag een vrijblijvende offerte aan →
+                Bekijk renjitang.nl live →
               </Link>
+              <div className="mt-8 border-t border-neutral-light pt-8 text-center">
+                <Link
+                  href="/contact"
+                  className="font-lato inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-8 font-bold text-white transition hover:bg-primary-dark"
+                >
+                  Vraag een vrijblijvende offerte aan →
+                </Link>
+              </div>
             </div>
           </PremiumCard>
         </div>

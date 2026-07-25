@@ -4,8 +4,9 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import AllesisLogo from "@/components/AllesisLogo";
 import { createClient } from "@/lib/supabase";
+
+const ACCENT = "#3B6D11";
 
 type MenuLink = { href: string; label: string; badge?: string };
 
@@ -13,6 +14,13 @@ type MenuGroup = {
   title: string;
   links: MenuLink[];
 };
+
+const NAV_LINKS: { href: string; label: string }[] = [
+  { href: "/webdesign", label: "Diensten" },
+  { href: "/horeca", label: "Branches" },
+  { href: "/recent-websites", label: "Portfolio" },
+  { href: "/contact", label: "Contact" },
+];
 
 const MENU_GROUPS: MenuGroup[] = [
   {
@@ -62,7 +70,7 @@ const MENU_GROUPS: MenuGroup[] = [
     title: "Contact",
     links: [
       { href: "/contact", label: "Neem contact op" },
-      { href: "/gratis-website", label: "Gratis website", badge: "🐾" },
+      { href: "/gratis-website", label: "Gratis website" },
       { href: "/voorwaarden", label: "Voorwaarden" },
     ],
   },
@@ -72,8 +80,23 @@ const FIRST_MENU_HREF = MENU_GROUPS[0]?.links[0]?.href ?? "/webdesign";
 
 function FreeBadge({ label }: { label: string }) {
   return (
-    <span className="font-lato ml-2 rounded bg-accent px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-neutral-dark">
+    <span
+      className="font-lato ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
+      style={{ backgroundColor: ACCENT }}
+    >
       {label}
+    </span>
+  );
+}
+
+function BrandMark() {
+  return (
+    <span className="flex items-center gap-2.5">
+      <span className="nav-logo-dot inline-block h-2.5 w-2.5 shrink-0 rounded-full" aria-hidden />
+      <span className="font-sora text-lg font-extrabold tracking-tight">
+        <span className="nav-logo-word">Allesis</span>
+        <span className="nav-logo-tld">.nl</span>
+      </span>
     </span>
   );
 }
@@ -131,7 +154,6 @@ export default function MainNav() {
     return () => subscription.unsubscribe();
   }, []);
 
-  /* Sluit alleen bij routewijziging — niet bij eerste mount */
   useEffect(() => {
     if (prevPathnameRef.current === null) {
       prevPathnameRef.current = pathname;
@@ -150,7 +172,6 @@ export default function MainNav() {
     };
   }, [menuOpen]);
 
-  /* Overlay pas na open-klik actief — voorkomt dat dezelfde klik het menu direct sluit */
   useEffect(() => {
     if (!menuOpen) {
       setOverlayReady(false);
@@ -233,8 +254,9 @@ export default function MainNav() {
                         onClick={closeMenu}
                         aria-current={isActive(link.href) ? "page" : undefined}
                         className={`font-lato flex min-h-[48px] items-center rounded-lg px-3 py-2.5 text-base font-semibold no-underline transition hover:bg-neutral-light ${
-                          isActive(link.href) ? "bg-neutral-light text-primary" : "text-neutral-dark"
+                          isActive(link.href) ? "bg-neutral-light" : "text-neutral-dark"
                         }`}
+                        style={isActive(link.href) ? { color: ACCENT } : undefined}
                       >
                         {link.label}
                         {link.badge ? <FreeBadge label={link.badge} /> : null}
@@ -255,7 +277,8 @@ export default function MainNav() {
                     <Link
                       href="/dashboard"
                       onClick={closeMenu}
-                      className="font-lato flex min-h-[48px] items-center rounded-lg px-3 py-2.5 text-base font-semibold text-primary no-underline transition hover:bg-neutral-light"
+                      className="font-lato flex min-h-[48px] items-center rounded-lg px-3 py-2.5 text-base font-semibold no-underline transition hover:bg-neutral-light"
+                      style={{ color: ACCENT }}
                     >
                       Mijn account
                     </Link>
@@ -275,9 +298,18 @@ export default function MainNav() {
           </nav>
 
           <div className="shrink-0 border-t border-neutral-light px-6 py-6">
+            <Link
+              href="/contact"
+              onClick={closeMenu}
+              className="font-lato mb-4 flex min-h-[48px] items-center justify-center rounded-full px-5 text-sm font-bold text-white no-underline transition hover:opacity-90"
+              style={{ backgroundColor: ACCENT }}
+            >
+              Gratis gesprek
+            </Link>
             <a
               href="mailto:info@allesis.nl"
-              className="font-lato block text-sm font-semibold text-primary no-underline hover:underline"
+              className="font-lato block text-sm font-semibold no-underline hover:underline"
+              style={{ color: ACCENT }}
             >
               info@allesis.nl
             </a>
@@ -291,37 +323,36 @@ export default function MainNav() {
     <>
       <header
         className={`fixed top-0 right-0 left-0 z-[100] transition-[box-shadow,background-color] duration-300 ${
-          scrolled ? "bg-white shadow-[0_4px_24px_-4px_rgba(10,15,30,0.12)]" : "bg-white/95 backdrop-blur-sm"
+          scrolled ? "bg-white/95 shadow-[0_1px_0_rgba(10,15,30,0.06)] backdrop-blur-md" : "bg-white/90 backdrop-blur-sm"
         }`}
       >
-        <div className="mx-auto flex h-[4.25rem] max-w-[1200px] items-center justify-between gap-4 px-6">
-          <Link href="/" className="group flex shrink-0 items-center gap-2.5 no-underline" onClick={closeMenu}>
-            <AllesisLogo />
+        <div className="mx-auto grid h-[4.25rem] max-w-6xl grid-cols-[1fr_auto] items-center gap-4 px-6 md:grid-cols-[1fr_auto_1fr]">
+          <Link href="/" className="justify-self-start no-underline" onClick={closeMenu}>
+            <BrandMark />
           </Link>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            {user ? (
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Hoofdnavigatie">
+            {NAV_LINKS.map((link) => (
               <Link
-                href="/dashboard"
-                className="font-lato hidden min-h-[40px] items-center rounded-lg px-3 py-2 text-sm font-bold text-neutral-mid no-underline transition hover:bg-neutral-light hover:text-primary sm:inline-flex"
+                key={link.href}
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`font-lato text-sm font-medium no-underline transition-colors ${
+                  isActive(link.href) ? "text-neutral-dark" : "text-neutral-mid hover:text-neutral-dark"
+                }`}
               >
-                Mijn account
+                {link.label}
               </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="font-lato inline-flex min-h-[40px] items-center rounded-lg px-3 py-2 text-sm font-bold text-neutral-mid no-underline transition hover:bg-neutral-light hover:text-primary"
-              >
-                Inloggen
-              </Link>
-            )}
+            ))}
+          </nav>
 
+          <div className="flex items-center justify-end gap-2 sm:gap-3">
             <Link
-              href="/contact#offerte"
-              className="font-lato inline-flex min-h-[40px] items-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white no-underline shadow-sm transition hover:bg-primary-dark"
+              href="/contact"
+              className="font-lato inline-flex min-h-[40px] items-center rounded-full px-5 py-2 text-sm font-bold text-white no-underline transition hover:opacity-90"
+              style={{ backgroundColor: ACCENT }}
             >
-              <span className="hidden sm:inline">Offerte aanvragen</span>
-              <span className="sm:hidden">Offerte</span>
+              Gratis gesprek
             </Link>
 
             <button
@@ -336,7 +367,7 @@ export default function MainNav() {
               aria-controls="main-nav-drawer"
               aria-haspopup="dialog"
               aria-label={menuOpen ? "Menu sluiten" : "Menu openen"}
-              className="font-lato inline-flex min-h-[40px] cursor-pointer items-center gap-2 rounded-lg border border-neutral-light px-3 py-2 text-sm font-bold text-neutral-dark transition hover:border-primary/30 hover:bg-neutral-light"
+              className="font-lato inline-flex min-h-[40px] cursor-pointer items-center rounded-lg border border-neutral-light px-3 py-2 text-sm font-bold text-neutral-dark transition hover:bg-neutral-light md:hidden"
             >
               <svg
                 width="20"
@@ -357,7 +388,6 @@ export default function MainNav() {
                   </g>
                 )}
               </svg>
-              <span className="hidden sm:inline">{menuOpen ? "Sluiten" : "Menu"}</span>
             </button>
           </div>
         </div>

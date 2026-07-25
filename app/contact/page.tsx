@@ -75,22 +75,36 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Offerte of bericht"
         subtitle="Vraag een vrijblijvende offerte aan of stuur een algemene vraag. Wij reageren binnen één werkdag."
+        accentColor="#3B6D11"
+        imageSrc="/hero-contact-hands.jpg"
+        imageLayout="cloud"
+        compact
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <PremiumCard className="!p-6">
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <div
+                className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl"
+                style={{ backgroundColor: "#EAF3DE", color: "#3B6D11" }}
+              >
                 <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden />
               </div>
               <div className="font-lato text-xs font-bold uppercase tracking-wider text-neutral-mid">E-mail</div>
-              <a href="mailto:info@allesis.nl" className="font-sora mt-1 inline-block text-sm font-semibold text-primary hover:underline">
+              <a
+                href="mailto:info@allesis.nl"
+                className="font-sora mt-1 inline-block text-sm font-semibold hover:underline"
+                style={{ color: "#3B6D11" }}
+              >
                 info@allesis.nl
               </a>
             </PremiumCard>
             <PremiumCard className="!p-6">
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <div
+                className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl"
+                style={{ backgroundColor: "#EAF3DE", color: "#3B6D11" }}
+              >
                 <MapPin className="h-5 w-5" strokeWidth={1.75} aria-hidden />
               </div>
               <div className="font-lato text-xs font-bold uppercase tracking-wider text-neutral-mid">Locatie</div>

@@ -62,21 +62,36 @@ export default function RecentWebsitesPage() {
         eyebrow="Portfolio & cases"
         title="Recent gemaakte websites aangepast aan vindbaarheid in AI en large language models"
         subtitle="Steeds vaker zoeken mensen via AI-assistenten en grote taalmodellen. Wij bouwen en optimaliseren websites zodat ze niet alleen goed scoren in Google, maar ook correct worden weergegeven in ChatGPT, Perplexity en vergelijkbare tools. Hieronder ons uitgelichte project en meer recent werk."
+        accentColor="#3B6D11"
+        imageSrc="/hero-portfolio.jpg"
+        imageLayout="cloud"
+        compact
       />
 
       <Reveal className="bg-white px-6 py-16 md:px-10 md:py-12">
         <div className="mx-auto max-w-4xl">
           <Link href={featured.url} target="_blank" rel="noopener noreferrer" className="group block no-underline">
-            <PremiumCard className="overflow-hidden border-2 border-primary/40 !p-0 ring-0 transition group-hover:border-primary">
-              <div
-                className="flex flex-col items-center justify-center px-6 py-12 text-center"
-                style={{
-                  background: "linear-gradient(135deg, #1a3bcc 0%, #2d54e8 45%, #0f172a 100%)",
-                }}
-              >
-                <span className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">Uitgelicht project</span>
-                <h2 className="font-sora mt-3 text-3xl font-extrabold text-white md:text-4xl">{featured.title}</h2>
-                <p className="font-lato mt-2 max-w-md text-sm text-white/80">{featured.subtitle}</p>
+            <PremiumCard className="overflow-hidden border-2 !border-[#3B6D11]/40 !p-0 ring-0 transition group-hover:!border-[#3B6D11]">
+              <div className="relative flex flex-col items-center justify-center overflow-hidden px-6 py-12 text-center">
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    backgroundImage: "url('/renjitang1.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "top center",
+                  }}
+                  aria-hidden
+                />
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{ backgroundColor: "rgba(59, 109, 17, 0.75)" }}
+                  aria-hidden
+                />
+                <div className="relative z-10">
+                  <span className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">Uitgelicht project</span>
+                  <h2 className="font-sora mt-3 text-3xl font-extrabold text-white md:text-4xl">{featured.title}</h2>
+                  <p className="font-lato mt-2 max-w-md text-sm text-white/80">{featured.subtitle}</p>
+                </div>
               </div>
               <div className="p-8">
                 <p className="font-lato text-sm leading-relaxed text-neutral-mid">
@@ -86,7 +101,7 @@ export default function RecentWebsitesPage() {
                 <ul className="font-lato mt-5 space-y-2 text-sm text-neutral-mid">
                   {featured.features.map((f) => (
                     <li key={f} className="flex gap-2">
-                      <span className="font-bold text-primary" aria-hidden>
+                      <span className="font-bold" style={{ color: "#3B6D11" }} aria-hidden>
                         ✓
                       </span>
                       {f}
@@ -94,7 +109,7 @@ export default function RecentWebsitesPage() {
                   ))}
                 </ul>
                 <p className="font-lato mt-4 text-sm font-semibold text-neutral-dark">Resultaat: {featured.resultaat}.</p>
-                <span className="font-lato mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:underline">
+                <span className="font-lato mt-6 inline-flex items-center gap-2 text-sm font-bold group-hover:underline" style={{ color: "#3B6D11" }}>
                   Bezoek renjitang.nl <ExternalLink className="h-4 w-4" aria-hidden />
                 </span>
               </div>
@@ -131,9 +146,9 @@ export default function RecentWebsitesPage() {
                   </div>
                   <div className="p-8">
                     <h3 className="font-sora text-xl font-bold text-neutral-dark">{project.title}</h3>
-                    <p className="font-lato mt-1 text-sm font-semibold text-primary">{project.subtitle}</p>
+                    <p className="font-lato mt-1 text-sm font-semibold" style={{ color: "#3B6D11" }}>{project.subtitle}</p>
                     <p className="font-lato mt-3 text-sm leading-relaxed text-neutral-mid">{project.description}</p>
-                    <span className="font-lato mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:underline">
+                    <span className="font-lato mt-4 inline-flex items-center gap-2 text-sm font-bold group-hover:underline" style={{ color: "#3B6D11" }}>
                       Bezoek website <ExternalLink className="h-4 w-4" aria-hidden />
                     </span>
                   </div>
@@ -149,7 +164,8 @@ export default function RecentWebsitesPage() {
           <p className="font-lato text-neutral-mid">Ook uw site toekomstbestendig maken voor zoekmachines én AI? Wij helpen graag.</p>
           <Link
             href="/contact"
-            className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-primary px-10 font-bold text-white transition hover:bg-primary-dark"
+            className="font-lato mt-8 inline-flex min-h-[52px] items-center justify-center rounded-xl px-10 font-bold text-white transition hover:opacity-90"
+            style={{ backgroundColor: "#3B6D11" }}
           >
             Neem contact op →
           </Link>
