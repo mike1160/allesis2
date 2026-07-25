@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
+import { EXTRA_BRANCH_SLUGS } from "@/lib/extra-branches";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://allesis.nl";
+  const lastModified = new Date("2026-07-25");
 
-  const branches = [
+  const coreBranches = [
     "horeca",
     "beauty",
     "bouw",
@@ -16,45 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "sport",
     "advocaat",
     "thai",
-    "kappers",
-    "fotografie",
-    "coaching",
-    "accountant",
-    "architect",
-    "kinderopvang",
-    "garage",
-    "catering",
-    "reizen",
-    "it",
-    "marketing",
-    "onderwijs",
-    "notaris",
-    "psycholoog",
-    "dierenarts",
-    "schoonmaak",
-    "beveiliging",
-    "tuin",
-    "installateur",
-    "bruiloft",
-    "dierenwinkel",
-    "bouwmarkt",
-    "tuincentrum",
-    "groothandel",
-    "supermarkt",
-    "meubels",
-    "elektronica",
-    "kleding",
-    "speelgoed",
-    "boekhandel",
-    "juwelier",
-    "fietswinkel",
-    "slager",
-    "bloemist",
-    "apotheek",
-    "opticien",
-    "muziek",
-    "wijn",
   ];
+
+  const branches = [...coreBranches, ...EXTRA_BRANCH_SLUGS];
 
   const diensten = [
     "webdesign",
@@ -66,27 +32,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "avg-check",
     "domeinen",
     "vertaling",
+    "dienstverlening",
+  ];
+
+  const tools = [
+    "recent-websites",
+    "pagespeed-check",
+    "ai-vindbaarheid-check",
+    "tools/website-monitor",
   ];
 
   return [
     // Homepage
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: baseUrl, lastModified, changeFrequency: "weekly", priority: 1 },
 
     // Pakketten
-    { url: `${baseUrl}/gratis-website`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/gratis-website`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/contact`, lastModified, changeFrequency: "monthly", priority: 0.9 },
 
     // Migratie
-    { url: `${baseUrl}/migratie-aanvragen`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
-    { url: `${baseUrl}/wordpress-naar-nextjs`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 },
-    { url: `${baseUrl}/wix-naar-eigen-website`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 },
-    { url: `${baseUrl}/shopify-alternatief`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.85 },
+    { url: `${baseUrl}/migratie-aanvragen`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/wordpress-naar-nextjs`, lastModified, changeFrequency: "monthly", priority: 0.85 },
 
     // Branches overzicht + individuele branches
-    { url: `${baseUrl}/branches`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/branches`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     ...branches.map((branch) => ({
       url: `${baseUrl}/${branch}`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
@@ -94,14 +66,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Diensten
     ...diensten.map((dienst) => ({
       url: `${baseUrl}/${dienst}`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
 
+    // Tools
+    ...tools.map((tool) => ({
+      url: `${baseUrl}/${tool}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
+
     // Juridisch
-    { url: `${baseUrl}/voorwaarden`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/disclaimer`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/voorwaarden`, lastModified, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/disclaimer`, lastModified, changeFrequency: "yearly", priority: 0.3 },
   ];
 }

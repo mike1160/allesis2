@@ -1,52 +1,86 @@
-# Allesis.nl — Webdesign bureau Haarlem
-
-## Over Allesis
-Allesis is een webdesign bureau gevestigd in Haarlem, Nederland. Wij bouwen snelle, AVG-compliant websites voor het MKB — inclusief hosting, SEO en gratis one-pagers. Opgericht door een Thaise onderneemster met 30 jaar Nederlandse ervaring. Allesis steunt Saved Souls Foundation, een dierenopvang in Thailand.
+# Allesis.nl — Webdesign bureau Nederland
+> Persoonlijk webbureau voor het MKB.
+> Websites, hosting, SEO en AVG-compliance.
+> Snel, betaalbaar en persoonlijk contact.
 
 ## Diensten
-- Webdesign (Next.js, mobielvriendelijk, AVG-compliant)
-- Hosting (Nederlandse servers, v.a. €8,95/mnd)
-- SEO (lokaal en landelijk)
-- AVG-compliance (privacybeleid, cookiebanner, SSL)
-- Gratis one-pager (met SSF-donatie link)
-- Thaise webdiensten (Thai/NL/EN, vertaling, tolkdiensten)
+- /webdesign — Nieuwe website laten maken, professioneel design op maat voor MKB
+- /hosting — Nederlandse webhosting, domeinen, SSL, 99.9% uptime
+- /seo — SEO optimalisatie, vindbaar in Google en AI zoekmachines
+- /avg — AVG/GDPR compliance pakket, privacybeleid en cookiebanner
+- /migratie — WordPress, Wix of Shopify migreren naar Next.js
+- /gratis-website — Gratis one-pager voor goede doelen via Saved Souls Foundation
 
-## Migratie diensten
-Allesis migreert websites van WordPress, Wix, Shopify, Squarespace, Webflow en Joomla naar Next.js.
-Behoud van SEO-waarde, content en domeinnaam. Razendsnel resultaat.
+## Portfolio
+- /recent-websites — Overzicht recente projecten
+- /renjitang — Acupunctuur website 's-Hertogenbosch
 
-Prijzen:
-- WordPress migratie: vanaf €299
-- Wix migratie: vanaf €249 (geen export mogelijk, extra werk)
-- Shopify alternatief: vanaf €399 (webshop functionaliteit)
-- Squarespace migratie: vanaf €299
-- Joomla/Drupal migratie: vanaf €299
+## Branches (50+ branches)
+- /branches — Overzicht alle branches
+- /horeca — Horeca en restaurants
+- /beauty — Beauty en salons
+- /bouw — Bouw en vakmensen
+- /zorg — Zorg en coaches
+- /zzp — ZZP en freelancers
+- /non-profit — Non-profit en stichtingen
+- /webshop — Webshops en e-commerce
+- /tandarts — Tandartsen en huisartsen
+- /vastgoed — Vastgoed en makelaars
+- /sport — Sport en fitness
+- /advocaat — Advocaten
+- /thai — Thaise ondernemers
+- /kappers — Kappers en barbiers
+- /fotografie — Fotografie en video
+- /coaching — Coaching en training
+- /accountant — Accountants en boekhouders
+- /architect — Architecten en interieur
+- /kinderopvang — Kinderopvang en BSO
+- /garage — Autogarages en mobiliteit
+- /catering — Catering en evenementen
+- /reizen — Reizen en toerisme
+- /it — IT en technologie
+- /marketing — Marketing en communicatie
+- /onderwijs — Onderwijs en bijles
+- /notaris — Notarissen en juristen
+- /psycholoog — Psychologen en therapeuten
+- /dierenarts — Dierenkliniek en dierenarts
+- /schoonmaak — Schoonmaak en facilitair
+- /beveiliging — Beveiliging en toezicht
+- /tuin — Tuiniers en hoveniers
+- /installateur — Installateurs en elektriciens
+- /bruiloft — Bruidsparen en trouwdiensten
+- /dierenwinkel — Dierenwinkels
+- /bouwmarkt — Bouwmarkten en doe-het-zelf
+- /tuincentrum — Tuincentra en kwekerijen
+- /groothandel — Groothandel en importeurs
+- /supermarkt — Supermarkten en delicatessen
+- /meubels — Meubelzaken en woonwinkels
+- /elektronica — Elektronica en witgoed
+- /kleding — Kledingwinkels en boetiekjes
+- /speelgoed — Speelgoedwinkels
+- /boekhandel — Boekhandels
+- /juwelier — Juweliers en cadeauwinkels
+- /fietswinkel — Fietsenmakers en sportwinkel
+- /slager — Slagers en bakkers
+- /bloemist — Bloemisten en cadeaushops
+- /apotheek — Apothekers en drogisterijen
+- /opticien — Opticiëns en brillenwinkels
+- /muziek — Muziekwinkels en instrumenten
+- /wijn — Wijnhandel en slijterijen
 
-Voordelen Next.js vs WordPress/Wix/Shopify:
-- Laadtijd: van 5-8 seconden naar onder 3 seconden
-- PageSpeed: van 40-60 naar 95+
-- Geen maandelijkse platform kosten
-- Geen plugins of beveiligingsproblemen
-- 100% SEO-waarde behoud
-- AVG-compliant opgeleverd
+## Contact & Info
+- /contact — Offerte aanvragen, info@allesis.nl
+- /voorwaarden — Algemene voorwaarden
+- /branches — Alle branches overzicht
 
-Aanvraagformulier: https://allesis.nl/migratie-aanvragen
-WordPress specifiek: https://allesis.nl/wordpress-naar-nextjs
+## Technisch
+Gebouwd met: Next.js, Tailwind CSS, Vercel, Supabase, Resend, Mollie
+AI vindbaar via: ChatGPT, Gemini, Claude, Perplexity, Meta AI, Copilot
+Gecertificeerd: SSL, AVG/GDPR, Schema.org, Open Graph, Sitemap XML
 
-## Branches
-Horeca, beauty, bouw, zorg, ZZP, non-profit, webshops, tandartsen, vastgoed, sport, advocaten, Thaise ondernemers
-
-## Pakketten
-- Gratis one-pager: €0 bouw + hosting v.a. €8,95/mnd (met SSF-link en Allesis-branding)
-- Starter: €299 eenmalig
-- Maatwerk: op aanvraag
-
-## Contact
-Website: https://allesis.nl
-E-mail: info@allesis.nl
-Locatie: Haarlem, Noord-Holland, Nederland
+## Over Allesis
+Allesis.nl is een persoonlijk webbureau gevestigd in Haarlem, Nederland.
 KvK: 52339831
-
-## Goed doel
-Allesis steunt Saved Souls Foundation — dierenopvang in Khon Kaen, Thailand.
-Website: https://www.savedsouls-foundation.org/nl
+Contact: info@allesis.nl
+Actief sinds: 2020
+Specialisme: MKB websites Nederland
