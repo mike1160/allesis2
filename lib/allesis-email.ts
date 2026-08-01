@@ -29,6 +29,7 @@ function logResendFailure(context: string, error: unknown): void {
 
 const BRAND = {
   primary: "#3B6D11",
+  markBlue: "#1e40af",
   text: "#0f172a",
   muted: "#64748b",
   subtle: "#94a3b8",
@@ -36,6 +37,26 @@ const BRAND = {
   border: "#e2e6f0",
   white: "#ffffff",
 } as const;
+
+export type MailLang = "nl" | "en" | "th" | "ru" | "de";
+
+function resolveMailLang(raw?: string | null): MailLang {
+  const l = (raw || "").trim().toLowerCase();
+  if (l === "th" || l === "en" || l === "nl" || l === "ru" || l === "de") return l;
+  return "nl";
+}
+
+/** Grote witte A op blauwe achtergrond — werkt in mailclients zonder externe afbeelding */
+function emailBrandMarkHtml(): string {
+  return `
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+      <tr>
+        <td width="72" height="72" align="center" valign="middle" style="width:72px;height:72px;background:${BRAND.markBlue};border:3px solid ${BRAND.white};border-radius:18px;font-family:Arial,Helvetica,sans-serif;font-size:40px;font-weight:800;color:${BRAND.white};letter-spacing:-0.02em;line-height:72px;">
+          A
+        </td>
+      </tr>
+    </table>`;
+}
 
 function escapeHtml(text: string): string {
   return String(text)
@@ -84,35 +105,176 @@ function wrapEmail(inner: string, title: string): string {
   `;
 }
 
-function contactCustomerConfirmationText(payload: {
+type ContactCustomerPayload = {
   naam: string;
   email: string;
   onderwerp?: string;
   bericht: string;
   nieuwsbrief?: boolean;
-}): string {
-  const onderwerpDisplay = payload.onderwerp?.trim() || "Algemeen contact";
-  const nl = payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee";
+  lang?: string;
+};
+
+const CONTACT_CONFIRM = {
+  subject: {
+    nl: "Bevestiging: we hebben uw bericht ontvangen — Allesis",
+    en: "Confirmation: we received your message — Allesis",
+    th: "ยืนยัน: เราได้รับข้อความของคุณแล้ว — Allesis",
+    ru: "Подтверждение: мы получили ваше сообщение — Allesis",
+    de: "Bestätigung: wir haben Ihre Nachricht erhalten — Allesis",
+  },
+  greeting: {
+    nl: (n: string) => `Beste ${n},`,
+    en: (n: string) => `Dear ${n},`,
+    th: (n: string) => `สวัสดีคุณ ${n},`,
+    ru: (n: string) => `Здравствуйте, ${n}!`,
+    de: (n: string) => `Hallo ${n},`,
+  },
+  title: {
+    nl: "Bedankt voor uw bericht",
+    en: "Thank you for your message",
+    th: "ขอบคุณสำหรับข้อความของคุณ",
+    ru: "Спасибо за ваше сообщение",
+    de: "Danke für Ihre Nachricht",
+  },
+  intro: {
+    nl: "We hebben uw aanvraag veilig ontvangen. Ons team bekijkt uw bericht en neemt zo snel mogelijk contact met u op — meestal binnen één werkdag.",
+    en: "We have safely received your request. Our team will review your message and get back to you as soon as possible — usually within one business day.",
+    th: "เราได้รับข้อความของคุณเรียบร้อยแล้ว ทีมงานจะตรวจสอบและติดต่อกลับโดยเร็ว — โดยปกติภายใน 1 วันทำการ",
+    ru: "Мы получили ваше сообщение. Наша команда ответит вам как можно скорее — обычно в течение одного рабочего дня.",
+    de: "Wir haben Ihre Anfrage sicher erhalten. Unser Team prüft Ihre Nachricht und meldet sich so schnell wie möglich — meist innerhalb eines Werktages.",
+  },
+  summary: {
+    nl: "Samenvatting van uw bericht",
+    en: "Summary of your message",
+    th: "สรุปข้อความของคุณ",
+    ru: "Краткое содержание",
+    de: "Zusammenfassung Ihrer Nachricht",
+  },
+  your_message: {
+    nl: "Uw bericht",
+    en: "Your message",
+    th: "ข้อความของคุณ",
+    ru: "Ваше сообщение",
+    de: "Ihre Nachricht",
+  },
+  questions: {
+    nl: "Heeft u nog vragen? Beantwoord gerust op deze e-mail of neem direct contact op via onderstaande gegevens.",
+    en: "Any questions? Just reply to this email or contact us using the details below.",
+    th: "มีคำถามเพิ่มเติม? ตอบกลับอีเมลนี้ได้เลย หรือติดต่อเราตามข้อมูลด้านล่าง",
+    ru: "Есть вопросы? Просто ответьте на это письмо или свяжитесь с нами по контактам ниже.",
+    de: "Noch Fragen? Antworten Sie einfach auf diese E-Mail oder kontaktieren Sie uns über die Angaben unten.",
+  },
+  footer: {
+    nl: "U ontvangt deze e-mail omdat u het contactformulier op onze website heeft ingevuld. Dit is een automatische bevestiging; antwoorden op deze e-mail komen bij ons terecht indien uw mailclient dat ondersteunt.",
+    en: "You received this email because you submitted the contact form on our website. This is an automatic confirmation; replies to this email reach us if your mail client supports it.",
+    th: "คุณได้รับอีเมลนี้เนื่องจากกรอกแบบฟอร์มติดต่อบนเว็บไซต์ของเรา นี่คือการยืนยันอัตโนมัติ — การตอบกลับอีเมลนี้จะส่งถึงเราหากเมลของคุณรองรับ",
+    ru: "Вы получили это письмо, потому что заполнили контактную форму на нашем сайте. Это автоматическое подтверждение; ответы на это письмо приходят к нам, если ваш почтовый клиент это поддерживает.",
+    de: "Sie erhalten diese E-Mail, weil Sie das Kontaktformular auf unserer Website ausgefüllt haben. Dies ist eine automatische Bestätigung; Antworten auf diese E-Mail erreichen uns, sofern Ihr Mailclient das unterstützt.",
+  },
+  labels: {
+    nl: { name: "Naam", email: "E-mail", subject: "Onderwerp", newsletter: "Nieuwsbrief", yes: "Ja, ik wil op de hoogte blijven", no: "Nee", general: "Algemeen contact", location: "Haarlem, Nederland" },
+    en: { name: "Name", email: "Email", subject: "Subject", newsletter: "Newsletter", yes: "Yes, keep me updated", no: "No", general: "General enquiry", location: "Haarlem, Netherlands" },
+    th: { name: "ชื่อ", email: "อีเมล", subject: "หัวข้อ", newsletter: "จดหมายข่าว", yes: "ใช่ ต้องการรับข่าวสาร", no: "ไม่", general: "ติดต่อทั่วไป", location: "ฮาร์เลม เนเธอร์แลนด์" },
+    ru: { name: "Имя", email: "Эл. почта", subject: "Тема", newsletter: "Рассылка", yes: "Да, хочу получать новости", no: "Нет", general: "Общий запрос", location: "Харлем, Нидерланды" },
+    de: { name: "Name", email: "E-Mail", subject: "Betreff", newsletter: "Newsletter", yes: "Ja, ich möchte Updates", no: "Nein", general: "Allgemeine Anfrage", location: "Haarlem, Niederlande" },
+  },
+} as const;
+
+function contactCustomerConfirmationText(payload: ContactCustomerPayload): string {
+  const lang = resolveMailLang(payload.lang);
+  const L = CONTACT_CONFIRM.labels[lang];
+  const onderwerpDisplay = payload.onderwerp?.trim() || L.general;
+  const nl = payload.nieuwsbrief ? L.yes : L.no;
   return [
-    `Beste ${payload.naam},`,
+    CONTACT_CONFIRM.greeting[lang](payload.naam),
     "",
-    "Bedankt voor uw bericht. We hebben uw aanvraag ontvangen en nemen zo snel mogelijk contact met u op (meestal binnen één werkdag).",
+    CONTACT_CONFIRM.intro[lang],
     "",
-    "Samenvatting",
+    CONTACT_CONFIRM.summary[lang],
     "",
-    plainRow("Naam", payload.naam),
-    plainRow("E-mail", payload.email),
-    plainRow("Onderwerp", onderwerpDisplay),
-    plainRow("Nieuwsbrief", nl),
+    plainRow(L.name, payload.naam),
+    plainRow(L.email, payload.email),
+    plainRow(L.subject, onderwerpDisplay),
+    plainRow(L.newsletter, nl),
     "",
-    "Bericht:",
+    `${CONTACT_CONFIRM.your_message[lang]}:`,
     "",
     payload.bericht,
     "",
     plainDivider(),
     "",
-    "— Allesis · info@allesis.nl · Haarlem",
+    `— Allesis · info@allesis.nl · ${L.location}`,
   ].join("\n");
+}
+
+function contactCustomerConfirmationHtml(payload: ContactCustomerPayload): string {
+  const lang = resolveMailLang(payload.lang);
+  const L = CONTACT_CONFIRM.labels[lang];
+  const onderwerpDisplay = payload.onderwerp?.trim() || L.general;
+  const summaryRows = tableHtml([
+    { label: L.name, value: payload.naam },
+    { label: L.email, value: payload.email },
+    { label: L.subject, value: onderwerpDisplay },
+    { label: L.newsletter, value: payload.nieuwsbrief ? L.yes : L.no },
+  ]);
+
+  return `
+<!DOCTYPE html>
+<html lang="${lang}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:${BRAND.surface};">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #eef2ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(30,64,175,0.10);border:1px solid ${BRAND.border};">
+          <tr>
+            <td style="background:${BRAND.markBlue};padding:28px 32px;text-align:center;color:${BRAND.white};">
+              ${emailBrandMarkHtml()}
+              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
+                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">${escapeHtml(CONTACT_CONFIRM.greeting[lang](payload.naam))}</p>
+              <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:${BRAND.text};line-height:1.35;letter-spacing:-0.02em;">${escapeHtml(CONTACT_CONFIRM.title[lang])}</h1>
+              <p style="margin:0 0 24px;font-size:15px;color:${BRAND.muted};line-height:1.7;">
+                ${escapeHtml(CONTACT_CONFIRM.intro[lang])}
+              </p>
+              <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:20px 22px;margin-bottom:24px;">
+                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.markBlue};text-transform:uppercase;letter-spacing:0.06em;">${escapeHtml(CONTACT_CONFIRM.summary[lang])}</p>
+                ${summaryRows}
+                <hr style="border:none;border-top:1px solid ${BRAND.border};margin:20px 0;" />
+                <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:${BRAND.subtle};text-transform:uppercase;letter-spacing:0.05em;">${escapeHtml(CONTACT_CONFIRM.your_message[lang])}</p>
+                <p style="margin:0;font-size:14px;color:${BRAND.text};line-height:1.65;white-space:pre-wrap;">${escapeHtml(payload.bericht)}</p>
+              </div>
+              <p style="margin:0;font-size:14px;color:${BRAND.muted};line-height:1.65;">
+                ${escapeHtml(CONTACT_CONFIRM.questions[lang])}
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 32px;background:${BRAND.surface};border-top:1px solid ${BRAND.border};font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:${BRAND.text};">Allesis</p>
+              <p style="margin:0 0 6px;font-size:14px;color:${BRAND.muted};line-height:1.6;">
+                <a href="mailto:info@allesis.nl" style="color:${BRAND.markBlue};text-decoration:none;font-weight:600;">info@allesis.nl</a>
+                &nbsp;·&nbsp; ${escapeHtml(L.location)}
+              </p>
+              <p style="margin:12px 0 0;font-size:14px;">
+                <a href="${SITE_URL}" style="color:${BRAND.markBlue};text-decoration:none;font-weight:600;">allesis.nl</a>
+              </p>
+              <p style="margin:20px 0 0;font-size:11px;color:${BRAND.subtle};line-height:1.5;">
+                ${escapeHtml(CONTACT_CONFIRM.footer[lang])}
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
 }
 
 function businessContactNotificationText(payload: {
@@ -363,81 +525,6 @@ function businessAvgPopupNotificationText(payload: {
   ].join("\n");
 }
 
-function contactCustomerConfirmationHtml(payload: {
-  naam: string;
-  email: string;
-  onderwerp?: string;
-  bericht: string;
-  nieuwsbrief?: boolean;
-}): string {
-  const onderwerpDisplay = payload.onderwerp?.trim() || "Algemeen contact";
-  const summaryRows = tableHtml([
-    { label: "Naam", value: payload.naam },
-    { label: "E-mail", value: payload.email },
-    { label: "Onderwerp", value: onderwerpDisplay },
-    { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee" },
-  ]);
-  const logoUrl = `${SITE_URL}/logo.png`;
-
-  return `
-<!DOCTYPE html>
-<html lang="nl">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:${BRAND.surface};">
-  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #f0f4ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(59,109,17,0.08);border:1px solid ${BRAND.border};">
-          <tr>
-            <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;color:${BRAND.white};">
-              <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />
-              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
-                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
-              <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">Beste ${escapeHtml(payload.naam)},</p>
-              <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:${BRAND.text};line-height:1.35;letter-spacing:-0.02em;">Bedankt voor uw bericht</h1>
-              <p style="margin:0 0 24px;font-size:15px;color:${BRAND.muted};line-height:1.7;">
-                We hebben uw aanvraag veilig ontvangen. Ons team bekijkt uw bericht en neemt zo snel mogelijk contact met u op — meestal binnen <strong style="color:${BRAND.text};">één werkdag</strong>.
-              </p>
-              <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:20px 22px;margin-bottom:24px;">
-                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.primary};text-transform:uppercase;letter-spacing:0.06em;">Samenvatting van uw bericht</p>
-                ${summaryRows}
-                <hr style="border:none;border-top:1px solid ${BRAND.border};margin:20px 0;" />
-                <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:${BRAND.subtle};text-transform:uppercase;letter-spacing:0.05em;">Uw bericht</p>
-                <p style="margin:0;font-size:14px;color:${BRAND.text};line-height:1.65;white-space:pre-wrap;">${escapeHtml(payload.bericht)}</p>
-              </div>
-              <p style="margin:0;font-size:14px;color:${BRAND.muted};line-height:1.65;">
-                Heeft u nog vragen? Beantwoord gerust op deze e-mail of neem direct contact op via onderstaande gegevens.
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:24px 32px 32px;background:${BRAND.surface};border-top:1px solid ${BRAND.border};font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
-              <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:${BRAND.text};">Allesis</p>
-              <p style="margin:0 0 6px;font-size:14px;color:${BRAND.muted};line-height:1.6;">
-                <a href="mailto:info@allesis.nl" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">info@allesis.nl</a>
-                &nbsp;·&nbsp; Haarlem, Nederland
-              </p>
-              <p style="margin:12px 0 0;font-size:14px;">
-                <a href="${SITE_URL}" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">allesis.nl</a>
-              </p>
-              <p style="margin:20px 0 0;font-size:11px;color:${BRAND.subtle};line-height:1.5;">
-                U ontvangt deze e-mail omdat u het contactformulier op onze website heeft ingevuld. Dit is een automatische bevestiging; antwoorden op deze e-mail komen bij ons terecht indien uw mailclient dat ondersteunt.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
-}
-
 type OfferteCustomerPayload = {
   naam: string;
   email: string;
@@ -485,7 +572,6 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
     { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja, ik wil op de hoogte blijven" : "Nee" },
   ]);
   const toelichting = payload.bericht?.trim();
-  const logoUrl = `${SITE_URL}/logo.png`;
   const introSecond = `Bedankt ${escapeHtml(payload.naam)}, we hebben uw offerteaanvraag ontvangen en nemen binnen 1 werkdag contact met u op.`;
 
   return `
@@ -493,13 +579,13 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
 <html lang="nl">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:${BRAND.surface};">
-  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #f0f4ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #eef2ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
     <tr>
       <td align="center">
-        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(59,109,17,0.08);border:1px solid ${BRAND.border};">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(30,64,175,0.10);border:1px solid ${BRAND.border};">
           <tr>
-            <td style="background:${BRAND.primary};padding:28px 32px;text-align:center;color:${BRAND.white};">
-              <img src="${logoUrl}" alt="Allesis — webdesign Haarlem" width="160" style="display:block;margin:0 auto;max-width:160px;height:auto;border:0;" />
+            <td style="background:${BRAND.markBlue};padding:28px 32px;text-align:center;color:${BRAND.white};">
+              ${emailBrandMarkHtml()}
               <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
                 <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
               </div>
@@ -513,7 +599,7 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
                 ${introSecond}
               </p>
               <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:20px 22px;margin-bottom:24px;">
-                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.primary};text-transform:uppercase;letter-spacing:0.06em;">Samenvatting van uw aanvraag</p>
+                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.markBlue};text-transform:uppercase;letter-spacing:0.06em;">Samenvatting van uw aanvraag</p>
                 ${summaryRows}
                 ${
                   toelichting
@@ -532,11 +618,11 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
             <td style="padding:24px 32px 32px;background:${BRAND.surface};border-top:1px solid ${BRAND.border};font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
               <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:${BRAND.text};">Allesis</p>
               <p style="margin:0 0 6px;font-size:14px;color:${BRAND.muted};line-height:1.6;">
-                <a href="mailto:info@allesis.nl" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">info@allesis.nl</a>
+                <a href="mailto:info@allesis.nl" style="color:${BRAND.markBlue};text-decoration:none;font-weight:600;">info@allesis.nl</a>
                 &nbsp;·&nbsp; Haarlem, Nederland
               </p>
               <p style="margin:12px 0 0;font-size:14px;">
-                <a href="${SITE_URL}" style="color:${BRAND.primary};text-decoration:none;font-weight:600;">allesis.nl</a>
+                <a href="${SITE_URL}" style="color:${BRAND.markBlue};text-decoration:none;font-weight:600;">allesis.nl</a>
               </p>
               <p style="margin:20px 0 0;font-size:11px;color:${BRAND.subtle};line-height:1.5;">
                 U ontvangt deze e-mail omdat u het offerteformulier op onze website heeft ingevuld. Dit is een automatische bevestiging; antwoorden op deze e-mail komen bij ons terecht indien uw mailclient dat ondersteunt.
@@ -552,7 +638,7 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
 }
 
 export type AllesisEmailPayload =
-  | { type: "contact"; naam: string; email: string; onderwerp?: string; bericht: string; nieuwsbrief?: boolean }
+  | { type: "contact"; naam: string; email: string; onderwerp?: string; bericht: string; nieuwsbrief?: boolean; lang?: string }
   | {
       type: "offerte";
       naam: string;
@@ -621,7 +707,8 @@ export async function sendAllesisEmail(
   switch (payload.type) {
     case "contact": {
       replyTo = payload.email;
-      subject = `Contact: ${payload.onderwerp?.trim() || "Bericht via allesis.nl"}`;
+      const mailLang = resolveMailLang(payload.lang);
+      subject = `[${mailLang.toUpperCase()}] Contact: ${payload.onderwerp?.trim() || "Bericht via allesis.nl"}`;
       const inner = `${tableHtml([
         { label: "Naam", value: payload.naam },
         { label: "E-mail", value: payload.email },
@@ -762,7 +849,7 @@ export async function sendAllesisEmail(
       if (payload.type === "contact") {
         confirmHtml = contactCustomerConfirmationHtml(payload);
         confirmText = contactCustomerConfirmationText(payload);
-        confirmSubject = "Bevestiging: we hebben uw bericht ontvangen — Allesis";
+        confirmSubject = CONTACT_CONFIRM.subject[resolveMailLang(payload.lang)];
       } else if (payload.type === "offerte") {
         confirmHtml = offerteCustomerConfirmationHtml(payload);
         confirmText = offerteCustomerConfirmationText(payload);

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import TurnstileWidget from '@/components/forms/TurnstileWidget'
 import { PRIVACY_CONSENT_ERROR } from '@/lib/form-consent'
@@ -115,6 +115,16 @@ export default function ThaiContactForm({ lang }: { lang: Lang }) {
   const [privacyAccepted, setPrivacyAccepted] = useState(false)
   const [nieuwsbrief, setNieuwsbrief] = useState(false)
   const [privacyError, setPrivacyError] = useState(false)
+  const successRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!success) return
+    // Form collapses after submit — bring "message sent" into the upper viewport
+    const id = window.setTimeout(() => {
+      successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 50)
+    return () => window.clearTimeout(id)
+  }, [success])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -138,6 +148,7 @@ export default function ThaiContactForm({ lang }: { lang: Lang }) {
           turnstileToken,
           privacyAccepted: true,
           nieuwsbrief,
+          lang,
           naam: form.naam,
           email: form.email,
           onderwerp: onderwerp || `Phuket /th contact (${lang})`,
@@ -172,10 +183,15 @@ export default function ThaiContactForm({ lang }: { lang: Lang }) {
 
   if (success) {
     return (
-      <div className="rounded-3xl border border-green-200 bg-white p-10 text-center shadow-sm">
-        <div className="mb-4 text-5xl">✅</div>
-        <h3 className="mb-2 text-2xl font-black text-zinc-900">{L.success_h[lang]}</h3>
-        <p className="text-zinc-500">{L.success_p[lang]}</p>
+      <div
+        ref={successRef}
+        className="scroll-mt-28 rounded-3xl border border-green-200 bg-white p-10 text-center shadow-sm md:p-14"
+      >
+        <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-green-500 text-2xl text-white shadow-lg shadow-green-500/30">
+          ✓
+        </div>
+        <h3 className="mb-2 text-2xl font-black text-zinc-900 md:text-3xl">{L.success_h[lang]}</h3>
+        <p className="text-zinc-500 md:text-lg">{L.success_p[lang]}</p>
       </div>
     )
   }

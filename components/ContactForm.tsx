@@ -36,6 +36,7 @@ export default function ContactForm() {
           turnstileToken,
           privacyAccepted: true,
           nieuwsbrief,
+          lang: "nl",
           ...form,
         }),
       });

@@ -55,6 +55,7 @@ export async function POST(request: NextRequest) {
         email?: string;
         onderwerp?: string;
         bericht?: string;
+        lang?: string;
         type?: string;
       };
       if (!b.naam?.trim() || !b.email?.trim() || !b.bericht?.trim()) {
@@ -67,6 +68,7 @@ export async function POST(request: NextRequest) {
         onderwerp: b.onderwerp?.trim(),
         bericht: b.bericht.trim(),
         nieuwsbrief,
+        lang: typeof b.lang === "string" ? b.lang.trim() : "nl",
       };
       break;
     }
