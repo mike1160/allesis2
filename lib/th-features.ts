@@ -164,7 +164,7 @@ export const FEATURES: Record<FeatureSlug, FeatureCopy> = {
       ru: "Один сайт — для местных, туристов и европейских инвесторов.",
       de: "Eine Website für Locals, Touristen und europäische Investoren.",
     },
-    img: "https://images.pexels.com/photos/267669/pexels-photo-267669.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80",
+    img: "https://images.pexels.com/photos/1181534/pexels-photo-1181534.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80",
   },
   booking: {
     title: {
@@ -260,7 +260,7 @@ export const FEATURES: Record<FeatureSlug, FeatureCopy> = {
       ru: "Профили врачей, учителей или мастеров помогают выбрать вас.",
       de: "Profile von Ärzten, Lehrern oder Mechanikern helfen Kunden, Sie zu wählen.",
     },
-    img: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80",
+    img: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80",
   },
   trust: {
     title: {

@@ -1,0 +1,122 @@
+const pkg = (name: string, price: string, eur: string, f1: string, f2: string, f3: string, f4: string, h: boolean) =>
+  ({ name, price, eur, features: [f1, f2, f3, f4], highlight: h })
+
+export const watersportImgs = {
+  hero: 'https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  mid:  'https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+  cta:  'https://images.pexels.com/photos/37530/divers-scuba-underwater-ocean-37530.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  gradient: 'from-cyan-950/80',
+}
+
+export const watersportContent = {
+  th: {
+    eyebrow: 'กีฬาทางน้ำ · Diving · Snorkel · ภูเก็ต',
+    h1_main: 'เว็บไซต์ Watersport & Diving', h1_sub: 'ที่นักดำน้ำและนักท่องเที่ยวจอง',
+    hero_desc: 'เว็บไซต์สำหรับดำน้ำ สนอร์เกล เรือทริป และกีฬาทางน้ำในภูเก็ต — จองออนไลน์ หลายภาษา SEO',
+    mid_h2: 'นักท่องเที่ยวค้นหาดำน้ำก่อนมาถึง',
+    mid_p: 'แขกเปรียบเทียบริฟ ทริปเรือ และใบรับรอง PADI ออนไลน์ เว็บที่ชัดเจนปิดการจองได้ก่อนคู่แข่ง',
+    services: [
+      { icon: '🤿', label: 'ดำน้ำ & PADI', sub: 'คอร์สและทริปดำน้ำ' },
+      { icon: '🐠', label: 'สนอร์เกล', sub: 'ทริปเกาะและแนวปะการัง' },
+      { icon: '🚤', label: 'เรือทริป', sub: 'Speedboat & longtail' },
+      { icon: '📅', label: 'จองออนไลน์', sub: 'จองทริปและคอร์ส' },
+      { icon: '📸', label: 'แกลเลอรีใต้น้ำ', sub: 'ภาพดำน้ำและทริปจริง' },
+      { icon: '🌍', label: 'SEO นานาชาติ', sub: 'diving Phuket / snorkel' },
+      { icon: '🌐', label: 'หลายภาษา', sub: 'ไทย อังกฤษ รัสเซีย เยอรมัน' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'ถามและจองด่วน' },
+    ],
+    packages: [
+      pkg('หน้าเดียว','฿18,000','~€460','ทริปตัวอย่าง','ไทย & อังกฤษ','LINE','รูปภาพ',false),
+      pkg('ธุรกิจ','฿35,000','~€900','จองออนไลน์','คอร์ส PADI','SEO','แกลเลอรี',true),
+      pkg('พรีเมียม','฿55,000','~€1,400','ระบบจอง','หลายภาษา','ปฏิทินทริป','แคมเปญ SEO',false),
+    ],
+  },
+  en: {
+    eyebrow: 'Watersport & Diving · Snorkel · Boat trips · Phuket',
+    h1_main: 'Website for diving & watersports', h1_sub: 'Booked by divers & tourists',
+    hero_desc: 'Next.js site for Phuket dive shops, snorkel trips & boat tours — booking, gallery, multilingual SEO.',
+    mid_h2: 'Divers research before they fly',
+    mid_p: 'Guests compare reefs, boat trips and PADI courses online. A clear site wins the booking first.',
+    services: [
+      { icon: '🤿', label: 'Diving & PADI', sub: 'Courses and dive trips' },
+      { icon: '🐠', label: 'Snorkelling', sub: 'Island & reef trips' },
+      { icon: '🚤', label: 'Boat trips', sub: 'Speedboat & longtail' },
+      { icon: '📅', label: 'Online booking', sub: 'Trips & courses' },
+      { icon: '📸', label: 'Underwater gallery', sub: 'Real trip photos' },
+      { icon: '🌍', label: 'International SEO', sub: 'diving Phuket / snorkel' },
+      { icon: '🌐', label: 'Multilingual', sub: 'Thai, English, Russian, German' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Fast trip enquiries' },
+    ],
+    packages: [
+      pkg('One-Page','฿18,000','~€460','Sample trips','Thai & English','LINE','Photos',false),
+      pkg('Business','฿35,000','~€900','Online booking','PADI courses','SEO','Gallery',true),
+      pkg('Premium','฿55,000','~€1,400','Booking system','Multilingual','Trip calendar','SEO campaign',false),
+    ],
+  },
+  nl: {
+    eyebrow: 'Watersport & Diving · Snorkelen · Boottrips · Phuket',
+    h1_main: 'Website voor diving & watersport', h1_sub: 'Geboekt door duikers & toeristen',
+    hero_desc: 'Site voor duikscholen, snorkeltrips & boottochten in Phuket — boeken, galerij, meertalige SEO.',
+    mid_h2: 'Duikers zoeken vóór vertrek',
+    mid_p: 'Gasten vergelijken riffen, boottrips en PADI-cursussen online. Een duidelijke site wint de boeking.',
+    services: [
+      { icon: '🤿', label: 'Duiken & PADI', sub: 'Cursussen en duiktrips' },
+      { icon: '🐠', label: 'Snorkelen', sub: 'Eiland- & riftrips' },
+      { icon: '🚤', label: 'Boottrips', sub: 'Speedboat & longtail' },
+      { icon: '📅', label: 'Online boeken', sub: 'Trips & cursussen' },
+      { icon: '📸', label: 'Onderwatergalerij', sub: 'Echte tripfoto\'s' },
+      { icon: '🌍', label: 'Internationale SEO', sub: 'diving Phuket / snorkel' },
+      { icon: '🌐', label: 'Meertalig', sub: 'Thai, Engels, Russisch, Duits' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Snelle tripvragen' },
+    ],
+    packages: [
+      pkg('One-Page','฿18,000','~€460','Voorbeeldtrips','Thai & Engels','LINE','Foto\'s',false),
+      pkg('Business','฿35,000','~€900','Online boeken','PADI','SEO','Galerie',true),
+      pkg('Premium','฿55,000','~€1,400','Boekingssysteem','Meertalig','Tripkalender','SEO campagne',false),
+    ],
+  },
+  ru: {
+    eyebrow: 'Дайвинг и водный спорт · Пхукет',
+    h1_main: 'Сайт для дайвинга и водного спорта', h1_sub: 'Бронируют дайверы и туристы',
+    hero_desc: 'Сайт для дайв-центров, сноркелинга и лодочных туров на Пхукете — бронь, галерея, SEO.',
+    mid_h2: 'Дайверы ищут до вылета',
+    mid_p: 'Гости сравнивают рифы, лодки и курсы PADI онлайн. Понятный сайт закрывает бронь первым.',
+    services: [
+      { icon: '🤿', label: 'Дайвинг и PADI', sub: 'Курсы и дайв-туры' },
+      { icon: '🐠', label: 'Сноркелинг', sub: 'Острова и рифы' },
+      { icon: '🚤', label: 'Лодочные туры', sub: 'Спидбот и лонгтейл' },
+      { icon: '📅', label: 'Онлайн-бронь', sub: 'Туры и курсы' },
+      { icon: '📸', label: 'Подводная галерея', sub: 'Реальные фото' },
+      { icon: '🌍', label: 'Международное SEO', sub: 'diving Phuket / snorkel' },
+      { icon: '🌐', label: 'Мультиязычность', sub: 'Тайский, английский, русский' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Быстрые запросы' },
+    ],
+    packages: [
+      pkg('Одна страница','฿18,000','~€460','Примеры туров','Тайский & Английский','LINE','Фото',false),
+      pkg('Бизнес','฿35,000','~€900','Онлайн-бронь','PADI','SEO','Галерея',true),
+      pkg('Премиум','฿55,000','~€1,400','Система брони','Мультиязычность','Календарь','SEO кампания',false),
+    ],
+  },
+  de: {
+    eyebrow: 'Wassersport & Diving · Schnorcheln · Bootstouren · Phuket',
+    h1_main: 'Website für Diving & Wassersport', h1_sub: 'Gebucht von Tauchern & Touristen',
+    hero_desc: 'Website für Tauchschulen, Schnorcheltrips & Bootstouren in Phuket — Buchung, Galerie, SEO.',
+    mid_h2: 'Taucher recherchieren vor dem Flug',
+    mid_p: 'Gäste vergleichen Riffe, Bootstouren und PADI-Kurse online. Eine klare Website gewinnt die Buchung.',
+    services: [
+      { icon: '🤿', label: 'Tauchen & PADI', sub: 'Kurse und Tauchtrips' },
+      { icon: '🐠', label: 'Schnorcheln', sub: 'Insel- & Rifftouren' },
+      { icon: '🚤', label: 'Bootstouren', sub: 'Speedboat & Longtail' },
+      { icon: '📅', label: 'Online-Buchung', sub: 'Trips & Kurse' },
+      { icon: '📸', label: 'Unterwasser-Galerie', sub: 'Echte Trip-Fotos' },
+      { icon: '🌍', label: 'Internationales SEO', sub: 'diving Phuket / snorkel' },
+      { icon: '🌐', label: 'Mehrsprachig', sub: 'Thai, Englisch, Russisch, Deutsch' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Schnelle Trip-Anfragen' },
+    ],
+    packages: [
+      pkg('One-Pager','฿18,000','~€460','Beispieltrips','Thai & Englisch','LINE','Fotos',false),
+      pkg('Business','฿35,000','~€900','Online-Buchung','PADI','SEO','Galerie',true),
+      pkg('Premium','฿55,000','~€1,400','Buchungssystem','Mehrsprachig','Trip-Kalender','SEO-Kampagne',false),
+    ],
+  },
+}

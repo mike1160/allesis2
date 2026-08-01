@@ -82,6 +82,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ["clinic", "คลินิก"],
       ["school", "โรงเรียน"],
       ["realestate", "อสังหาริมทรัพย์"],
+      ["propertymanagement", "บริหารอสังหา"],
+      ["hotel", "โรงแรม"],
+      ["taxi", "แท็กซี่"],
+      ["watersport", "กีฬาทางน้ำ"],
+      ["tours", "ทัวร์"],
     ].flatMap(([ascii, thai]) => [
       {
         url: `${baseUrl}/th/${encodeURI(thai)}`,

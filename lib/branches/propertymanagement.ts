@@ -1,0 +1,122 @@
+const pkg = (name: string, price: string, eur: string, f1: string, f2: string, f3: string, f4: string, h: boolean) =>
+  ({ name, price, eur, features: [f1, f2, f3, f4], highlight: h })
+
+export const propertymanagementImgs = {
+  hero: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  mid:  'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+  cta:  'https://images.pexels.com/photos/280221/pexels-photo-280221.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  gradient: 'from-slate-950/80',
+}
+
+export const propertymanagementContent = {
+  th: {
+    eyebrow: 'บริหารอสังหา · Property Management · ภูเก็ต',
+    h1_main: 'เว็บไซต์บริหารอสังหา', h1_sub: 'ที่เจ้าของและผู้เช่าหาเจอ',
+    hero_desc: 'เว็บไซต์สำหรับบริษัทบริหารคอนโด วิลล่า และเช่าระยะยาวในภูเก็ต — หลายภาษา จองสอบถาม LINE',
+    mid_h2: 'เจ้าของและผู้เช่าค้นหาออนไลน์',
+    mid_p: 'นักลงทุนและผู้เช่าเปรียบเทียบผู้จัดการอสังหาก่อนติดต่อ เว็บที่ชัดเจนและเร็วสร้างความน่าเชื่อถือทันที',
+    services: [
+      { icon: '🏢', label: 'พอร์ตโฟลิโอทรัพย์', sub: 'คอนโด วิลล่า ที่ดูแลทั้งหมด' },
+      { icon: '🔑', label: 'เช่า & ดูแล', sub: 'บริการเช่าระยะสั้น/ยาว' },
+      { icon: '📅', label: 'สอบถามออนไลน์', sub: 'ฟอร์มและจองนัดชม' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'พบได้ในภูเก็ตและใกล้เคียง' },
+      { icon: '📸', label: 'แกลเลอรี', sub: 'ภาพห้องและสิ่งอำนวยความสะดวก' },
+      { icon: '🌐', label: 'หลายภาษา', sub: 'ไทย อังกฤษ รัสเซีย' },
+      { icon: '⭐', label: 'รีวิวลูกค้า', sub: 'ความน่าเชื่อถือจากเจ้าของ' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'ติดต่อตรงกับผู้จัดการ' },
+    ],
+    packages: [
+      pkg('หน้าเดียว','฿20,000','~€510','ไทย & อังกฤษ','พอร์ตโฟลิโอ','LINE','Google Maps',false),
+      pkg('ธุรกิจ','฿36,000','~€920','หลายหน้า','สอบถามออนไลน์','SEO','แกลเลอรี',true),
+      pkg('พรีเมียม','฿55,000','~€1,400','ออกแบบพิเศษ','หลายภาษา','รีวิว','แคมเปญ SEO',false),
+    ],
+  },
+  en: {
+    eyebrow: 'Property Management · Condos & Villas · Phuket',
+    h1_main: 'Website for property managers', h1_sub: 'Found by owners & tenants',
+    hero_desc: 'European-quality site for Phuket property management — portfolios, enquiries, LINE & WhatsApp.',
+    mid_h2: 'Owners and tenants search online first',
+    mid_p: 'Investors compare managers before they message. A clear, fast website builds trust instantly.',
+    services: [
+      { icon: '🏢', label: 'Property portfolio', sub: 'Condos & villas you manage' },
+      { icon: '🔑', label: 'Rental & care', sub: 'Short & long-term services' },
+      { icon: '📅', label: 'Online enquiry', sub: 'Forms & viewing requests' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Found across Phuket' },
+      { icon: '📸', label: 'Photo gallery', sub: 'Units & amenities' },
+      { icon: '🌐', label: 'Multilingual', sub: 'Thai, English, Russian' },
+      { icon: '⭐', label: 'Owner reviews', sub: 'Trust from landlords' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Direct to your team' },
+    ],
+    packages: [
+      pkg('One-Page','฿20,000','~€510','Thai & English','Portfolio','LINE','Google Maps',false),
+      pkg('Business','฿36,000','~€920','Multiple pages','Enquiries','SEO','Gallery',true),
+      pkg('Premium','฿55,000','~€1,400','Full custom','Multilingual','Reviews','SEO campaign',false),
+    ],
+  },
+  nl: {
+    eyebrow: 'Property Management · Condo’s & villa’s · Phuket',
+    h1_main: 'Website voor property management', h1_sub: 'Gevonden door eigenaren & huurders',
+    hero_desc: 'Europese kwaliteit voor beheerders in Phuket — portfolio, aanvragen, LINE & WhatsApp.',
+    mid_h2: 'Eigenaren zoeken eerst online',
+    mid_p: 'Investeerders vergelijken beheerders vóór ze contact opnemen. Een snelle, duidelijke site wekt vertrouwen.',
+    services: [
+      { icon: '🏢', label: 'Objectportfolio', sub: 'Condo’s & villa’s in beheer' },
+      { icon: '🔑', label: 'Verhuur & zorg', sub: 'Kort & lang verblijf' },
+      { icon: '📅', label: 'Online aanvraag', sub: 'Formulieren & bezichtiging' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Vindbaar in Phuket' },
+      { icon: '📸', label: 'Fotogalerij', sub: 'Units & voorzieningen' },
+      { icon: '🌐', label: 'Meertalig', sub: 'Thai, Engels, Russisch' },
+      { icon: '⭐', label: 'Reviews', sub: 'Vertrouwen van eigenaren' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Direct contact' },
+    ],
+    packages: [
+      pkg('One-Page','฿20,000','~€510','Thai & Engels','Portfolio','LINE','Google Maps',false),
+      pkg('Business','฿36,000','~€920',"Meerdere pagina's",'Aanvragen','SEO','Galerie',true),
+      pkg('Premium','฿55,000','~€1,400','Maatwerk','Meertalig','Reviews','SEO campagne',false),
+    ],
+  },
+  ru: {
+    eyebrow: 'Управление недвижимостью · Пхукет',
+    h1_main: 'Сайт для управляющих', h1_sub: 'Который находят владельцы',
+    hero_desc: 'Сайт европейского качества для property management на Пхукете — портфолио, заявки, LINE.',
+    mid_h2: 'Владельцы ищут онлайн',
+    mid_p: 'Инвесторы сравнивают управляющих до сообщения. Быстрый сайт сразу вызывает доверие.',
+    services: [
+      { icon: '🏢', label: 'Портфолио объектов', sub: 'Кондо и виллы в управлении' },
+      { icon: '🔑', label: 'Аренда и уход', sub: 'Краткосрочная и долгосрочная' },
+      { icon: '📅', label: 'Онлайн-заявка', sub: 'Формы и просмотры' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Находят на Пхукете' },
+      { icon: '📸', label: 'Галерея', sub: 'Фото объектов' },
+      { icon: '🌐', label: 'Мультиязычность', sub: 'Тайский, английский, русский' },
+      { icon: '⭐', label: 'Отзывы', sub: 'Доверие владельцев' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Прямой контакт' },
+    ],
+    packages: [
+      pkg('Одна страница','฿20,000','~€510','Тайский & Английский','Портфолио','LINE','Google Maps',false),
+      pkg('Бизнес','฿36,000','~€920','Несколько страниц','Заявки','SEO','Галерея',true),
+      pkg('Премиум','฿55,000','~€1,400','Кастом','Мультиязычность','Отзывы','SEO кампания',false),
+    ],
+  },
+  de: {
+    eyebrow: 'Property Management · Condos & Villen · Phuket',
+    h1_main: 'Website für Property Manager', h1_sub: 'Von Eigentümern gefunden',
+    hero_desc: 'Europäische Qualität für Verwalter in Phuket — Portfolio, Anfragen, LINE & WhatsApp.',
+    mid_h2: 'Eigentümer suchen zuerst online',
+    mid_p: 'Investoren vergleichen Verwalter vor dem Kontakt. Eine schnelle Website schafft sofort Vertrauen.',
+    services: [
+      { icon: '🏢', label: 'Objektportfolio', sub: 'Condos & Villen in Verwaltung' },
+      { icon: '🔑', label: 'Vermietung & Pflege', sub: 'Kurz- & Langzeit' },
+      { icon: '📅', label: 'Online-Anfrage', sub: 'Formulare & Besichtigungen' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Gefunden in Phuket' },
+      { icon: '📸', label: 'Fotogalerie', sub: 'Einheiten & Amenities' },
+      { icon: '🌐', label: 'Mehrsprachig', sub: 'Thai, Englisch, Russisch' },
+      { icon: '⭐', label: 'Bewertungen', sub: 'Vertrauen der Eigentümer' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Direktkontakt' },
+    ],
+    packages: [
+      pkg('One-Pager','฿20,000','~€510','Thai & Englisch','Portfolio','LINE','Google Maps',false),
+      pkg('Business','฿36,000','~€920','Mehrere Seiten','Anfragen','SEO','Galerie',true),
+      pkg('Premium','฿55,000','~€1,400','Individuell','Mehrsprachig','Reviews','SEO-Kampagne',false),
+    ],
+  },
+}

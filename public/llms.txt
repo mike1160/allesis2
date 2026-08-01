@@ -19,6 +19,12 @@ Branch pages (TH Unicode + EN ASCII):
 - /th/school · /th/โรงเรียน — School & language institute websites Phuket
 - /th/garage · /th/อู่ซ่อมรถ — Garage & auto repair websites Phuket
 - /th/realestate · /th/อสังหาริมทรัพย์ — Real estate / property websites Phuket
+- /th/propertymanagement · /th/บริหารอสังหา — Property management Phuket
+- /th/hotel · /th/โรงแรม — Hotel & resort websites Phuket
+- /th/taxi · /th/แท็กซี่ — Taxi & airport transfer Phuket
+- /th/watersport · /th/กีฬาทางน้ำ — Diving, snorkel & boat trips Phuket
+- /th/tours · /th/ทัวร์ — Travel agency & tours Phuket
+- /th/realestate · /th/อสังหาริมทรัพย์ — Real estate / property websites Phuket
 
 Recent delivered projects (live):
 - https://www.thaiplot.com/th — ThaiPlot land & property marketplace

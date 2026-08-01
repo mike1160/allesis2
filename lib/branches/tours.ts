@@ -1,0 +1,122 @@
+const pkg = (name: string, price: string, eur: string, f1: string, f2: string, f3: string, f4: string, h: boolean) =>
+  ({ name, price, eur, features: [f1, f2, f3, f4], highlight: h })
+
+export const toursImgs = {
+  hero: 'https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  mid:  'https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+  cta:  'https://images.pexels.com/photos/3155666/pexels-photo-3155666.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  gradient: 'from-orange-950/80',
+}
+
+export const toursContent = {
+  th: {
+    eyebrow: 'บริษัททัวร์ & ทัวร์ · Travel Agency · ภูเก็ต',
+    h1_main: 'เว็บไซต์บริษัททัวร์', h1_sub: 'ที่นักท่องเที่ยวจองทริป',
+    hero_desc: 'เว็บไซต์สำหรับบริษัททัวร์และทัวร์ภูเก็ต — แพ็กเกจเกาะ วันทริป จองออนไลน์ SEO นานาชาติ',
+    mid_h2: 'นักท่องเที่ยวเปรียบเทียบทัวร์ออนไลน์',
+    mid_p: 'แขกค้นหา Phi Phi, James Bond Island และทัวร์วันก่อนจอง เว็บที่ชัดเจนและเร็วช่วยปิดการขาย',
+    services: [
+      { icon: '🗺️', label: 'แพ็กเกจทัวร์', sub: 'วันทริปและทัวร์หลายวัน' },
+      { icon: '🏝️', label: 'ทัวร์เกาะ', sub: 'Phi Phi · James Bond · Racha' },
+      { icon: '📅', label: 'จองออนไลน์', sub: 'จองทริปตรงจากเว็บ' },
+      { icon: '📸', label: 'แกลเลอรีทริป', sub: 'ภาพจริงจากทัวร์' },
+      { icon: '🌍', label: 'SEO นานาชาติ', sub: 'Phuket tours / day trips' },
+      { icon: '🌐', label: 'หลายภาษา', sub: 'ไทย อังกฤษ รัสเซีย จีน' },
+      { icon: '⭐', label: 'รีวิว', sub: 'รีวิวจากแขกจริง' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'สอบถามและจองด่วน' },
+    ],
+    packages: [
+      pkg('หน้าเดียว','฿18,000','~€460','ทัวร์ตัวอย่าง','ไทย & อังกฤษ','LINE','รูปภาพ',false),
+      pkg('ธุรกิจ','฿35,000','~€900','จองออนไลน์','หลายทัวร์','SEO','แกลเลอรี',true),
+      pkg('พรีเมียม','฿55,000','~€1,400','ระบบจอง','หลายภาษา','ปฏิทิน','แคมเปญ SEO',false),
+    ],
+  },
+  en: {
+    eyebrow: 'Travel Agency & Tours · Phuket',
+    h1_main: 'Website for your tour agency', h1_sub: 'Booked by travellers worldwide',
+    hero_desc: 'Next.js site for Phuket tour operators — island packages, day trips, online booking, international SEO.',
+    mid_h2: 'Travellers compare tours online',
+    mid_p: 'Guests search Phi Phi, James Bond Island and day trips before booking. A clear, fast site closes the sale.',
+    services: [
+      { icon: '🗺️', label: 'Tour packages', sub: 'Day trips & multi-day tours' },
+      { icon: '🏝️', label: 'Island tours', sub: 'Phi Phi · James Bond · Racha' },
+      { icon: '📅', label: 'Online booking', sub: 'Book trips on your site' },
+      { icon: '📸', label: 'Trip gallery', sub: 'Real tour photos' },
+      { icon: '🌍', label: 'International SEO', sub: 'Phuket tours / day trips' },
+      { icon: '🌐', label: 'Multilingual', sub: 'Thai, English, Russian, Chinese' },
+      { icon: '⭐', label: 'Reviews', sub: 'Real guest reviews' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Fast tour enquiries' },
+    ],
+    packages: [
+      pkg('One-Page','฿18,000','~€460','Sample tours','Thai & English','LINE','Photos',false),
+      pkg('Business','฿35,000','~€900','Online booking','Multiple tours','SEO','Gallery',true),
+      pkg('Premium','฿55,000','~€1,400','Booking system','Multilingual','Calendar','SEO campaign',false),
+    ],
+  },
+  nl: {
+    eyebrow: 'Reisbureau & Tours · Phuket',
+    h1_main: 'Website voor uw reisbureau', h1_sub: 'Geboekt door reizigers wereldwijd',
+    hero_desc: 'Site voor touroperators in Phuket — eilandpackages, dagtrips, online boeken, internationale SEO.',
+    mid_h2: 'Reizigers vergelijken tours online',
+    mid_p: 'Gasten zoeken Phi Phi, James Bond Island en day trips vóór ze boeken. Een snelle site sluit de deal.',
+    services: [
+      { icon: '🗺️', label: 'Tour packages', sub: 'Dagtrips & meerdaagse tours' },
+      { icon: '🏝️', label: 'Eilandtours', sub: 'Phi Phi · James Bond · Racha' },
+      { icon: '📅', label: 'Online boeken', sub: 'Boek trips via uw site' },
+      { icon: '📸', label: 'Tripgalerij', sub: 'Echte tourfoto\'s' },
+      { icon: '🌍', label: 'Internationale SEO', sub: 'Phuket tours / day trips' },
+      { icon: '🌐', label: 'Meertalig', sub: 'Thai, Engels, Russisch, Chinees' },
+      { icon: '⭐', label: 'Reviews', sub: 'Echte gastreviews' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Snelle tourvragen' },
+    ],
+    packages: [
+      pkg('One-Page','฿18,000','~€460','Voorbeeldtours','Thai & Engels','LINE','Foto\'s',false),
+      pkg('Business','฿35,000','~€900','Online boeken','Meerdere tours','SEO','Galerie',true),
+      pkg('Premium','฿55,000','~€1,400','Boekingssysteem','Meertalig','Kalender','SEO campagne',false),
+    ],
+  },
+  ru: {
+    eyebrow: 'Турагентство и туры · Пхукет',
+    h1_main: 'Сайт для турагентства', h1_sub: 'Бронируют путешественники',
+    hero_desc: 'Сайт для туроператоров Пхукета — островные пакеты, дневные туры, онлайн-бронь, SEO.',
+    mid_h2: 'Туристы сравнивают туры онлайн',
+    mid_p: 'Гости ищут Phi Phi, James Bond Island и day trips до брони. Понятный сайт закрывает продажу.',
+    services: [
+      { icon: '🗺️', label: 'Турпакеты', sub: 'Дневные и многодневные' },
+      { icon: '🏝️', label: 'Островные туры', sub: 'Phi Phi · James Bond · Racha' },
+      { icon: '📅', label: 'Онлайн-бронь', sub: 'Бронь туров с сайта' },
+      { icon: '📸', label: 'Галерея туров', sub: 'Реальные фото' },
+      { icon: '🌍', label: 'Международное SEO', sub: 'Phuket tours / day trips' },
+      { icon: '🌐', label: 'Мультиязычность', sub: 'Тайский, английский, русский' },
+      { icon: '⭐', label: 'Отзывы', sub: 'Отзывы гостей' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Быстрые запросы' },
+    ],
+    packages: [
+      pkg('Одна страница','฿18,000','~€460','Примеры туров','Тайский & Английский','LINE','Фото',false),
+      pkg('Бизнес','฿35,000','~€900','Онлайн-бронь','Несколько туров','SEO','Галерея',true),
+      pkg('Премиум','฿55,000','~€1,400','Система брони','Мультиязычность','Календарь','SEO кампания',false),
+    ],
+  },
+  de: {
+    eyebrow: 'Reisebüro & Tours · Phuket',
+    h1_main: 'Website für Ihr Reisebüro', h1_sub: 'Gebucht von Reisenden weltweit',
+    hero_desc: 'Website für Touranbieter in Phuket — Inselpakete, Tagesausflüge, Online-Buchung, internationales SEO.',
+    mid_h2: 'Reisende vergleichen Touren online',
+    mid_p: 'Gäste suchen Phi Phi, James Bond Island und Day Trips vor der Buchung. Eine klare Website schließt den Verkauf.',
+    services: [
+      { icon: '🗺️', label: 'Tourpakete', sub: 'Tages- & Mehrtages-Touren' },
+      { icon: '🏝️', label: 'Inseltouren', sub: 'Phi Phi · James Bond · Racha' },
+      { icon: '📅', label: 'Online-Buchung', sub: 'Touren über Ihre Site' },
+      { icon: '📸', label: 'Tour-Galerie', sub: 'Echte Tourfotos' },
+      { icon: '🌍', label: 'Internationales SEO', sub: 'Phuket tours / day trips' },
+      { icon: '🌐', label: 'Mehrsprachig', sub: 'Thai, Englisch, Russisch, Chinesisch' },
+      { icon: '⭐', label: 'Bewertungen', sub: 'Echte Gästebewertungen' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Schnelle Tour-Anfragen' },
+    ],
+    packages: [
+      pkg('One-Pager','฿18,000','~€460','Beispieltouren','Thai & Englisch','LINE','Fotos',false),
+      pkg('Business','฿35,000','~€900','Online-Buchung','Mehrere Touren','SEO','Galerie',true),
+      pkg('Premium','฿55,000','~€1,400','Buchungssystem','Mehrsprachig','Kalender','SEO-Kampagne',false),
+    ],
+  },
+}

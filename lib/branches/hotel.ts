@@ -1,0 +1,122 @@
+const pkg = (name: string, price: string, eur: string, f1: string, f2: string, f3: string, f4: string, h: boolean) =>
+  ({ name, price, eur, features: [f1, f2, f3, f4], highlight: h })
+
+export const hotelImgs = {
+  hero: 'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  mid:  'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+  cta:  'https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  gradient: 'from-teal-950/80',
+}
+
+export const hotelContent = {
+  th: {
+    eyebrow: 'โรงแรม & รีสอร์ท · Hotel · ภูเก็ต',
+    h1_main: 'เว็บไซต์โรงแรม & รีสอร์ท', h1_sub: 'ที่นักท่องเที่ยวจองตรง',
+    hero_desc: 'เว็บไซต์หรูสำหรับโรงแรมและรีสอร์ทในภูเก็ต — ห้องพัก แพ็กเกจ จองตรง ไม่เสียค่าคอม Booking',
+    mid_h2: 'นักท่องเที่ยวจองตรงมากขึ้น',
+    mid_p: 'ทุกการจองผ่าน OTA เสียค่าคอมสูง เว็บไซต์สวยและเร็วช่วยให้แขกจองตรงกับคุณ',
+    services: [
+      { icon: '🛏️', label: 'ห้องพัก & เรท', sub: 'แสดงห้องและราคาชัดเจน' },
+      { icon: '📅', label: 'จองออนไลน์', sub: 'จองตรงจากเว็บไซต์' },
+      { icon: '🏝️', label: 'แพ็กเกจรีสอร์ท', sub: 'ฮันนีมูน สปา กอล์ฟ' },
+      { icon: '📸', label: 'แกลเลอรี', sub: 'ภาพสระ วิว ห้องพัก' },
+      { icon: '🌍', label: 'SEO นานาชาติ', sub: 'นักท่องเที่ยวหาเจอใน Google' },
+      { icon: '🌐', label: 'หลายภาษา', sub: 'ไทย อังกฤษ รัสเซีย จีน' },
+      { icon: '⭐', label: 'รีวิว', sub: 'Google & Booking reviews' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'สอบถามและจองด่วน' },
+    ],
+    packages: [
+      pkg('หน้าเดียว','฿25,000','~€640','ห้องตัวอย่าง','ไทย & อังกฤษ','LINE','รูปภาพ',false),
+      pkg('ธุรกิจ','฿45,000','~€1,150','จองออนไลน์','แพ็กเกจ','SEO','แกลเลอรี',true),
+      pkg('พรีเมียม','฿75,000','~€1,900','ระบบจอง','หลายภาษา','รีวิว','แคมเปญ SEO',false),
+    ],
+  },
+  en: {
+    eyebrow: 'Hotel & Resort · Phuket',
+    h1_main: 'Website for your hotel', h1_sub: 'Direct bookings from guests',
+    hero_desc: 'Premium Next.js site for Phuket hotels & resorts — rooms, packages, direct booking, less OTA commission.',
+    mid_h2: 'More guests book direct',
+    mid_p: 'Every OTA booking costs commission. A fast, beautiful website makes guests book with you.',
+    services: [
+      { icon: '🛏️', label: 'Rooms & rates', sub: 'Clear room types & prices' },
+      { icon: '📅', label: 'Online booking', sub: 'Book direct on your site' },
+      { icon: '🏝️', label: 'Resort packages', sub: 'Honeymoon, spa, golf' },
+      { icon: '📸', label: 'Photo gallery', sub: 'Pool, views, rooms' },
+      { icon: '🌍', label: 'International SEO', sub: 'Found by tourists on Google' },
+      { icon: '🌐', label: 'Multilingual', sub: 'Thai, English, Russian, Chinese' },
+      { icon: '⭐', label: 'Reviews', sub: 'Google & guest reviews' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Fast enquiries' },
+    ],
+    packages: [
+      pkg('One-Page','฿25,000','~€640','Sample rooms','Thai & English','LINE','Photos',false),
+      pkg('Business','฿45,000','~€1,150','Online booking','Packages','SEO','Gallery',true),
+      pkg('Premium','฿75,000','~€1,900','Booking system','Multilingual','Reviews','SEO campaign',false),
+    ],
+  },
+  nl: {
+    eyebrow: 'Hotel & Resort · Phuket',
+    h1_main: 'Website voor uw hotel', h1_sub: 'Directe boekingen van gasten',
+    hero_desc: 'Premium site voor hotels & resorts in Phuket — kamers, packages, directe boeking, minder OTA-commissie.',
+    mid_h2: 'Meer gasten boeken direct',
+    mid_p: 'Elke OTA-boeking kost commissie. Een snelle, mooie site laat gasten bij u boeken.',
+    services: [
+      { icon: '🛏️', label: 'Kamers & tarieven', sub: 'Duidelijke kamertypes' },
+      { icon: '📅', label: 'Online boeken', sub: 'Direct via uw site' },
+      { icon: '🏝️', label: 'Resort packages', sub: 'Huwelijksreis, spa, golf' },
+      { icon: '📸', label: 'Fotogalerij', sub: 'Pool, uitzicht, kamers' },
+      { icon: '🌍', label: 'Internationale SEO', sub: 'Gevonden door toeristen' },
+      { icon: '🌐', label: 'Meertalig', sub: 'Thai, Engels, Russisch' },
+      { icon: '⭐', label: 'Reviews', sub: 'Google & gastreviews' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Snelle vragen' },
+    ],
+    packages: [
+      pkg('One-Page','฿25,000','~€640','Voorbeeldkamers','Thai & Engels','LINE','Foto\'s',false),
+      pkg('Business','฿45,000','~€1,150','Online boeken','Packages','SEO','Galerie',true),
+      pkg('Premium','฿75,000','~€1,900','Boekingssysteem','Meertalig','Reviews','SEO campagne',false),
+    ],
+  },
+  ru: {
+    eyebrow: 'Отель и курорт · Пхукет',
+    h1_main: 'Сайт для отеля', h1_sub: 'Прямые бронирования',
+    hero_desc: 'Премиум-сайт для отелей и резортов Пхукета — номера, пакеты, прямое бронирование.',
+    mid_h2: 'Больше прямых бронирований',
+    mid_p: 'Каждое бронирование через OTA — комиссия. Быстрый сайт помогает гостям бронировать у вас.',
+    services: [
+      { icon: '🛏️', label: 'Номера и цены', sub: 'Типы номеров и тарифы' },
+      { icon: '📅', label: 'Онлайн-бронь', sub: 'Прямо с сайта' },
+      { icon: '🏝️', label: 'Пакеты', sub: 'Медовый месяц, спа, гольф' },
+      { icon: '📸', label: 'Галерея', sub: 'Бассейн, вид, номера' },
+      { icon: '🌍', label: 'Международное SEO', sub: 'Находят туристы' },
+      { icon: '🌐', label: 'Мультиязычность', sub: 'Тайский, английский, русский' },
+      { icon: '⭐', label: 'Отзывы', sub: 'Google и гости' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Быстрые запросы' },
+    ],
+    packages: [
+      pkg('Одна страница','฿25,000','~€640','Примеры номеров','Тайский & Английский','LINE','Фото',false),
+      pkg('Бизнес','฿45,000','~€1,150','Онлайн-бронь','Пакеты','SEO','Галерея',true),
+      pkg('Премиум','฿75,000','~€1,900','Система брони','Мультиязычность','Отзывы','SEO кампания',false),
+    ],
+  },
+  de: {
+    eyebrow: 'Hotel & Resort · Phuket',
+    h1_main: 'Website für Ihr Hotel', h1_sub: 'Direkte Buchungen von Gästen',
+    hero_desc: 'Premium-Website für Hotels & Resorts in Phuket — Zimmer, Packages, Direktbuchung, weniger OTA-Provision.',
+    mid_h2: 'Mehr Gäste buchen direkt',
+    mid_p: 'Jede OTA-Buchung kostet Provision. Eine schnelle Website bringt Direktbuchungen.',
+    services: [
+      { icon: '🛏️', label: 'Zimmer & Preise', sub: 'Klare Zimmertypen' },
+      { icon: '📅', label: 'Online-Buchung', sub: 'Direkt über Ihre Site' },
+      { icon: '🏝️', label: 'Resort-Packages', sub: 'Hochzeit, Spa, Golf' },
+      { icon: '📸', label: 'Fotogalerie', sub: 'Pool, Ausblick, Zimmer' },
+      { icon: '🌍', label: 'Internationales SEO', sub: 'Von Touristen gefunden' },
+      { icon: '🌐', label: 'Mehrsprachig', sub: 'Thai, Englisch, Russisch' },
+      { icon: '⭐', label: 'Bewertungen', sub: 'Google & Gäste' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Schnelle Anfragen' },
+    ],
+    packages: [
+      pkg('One-Pager','฿25,000','~€640','Beispielzimmer','Thai & Englisch','LINE','Fotos',false),
+      pkg('Business','฿45,000','~€920','Online-Buchung','Packages','SEO','Galerie',true),
+      pkg('Premium','฿75,000','~€1,900','Buchungssystem','Mehrsprachig','Reviews','SEO-Kampagne',false),
+    ],
+  },
+}

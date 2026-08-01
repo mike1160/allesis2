@@ -2,8 +2,8 @@ import Link from "next/link";
 import ThaiLangSwitcher from "@/components/ThaiLangSwitcher";
 import { ui, LINE_URL, LINE_QR, WHATSAPP_URL, type Lang } from "@/lib/translations";
 import {
-  resolveServiceImg,
   resolveServiceLink,
+  uniquifyServiceImages,
 } from "@/lib/branch-service-defaults";
 
 interface Service {
@@ -130,10 +130,9 @@ export default function BranchPageLayout({
             {ui.what_you_get[lang]}
           </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {data.services.map((raw) => {
+            {uniquifyServiceImages(data.services).map((raw) => {
               const s = {
                 ...raw,
-                img: resolveServiceImg(raw.icon, raw.img),
                 href: resolveServiceLink(raw.icon, lang, raw.href),
               };
               const className =

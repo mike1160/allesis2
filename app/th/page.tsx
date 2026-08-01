@@ -51,11 +51,11 @@ const T = {
     de: 'Kontakt aufnehmen →',
   },
   other_examples: {
-    th: 'คาเฟ่ · โรงแรม · ยิม · ทัวร์ · ร้านค้า · และอื่นๆ',
-    en: 'Cafés · hotels · gyms · tours · shops · and more',
-    nl: 'Cafés · hotels · gyms · tours · winkels · en meer',
-    ru: 'Кафе · отели · залы · туры · магазины · и другое',
-    de: 'Cafés · Hotels · Fitness · Tours · Shops · und mehr',
+    th: 'คาเฟ่ · ยิม · ร้านค้า · และอื่นๆ',
+    en: 'Cafés · gyms · shops · and more',
+    nl: 'Cafés · gyms · winkels · en meer',
+    ru: 'Кафе · залы · магазины · и другое',
+    de: 'Cafés · Fitness · Shops · und mehr',
   },
   migrate_h:   { th:'เบื่อกับ WordPress แล้วหรือยัง?', en:'Done with your current platform?', nl:'Klaar met uw huidige platform?', ru:'Надоел WordPress?', de:'Fertig mit Ihrer alten Plattform?' },
   migrate_sub: {
@@ -159,6 +159,66 @@ const BRANCHES = [
       nl: 'Objecten · Zoeken · Meertalige kopers',
       ru: 'Объявления · Поиск · Многоязычные покупатели',
       de: 'Angebote · Suche · Mehrsprachige Käufer',
+    },
+  },
+  {
+    slug:'propertymanagement', thaiSlug:'บริหารอสังหา', emoji:'🔑',
+    photo:'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    th:'บริหารอสังหา', en:'Property Management', nl:'Property Management', ru:'Управление недвижимостью', de:'Property Management',
+    tag: {
+      th: 'คอนโด & วิลล่า · เช่า · เจ้าของหาเจอ',
+      en: 'Condos & villas · Rentals · Found by owners',
+      nl: 'Condo’s & villa’s · Verhuur · Gevonden door eigenaren',
+      ru: 'Кондо и виллы · Аренда · Находят владельцы',
+      de: 'Condos & Villen · Vermietung · Von Eigentümern gefunden',
+    },
+  },
+  {
+    slug:'hotel', thaiSlug:'โรงแรม', emoji:'🏨',
+    photo:'https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    th:'โรงแรม & รีสอร์ท', en:'Hotel & Resort', nl:'Hotel & Resort', ru:'Отель и курорт', de:'Hotel & Resort',
+    tag: {
+      th: 'จองตรง · ห้องพัก · แพ็กเกจ',
+      en: 'Direct booking · Rooms · Packages',
+      nl: 'Direct boeken · Kamers · Packages',
+      ru: 'Прямая бронь · Номера · Пакеты',
+      de: 'Direktbuchung · Zimmer · Packages',
+    },
+  },
+  {
+    slug:'taxi', thaiSlug:'แท็กซี่', emoji:'🚕',
+    photo:'https://images.pexels.com/photos/1118448/pexels-photo-1118448.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    th:'แท็กซี่ & Transfer', en:'Taxi & Transfer', nl:'Taxi & Transfer', ru:'Такси и трансфер', de:'Taxi & Transfer',
+    tag: {
+      th: 'สนามบิน · เส้นทาง · จองก่อนบิน',
+      en: 'Airport · Routes · Book before you land',
+      nl: 'Airport · Routes · Boek vóór aankomst',
+      ru: 'Аэропорт · Маршруты · Бронь до прилёта',
+      de: 'Flughafen · Routen · Vor Ankunft buchen',
+    },
+  },
+  {
+    slug:'watersport', thaiSlug:'กีฬาทางน้ำ', emoji:'🤿',
+    photo:'https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    th:'กีฬาทางน้ำ & Diving', en:'Watersport & Diving', nl:'Watersport & Diving', ru:'Дайвинг и водный спорт', de:'Wassersport & Diving',
+    tag: {
+      th: 'ดำน้ำ · สนอร์เกล · เรือทริป',
+      en: 'Diving · Snorkel · Boat trips',
+      nl: 'Duiken · Snorkelen · Boottrips',
+      ru: 'Дайвинг · Сноркель · Лодки',
+      de: 'Tauchen · Schnorcheln · Bootstouren',
+    },
+  },
+  {
+    slug:'tours', thaiSlug:'ทัวร์', emoji:'✈️',
+    photo:'https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    th:'บริษัททัวร์ & ทัวร์', en:'Travel Agency & Tours', nl:'Reisbureau & Tours', ru:'Турагентство', de:'Reisebüro & Tours',
+    tag: {
+      th: 'ทัวร์เกาะ · วันทริป · จองออนไลน์',
+      en: 'Island tours · Day trips · Online booking',
+      nl: 'Eilandtours · Day trips · Online boeken',
+      ru: 'Островные туры · Day trips · Онлайн-бронь',
+      de: 'Inseltouren · Day trips · Online-Buchung',
     },
   },
 ]
@@ -316,7 +376,7 @@ export default function ThPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/45 via-zinc-900/35 to-zinc-950/70" />
 
         <div className="relative z-20 flex justify-between items-center px-6 py-5 pt-24 md:pt-5 max-w-6xl mx-auto w-full">
-          <Link href="/" className="text-white/60 hover:text-amber-400 text-sm transition-colors font-medium">
+          <Link href="/?prefer=nl" className="text-white/60 hover:text-amber-400 text-sm transition-colors font-medium">
             ← allesis.nl
           </Link>
           <div className="flex gap-1 bg-white/10 backdrop-blur border border-white/20 rounded-full p-1">

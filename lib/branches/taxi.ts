@@ -1,0 +1,122 @@
+const pkg = (name: string, price: string, eur: string, f1: string, f2: string, f3: string, f4: string, h: boolean) =>
+  ({ name, price, eur, features: [f1, f2, f3, f4], highlight: h })
+
+export const taxiImgs = {
+  hero: 'https://images.pexels.com/photos/1118448/pexels-photo-1118448.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  mid:  'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+  cta:  'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  gradient: 'from-yellow-950/80',
+}
+
+export const taxiContent = {
+  th: {
+    eyebrow: 'แท็กซี่ & รถรับส่ง · Transfer · ภูเก็ต',
+    h1_main: 'เว็บไซต์แท็กซี่ & Transfer', h1_sub: 'ที่นักท่องเที่ยวจองก่อนบิน',
+    hero_desc: 'เว็บไซต์สำหรับแท็กซี่ รถรับส่งสนามบิน และทัวร์รถในภูเก็ต — จองออนไลน์ LINE WhatsApp',
+    mid_h2: 'นักท่องเที่ยวจองรถก่อนถึง',
+    mid_p: 'แขกจองรถรับส่งสนามบินล่วงหน้าผ่าน Google ถ้าเว็บคุณช้าหรือไม่มี พวกเขาจองคู่แข่ง',
+    services: [
+      { icon: '✈️', label: 'รับ-ส่งสนามบิน', sub: 'ราคาชัดเจนทุกเส้นทาง' },
+      { icon: '🚕', label: 'แท็กซี่ท้องถิ่น', sub: 'บริการรายวันและรายชั่วโมง' },
+      { icon: '📅', label: 'จองออนไลน์', sub: 'จองก่อนเดินทาง' },
+      { icon: '🗺️', label: 'เส้นทางยอดนิยม', sub: 'ป่าตอง กะตะ ฉลอง เกาะ' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'พบเมื่อค้นหา taxi Phuket' },
+      { icon: '🌐', label: 'หลายภาษา', sub: 'ไทย อังกฤษ รัสเซีย' },
+      { icon: '⭐', label: 'รีวิว', sub: 'ความน่าเชื่อถือจากแขก' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'จองด่วนผ่านแชท' },
+    ],
+    packages: [
+      pkg('หน้าเดียว','฿15,000','~€400','ราคาเส้นทาง','ไทย & อังกฤษ','LINE','Maps',false),
+      pkg('ธุรกิจ','฿28,000','~€720','จองออนไลน์','หลายเส้นทาง','SEO','รีวิว',true),
+      pkg('พรีเมียม','฿45,000','~€1,150','ระบบจอง','หลายภาษา','ฟลีทรถ','แคมเปญ SEO',false),
+    ],
+  },
+  en: {
+    eyebrow: 'Taxi & Airport Transfer · Phuket',
+    h1_main: 'Website for taxi & transfer', h1_sub: 'Booked before guests land',
+    hero_desc: 'Fast site for Phuket taxis & airport transfers — clear prices, online booking, LINE & WhatsApp.',
+    mid_h2: 'Tourists book transport before arrival',
+    mid_p: 'Guests Google airport transfer Phuket weeks ahead. No clear website? They book your competitor.',
+    services: [
+      { icon: '✈️', label: 'Airport transfers', sub: 'Clear prices per route' },
+      { icon: '🚕', label: 'Local taxi', sub: 'Hourly & daily service' },
+      { icon: '📅', label: 'Online booking', sub: 'Reserve before travel' },
+      { icon: '🗺️', label: 'Popular routes', sub: 'Patong, Kata, Chalong, islands' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Found for “taxi Phuket”' },
+      { icon: '🌐', label: 'Multilingual', sub: 'Thai, English, Russian' },
+      { icon: '⭐', label: 'Reviews', sub: 'Trust from travellers' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Quick chat booking' },
+    ],
+    packages: [
+      pkg('One-Page','฿15,000','~€400','Route prices','Thai & English','LINE','Maps',false),
+      pkg('Business','฿28,000','~€720','Online booking','Routes','SEO','Reviews',true),
+      pkg('Premium','฿45,000','~€1,150','Booking system','Multilingual','Fleet','SEO campaign',false),
+    ],
+  },
+  nl: {
+    eyebrow: 'Taxi & Airport Transfer · Phuket',
+    h1_main: 'Website voor taxi & transfer', h1_sub: 'Geboekt vóór aankomst',
+    hero_desc: 'Snelle site voor taxi’s en airport transfers in Phuket — duidelijke prijzen, boeken, LINE.',
+    mid_h2: 'Toeristen boeken vervoer vooraf',
+    mid_p: 'Gasten googelen airport transfer Phuket weken van tevoren. Geen duidelijke site? Dan boeken ze elders.',
+    services: [
+      { icon: '✈️', label: 'Airport transfers', sub: 'Prijzen per route' },
+      { icon: '🚕', label: 'Lokale taxi', sub: 'Uur- & dagtarieven' },
+      { icon: '📅', label: 'Online boeken', sub: 'Reserveer voor vertrek' },
+      { icon: '🗺️', label: 'Populaire routes', sub: 'Patong, Kata, Chalong' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Gevonden op “taxi Phuket”' },
+      { icon: '🌐', label: 'Meertalig', sub: 'Thai, Engels, Russisch' },
+      { icon: '⭐', label: 'Reviews', sub: 'Vertrouwen van reizigers' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Snel boeken via chat' },
+    ],
+    packages: [
+      pkg('One-Page','฿15,000','~€400','Routeprijzen','Thai & Engels','LINE','Maps',false),
+      pkg('Business','฿28,000','~€720','Online boeken','Routes','SEO','Reviews',true),
+      pkg('Premium','฿45,000','~€1,150','Boekingssysteem','Meertalig','Vloot','SEO campagne',false),
+    ],
+  },
+  ru: {
+    eyebrow: 'Такси и трансфер · Пхукет',
+    h1_main: 'Сайт для такси и трансфера', h1_sub: 'Бронируют до прилёта',
+    hero_desc: 'Быстрый сайт для такси и аэропорт-трансфера на Пхукете — цены, онлайн-бронь, LINE.',
+    mid_h2: 'Туристы бронируют заранее',
+    mid_p: 'Гости ищут airport transfer Phuket за недели. Нет сайта — бронируют у конкурента.',
+    services: [
+      { icon: '✈️', label: 'Трансфер из аэропорта', sub: 'Цены по маршрутам' },
+      { icon: '🚕', label: 'Местное такси', sub: 'Почасово и поденно' },
+      { icon: '📅', label: 'Онлайн-бронь', sub: 'До поездки' },
+      { icon: '🗺️', label: 'Популярные маршруты', sub: 'Патонг, Ката, Чалонг' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'По запросу taxi Phuket' },
+      { icon: '🌐', label: 'Мультиязычность', sub: 'Тайский, английский, русский' },
+      { icon: '⭐', label: 'Отзывы', sub: 'Доверие путешественников' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Быстрая бронь в чате' },
+    ],
+    packages: [
+      pkg('Одна страница','฿15,000','~€400','Цены маршрутов','Тайский & Английский','LINE','Maps',false),
+      pkg('Бизнес','฿28,000','~€720','Онлайн-бронь','Маршруты','SEO','Отзывы',true),
+      pkg('Премиум','฿45,000','~€1,150','Система брони','Мультиязычность','Автопарк','SEO кампания',false),
+    ],
+  },
+  de: {
+    eyebrow: 'Taxi & Flughafentransfer · Phuket',
+    h1_main: 'Website für Taxi & Transfer', h1_sub: 'Gebucht vor der Landung',
+    hero_desc: 'Schnelle Website für Taxis & Flughafentransfers in Phuket — Preise, Online-Buchung, LINE.',
+    mid_h2: 'Touristen buchen Transport vorab',
+    mid_p: 'Gäste googeln Airport Transfer Phuket Wochen vorher. Keine klare Website? Sie buchen die Konkurrenz.',
+    services: [
+      { icon: '✈️', label: 'Flughafentransfer', sub: 'Klare Preise pro Route' },
+      { icon: '🚕', label: 'Lokales Taxi', sub: 'Stunden- & Tagestarife' },
+      { icon: '📅', label: 'Online-Buchung', sub: 'Vor der Reise' },
+      { icon: '🗺️', label: 'Beliebte Routen', sub: 'Patong, Kata, Chalong' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Gefunden für “taxi Phuket”' },
+      { icon: '🌐', label: 'Mehrsprachig', sub: 'Thai, Englisch, Russisch' },
+      { icon: '⭐', label: 'Bewertungen', sub: 'Vertrauen von Reisenden' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Schnelle Chat-Buchung' },
+    ],
+    packages: [
+      pkg('One-Pager','฿15,000','~€400','Routenpreise','Thai & Englisch','LINE','Maps',false),
+      pkg('Business','฿28,000','~€720','Online-Buchung','Routen','SEO','Reviews',true),
+      pkg('Premium','฿45,000','~€1,150','Buchungssystem','Mehrsprachig','Flotte','SEO-Kampagne',false),
+    ],
+  },
+}

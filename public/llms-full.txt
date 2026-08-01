@@ -92,6 +92,11 @@ Branches / ประเภทธุรกิจ:
 - Clinic / คลินิก — /th/clinic · /th/คลินิก
 - School / โรงเรียน — /th/school · /th/โรงเรียน
 - Real estate / อสังหาริมทรัพย์ — /th/realestate · /th/อสังหาริมทรัพย์
+- Property management / บริหารอสังหา — /th/propertymanagement · /th/บริหารอสังหา
+- Hotel & Resort / โรงแรม — /th/hotel · /th/โรงแรม
+- Taxi & Transfer / แท็กซี่ — /th/taxi · /th/แท็กซี่
+- Watersport & Diving / กีฬาทางน้ำ — /th/watersport · /th/กีฬาทางน้ำ
+- Tours / ทัวร์ — /th/tours · /th/ทัวร์
 
 Recent live projects / โปรเจกต์ล่าสุด:
 - ThaiPlot — https://www.thaiplot.com/th
