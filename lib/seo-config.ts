@@ -20,6 +20,13 @@ export const GLOBAL_KEYWORDS = [
   "webhosting Nederland",
   "digitale partner Haarlem",
   "GDPR website",
+  "website Phuket",
+  "web design Phuket",
+  "ทำเว็บไซต์ภูเก็ต",
+  "เว็บไซต์ภูเก็ต",
+  "Next.js Phuket",
+  "restaurant website Phuket",
+  "spa website Phuket",
 ] as const;
 
 /** Pad → priority, changeFrequency (override voor sitemap) */
@@ -48,6 +55,13 @@ export const SITEMAP_PRIORITY: Record<
   "/disclaimer": { priority: 0.5, changeFrequency: "yearly" },
   "/voorwaarden": { priority: 0.5, changeFrequency: "yearly" },
   "/gratis-website": { priority: 0.9, changeFrequency: "weekly" },
+  "/th": { priority: 0.95, changeFrequency: "weekly" },
+  "/th/garage": { priority: 0.9, changeFrequency: "weekly" },
+  "/th/restaurant": { priority: 0.9, changeFrequency: "weekly" },
+  "/th/spa": { priority: 0.9, changeFrequency: "weekly" },
+  "/th/clinic": { priority: 0.9, changeFrequency: "weekly" },
+  "/th/school": { priority: 0.9, changeFrequency: "weekly" },
+  "/th/realestate": { priority: 0.9, changeFrequency: "weekly" },
   "/branches": { priority: 0.8, changeFrequency: "monthly" },
   "/horeca": { priority: 0.8, changeFrequency: "monthly" },
   "/beauty": { priority: 0.8, changeFrequency: "monthly" },
@@ -108,7 +122,7 @@ export const SITEMAP_EXCLUDE_PATHS = new Set([
   "/api",
 ]);
 
-/** Hreflang: NL/EN op dezelfde URL; `th` wijst naar de Thaise dienstenhub. */
+/** Hreflang: NL/EN op dezelfde URL; `th` wijst naar de Phuket-hub (/th). */
 export function pageAlternates(slug: string) {
   const canonical =
     slug === "/" || slug === ""
@@ -119,7 +133,7 @@ export function pageAlternates(slug: string) {
     languages: {
       nl: canonical,
       en: canonical,
-      th: `${SITE_URL}/thai`,
+      th: `${SITE_URL}/th`,
       "x-default": canonical,
     },
   };

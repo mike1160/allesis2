@@ -32,6 +32,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/thailand", destination: "/th", permanent: true },
+      { source: "/thailand/garage", destination: "/th/garage", permanent: true },
+      { source: "/thailand/restaurant", destination: "/th/restaurant", permanent: true },
+      { source: "/thailand/spa", destination: "/th/spa", permanent: true },
+      { source: "/thailand/kliniek", destination: "/th/clinic", permanent: true },
+      { source: "/th/kliniek", destination: "/th/clinic", permanent: true },
+      { source: "/thailand/school", destination: "/th/school", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

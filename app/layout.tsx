@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     languages: {
       nl: SITE_URL,
       en: SITE_URL,
-      th: `${SITE_URL}/thai`,
+      th: `${SITE_URL}/th`,
       "x-default": SITE_URL,
     },
   },
@@ -123,6 +123,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     },
     {
       "@type": "Service",
+      "@id": `${SITE_URL}/#service-phuket-web`,
+      name: "Web design for Phuket businesses",
+      alternateName: "รับทำเว็บไซต์ภูเก็ต",
+      description:
+        "European-quality Next.js websites for Phuket and surrounding areas — Thai, English and more. Garages, restaurants, spas, clinics, schools, real estate.",
+      provider: { "@id": `${SITE_URL}/#organization` },
+      url: `${SITE_URL}/th`,
+      areaServed: [
+        { "@type": "City", name: "Phuket" },
+        { "@type": "Country", name: "Thailand" },
+      ],
+      availableLanguage: ["Thai", "English", "Dutch", "Russian", "German"],
+    },
+    {
+      "@type": "Service",
       "@id": `${SITE_URL}/#service-wordpress-migratie`,
       name: "WordPress naar Next.js migratie",
       description:
@@ -167,7 +182,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <link rel="alternate" hrefLang="nl" href={SITE_URL} />
         <link rel="alternate" hrefLang="en" href={SITE_URL} />
-        <link rel="alternate" hrefLang="th" href={`${SITE_URL}/thai`} />
+        <link rel="alternate" hrefLang="th" href={`${SITE_URL}/th`} />
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
         <script
           type="application/ld+json"
@@ -192,10 +207,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
               priceRange: "€0 - €€€",
               openingHours: "Mo-Fr 09:00-17:00",
-              sameAs: ["https://www.savedsouls-foundation.org/nl"],
-              knowsLanguage: ["nl", "en", "th"],
-              areaServed: "Nederland",
-              serviceType: ["Webdesign", "SEO", "AVG-compliance", "Hosting", "WordPress migratie", "Thaise webdiensten"],
+              areaServed: ["Nederland", "Phuket", "Thailand"],
+              serviceType: [
+                "Webdesign",
+                "SEO",
+                "AVG-compliance",
+                "Hosting",
+                "WordPress migratie",
+                "Thaise webdiensten",
+                "Web design Phuket",
+              ],
+              sameAs: [
+                "https://www.savedsouls-foundation.org/nl",
+                "https://www.thaiplot.com",
+                "https://www.hua-hin-land.com",
+              ],
+              knowsLanguage: ["nl", "en", "th", "ru", "de"],
             }),
           }}
         />

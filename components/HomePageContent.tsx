@@ -370,6 +370,58 @@ const HERO_ACCENT = "#3B6D11";
 
 const HERO_CHECKS = ["AVG-compliant", "SEO & hosting inbegrepen", "Reactie binnen 1 werkdag"];
 
+const LANG_CLOUD = [
+  { flag: "🇹🇭", name: "ภาษาไทย", en: "Thai", rotate: -5, href: "/th?lang=th" },
+  { flag: "🇬🇧", name: "English", en: "English", rotate: 3, href: "/th?lang=en" },
+  { flag: "🇳🇱", name: "Nederlands", en: "Dutch", rotate: -2, href: "/th?lang=nl" },
+] as const;
+
+function LanguageCloud() {
+  return (
+    <div className="mt-9 w-full max-w-lg">
+      <p className="font-lato mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gray-500">
+        Wij spreken · We speak · เราพูด
+      </p>
+      <div
+        className="relative mx-auto flex flex-wrap items-center justify-center gap-3 rounded-[3rem] px-6 py-7"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(232,245,220,0.55) 45%, transparent 75%)",
+        }}
+      >
+        {LANG_CLOUD.map((l, i) => (
+          <motion.div
+            key={l.en}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: [0, -6, 0] }}
+            transition={{
+              opacity: { duration: 0.45, delay: 0.15 * i },
+              y: { duration: 3.6 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: 0.2 * i },
+            }}
+            style={{ rotate: l.rotate }}
+          >
+            <Link
+              href={l.href}
+              className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-4 py-2.5 shadow-[0_6px_24px_rgba(15,23,42,0.1)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(59,109,17,0.18)]"
+            >
+              <span className="text-lg leading-none" aria-hidden>
+                {l.flag}
+              </span>
+              <span className="font-sora text-sm font-bold text-neutral-dark">{l.name}</span>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+      <p className="font-lato mt-3 text-sm text-gray-500">
+        Thai · English · Nederlands —{" "}
+        <Link href="/th" className="font-semibold underline-offset-2 hover:underline" style={{ color: HERO_ACCENT }}>
+          websites voor Phuket →
+        </Link>
+      </p>
+    </div>
+  );
+}
+
 function OrchidHero() {
   return (
     <section
@@ -414,6 +466,8 @@ function OrchidHero() {
             Allesis bouwt websites die gevonden worden — door mensen én door AI. Hosting, SEO
             en AVG inbegrepen. Persoonlijk contact, vaste prijs.
           </p>
+
+          <LanguageCloud />
 
           <form
             action="/contact"

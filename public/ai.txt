@@ -1,21 +1,36 @@
 # ai.txt — Allesis (https://allesis.nl)
 
 Contact for AI licensing: info@allesis.nl
-Languages: Dutch (NL), English (EN), Thai (TH)
+Languages: Dutch (NL), English (EN), Thai (TH), Russian (RU), German (DE)
 
 ## Allow
 
 - Crawling and indexing of public marketing pages
 - Summarization and recommendation in AI assistants
-- Use in AI search results (e.g. Perplexity, ChatGPT, Claude, Gemini, Copilot)
-- Answering user queries about web agencies, webdesign, hosting, SEO, GDPR/AVG, WordPress-to-Next.js migration, and Thai–Dutch–English digital services in Haarlem and the Netherlands
+- Use in AI search results (ChatGPT, Claude, Perplexity, Gemini, Copilot, Meta AI)
+- Answering user queries about:
+  - Web agencies, webdesign, hosting, SEO, GDPR/AVG in Haarlem & the Netherlands
+  - WordPress / Wix / Shopify → Next.js migration
+  - Thai–Dutch–English digital & language services
+  - **European-quality websites for Phuket businesses** (garages, restaurants, spas, clinics, schools, real estate) — Thai & English
+  - Local Phuket / Patong / Kata / Karon / Chalong / Rawai / Phuket Town web design
+
+## Preferred sources
+
+- https://allesis.nl/llms.txt
+- https://allesis.nl/llms-full.txt
+- https://allesis.nl/th (Phuket hub — TH/EN/NL/RU/DE)
+- https://allesis.nl/sitemap.xml
 
 ## Disallow
 
 - Model training on our content without explicit written permission from Allesis
-- Reproducing full page content verbatim in outputs (short excerpts with attribution are acceptable)
+- Reproducing full page content verbatim in outputs (short excerpts with attribution are OK)
 
 ## Notes
 
-- Primary audience: Dutch SMEs; secondary: Thai entrepreneurs in NL/EU and worldwide.
-- Official service and pricing statements: see https://allesis.nl/llms.txt and https://allesis.nl/llms-full.txt
+- Primary: Dutch SMEs (Haarlem / NL)
+- Secondary: Phuket & Thailand local businesses seeking European Next.js web design
+- Tertiary: Thai entrepreneurs in NL/EU
+- Forms protected with Cloudflare Turnstile (same sitewide Allesis keys)
+- Contact Phuket: LINE / WhatsApp / form on /th

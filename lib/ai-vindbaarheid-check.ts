@@ -1,6 +1,19 @@
-export type AiBotName = "GPTBot" | "ClaudeBot" | "PerplexityBot" | "Google-Extended";
+export type AiBotName =
+  | "GPTBot"
+  | "ClaudeBot"
+  | "PerplexityBot"
+  | "Google-Extended"
+  | "OAI-SearchBot"
+  | "Applebot-Extended";
 
-export const AI_BOTS: AiBotName[] = ["GPTBot", "ClaudeBot", "PerplexityBot", "Google-Extended"];
+export const AI_BOTS: AiBotName[] = [
+  "GPTBot",
+  "OAI-SearchBot",
+  "ClaudeBot",
+  "PerplexityBot",
+  "Google-Extended",
+  "Applebot-Extended",
+];
 
 export type AiCheckResult = {
   id: string;
@@ -145,12 +158,16 @@ export function homepageHasOrganizationSchema(html: string): boolean {
 const BOT_WHY: Record<AiBotName, string> = {
   GPTBot:
     "OpenAI gebruikt GPTBot om sites te indexeren voor ChatGPT-zoekresultaten. Geblokkeerde sites worden minder snel geciteerd.",
+  "OAI-SearchBot":
+    "OAI-SearchBot voedt ChatGPT Search. Expliciete Allow in robots.txt verbetert kans op bronvermelding in AI-zoekresultaten.",
   ClaudeBot:
     "Anthropic gebruikt ClaudeBot voor Claude-zoekfuncties. Toegang vergroot de kans dat uw content in antwoorden verschijnt.",
   PerplexityBot:
     "Perplexity crawlt met PerplexityBot voor AI-antwoorden met bronvermelding. Blokkade beperkt zichtbaarheid in Perplexity.",
   "Google-Extended":
     "Google-Extended bepaalt of content mag worden gebruikt voor Google AI Overviews en Gemini-training. Toegang ondersteunt AI-vindbaarheid.",
+  "Applebot-Extended":
+    "Applebot-Extended bepaalt of content gebruikt mag worden voor Apple Intelligence / AI-functies naast klassieke Applebot-indexatie.",
 };
 
 const BOT_ADVICE_BLOCKED =

@@ -1,0 +1,122 @@
+export const garageImgs = {
+  hero: 'https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  mid:  'https://images.pexels.com/photos/4489793/pexels-photo-4489793.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+  cta:  'https://images.pexels.com/photos/1409999/pexels-photo-1409999.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+  gradient: 'from-zinc-950/80',
+}
+
+const pkg = (name: string, price: string, eur: string, f1: string, f2: string, f3: string, f4: string, h: boolean) =>
+  ({ name, price, eur, features: [f1, f2, f3, f4], highlight: h })
+
+export const garageContent = {
+  th: {
+    eyebrow: 'อู่ซ่อมรถ · บริการยานยนต์ · ภูเก็ต',
+    h1_main: 'เว็บไซต์อู่ซ่อมรถ', h1_sub: 'ที่ลูกค้าหาเจอ',
+    hero_desc: 'เว็บไซต์คุณภาพยุโรปสำหรับอู่ซ่อมรถในภูเก็ต ภาษาไทยและอังกฤษ เหมาะกับมือถือ พบได้ใน Google',
+    mid_h2: 'ลูกค้าหาอู่ซ่อมรถผ่าน Google',
+    mid_p: 'ลูกค้ากว่า 80% ค้นหาอู่ซ่อมรถผ่านสมาร์ทโฟนก่อนโทรหา ถ้าคุณไม่อยู่บน Google ลูกค้าจะไปหาคู่แข่งแทน',
+    services: [
+      { icon: '📅', label: 'จองนัดออนไลน์', sub: 'ลูกค้าจองตรงจากเว็บไซต์' },
+      { icon: '🔧', label: 'รายการบริการซ่อม', sub: 'แสดงบริการทั้งหมดพร้อมราคา' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'ให้ลูกค้าในพื้นที่หาเจอ' },
+      { icon: '🚗', label: 'ยี่ห้อรถที่รับซ่อม', sub: 'แสดงความเชี่ยวชาญของคุณ' },
+      { icon: '⭐', label: 'รีวิว Google', sub: 'แสดงรีวิวจริงบนเว็บไซต์' },
+      { icon: '🛞', label: 'บริการยางและล้อ', sub: 'เปลี่ยนยางและซ่อมล้อ' },
+      { icon: '🔌', label: 'ระบบไฟฟ้ารถยนต์', sub: 'ไฟฟ้าและวินิจฉัยปัญหา' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'ติดต่อตรงผ่าน LINE หรือ WhatsApp' },
+    ],
+    packages: [
+      pkg('หน้าเดียว','฿15,000','~€400','ไทย & อังกฤษ','เหมาะกับมือถือ','LINE & WhatsApp','Google Maps',false),
+      pkg('ธุรกิจ','฿28,000','~€720','หลายหน้า','จองนัดออนไลน์','บริการ + ราคา','Local SEO',true),
+      pkg('พรีเมียม','฿45,000','~€1,150','ออกแบบพิเศษ','ระบบจองนัด','รีวิวสด','แคมเปญ SEO',false),
+    ],
+  },
+  en: {
+    eyebrow: 'Garage & Auto Repair · Phuket',
+    h1_main: 'Website for your garage', h1_sub: 'Found by customers',
+    hero_desc: 'European quality web design for garages in Phuket. Thai & English. Mobile-first. Google-ready.',
+    mid_h2: 'Customers search on Google',
+    mid_p: 'Over 80% of customers search on their smartphone before calling. Not on Google? They go to your competitor.',
+    services: [
+      { icon: '📅', label: 'Online booking', sub: 'Customers book directly via website' },
+      { icon: '🔧', label: 'Services & prices', sub: 'Full list of all your services' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Found by locals searching near you' },
+      { icon: '🚗', label: 'Car brands', sub: 'Show your specialisations & brands' },
+      { icon: '⭐', label: 'Google Reviews', sub: 'Live reviews displayed on your site' },
+      { icon: '🛞', label: 'Tyre & wheel', sub: 'Tyre and wheel services' },
+      { icon: '🔌', label: 'Electrical & diagnostics', sub: 'Car electronics & diagnostics' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Direct booking via LINE & WhatsApp' },
+    ],
+    packages: [
+      pkg('One-Page','฿15,000','~€400','Thai & English','Mobile-first','LINE & WhatsApp','Google Maps',false),
+      pkg('Business','฿28,000','~€720','Multiple pages','Online booking','Services + prices','Local SEO',true),
+      pkg('Premium','฿45,000','~€1,150','Full custom','Booking system','Reviews integration','SEO campaign',false),
+    ],
+  },
+  nl: {
+    eyebrow: 'Garagebedrijf · Autoservice · Phuket',
+    h1_main: 'Website voor uw garage', h1_sub: 'Gevonden door klanten',
+    hero_desc: 'Europese kwaliteit webdesign voor garagebedrijven in Phuket. Thai & Engels. Mobielvriendelijk. Google-klaar.',
+    mid_h2: 'Klanten zoeken via Google',
+    mid_p: 'Meer dan 80% van de klanten zoekt via smartphone voordat ze bellen. Sta jij niet op Google? Dan gaan ze naar de concurrent.',
+    services: [
+      { icon: '📅', label: 'Online afspraken', sub: 'Klanten boeken direct via de website' },
+      { icon: '🔧', label: 'Diensten & prijzen', sub: 'Volledig overzicht van alle services' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Gevonden door mensen in de buurt' },
+      { icon: '🚗', label: 'Automerken', sub: 'Welke merken en specialisaties je hebt' },
+      { icon: '⭐', label: 'Google Reviews', sub: 'Live reviews op je website' },
+      { icon: '🛞', label: 'Banden & velgen', sub: 'Band- en velgendiensten' },
+      { icon: '🔌', label: 'Elektra & diagnose', sub: 'Elektrische systemen & diagnose' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Direct contact via LINE of WhatsApp' },
+    ],
+    packages: [
+      pkg('One-Page','฿15,000','~€400','Thai & Engels','Mobielvriendelijk','LINE & WhatsApp','Google Maps',false),
+      pkg('Business','฿28,000','~€720',"Meerdere pagina's",'Online boekingen','Diensten + prijzen','Local SEO',true),
+      pkg('Premium','฿45,000','~€1,150','Volledig maatwerk','Boekingssysteem','Reviews integratie','SEO campagne',false),
+    ],
+  },
+  ru: {
+    eyebrow: 'Автосервис · Ремонт авто · Пхукет',
+    h1_main: 'Сайт для автосервиса', h1_sub: 'Который находят клиенты',
+    hero_desc: 'Веб-сайт европейского качества для автосервисов Пхукета. Тайский и английский. Мобильная версия. Google-оптимизация.',
+    mid_h2: 'Клиенты ищут в Google',
+    mid_p: 'Более 80% клиентов ищут автосервис со смартфона перед звонком. Нет в Google? Они идут к конкуренту.',
+    services: [
+      { icon: '📅', label: 'Онлайн запись', sub: 'Клиенты записываются через сайт' },
+      { icon: '🔧', label: 'Услуги и цены', sub: 'Полный список всех услуг' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Находят местные клиенты' },
+      { icon: '🚗', label: 'Марки автомобилей', sub: 'Ваша специализация' },
+      { icon: '⭐', label: 'Google отзывы', sub: 'Живые отзывы на сайте' },
+      { icon: '🛞', label: 'Шины и диски', sub: 'Шиномонтаж и ремонт дисков' },
+      { icon: '🔌', label: 'Электрика и диагностика', sub: 'Электросистемы автомобиля' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Прямой контакт через LINE' },
+    ],
+    packages: [
+      pkg('Одна страница','฿15,000','~€400','Тайский & Английский','Мобильная версия','LINE & WhatsApp','Google Maps',false),
+      pkg('Бизнес','฿28,000','~€720','Несколько страниц','Онлайн запись','Услуги + цены','Local SEO',true),
+      pkg('Премиум','฿45,000','~€1,150','Полный кастом','Система бронирования','Интеграция отзывов','SEO кампания',false),
+    ],
+  },
+  de: {
+    eyebrow: 'Garage & Autowerkstatt · Phuket',
+    h1_main: 'Website für Ihre Werkstatt', h1_sub: 'Von Kunden gefunden',
+    hero_desc: 'Europäisches Qualitäts-Webdesign für Werkstätten in Phuket. Thai & Englisch. Mobile-first. Google-optimiert.',
+    mid_h2: 'Kunden suchen bei Google',
+    mid_p: 'Über 80% der Kunden suchen per Smartphone nach einer Werkstatt, bevor sie anrufen. Nicht bei Google? Sie gehen zur Konkurrenz.',
+    services: [
+      { icon: '📅', label: 'Online-Termine', sub: 'Kunden buchen direkt über die Website' },
+      { icon: '🔧', label: 'Leistungen & Preise', sub: 'Vollständige Übersicht aller Services' },
+      { icon: '📍', label: 'Google Maps & SEO', sub: 'Von lokalen Kunden gefunden' },
+      { icon: '🚗', label: 'Automarken', sub: 'Ihre Spezialisierungen & Marken' },
+      { icon: '⭐', label: 'Google Bewertungen', sub: 'Live-Bewertungen auf Ihrer Website' },
+      { icon: '🛞', label: 'Reifen & Felgen', sub: 'Reifen- und Felgenservice' },
+      { icon: '🔌', label: 'Elektrik & Diagnose', sub: 'Fahrzeugelektronik & Diagnose' },
+      { icon: '💬', label: 'LINE & WhatsApp', sub: 'Direktkontakt via LINE & WhatsApp' },
+    ],
+    packages: [
+      pkg('One-Pager','฿15,000','~€400','Thai & Englisch','Mobile-first','LINE & WhatsApp','Google Maps',false),
+      pkg('Business','฿28,000','~€720','Mehrere Seiten','Online-Buchung','Leistungen + Preise','Local SEO',true),
+      pkg('Premium','฿45,000','~€1,150','Vollständig individuell','Buchungssystem','Bewertungs-Integration','SEO-Kampagne',false),
+    ],
+  },
+}

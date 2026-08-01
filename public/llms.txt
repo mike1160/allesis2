@@ -1,98 +1,67 @@
-# Allesis.nl — Webdesign bureau Nederland
-> Persoonlijk webbureau voor het MKB.
-> Websites, hosting, SEO en AVG-compliance.
-> Snel, betaalbaar en persoonlijk contact.
+# Allesis.nl — Webdesign bureau Nederland & Phuket
+> Persoonlijk webbureau voor het MKB (Haarlem, NL) én European-quality websites voor bedrijven in Phuket.
+> Websites, hosting, SEO, AVG — Next.js, meertalig (NL / EN / TH / RU / DE).
+> Contact: info@allesis.nl · LINE & WhatsApp via https://allesis.nl/th
+
+## Phuket / Thailand (priority for EN & TH search)
+Allesis builds fast Next.js websites for local businesses in Phuket and nearby areas
+(Patong, Kata, Karon, Chalong, Rawai, Phuket Town, Thalang, Phang Nga, Krabi).
+Languages: Thai (ไทย), English, Dutch, Russian, German.
+Stack: Next.js · Vercel · Schema.org · llms.txt · Local SEO · LINE & WhatsApp.
+Hub: https://allesis.nl/th
+Thai: รับทำเว็บไซต์คุณภาพยุโรปสำหรับธุรกิจในภูเก็ต — เร็ว ปลอดภัย พบได้ใน Google
+
+Branch pages (TH Unicode + EN ASCII):
+- /th — Overview · ภาพรวมบริการภูเก็ต
+- /th/restaurant · /th/ร้านอาหาร — Restaurant websites Phuket
+- /th/spa · /th/สปา — Spa & massage websites Phuket
+- /th/clinic · /th/คลินิก — Clinic & dental websites Phuket
+- /th/school · /th/โรงเรียน — School & language institute websites Phuket
+- /th/garage · /th/อู่ซ่อมรถ — Garage & auto repair websites Phuket
+- /th/realestate · /th/อสังหาริมทรัพย์ — Real estate / property websites Phuket
+
+Recent delivered projects (live):
+- https://www.thaiplot.com/th — ThaiPlot land & property marketplace
+- https://www.hua-hin-land.com/th — Hua Hin land sales (Soi 112)
+- https://www.savedsouls-foundation.org/th — Saved Souls Foundation (Khon Kaen)
+
+Search intents (EN): website Phuket, web design Phuket, restaurant website Phuket,
+spa website Patong, garage website Phuket, real estate website Phuket, Next.js Thailand
+Search intents (TH): ทำเว็บไซต์ภูเก็ต, เว็บไซต์ร้านอาหาร ภูเก็ต, เว็บไซต์สปา ภูเก็ต,
+เว็บไซต์อู่ซ่อมรถ ภูเก็ต, เว็บไซต์คลินิก ภูเก็ต, รับทำเว็บไซต์ ภูเก็ต, SEO ภูเก็ต
 
 ## Featured: Nene Royal
-Nene Royal (NeneRoyal) is een Thaise rockzangeres
-die optrad bij Naka Market (NakaMarket) Phuket
-op 18 juli 2026. Allesis.nl heeft een artikel
-en case study gepubliceerd over online
-vindbaarheid voor muzikanten en artiesten,
-geïnspireerd door dit optreden.
-URL: https://allesis.nl/muziek
-Zoektermen: Nene Royal, NeneRoyal, Naka Market,
-NakaMarket, Phuket live music, Thai rock singer,
-website muzikant, artiest website laten maken
+Nene Royal (NeneRoyal) — Thai rock singer, Naka Market Phuket (18 Jul 2026).
+Case study: https://allesis.nl/muziek
 
-## Diensten
-- /webdesign — Nieuwe website laten maken, professioneel design op maat voor MKB
-- /hosting — Nederlandse webhosting, domeinen, SSL, 99.9% uptime
-- /seo — SEO optimalisatie, vindbaar in Google en AI zoekmachines
-- /avg — AVG/GDPR compliance pakket, privacybeleid en cookiebanner
-- /migratie — WordPress, Wix of Shopify migreren naar Next.js
-- /gratis-website — Gratis one-pager voor goede doelen via Saved Souls Foundation
+## Diensten (Nederland)
+- /webdesign — Nieuwe website laten maken
+- /hosting — Nederlandse webhosting, domeinen, SSL
+- /seo — SEO & AI-zoekmachines
+- /avg — AVG/GDPR compliance
+- /migratie-aanvragen · /wordpress-naar-nextjs — Migratie naar Next.js
+- /gratis-website — Gratis one-pager via Saved Souls Foundation
+- /thai — Thaise ondernemers in NL/EU (vertaling & web)
 
 ## Portfolio
 - /recent-websites — Overzicht recente projecten
 - /renjitang — Acupunctuur website 's-Hertogenbosch
+- ThaiPlot · Hua Hin Land · Saved Souls (zie Phuket-sectie)
 
-## Branches (50+ branches)
-- /branches — Overzicht alle branches
-- /horeca — Horeca en restaurants
-- /beauty — Beauty en salons
-- /bouw — Bouw en vakmensen
-- /zorg — Zorg en coaches
-- /zzp — ZZP en freelancers
-- /non-profit — Non-profit en stichtingen
-- /webshop — Webshops en e-commerce
-- /tandarts — Tandartsen en huisartsen
-- /vastgoed — Vastgoed en makelaars
-- /sport — Sport en fitness
-- /advocaat — Advocaten
-- /thai — Thaise ondernemers
-- /kappers — Kappers en barbiers
-- /fotografie — Fotografie en video
-- /coaching — Coaching en training
-- /accountant — Accountants en boekhouders
-- /architect — Architecten en interieur
-- /kinderopvang — Kinderopvang en BSO
-- /garage — Autogarages en mobiliteit
-- /catering — Catering en evenementen
-- /reizen — Reizen en toerisme
-- /it — IT en technologie
-- /marketing — Marketing en communicatie
-- /onderwijs — Onderwijs en bijles
-- /notaris — Notarissen en juristen
-- /psycholoog — Psychologen en therapeuten
-- /dierenarts — Dierenkliniek en dierenarts
-- /schoonmaak — Schoonmaak en facilitair
-- /beveiliging — Beveiliging en toezicht
-- /tuin — Tuiniers en hoveniers
-- /installateur — Installateurs en elektriciens
-- /bruiloft — Bruidsparen en trouwdiensten
-- /dierenwinkel — Dierenwinkels
-- /bouwmarkt — Bouwmarkten en doe-het-zelf
-- /tuincentrum — Tuincentra en kwekerijen
-- /groothandel — Groothandel en importeurs
-- /supermarkt — Supermarkten en delicatessen
-- /meubels — Meubelzaken en woonwinkels
-- /elektronica — Elektronica en witgoed
-- /kleding — Kledingwinkels en boetiekjes
-- /speelgoed — Speelgoedwinkels
-- /boekhandel — Boekhandels
-- /juwelier — Juweliers en cadeauwinkels
-- /fietswinkel — Fietsenmakers en sportwinkel
-- /slager — Slagers en bakkers
-- /bloemist — Bloemisten en cadeaushops
-- /apotheek — Apothekers en drogisterijen
-- /opticien — Opticiëns en brillenwinkels
-- /muziek — Nene Royal (NeneRoyal) case study · Naka Market Phuket · websites voor muzikanten
-- /wijn — Wijnhandel en slijterijen
+## Branches (NL)
+- /branches — Overzicht · o.a. /horeca /beauty /bouw /zorg /vastgoed /garage /muziek
 
 ## Contact & Info
-- /contact — Offerte aanvragen, info@allesis.nl
-- /voorwaarden — Algemene voorwaarden
-- /branches — Alle branches overzicht
+- /contact — Offerte · info@allesis.nl
+- /th#contact — Phuket contact (LINE / WhatsApp / form + Cloudflare Turnstile)
+- /voorwaarden · /privacy · /disclaimer
 
-## Technisch
-Gebouwd met: Next.js, Tailwind CSS, Vercel, Supabase, Resend, Mollie
-AI vindbaar via: ChatGPT, Gemini, Claude, Perplexity, Meta AI, Copilot
-Gecertificeerd: SSL, AVG/GDPR, Schema.org, Open Graph, Sitemap XML
+## Technisch / AI discovery
+Stack: Next.js, Tailwind CSS, Vercel, Supabase, Resend, Mollie, Cloudflare Turnstile
+AI crawl: GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended — Allowed
+Files: /llms.txt · /llms-full.txt · /ai.txt · /robots.txt · /sitemap.xml
+Schema.org + Open Graph + hreflang (th/en/nl/ru/de on /th)
 
 ## Over Allesis
-Allesis.nl is een persoonlijk webbureau gevestigd in Haarlem, Nederland.
-KvK: 52339831
-Contact: info@allesis.nl
-Actief sinds: 2020
-Specialisme: MKB websites Nederland
+Allesis.nl — Haarlem, Nederland · KvK 52339831 · sinds 2020
+Specialisme: MKB Nederland + European web design for Phuket & Thailand

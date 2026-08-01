@@ -67,6 +67,7 @@ const branchLinks: [string, string][] = [
   ["Sport", "/sport"],
   ["Advocaten", "/advocaat"],
   ["Thaise ondernemers", "/thai"],
+  ["Phuket & Thailand · ไทย 🇹🇭", "/th"],
 ];
 
 const dienstLinks: [string, string][] = [

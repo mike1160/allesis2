@@ -73,6 +73,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ],
     },
 
+    // Thailand / Phuket — Thai Unicode URLs (SEO) + ASCII aliases
+    { url: `${baseUrl}/th`, lastModified, changeFrequency: "weekly", priority: 0.9 },
+    ...[
+      ["garage", "อู่ซ่อมรถ"],
+      ["restaurant", "ร้านอาหาร"],
+      ["spa", "สปา"],
+      ["clinic", "คลินิก"],
+      ["school", "โรงเรียน"],
+      ["realestate", "อสังหาริมทรัพย์"],
+    ].flatMap(([ascii, thai]) => [
+      {
+        url: `${baseUrl}/th/${encodeURI(thai)}`,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/th/${ascii}`,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.85,
+      },
+    ]),
+
     // Branches overzicht + individuele branches
     { url: `${baseUrl}/branches`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     ...branches.map((branch) => ({

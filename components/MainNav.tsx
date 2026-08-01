@@ -18,6 +18,7 @@ type MenuGroup = {
 const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/webdesign", label: "Diensten" },
   { href: "/branches", label: "Branches" },
+  { href: "/th", label: "🇹🇭 Thailand · ไทย" },
   { href: "/recent-websites", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ];
@@ -60,6 +61,7 @@ const MENU_GROUPS: MenuGroup[] = [
       { href: "/sport", label: "Sport & fitness" },
       { href: "/advocaat", label: "Advocaten" },
       { href: "/thai", label: "Thaise ondernemers" },
+      { href: "/th", label: "🇹🇭 Phuket & Thailand · ไทย" },
     ],
   },
   {
@@ -118,7 +120,10 @@ export default function MainNav() {
   const supabase = createClient();
 
   const isActive = useCallback(
-    (href: string) => pathname === href || pathname.startsWith(`${href}/`),
+    (href: string) =>
+      pathname === href ||
+      pathname.startsWith(`${href}/`) ||
+      (href === "/th" && (pathname.startsWith("/th") || pathname.startsWith("/thailand"))),
     [pathname],
   );
 
@@ -327,7 +332,12 @@ export default function MainNav() {
         }`}
       >
         <div className="mx-auto grid h-[4.25rem] max-w-6xl grid-cols-[1fr_auto] items-center gap-4 px-6 md:grid-cols-[1fr_auto_1fr]">
-          <Link href="/" className="justify-self-start no-underline" onClick={closeMenu}>
+          <Link
+            href="/"
+            className="justify-self-start no-underline"
+            onClick={closeMenu}
+            suppressHydrationWarning
+          >
             <BrandMark />
           </Link>
 

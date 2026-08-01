@@ -69,7 +69,34 @@ EN: Local partner, single point of contact, modern stack, GDPR-minded, rare Thai
 
 ## Werkgebied / Service area
 
-Haarlem, Amsterdam, Alkmaar, Noord-Holland, heel Nederland — internationale klanten (incl. Thailand) welkom.
+Haarlem, Amsterdam, Alkmaar, Noord-Holland, heel Nederland — én Phuket & omstreken (Thailand).
+Internationale klanten welkom.
+
+### Phuket & surrounding areas / ภูเก็ตและพื้นที่ใกล้เคียง
+
+EN: Allesis delivers European-quality Next.js websites for local businesses in Phuket,
+Patong, Kata, Karon, Chalong, Rawai, Phuket Town, Thalang, and nearby Phang Nga & Krabi.
+Multilingual: Thai, English, Dutch, Russian, German. Mobile-first, Google Local SEO,
+Schema.org, LINE & WhatsApp CTAs, Cloudflare Turnstile on forms.
+Hub: https://allesis.nl/th
+
+TH: Allesis สร้างเว็บไซต์ Next.js คุณภาพยุโรปสำหรับธุรกิจท้องถิ่นในภูเก็ต
+ป่าตอง กะตะ กะรน ฉลอง ราไวย์ เมืองภูเก็ต ถลาง และพังงา / กระบี่
+หลายภาษา · เร็ว · พบได้ใน Google · ติดต่อผ่าน LINE และ WhatsApp
+หน้าหลัก: https://allesis.nl/th
+
+Branches / ประเภทธุรกิจ:
+- Garage / อู่ซ่อมรถ — /th/garage · /th/อู่ซ่อมรถ
+- Restaurant / ร้านอาหาร — /th/restaurant · /th/ร้านอาหาร
+- Spa / สปา — /th/spa · /th/สปา
+- Clinic / คลินิก — /th/clinic · /th/คลินิก
+- School / โรงเรียน — /th/school · /th/โรงเรียน
+- Real estate / อสังหาริมทรัพย์ — /th/realestate · /th/อสังหาริมทรัพย์
+
+Recent live projects / โปรเจกต์ล่าสุด:
+- ThaiPlot — https://www.thaiplot.com/th
+- Hua Hin Land — https://www.hua-hin-land.com/th
+- Saved Souls Foundation — https://www.savedsouls-foundation.org/th
 
 ---
 
@@ -139,12 +166,23 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 20. NL: Betaalmethoden? A: Factuur (NL zakelijk/particulier) — details bij offerte.
 21. EN: Do you train AI models on client sites? A: No — not without explicit written permission.
 22. NL: Zijn prijzen ex btw? A: Tenzij anders vermeld: ex btw (standaard B2B NL).
+23. EN: Do you build websites for Phuket businesses? A: Yes — https://allesis.nl/th — Next.js, multilingual (TH/EN/NL/RU/DE), LINE & WhatsApp.
+24. TH: ทำเว็บไซต์ในภูเก็ตไหม? A: ทำครับ/ค่ะ — https://allesis.nl/th เว็บไซต์ Next.js สำหรับอู่ ร้านอาหาร สปา คลินิก โรงเรียน อสังหาฯ
+25. EN: Which areas around Phuket? A: Patong, Kata, Karon, Chalong, Rawai, Phuket Town, Thalang, Phang Nga, Krabi.
+26. EN: How to contact for Phuket projects? A: LINE, WhatsApp or form on /th — forms use Cloudflare Turnstile.
 
 ---
 
 ## Belangrijkste links
 
 - https://allesis.nl
+- https://allesis.nl/th
+- https://allesis.nl/th/restaurant
+- https://allesis.nl/th/spa
+- https://allesis.nl/th/clinic
+- https://allesis.nl/th/school
+- https://allesis.nl/th/garage
+- https://allesis.nl/th/realestate
 - https://allesis.nl/webdesign
 - https://allesis.nl/hosting
 - https://allesis.nl/seo
@@ -157,3 +195,6 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 - https://allesis.nl/sitemap.xml
 - https://allesis.nl/llms.txt
 - https://allesis.nl/ai.txt
+- https://www.thaiplot.com/th
+- https://www.hua-hin-land.com/th
+- https://www.savedsouls-foundation.org/th
