@@ -6,85 +6,52 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 
+const LIME = "#C8FF00";
 const ACCENT = "#3B6D11";
 
-type MenuLink = { href: string; label: string; badge?: string };
+type NavLink = { href: string; label: string; badge?: string };
 
-type MenuGroup = {
-  title: string;
-  links: MenuLink[];
-};
-
-const NAV_LINKS: { href: string; label: string }[] = [
+/** Desktop top-nav — compact */
+const NAV_LINKS: NavLink[] = [
   { href: "/webdesign", label: "Diensten" },
   { href: "/branches", label: "Branches" },
-  { href: "/th", label: "🇹🇭 Thailand · ไทย" },
+  { href: "/vaarapp", label: "VaarApp", badge: "Nieuw" },
+  { href: "/th", label: "🇹🇭 Thailand" },
   { href: "/recent-websites", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
 ];
 
-const MENU_GROUPS: MenuGroup[] = [
-  {
-    title: "Diensten",
-    links: [
-      { href: "/webdesign", label: "Webdesign" },
-      { href: "/wordpress-naar-nextjs", label: "WordPress migratie" },
-      { href: "/migratie-aanvragen", label: "Migratie aanvragen" },
-      { href: "/hosting", label: "Hosting & Domeinen" },
-      { href: "/seo", label: "SEO" },
-    ],
-  },
-  {
-    title: "AVG & Compliance",
-    links: [
-      { href: "/avg", label: "AVG-compliance pakket" },
-      { href: "/avg-regelgeving", label: "AVG Regelgeving" },
-      { href: "/avg-boetes", label: "AVG Boetes" },
-      { href: "/avg-check", label: "AVG Check", badge: "GRATIS" },
-      { href: "/pagespeed-check", label: "PageSpeed Check", badge: "GRATIS" },
-      { href: "/ai-vindbaarheid-check", label: "AI-vindbaarheid", badge: "GRATIS" },
-      { href: "/tools/website-monitor", label: "Website Monitor" },
-    ],
-  },
-  {
-    title: "Branches",
-    links: [
-      { href: "/horeca", label: "Horeca & restaurants" },
-      { href: "/beauty", label: "Beauty & salons" },
-      { href: "/bouw", label: "Bouw & vakmensen" },
-      { href: "/zorg", label: "Zorg & coaches" },
-      { href: "/zzp", label: "ZZP'ers & freelancers" },
-      { href: "/non-profit", label: "Non-profit & stichtingen" },
-      { href: "/webshop", label: "Webshops & e-commerce" },
-      { href: "/tandarts", label: "Tandartsen & huisartsen" },
-      { href: "/vastgoed", label: "Vastgoed & makelaars" },
-      { href: "/sport", label: "Sport & fitness" },
-      { href: "/advocaat", label: "Advocaten" },
-      { href: "/thai", label: "Thaise ondernemers" },
-      { href: "/th", label: "🇹🇭 Phuket & Thailand · ไทย" },
-    ],
-  },
-  {
-    title: "Portfolio",
-    links: [{ href: "/recent-websites", label: "Recent Websites" }],
-  },
-  {
-    title: "Contact",
-    links: [
-      { href: "/contact", label: "Neem contact op" },
-      { href: "/gratis-website", label: "Gratis website" },
-      { href: "/voorwaarden", label: "Voorwaarden" },
-    ],
-  },
+/** Mobiel: 4 hoofdpaden — in één oogopslag */
+const PRIMARY_TILES: {
+  href: string;
+  label: string;
+  hint: string;
+  emoji: string;
+}[] = [
+  { href: "/webdesign", label: "Website", hint: "Nieuw of sneller", emoji: "✦" },
+  { href: "/app-ontwerp", label: "App", hint: "Apple & Android", emoji: "◇" },
+  { href: "/recent-websites", label: "Portfolio", hint: "Recent werk", emoji: "◎" },
+  { href: "/th", label: "Thailand", hint: "Phuket & meer", emoji: "🇹🇭" },
 ];
 
-const FIRST_MENU_HREF = MENU_GROUPS[0]?.links[0]?.href ?? "/webdesign";
+/** Mobiel: korte tweede rij */
+const QUICK_LINKS: NavLink[] = [
+  { href: "/hosting", label: "Hosting" },
+  { href: "/seo", label: "SEO" },
+  { href: "/avg", label: "AVG" },
+  { href: "/branches", label: "Branches" },
+  { href: "/avg-check", label: "Gratis checks" },
+];
 
-function FreeBadge({ label }: { label: string }) {
+function SoftBadge({ label, lime = false }: { label: string; lime?: boolean }) {
   return (
     <span
-      className="font-lato ml-2 rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white"
-      style={{ backgroundColor: ACCENT }}
+      className="font-lato ml-1.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide"
+      style={
+        lime
+          ? { backgroundColor: LIME, color: "#0a0f1e" }
+          : { backgroundColor: "rgba(59,109,17,0.12)", color: ACCENT }
+      }
     >
       {label}
     </span>
@@ -230,95 +197,148 @@ export default function MainNav() {
           aria-modal="true"
           aria-labelledby={drawerTitleId}
           className="main-nav-drawer is-open"
+          style={{ backgroundColor: "#FAFBF7" }}
         >
-          <div className="flex h-[4.25rem] shrink-0 items-center justify-between border-b border-neutral-light px-6">
-            <p id={drawerTitleId} className="font-sora text-lg font-bold text-neutral-dark">
-              Menu
-            </p>
+          {/* Header */}
+          <div className="flex h-[4.25rem] shrink-0 items-center justify-between px-5">
+            <div>
+              <p id={drawerTitleId} className="font-sora text-base font-bold text-neutral-dark">
+                Waarmee kunnen we helpen?
+              </p>
+            </div>
             <button
               type="button"
               onClick={closeMenu}
-              className="font-lato inline-flex min-h-[40px] cursor-pointer items-center rounded-lg px-3 py-2 text-sm font-bold text-neutral-mid transition hover:bg-neutral-light hover:text-neutral-dark"
+              className="font-lato inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white text-neutral-mid shadow-sm transition hover:text-neutral-dark"
+              aria-label="Menu sluiten"
             >
-              Sluiten
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" aria-hidden>
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
           </div>
 
-          <nav className="flex-1 overflow-y-auto px-6 py-8" aria-label="Hoofdnavigatie">
-            {MENU_GROUPS.map((group) => (
-              <div key={group.title} className="mb-10 last:mb-0">
-                <p className="font-lato mb-4 text-xs font-bold uppercase tracking-[0.14em] text-neutral-mid">
-                  {group.title}
-                </p>
-                <ul className="space-y-1">
-                  {group.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        ref={link.href === FIRST_MENU_HREF ? firstMenuLinkRef : undefined}
-                        href={link.href}
-                        onClick={closeMenu}
-                        aria-current={isActive(link.href) ? "page" : undefined}
-                        className={`font-lato flex min-h-[48px] items-center rounded-lg px-3 py-2.5 text-base font-semibold no-underline transition hover:bg-neutral-light ${
-                          isActive(link.href) ? "bg-neutral-light" : "text-neutral-dark"
-                        }`}
-                        style={isActive(link.href) ? { color: ACCENT } : undefined}
-                      >
-                        {link.label}
-                        {link.badge ? <FreeBadge label={link.badge} /> : null}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <nav className="flex-1 overflow-y-auto px-5 pb-4" aria-label="Hoofdnavigatie">
+            {/* 2×2 hoofdpaden */}
+            <ul className="grid grid-cols-2 gap-2.5">
+              {PRIMARY_TILES.map((tile, index) => (
+                <li key={tile.href}>
+                  <Link
+                    ref={index === 0 ? firstMenuLinkRef : undefined}
+                    href={tile.href}
+                    onClick={closeMenu}
+                    aria-current={isActive(tile.href) ? "page" : undefined}
+                    className="font-lato flex h-full min-h-[88px] flex-col justify-between rounded-2xl bg-white p-3.5 no-underline shadow-[0_1px_0_rgba(10,15,30,0.04)] transition active:scale-[0.98]"
+                    style={{
+                      border: isActive(tile.href)
+                        ? `1.5px solid ${ACCENT}`
+                        : "1px solid rgba(10,15,30,0.06)",
+                    }}
+                  >
+                    <span className="text-base leading-none text-primary/80" aria-hidden>
+                      {tile.emoji}
+                    </span>
+                    <span>
+                      <span className="block text-[15px] font-bold text-neutral-dark">{tile.label}</span>
+                      <span className="mt-0.5 block text-[11px] font-medium text-neutral-mid">
+                        {tile.hint}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* VaarApp — één rustige highlight */}
+            <Link
+              href="/vaarapp"
+              onClick={closeMenu}
+              aria-current={isActive("/vaarapp") ? "page" : undefined}
+              className="mt-4 flex items-center gap-3 rounded-2xl px-4 py-3.5 no-underline"
+              style={{
+                background: "linear-gradient(120deg, #0a0f1e 0%, #1a3a14 100%)",
+              }}
+            >
+              <span className="min-w-0 flex-1">
+                <span className="font-lato block text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
+                  Uitgelicht
+                </span>
+                <span className="mt-0.5 flex items-center gap-2">
+                  <span className="font-sora text-lg font-black text-white">vaarapp</span>
+                  <SoftBadge label="Nieuw" lime />
+                </span>
+                <span className="font-lato mt-0.5 block text-xs text-white/65">
+                  Bruggen, sluizen &amp; havens — gratis download
+                </span>
+              </span>
+              <span className="font-lato text-sm font-bold text-[#C8FF00]" aria-hidden>
+                →
+              </span>
+            </Link>
+
+            {/* Korte quick links */}
+            <p className="font-lato mb-2 mt-7 text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-mid">
+              Meer
+            </p>
+            <ul className="flex flex-wrap gap-2">
+              {QUICK_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={closeMenu}
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={`font-lato inline-flex min-h-[40px] items-center rounded-full bg-white px-3.5 text-sm font-semibold no-underline shadow-sm transition ${
+                      isActive(link.href) ? "text-primary" : "text-neutral-dark"
+                    }`}
+                    style={{ border: "1px solid rgba(10,15,30,0.06)" }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
             {user ? (
-              <div className="mt-10 border-t border-neutral-light pt-8">
-                <p className="font-lato mb-4 text-xs font-bold uppercase tracking-[0.14em] text-neutral-mid">
-                  Account
-                </p>
-                <ul className="space-y-1">
-                  <li>
-                    <Link
-                      href="/dashboard"
-                      onClick={closeMenu}
-                      className="font-lato flex min-h-[48px] items-center rounded-lg px-3 py-2.5 text-base font-semibold no-underline transition hover:bg-neutral-light"
-                      style={{ color: ACCENT }}
-                    >
-                      Mijn account
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => void handleLogout()}
-                      className="font-lato flex min-h-[48px] w-full cursor-pointer items-center rounded-lg px-3 py-2.5 text-left text-base font-semibold text-neutral-mid transition hover:bg-neutral-light"
-                    >
-                      Uitloggen
-                    </button>
-                  </li>
-                </ul>
+              <div className="mt-6 flex gap-3">
+                <Link
+                  href="/dashboard"
+                  onClick={closeMenu}
+                  className="font-lato text-sm font-semibold no-underline"
+                  style={{ color: ACCENT }}
+                >
+                  Mijn account
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void handleLogout()}
+                  className="font-lato cursor-pointer text-sm font-medium text-neutral-mid"
+                >
+                  Uitloggen
+                </button>
               </div>
             ) : null}
           </nav>
 
-          <div className="shrink-0 border-t border-neutral-light px-6 py-6">
+          {/* Sticky CTA */}
+          <div className="shrink-0 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-3">
             <Link
               href="/contact"
               onClick={closeMenu}
-              className="font-lato mb-4 flex min-h-[48px] items-center justify-center rounded-full px-5 text-sm font-bold text-white no-underline transition hover:opacity-90"
+              className="font-lato flex min-h-[52px] items-center justify-center rounded-2xl px-5 text-[15px] font-bold text-white no-underline transition hover:opacity-90"
               style={{ backgroundColor: ACCENT }}
             >
               Gratis gesprek
             </Link>
-            <a
-              href="mailto:info@allesis.nl"
-              className="font-lato block text-sm font-semibold no-underline hover:underline"
-              style={{ color: ACCENT }}
-            >
-              info@allesis.nl
-            </a>
-            <p className="font-lato mt-1 text-xs text-neutral-mid">Gevestigd in Haarlem</p>
+            <p className="font-lato mt-3 text-center text-xs text-neutral-mid">
+              <a
+                href="mailto:info@allesis.nl"
+                className="font-semibold no-underline hover:underline"
+                style={{ color: ACCENT }}
+              >
+                info@allesis.nl
+              </a>
+              {" · "}Haarlem
+            </p>
           </div>
         </aside>
       </>
@@ -347,11 +367,12 @@ export default function MainNav() {
                 key={link.href}
                 href={link.href}
                 aria-current={isActive(link.href) ? "page" : undefined}
-                className={`font-lato text-sm font-medium no-underline transition-colors ${
+                className={`font-lato inline-flex items-center text-sm font-medium no-underline transition-colors ${
                   isActive(link.href) ? "text-neutral-dark" : "text-neutral-mid hover:text-neutral-dark"
                 }`}
               >
                 {link.label}
+                {link.badge ? <SoftBadge label={link.badge} lime /> : null}
               </Link>
             ))}
           </nav>

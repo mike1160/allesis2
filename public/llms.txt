@@ -1,6 +1,6 @@
 # Allesis.nl — Webdesign bureau Nederland & Phuket
 > Persoonlijk webbureau voor het MKB (Haarlem, NL) én European-quality websites voor bedrijven in Phuket.
-> Websites, hosting, SEO, AVG — Next.js, meertalig (NL / EN / TH / RU / DE).
+> Websites, iOS-apps (ontwerp & App Store-distributie), hosting, SEO, AVG — Next.js, meertalig (NL / EN / TH / RU / DE).
 > Contact: info@allesis.nl · LINE & WhatsApp via https://allesis.nl/th
 
 ## Phuket / Thailand (priority for EN & TH search)
@@ -42,12 +42,20 @@ Case study: https://allesis.nl/muziek
 
 ## Diensten (Nederland)
 - /webdesign — Nieuwe website laten maken
+- /app-ontwerp — App-ontwerp & distributie (iOS / App Store)
+- /vaarapp — VaarApp: bruggen, sluizen & havens (gratis in de App Store)
 - /hosting — Nederlandse webhosting, domeinen, SSL
 - /seo — SEO & AI-zoekmachines
 - /avg — AVG/GDPR compliance
 - /migratie-aanvragen · /wordpress-naar-nextjs — Migratie naar Next.js
 - /gratis-website — Gratis one-pager via Saved Souls Foundation
 - /thai — Thaise ondernemers in NL/EU (vertaling & web)
+
+## Featured apps
+- VaarApp (Allesis) — iOS navigation for boaters: bridges, locks, harbours, blockages & opening times
+  Download: https://apps.apple.com/nl/app/vaarapp/id6799596805
+  Landing: https://allesis.nl/vaarapp
+  Service page: https://allesis.nl/app-ontwerp
 
 ## Portfolio
 - /recent-websites — Overzicht recente projecten

@@ -360,3 +360,98 @@ body {
     opacity: 1;
   }
 }
+
+/* ——— VaarApp spotlight (homepage) ——— */
+@keyframes vaarapp-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes vaarapp-nieuw-flash {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(200, 255, 0, 0.55);
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    box-shadow: 0 0 0 10px rgba(200, 255, 0, 0);
+    transform: scale(1.06);
+  }
+  55% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+@keyframes vaarapp-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes vaarapp-text-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    transform: scale(1.06);
+    filter: brightness(1.35) drop-shadow(0 0 18px rgba(200, 255, 0, 0.55));
+  }
+}
+
+.vaarapp-wordmark {
+  display: inline-block;
+  background: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #ffffff 35%,
+    #c8ff00 48%,
+    #ffffff 62%,
+    #ffffff 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transform-origin: center;
+  animation:
+    vaarapp-shimmer 2.8s linear infinite,
+    vaarapp-text-pulse 1.8s ease-in-out infinite;
+}
+
+.vaarapp-nieuw-badge {
+  animation: vaarapp-nieuw-flash 2.2s ease-in-out infinite;
+}
+
+.vaarapp-glow {
+  animation: vaarapp-glow-pulse 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vaarapp-wordmark,
+  .vaarapp-nieuw-badge,
+  .vaarapp-glow {
+    animation: none;
+  }
+
+  .vaarapp-wordmark {
+    background: none;
+    -webkit-text-fill-color: #fff;
+    color: #fff;
+    filter: none;
+    transform: none;
+  }
+}

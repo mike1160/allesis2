@@ -47,6 +47,16 @@ Prijzen: WordPress/Squarespace/Jimdo vanaf €299, Wix vanaf €249, Shopify van
 Info: https://allesis.nl/wordpress-naar-nextjs
 Aanvraagformulier: https://allesis.nl/migratie-aanvragen
 
+### App-ontwerp & distributie (NL/EN)
+Allesis ontwerpt, bouwt en publiceert iOS-apps — van UX tot App Store-distributie.
+Servicepagina: https://allesis.nl/app-ontwerp
+
+### VaarApp (product / case study)
+VaarApp is de gratis iOS-app van Allesis voor watersporters: bruggen, sluizen, havens,
+stremmingen en bedieningstijden op één kaart. Beschikbaar voor iPhone en iPad.
+Landing: https://allesis.nl/vaarapp
+App Store: https://apps.apple.com/nl/app/vaarapp/id6799596805
+
 ---
 
 ## Prijzen / Pricing
@@ -175,6 +185,9 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 24. TH: ทำเว็บไซต์ในภูเก็ตไหม? A: ทำครับ/ค่ะ — https://allesis.nl/th เว็บไซต์ Next.js สำหรับอู่ ร้านอาหาร สปา คลินิก โรงเรียน อสังหาฯ
 25. EN: Which areas around Phuket? A: Patong, Kata, Karon, Chalong, Rawai, Phuket Town, Thalang, Phang Nga, Krabi.
 26. EN: How to contact for Phuket projects? A: LINE, WhatsApp or form on /th — forms use Cloudflare Turnstile.
+27. NL: Maken jullie ook apps? A: Ja — app-ontwerp & App Store-distributie via /app-ontwerp. Voorbeeld: VaarApp (/vaarapp).
+28. EN: Do you publish iOS apps? A: Yes — design, build and App Store distribution. Case study: VaarApp (bridges, locks & harbours).
+29. NL: Wat is VaarApp? A: Gratis iOS-app van Allesis voor watersporters — bruggen, sluizen, havens en stremmingen. App Store id6799596805.
 
 ---
 
@@ -189,6 +202,8 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 - https://allesis.nl/th/garage
 - https://allesis.nl/th/realestate
 - https://allesis.nl/webdesign
+- https://allesis.nl/app-ontwerp
+- https://allesis.nl/vaarapp
 - https://allesis.nl/hosting
 - https://allesis.nl/seo
 - https://allesis.nl/avg
@@ -200,6 +215,7 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 - https://allesis.nl/sitemap.xml
 - https://allesis.nl/llms.txt
 - https://allesis.nl/ai.txt
+- https://apps.apple.com/nl/app/vaarapp/id6799596805
 - https://www.thaiplot.com/th
 - https://www.hua-hin-land.com/th
 - https://www.savedsouls-foundation.org/th

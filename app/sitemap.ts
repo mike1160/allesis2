@@ -52,6 +52,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/gratis-website`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/contact`, lastModified, changeFrequency: "monthly", priority: 0.9 },
 
+    // Apps
+    { url: `${baseUrl}/vaarapp`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/app-ontwerp`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+
     // Migratie
     { url: `${baseUrl}/migratie-aanvragen`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/wordpress-naar-nextjs`, lastModified, changeFrequency: "monthly", priority: 0.85 },

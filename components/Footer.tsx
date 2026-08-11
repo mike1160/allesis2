@@ -72,6 +72,7 @@ const branchLinks: [string, string][] = [
 
 const dienstLinks: [string, string][] = [
   ["Webdesign", "/webdesign"],
+  ["App-ontwerp & distributie", "/app-ontwerp"],
   ["WordPress migratie", "/wordpress-naar-nextjs"],
   ["Migratie aanvragen", "/migratie-aanvragen"],
   ["Hosting", "/hosting"],
@@ -79,6 +80,7 @@ const dienstLinks: [string, string][] = [
   ["Domeinen", "/domeinen"],
   ["Vertaling", "/vertaling"],
   ["Thaise webdiensten", "/thai"],
+  ["VaarApp", "/vaarapp"],
   ["Gratis one-pager*", "/gratis-website"],
 ];
 

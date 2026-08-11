@@ -78,6 +78,14 @@ const DIENSTEN: Dienst[] = [
     emoji: "🎨",
   },
   {
+    naam: "App-ontwerp & distributie",
+    beschrijving: "Van idee tot App Store: ontwerp, bouw en publicatie van iOS-apps.",
+    href: "/app-ontwerp",
+    foto: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=70",
+    gradient: "from-emerald-950/85 to-lime-700/40",
+    emoji: "📱",
+  },
+  {
     naam: "AVG & Compliance",
     beschrijving: "Wij leveren elke website AVG-compliant op. Privacybeleid, cookiebanner, SSL.",
     href: "/avg",
@@ -467,6 +475,37 @@ function OrchidHero() {
             en AVG inbegrepen. Persoonlijk contact, vaste prijs.
           </p>
 
+          {/* Apps — elegant Apple & Android */}
+          <Link
+            href="/app-ontwerp"
+            className="group mt-7 inline-flex flex-col items-center gap-2.5 no-underline sm:flex-row sm:gap-3"
+          >
+            <span
+              className="font-lato inline-flex items-center gap-2.5 rounded-full border border-white bg-white/90 px-4 py-2.5 shadow-[0_6px_24px_rgba(15,23,42,0.08)] transition group-hover:-translate-y-0.5 group-hover:shadow-[0_10px_28px_rgba(59,109,17,0.16)]"
+            >
+              <span className="inline-flex items-center gap-1.5" aria-hidden>
+                {/* Apple */}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-neutral-dark">
+                  <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.97 2.93 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
+                </svg>
+                <span className="h-3 w-px bg-gray-200" />
+                {/* Android */}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-[#3DDC84]">
+                  <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4483.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4483.9993.9993 0 .5511-.4483.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1367 1.0989L4.841 5.4467a.4161.4161 0 00-.5676-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.186.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.575-6.1185-9.4396" />
+                </svg>
+              </span>
+              <span className="font-sora text-sm font-semibold text-neutral-dark">
+                Ook apps voor{" "}
+                <span style={{ color: HERO_ACCENT }}>Apple</span>
+                {" "}&amp;{" "}
+                <span style={{ color: HERO_ACCENT }}>Android</span>
+              </span>
+            </span>
+            <span className="font-lato text-sm text-gray-500 transition group-hover:text-neutral-dark">
+              Van ontwerp tot App Store &amp; Play Store →
+            </span>
+          </Link>
+
           <LanguageCloud />
 
           <form
@@ -527,6 +566,65 @@ export default function HomePageContent() {
 
       {/* Sectie 1 — Hero */}
       <OrchidHero />
+
+      {/* VaarApp spotlight — NIEUW */}
+      <section
+        aria-label="Nieuw: VaarApp"
+        className="relative overflow-hidden border-y border-white/10"
+        style={{
+          background:
+            "linear-gradient(120deg, #0a0f1e 0%, #163018 48%, #0a0f1e 100%)",
+        }}
+      >
+        <div
+          className="vaarapp-glow pointer-events-none absolute -left-20 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full bg-[#C8FF00]/25 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="vaarapp-glow pointer-events-none absolute -right-16 top-0 h-36 w-36 rounded-full bg-primary/40 blur-3xl"
+          aria-hidden
+          style={{ animationDelay: "1.2s" }}
+        />
+
+        <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-7 sm:flex-row sm:justify-between sm:gap-8 md:px-10 md:py-8">
+          <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-5 sm:text-left">
+            <span className="vaarapp-nieuw-badge font-lato inline-flex shrink-0 items-center rounded-full bg-[#C8FF00] px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-neutral-dark">
+              Nieuw
+            </span>
+            <div>
+              <p className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">
+                Nu in de App Store
+              </p>
+              <Link
+                href="/vaarapp"
+                className="group inline-flex items-baseline gap-2 no-underline"
+              >
+                <span className="vaarapp-wordmark font-sora text-4xl font-black tracking-tight md:text-5xl">
+                  vaarapp
+                </span>
+                <span className="font-lato text-sm font-medium text-white/70 transition group-hover:text-white">
+                  Bruggen, sluizen &amp; havens →
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/vaarapp"
+              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full bg-white px-5 text-sm font-bold text-neutral-dark transition hover:bg-[#C8FF00]"
+            >
+              Download gratis
+            </Link>
+            <Link
+              href="/app-ontwerp"
+              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
+            >
+              App-ontwerp &amp; distributie
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Trust badges */}
       <div
@@ -871,7 +969,7 @@ export default function HomePageContent() {
               Alles voor uw online aanwezigheid
             </h2>
           </motion.div>
-          <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {DIENSTEN.map((dienst) => (
               <Link
                 key={dienst.naam}
