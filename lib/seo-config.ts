@@ -56,6 +56,7 @@ export const SITEMAP_PRIORITY: Record<
   "/voorwaarden": { priority: 0.5, changeFrequency: "yearly" },
   "/gratis-website": { priority: 0.9, changeFrequency: "weekly" },
   "/vaarapp": { priority: 0.8, changeFrequency: "monthly" },
+  "/waiair": { priority: 0.8, changeFrequency: "monthly" },
   "/app-ontwerp": { priority: 0.8, changeFrequency: "monthly" },
   "/th": { priority: 0.95, changeFrequency: "weekly" },
   "/th/garage": { priority: 0.9, changeFrequency: "weekly" },

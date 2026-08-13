@@ -4,13 +4,14 @@
 User-agent: *
 Allow: /
 Allow: /vaarapp
+Allow: /waiair
 Allow: /app-ontwerp
 Disallow: /login
 Disallow: /admin
 Disallow: /dashboard
 Disallow: /api/
 
-# Extra diensten: VaarApp (iOS) · App-ontwerp & distributie
+# Extra diensten: VaarApp · WaiAir (iOS) · App-ontwerp & distributie
 
 # ——— Google ———
 User-agent: Googlebot

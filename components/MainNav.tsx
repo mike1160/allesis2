@@ -6,16 +6,18 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 
-const LIME = "#C8FF00";
+const ORANGE_SOFT = "#FF9A4A";
 const ACCENT = "#3B6D11";
+const LIME = "#C8FF00";
 
-type NavLink = { href: string; label: string; badge?: string };
+type NavLink = { href: string; label: string; badge?: string; neon?: "lime" | "orange" };
 
 /** Desktop top-nav — compact */
 const NAV_LINKS: NavLink[] = [
   { href: "/webdesign", label: "Diensten" },
   { href: "/branches", label: "Branches" },
-  { href: "/vaarapp", label: "VaarApp", badge: "Nieuw" },
+  { href: "/vaarapp", label: "VaarApp", badge: "Nieuw", neon: "lime" },
+  { href: "/waiair", label: "WaiAir", badge: "Nieuw", neon: "orange" },
   { href: "/th", label: "🇹🇭 Thailand" },
   { href: "/recent-websites", label: "Portfolio" },
   { href: "/contact", label: "Contact" },
@@ -43,15 +45,26 @@ const QUICK_LINKS: NavLink[] = [
   { href: "/avg-check", label: "Gratis checks" },
 ];
 
-function SoftBadge({ label, lime = false }: { label: string; lime?: boolean }) {
+function SoftBadge({
+  label,
+  tone = "accent",
+}: {
+  label: string;
+  tone?: "accent" | "lime" | "orange";
+}) {
+  const style =
+    tone === "lime"
+      ? { backgroundColor: LIME, color: "#0a0f1e" }
+      : tone === "orange"
+        ? { backgroundColor: ORANGE_SOFT, color: "#0a0f1e" }
+        : { backgroundColor: "rgba(59,109,17,0.12)", color: ACCENT };
+
   return (
     <span
-      className="font-lato ml-1.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide"
-      style={
-        lime
-          ? { backgroundColor: LIME, color: "#0a0f1e" }
-          : { backgroundColor: "rgba(59,109,17,0.12)", color: ACCENT }
-      }
+      className={`font-lato ml-1.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide${
+        tone === "orange" ? " waiair-nieuw-badge" : ""
+      }`}
+      style={style}
     >
       {label}
     </span>
@@ -249,12 +262,40 @@ export default function MainNav() {
               ))}
             </ul>
 
-            {/* VaarApp — één rustige highlight */}
+            {/* WaiAir — oranje neon highlight */}
+            <Link
+              href="/waiair"
+              onClick={closeMenu}
+              aria-current={isActive("/waiair") ? "page" : undefined}
+              className="mt-4 flex items-center gap-3 rounded-2xl px-4 py-3.5 no-underline"
+              style={{
+                background: "linear-gradient(120deg, #0a0f1e 0%, #3d2410 100%)",
+                boxShadow: "0 0 22px rgba(246, 130, 32, 0.22)",
+              }}
+            >
+              <span className="min-w-0 flex-1">
+                <span className="font-lato block text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
+                  Uitgelicht
+                </span>
+                <span className="mt-0.5 flex items-center gap-2">
+                  <span className="waiair-nav-wordmark font-sora text-lg font-black">WaiAir</span>
+                  <SoftBadge label="Nieuw" tone="orange" />
+                </span>
+                <span className="font-lato mt-0.5 block text-xs text-white/65">
+                  Live vluchten &amp; radar — gratis download
+                </span>
+              </span>
+              <span className="font-lato text-sm font-bold" style={{ color: ORANGE_SOFT }} aria-hidden>
+                →
+              </span>
+            </Link>
+
+            {/* VaarApp — rustige tweede highlight */}
             <Link
               href="/vaarapp"
               onClick={closeMenu}
               aria-current={isActive("/vaarapp") ? "page" : undefined}
-              className="mt-4 flex items-center gap-3 rounded-2xl px-4 py-3.5 no-underline"
+              className="mt-2.5 flex items-center gap-3 rounded-2xl px-4 py-3.5 no-underline"
               style={{
                 background: "linear-gradient(120deg, #0a0f1e 0%, #1a3a14 100%)",
               }}
@@ -265,7 +306,7 @@ export default function MainNav() {
                 </span>
                 <span className="mt-0.5 flex items-center gap-2">
                   <span className="font-sora text-lg font-black text-white">vaarapp</span>
-                  <SoftBadge label="Nieuw" lime />
+                  <SoftBadge label="Nieuw" tone="lime" />
                 </span>
                 <span className="font-lato mt-0.5 block text-xs text-white/65">
                   Bruggen, sluizen &amp; havens — gratis download
@@ -361,20 +402,40 @@ export default function MainNav() {
             <BrandMark />
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Hoofdnavigatie">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                className={`font-lato inline-flex items-center text-sm font-medium no-underline transition-colors ${
-                  isActive(link.href) ? "text-neutral-dark" : "text-neutral-mid hover:text-neutral-dark"
-                }`}
-              >
-                {link.label}
-                {link.badge ? <SoftBadge label={link.badge} lime /> : null}
-              </Link>
-            ))}
+          <nav className="hidden items-center gap-5 lg:gap-8 md:flex" aria-label="Hoofdnavigatie">
+            {NAV_LINKS.map((link) =>
+              link.neon === "orange" ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className="inline-flex items-center rounded-full px-3 py-1.5 no-underline"
+                  style={{
+                    backgroundColor: "#0a0f1e",
+                    boxShadow: "0 0 16px rgba(255, 107, 0, 0.45)",
+                  }}
+                >
+                  <span className="waiair-nav-wordmark font-sora text-sm">{link.label}</span>
+                  {link.badge ? <SoftBadge label={link.badge} tone="orange" /> : null}
+                </Link>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={`font-lato inline-flex items-center text-sm font-medium no-underline transition-colors ${
+                    isActive(link.href)
+                      ? "text-neutral-dark"
+                      : "text-neutral-mid hover:text-neutral-dark"
+                  }`}
+                >
+                  {link.label}
+                  {link.badge ? (
+                    <SoftBadge label={link.badge} tone={link.neon ?? "accent"} />
+                  ) : null}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center justify-end gap-2 sm:gap-3">

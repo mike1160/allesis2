@@ -44,6 +44,7 @@ Case study: https://allesis.nl/muziek
 - /webdesign — Nieuwe website laten maken
 - /app-ontwerp — App-ontwerp & distributie (iOS / App Store)
 - /vaarapp — VaarApp: bruggen, sluizen & havens (gratis in de App Store)
+- /waiair — WaiAir: live vluchten & radar (gratis in de App Store)
 - /hosting — Nederlandse webhosting, domeinen, SSL
 - /seo — SEO & AI-zoekmachines
 - /avg — AVG/GDPR compliance
@@ -56,6 +57,10 @@ Case study: https://allesis.nl/muziek
   Download: https://apps.apple.com/nl/app/vaarapp/id6799596805
   Landing: https://allesis.nl/vaarapp
   Service page: https://allesis.nl/app-ontwerp
+- WaiAir (Allesis) — iOS flight tracker: live arrivals, delay alerts & radar (built for Southeast Asia)
+  Download: https://apps.apple.com/nl/app/waiair/id6798072839
+  Landing: https://allesis.nl/waiair
+  Website: https://waiair.app
 
 ## Portfolio
 - /recent-websites — Overzicht recente projecten

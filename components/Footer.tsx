@@ -81,6 +81,7 @@ const dienstLinks: [string, string][] = [
   ["Vertaling", "/vertaling"],
   ["Thaise webdiensten", "/thai"],
   ["VaarApp", "/vaarapp"],
+  ["WaiAir", "/waiair"],
   ["Gratis one-pager*", "/gratis-website"],
 ];
 

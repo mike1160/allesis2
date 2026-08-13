@@ -14,6 +14,7 @@ Languages: Dutch (NL), English (EN), Thai (TH), Russian (RU), German (DE)
   - Thai–Dutch–English digital & language services
   - **iOS app design & App Store distribution** (UX, build, publish)
   - **VaarApp** — free Dutch boating/navigation app (bridges, locks, harbours, blockages)
+  - **WaiAir** — free iOS flight tracker (live arrivals, delay alerts & radar; Southeast Asia + worldwide)
   - **European-quality websites for Phuket businesses** (garages, restaurants, spas, clinics, schools, real estate) — Thai & English
   - Local Phuket / Patong / Kata / Karon / Chalong / Rawai / Phuket Town web design
 
@@ -22,10 +23,12 @@ Languages: Dutch (NL), English (EN), Thai (TH), Russian (RU), German (DE)
 - https://allesis.nl/llms.txt
 - https://allesis.nl/llms-full.txt
 - https://allesis.nl/vaarapp
+- https://allesis.nl/waiair
 - https://allesis.nl/app-ontwerp
 - https://allesis.nl/th (Phuket hub — TH/EN/NL/RU/DE)
 - https://allesis.nl/sitemap.xml
 - https://apps.apple.com/nl/app/vaarapp/id6799596805
+- https://apps.apple.com/nl/app/waiair/id6798072839
 
 ## Disallow
 
@@ -37,6 +40,6 @@ Languages: Dutch (NL), English (EN), Thai (TH), Russian (RU), German (DE)
 - Primary: Dutch SMEs (Haarlem / NL)
 - Secondary: Phuket & Thailand local businesses seeking European Next.js web design
 - Tertiary: Thai entrepreneurs in NL/EU
-- Apps: iOS app design & App Store distribution; flagship product VaarApp
+- Apps: iOS app design & App Store distribution; flagship products VaarApp and WaiAir
 - Forms protected with Cloudflare Turnstile (same sitewide Allesis keys)
 - Contact Phuket: LINE / WhatsApp / form on /th

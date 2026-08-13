@@ -66,12 +66,18 @@ export default function AppOntwerpPage() {
           >
             App bespreken →
           </Link>
-          <Link
-            href="/vaarapp"
-            className="font-lato inline-flex min-h-[48px] items-center justify-center rounded-xl border border-neutral-dark/15 bg-white px-7 text-sm font-bold text-neutral-dark transition hover:border-primary/40"
-          >
-            Bekijk VaarApp
-          </Link>
+            <Link
+              href="/vaarapp"
+              className="font-lato inline-flex min-h-[48px] items-center justify-center rounded-xl border border-neutral-dark/15 bg-white px-7 text-sm font-bold text-neutral-dark transition hover:border-primary/40"
+            >
+              Bekijk VaarApp
+            </Link>
+            <Link
+              href="/waiair"
+              className="font-lato inline-flex min-h-[48px] items-center justify-center rounded-xl border border-neutral-dark/15 bg-white px-7 text-sm font-bold text-neutral-dark transition hover:border-primary/40"
+            >
+              Bekijk WaiAir
+            </Link>
         </div>
       </SubpageHero>
 
@@ -150,6 +156,59 @@ export default function AppOntwerpPage() {
               className="font-lato mt-8 inline-flex min-h-[48px] items-center justify-center rounded-xl bg-primary px-7 text-sm font-bold text-white transition hover:bg-primary-dark"
             >
               Naar de VaarApp-pagina →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Case: WaiAir */}
+      <section
+        className="px-6 py-16 md:px-10 md:py-20"
+        style={{ backgroundColor: "#FFF7F0" }}
+        aria-labelledby="case-waiair"
+      >
+        <div className="mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-2">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border bg-neutral-dark shadow-lg" style={{ borderColor: "rgba(246,130,32,0.3)" }}>
+            <Image
+              src="/waiair/icon.png"
+              alt="WaiAir logo — vliegtuig over wereldkaart"
+              fill
+              className="object-contain object-center p-8"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+          <div>
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.16em]" style={{ color: "#F6821F" }}>
+              Case study · Live in de App Store
+            </p>
+            <h2 id="case-waiair" className="font-sora mt-3 text-3xl font-black text-neutral-dark">
+              waiair
+            </h2>
+            <p className="font-lato mt-4 leading-relaxed text-neutral-mid">
+              Onze flight tracker: live aankomsten, delay-alerts en radar — gebouwd voor
+              Zuidoost-Azië, klaar voor 10.000+ luchthavens wereldwijd. Ontworpen, gebouwd én
+              gedistribueerd via de Apple App Store door Allesis.
+            </p>
+            <ul className="font-lato mt-5 space-y-2 text-sm text-neutral-mid">
+              {[
+                "iOS · iPhone & iPad",
+                "App Store-listing & QR-download",
+                "Gates, vertragingen, radar en overstapcheck",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-0.5 font-bold" style={{ color: "#F6821F" }} aria-hidden>
+                    ✓
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/waiair"
+              className="font-lato mt-8 inline-flex min-h-[48px] items-center justify-center rounded-xl px-7 text-sm font-bold text-white transition hover:opacity-90"
+              style={{ backgroundColor: "#F6821F" }}
+            >
+              Naar de WaiAir-pagina →
             </Link>
           </div>
         </div>

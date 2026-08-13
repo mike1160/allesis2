@@ -54,6 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Apps
     { url: `${baseUrl}/vaarapp`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/waiair`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/app-ontwerp`, lastModified, changeFrequency: "monthly", priority: 0.8 },
 
     // Migratie

@@ -567,52 +567,67 @@ export default function HomePageContent() {
       {/* Sectie 1 — Hero */}
       <OrchidHero />
 
-      {/* VaarApp spotlight — NIEUW */}
+      {/* WaiAir spotlight — Cloudflare-oranje */}
       <section
-        aria-label="Nieuw: VaarApp"
+        aria-label="Nieuw: WaiAir"
         className="relative overflow-hidden border-y border-white/10"
         style={{
           background:
-            "linear-gradient(120deg, #0a0f1e 0%, #163018 48%, #0a0f1e 100%)",
+            "linear-gradient(120deg, #0a0f1e 0%, #3d2410 48%, #0a0f1e 100%)",
         }}
       >
         <div
-          className="vaarapp-glow pointer-events-none absolute -left-20 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full bg-[#C8FF00]/25 blur-3xl"
+          className="pointer-events-none absolute -left-20 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full blur-3xl"
+          style={{ backgroundColor: "rgba(246,130,32,0.28)" }}
           aria-hidden
         />
         <div
-          className="vaarapp-glow pointer-events-none absolute -right-16 top-0 h-36 w-36 rounded-full bg-primary/40 blur-3xl"
+          className="pointer-events-none absolute -right-16 top-0 h-36 w-36 rounded-full blur-3xl"
+          style={{ backgroundColor: "rgba(255,154,74,0.22)", animationDelay: "1.2s" }}
           aria-hidden
-          style={{ animationDelay: "1.2s" }}
         />
 
         <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-7 sm:flex-row sm:justify-between sm:gap-8 md:px-10 md:py-8">
           <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-5 sm:text-left">
-            <span className="vaarapp-nieuw-badge font-lato inline-flex shrink-0 items-center rounded-full bg-[#C8FF00] px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-neutral-dark">
+            <span
+              className="waiair-nieuw-badge font-lato inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-neutral-dark"
+              style={{ backgroundColor: "#FF9A4A" }}
+            >
               Nieuw
             </span>
-            <div>
-              <p className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">
-                Nu in de App Store
-              </p>
-              <Link
-                href="/vaarapp"
-                className="group inline-flex items-baseline gap-2 no-underline"
-              >
-                <span className="vaarapp-wordmark font-sora text-4xl font-black tracking-tight md:text-5xl">
-                  vaarapp
-                </span>
-                <span className="font-lato text-sm font-medium text-white/70 transition group-hover:text-white">
-                  Bruggen, sluizen &amp; havens →
-                </span>
-              </Link>
+            <div className="flex items-center gap-3">
+              <div className="relative hidden h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md sm:block">
+                <Image
+                  src="/waiair/icon.png"
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
+              </div>
+              <div>
+                <p className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">
+                  Nu in de App Store
+                </p>
+                <Link
+                  href="/waiair"
+                  className="group inline-flex items-baseline gap-2 no-underline"
+                >
+                  <span className="waiair-nav-wordmark font-sora text-4xl font-black tracking-tight md:text-5xl">
+                    WaiAir
+                  </span>
+                  <span className="font-lato text-sm font-medium text-white/70 transition group-hover:text-white">
+                    Live vluchten &amp; radar →
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/vaarapp"
-              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full bg-white px-5 text-sm font-bold text-neutral-dark transition hover:bg-[#C8FF00]"
+              href="/waiair"
+              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full bg-white px-5 text-sm font-bold text-neutral-dark transition hover:bg-[#FF9A4A]"
             >
               Download gratis
             </Link>
