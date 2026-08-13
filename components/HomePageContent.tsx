@@ -625,12 +625,16 @@ export default function HomePageContent() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/waiair"
-              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full bg-white px-5 text-sm font-bold text-neutral-dark transition hover:bg-[#FF9A4A]"
+            <a
+              href="https://apps.apple.com/nl/app/vaarapp/id6799596805"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full px-5 text-sm font-bold text-neutral-dark transition hover:opacity-90"
+              style={{ backgroundColor: "#FF9A4A" }}
+              aria-label="Download VaarApp in de App Store"
             >
               Download gratis
-            </Link>
+            </a>
             <Link
               href="/app-ontwerp"
               className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
