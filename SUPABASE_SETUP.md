@@ -95,3 +95,12 @@ In Supabase → **Authentication → URL Configuration**:
 - Redirect URLs: voeg toe `https://allesis2-4h7j.vercel.app/**`
 
 Klaar! Ga naar /registreren om een account aan te maken.
+
+## Webbestellingen (MultiSafepay)
+
+Voor de checkout is één extra tabel nodig. Draai `supabase/web_orders.sql` in de
+SQL Editor — het gebruikt `create table if not exists` en raakt bestaande
+tabellen niet aan.
+
+`order_id` is unique: daarop voorkomt `/api/msp-webhook` dat een herhaalde
+notificatie dezelfde bestelling twee keer levert.

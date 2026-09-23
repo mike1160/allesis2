@@ -20,12 +20,12 @@ export const metadata: Metadata = {
 };
 
 const extensies = [
-  { ext: ".nl", prijs: "€ 9,95/jr", omschrijving: "Nederlandstalig publiek" },
-  { ext: ".com", prijs: "€ 12,95/jr", omschrijving: "Internationaal bereik" },
-  { ext: ".net", prijs: "€ 13,95/jr", omschrijving: "Tech & netwerken" },
-  { ext: ".eu", prijs: "€ 8,95/jr", omschrijving: "Europees bereik" },
-  { ext: ".org", prijs: "€ 13,95/jr", omschrijving: "Non-profit & organisaties" },
-  { ext: ".be", prijs: "€ 9,95/jr", omschrijving: "Belgisch publiek" },
+  { ext: ".nl", slug: "domein-nl", prijs: "€ 9,95/jr", omschrijving: "Nederlandstalig publiek" },
+  { ext: ".com", slug: "domein-com", prijs: "€ 12,95/jr", omschrijving: "Internationaal bereik" },
+  { ext: ".net", slug: "domein-net", prijs: "€ 13,95/jr", omschrijving: "Tech & netwerken" },
+  { ext: ".eu", slug: "domein-eu", prijs: "€ 8,95/jr", omschrijving: "Europees bereik" },
+  { ext: ".org", slug: "domein-org", prijs: "€ 13,95/jr", omschrijving: "Non-profit & organisaties" },
+  { ext: ".be", slug: "domein-be", prijs: "€ 9,95/jr", omschrijving: "Belgisch publiek" },
 ];
 
 export default function DomeinenPage() {
@@ -45,6 +45,10 @@ export default function DomeinenPage() {
         <h2 className="font-sora mx-auto mb-10 max-w-4xl text-center text-2xl font-bold text-neutral-dark md:text-3xl">
           Populaire extensies & prijzen
         </h2>
+        <p className="font-lato mx-auto mb-10 max-w-2xl text-center text-sm text-neutral-mid">
+          Getoonde prijzen zijn exclusief btw. Controleer hierboven eerst of uw naam vrij is — daarna
+          kunt u hem direct afrekenen, inclusief btw.
+        </p>
         <RevealStagger className="mx-auto grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           {extensies.map((d) => (
             <RevealItem key={d.ext}>

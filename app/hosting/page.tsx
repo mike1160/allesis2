@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import BestelKnop from "@/components/BestelKnop";
 import HostingOrderForm from "@/components/HostingOrderForm";
 import FaqSection from "@/components/seo/FaqSection";
 import JsonLd from "@/components/seo/JsonLd";
@@ -36,6 +37,7 @@ export default function HostingPage() {
   const pakketten = [
     {
       naam: "Lite",
+      slug: "hosting-lite",
       prijs: "4,95",
       features: [
         "1.000 MB schijfruimte",
@@ -52,6 +54,7 @@ export default function HostingPage() {
     },
     {
       naam: "Start Up",
+      slug: "hosting-start-up",
       prijs: "8,95",
       highlight: true,
       features: [
@@ -69,6 +72,7 @@ export default function HostingPage() {
     },
     {
       naam: "Basic",
+      slug: "hosting-basic",
       prijs: "14,95",
       features: [
         "8.000 MB schijfruimte",
@@ -123,14 +127,17 @@ export default function HostingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`}
-                  className={`font-lato mt-8 block min-h-[44px] rounded-xl py-3 text-center text-sm font-bold transition ${
-                    p.highlight ? "bg-white text-primary hover:bg-neutral-light" : "bg-primary text-white hover:bg-primary-dark"
-                  }`}
-                >
-                  Bestel nu →
-                </Link>
+                <div className="mt-8">
+                  <BestelKnop slug={p.slug} variant={p.highlight ? "wit" : "primary"} />
+                  <Link
+                    href={`/hosting?pakket=${encodeURIComponent(p.naam)}#hosting-bestellen`}
+                    className={`font-lato mt-3 block text-center text-xs underline ${
+                      p.highlight ? "text-white/80 hover:text-white" : "text-neutral-mid hover:text-primary"
+                    }`}
+                  >
+                    Liever eerst overleggen? Stuur een aanvraag
+                  </Link>
+                </div>
               </PremiumCard>
             ))}
           </div>

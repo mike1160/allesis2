@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BrancheHero from "@/components/BrancheHero";
 import FAQGrid from "@/components/FAQGrid";
+import BestelKnop from "@/components/BestelKnop";
 import BrancheCTA from "@/components/BrancheCTA";
 import FeatureGrid from "@/components/FeatureGrid";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
@@ -96,6 +97,19 @@ export default function WebshopPage() {
           },
         ]}
       />
+      <section className="bg-white px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-md rounded-2xl border border-neutral-200 bg-neutral-50 p-8 text-center">
+          <h2 className="font-sora text-xl font-bold text-neutral-dark">Webshop Starter</h2>
+          <p className="font-lato mt-2 text-sm text-neutral-mid">
+            Direct beginnen met productbeheer, betaalkoppeling en verzendopties. Wij nemen binnen één
+            werkdag contact op om uw shop in te richten.
+          </p>
+          <div className="mt-6">
+            <BestelKnop slug="webshop-starter" extraLabel="Uw website of gewenste domeinnaam" />
+          </div>
+        </div>
+      </section>
+
       <BrancheCTA branche="webshop" />
     </main>
   );

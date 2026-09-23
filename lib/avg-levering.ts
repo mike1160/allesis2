@@ -1,8 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
-import type { Payment } from "@mollie/api-client";
 import Anthropic from "@anthropic-ai/sdk";
 import { Resend } from "resend";
-import { getMollieClient } from "@/lib/mollie-client";
+import { SITE_URL } from "@/lib/seo-config";
+
+/**
+ * Levering van de AVG-fix: Claude schrijft de privacyverklaring en de
+ * cookiebanner-instructie, Resend mailt ze naar de klant.
+ *
+ * Eerder stond dit in app/api/payment/webhook (Mollie); het is hier
+ * ongewijzigd uit gelicht zodat de MultiSafepay-webhook het kan aanroepen.
+ */
+
+export type AvgLeveringInput = {
+  domain: string;
+  platform: string;
+  email: string;
+};
 
 function getAnthropicClient() {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -14,59 +26,7 @@ function getResendClient() {
   return apiKey ? new Resend(apiKey) : null;
 }
 
-// Mollie stuurt id als form-urlencoded body
-export async function POST(req: NextRequest) {
-  let paymentId: string;
-  try {
-    const text = await req.text();
-    const params = new URLSearchParams(text);
-    paymentId = params.get("id") ?? "";
-  } catch {
-    return NextResponse.json({ error: "Ongeldig verzoek." }, { status: 400 });
-  }
-
-  if (!paymentId) {
-    return new NextResponse("ok", { status: 200 }); // Mollie verwacht altijd 200
-  }
-
-  // Haal betaling op bij Mollie
-  const mollie = getMollieClient();
-  if (!mollie) {
-    console.error("[webhook] MOLLIE_API_KEY ontbreekt");
-    return new NextResponse("ok", { status: 200 });
-  }
-
-  let payment: Payment;
-  try {
-    payment = await mollie.payments.get(paymentId);
-  } catch (err) {
-    console.error("[webhook] Mollie get payment fout:", err);
-    return new NextResponse("ok", { status: 200 });
-  }
-
-  // Alleen verwerken als écht betaald
-  if (payment.status !== "paid") {
-    return new NextResponse("ok", { status: 200 });
-  }
-
-  const meta = payment.metadata as {
-    scanId?: string;
-    domain?: string;
-    platform?: string;
-    email?: string;
-  };
-
-  const domain = meta.domain ?? "uw website";
-  const platform = meta.platform ?? "Anders";
-  const email = meta.email ?? "";
-  const scanId = meta.scanId ?? "";
-
-  if (!email) {
-    console.error("[webhook] geen email in metadata, scanId:", scanId);
-    return new NextResponse("ok", { status: 200 });
-  }
-
-  // Claude genereert privacyverklaring + cookiesnippet
+export async function leverAvgDocumenten({ domain, platform, email }: AvgLeveringInput): Promise<boolean> {
   let privacyText = "";
   let snippetText = "";
 
@@ -78,7 +38,7 @@ export async function POST(req: NextRequest) {
 
     const [privacyRes, snippetRes] = await Promise.all([
       anthropic.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-5",
         max_tokens: 1500,
         messages: [
           {
@@ -94,7 +54,7 @@ Geef alleen de verklaring terug, geen uitleg eromheen.`,
         ],
       }),
       anthropic.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-5",
         max_tokens: 800,
         messages: [
           {
@@ -112,24 +72,23 @@ Geef alleen de instructie terug, geen uitleg eromheen.`,
       }),
     ]);
 
-    privacyText =
-      privacyRes.content[0].type === "text" ? privacyRes.content[0].text : "";
-    snippetText =
-      snippetRes.content[0].type === "text" ? snippetRes.content[0].text : "";
+    privacyText = privacyRes.content[0].type === "text" ? privacyRes.content[0].text : "";
+    snippetText = snippetRes.content[0].type === "text" ? snippetRes.content[0].text : "";
   } catch (err) {
-    console.error("[webhook] Claude API fout:", err);
+    console.error("[avg-levering] Claude API fout:", err);
     // Ga toch door met mail sturen, ook al is generatie mislukt
     privacyText = "Er is een fout opgetreden bij het genereren. Neem contact op via support@allesis.nl";
     snippetText = privacyText;
   }
 
-  // Stuur mail via Resend
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || SITE_URL;
+
   const htmlBody = `
 <!DOCTYPE html>
 <html lang="nl">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a2e">
-  <img src="${process.env.NEXT_PUBLIC_SITE_URL}/logo.png" alt="Allesis" style="height:36px;margin-bottom:24px">
+  <img src="${siteUrl}/logo.png" alt="Allesis" style="height:36px;margin-bottom:24px">
   <h1 style="font-size:22px;font-weight:700;margin-bottom:8px">Uw AVG-documenten zijn klaar</h1>
   <p style="color:#555;margin-bottom:24px">Hieronder vindt u uw privacyverklaring en de cookiebanner-instructies voor <strong>${domain}</strong>.</p>
 
@@ -161,10 +120,9 @@ Geef alleen de instructie terug, geen uitleg eromheen.`,
       subject: `Uw AVG-documenten voor ${domain}`,
       html: htmlBody,
     });
+    return true;
   } catch (err) {
-    console.error("[webhook] Resend fout:", err);
-    // Niet fataal — Mollie moet altijd 200 krijgen
+    console.error("[avg-levering] Resend fout:", err);
+    return false;
   }
-
-  return new NextResponse("ok", { status: 200 });
 }

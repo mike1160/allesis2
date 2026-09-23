@@ -1,7 +1,17 @@
 "use client";
 import { useState } from "react";
+import BestelKnop from "@/components/BestelKnop";
 
 const EXTENSIONS = [".nl", ".com", ".net", ".eu", ".org", ".be"];
+
+const SLUGS: Record<string, string> = {
+  ".nl": "domein-nl",
+  ".com": "domein-com",
+  ".net": "domein-net",
+  ".eu": "domein-eu",
+  ".org": "domein-org",
+  ".be": "domein-be",
+};
 
 const PRICES: Record<string, string> = {
   ".nl": "€ 9,95/jr",
@@ -91,12 +101,12 @@ export default function DomainChecker({ forDarkBackground = false }: { forDarkBa
         <div style={{ maxWidth: 580, margin: "24px auto 0", display: "flex", flexDirection: "column", gap: 8 }}>
           {results.map(r => (
             <div key={r.ext} style={{
-              display: "flex", alignItems: "center", justifyContent: "space-between",
               padding: "14px 20px", background: "white", borderRadius: 10,
               border: `1px solid ${r.loading ? "#e2e6f0" : r.available === true ? "#bbf7d0" : r.available === false ? "#fecaca" : "#e2e6f0"}`,
               boxShadow: "0 1px 4px rgba(0,0,0,0.05)",
               transition: "border-color .3s",
             }}>
+             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {r.loading ? (
                   <div style={{ width: 20, height: 20, borderRadius: "50%", border: "2px solid #e2e6f0", borderTopColor: "#3B6D11", animation: "spin .8s linear infinite" }} />
@@ -117,17 +127,23 @@ export default function DomainChecker({ forDarkBackground = false }: { forDarkBa
                     {r.available === true ? r.price : r.available === false ? "Bezet" : "Onbekend"}
                   </span>
                 )}
-                {!r.loading && r.available === true && (
-                  <a href={`mailto:info@allesis.nl?subject=Domein registreren: ${domainName}${r.ext}`}
-                    style={{ padding: "6px 14px", background: "#3B6D11", color: "white", borderRadius: 6, fontFamily: "Lato, sans-serif", fontWeight: 700, fontSize: 12, textDecoration: "none" }}>
-                    Registreer →
-                  </a>
-                )}
               </div>
+             </div>
+
+              {/* Afrekenen kan alleen voor een naam die zojuist vrij bleek */}
+              {!r.loading && r.available === true && SLUGS[r.ext] ? (
+                <div style={{ marginTop: 12 }}>
+                  <BestelKnop
+                    slug={SLUGS[r.ext]}
+                    label="Registreer"
+                    extraValue={`${domainName}${r.ext}`}
+                  />
+                </div>
+              ) : null}
             </div>
           ))}
           <p style={{ fontFamily: "Lato, sans-serif", fontSize: 12, color: "#94a3b8", textAlign: "center", marginTop: 8 }}>
-            Wil je een domein registreren? Klik op &ldquo;Registreer&rdquo; en stuur ons een bericht.
+            Alleen vrije namen kunt u direct afrekenen. Wij registreren de naam en nemen binnen 1 werkdag contact op.
           </p>
         </div>
       )}

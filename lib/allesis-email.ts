@@ -66,7 +66,7 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function tableHtml(rows: { label: string; value: string }[]): string {
+export function tableHtml(rows: { label: string; value: string }[]): string {
   const body = rows
     .filter((r) => r.value !== undefined && r.value !== null && String(r.value).trim() !== "")
     .map(
@@ -90,7 +90,7 @@ function plainDivider(): string {
   return "----------------------------------------";
 }
 
-function wrapEmail(inner: string, title: string): string {
+export function wrapEmail(inner: string, title: string): string {
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: #3B6D11; padding: 24px; border-radius: 8px 8px 0 0; color: #ffffff;">
@@ -637,6 +637,103 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
 </html>`;
 }
 
+type WebOrderPayload = {
+  product: string;
+  naam: string;
+  email: string;
+  extra?: string;
+  bedrag: string;
+  orderId: string;
+};
+
+function webOrderRows(payload: WebOrderPayload): { label: string; value: string }[] {
+  return [
+    { label: "Product", value: payload.product },
+    { label: "Bedrag", value: payload.bedrag },
+    { label: "Naam", value: payload.naam || "—" },
+    { label: "E-mail", value: payload.email },
+    { label: "Toelichting", value: payload.extra?.trim() || "—" },
+    { label: "Order-ID", value: payload.orderId },
+  ];
+}
+
+const WEB_ORDER_INTRO =
+  "We hebben je bestelling ontvangen en gaan ermee aan de slag, binnen 1 werkdag hoor je van ons.";
+
+function webOrderCustomerConfirmationText(payload: WebOrderPayload): string {
+  const lines = [
+    `Beste ${payload.naam || "klant"},`,
+    "",
+    WEB_ORDER_INTRO,
+    "",
+    "Samenvatting",
+    "",
+    ...webOrderRows(payload).map((r) => plainRow(r.label, r.value)),
+    "",
+    plainDivider(),
+    "",
+    "— Allesis · info@allesis.nl · Haarlem",
+  ];
+  return lines.join("\n");
+}
+
+function webOrderCustomerConfirmationHtml(payload: WebOrderPayload): string {
+  return `
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:${BRAND.surface};">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:linear-gradient(180deg, #eef2ff 0%, ${BRAND.surface} 280px);padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(30,64,175,0.10);border:1px solid ${BRAND.border};">
+          <tr>
+            <td style="background:${BRAND.markBlue};padding:28px 32px;text-align:center;color:${BRAND.white};">
+              ${emailBrandMarkHtml()}
+              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
+                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">Beste ${escapeHtml(payload.naam || "klant")},</p>
+              <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:${BRAND.text};line-height:1.35;letter-spacing:-0.02em;">Bedankt voor uw bestelling</h1>
+              <p style="margin:0 0 24px;font-size:15px;color:${BRAND.muted};line-height:1.7;">
+                ${WEB_ORDER_INTRO}
+              </p>
+              <div style="background:${BRAND.surface};border:1px solid ${BRAND.border};border-radius:10px;padding:20px 22px;margin-bottom:24px;">
+                <p style="margin:0 0 12px;font-size:12px;font-weight:700;color:${BRAND.markBlue};text-transform:uppercase;letter-spacing:0.06em;">Samenvatting van uw bestelling</p>
+                ${tableHtml(webOrderRows(payload))}
+              </div>
+              <p style="margin:0;font-size:14px;color:${BRAND.muted};line-height:1.65;">
+                Heeft u nog vragen? Beantwoord gerust op deze e-mail of neem direct contact op via onderstaande gegevens.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 32px;background:${BRAND.surface};border-top:1px solid ${BRAND.border};font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+              <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:${BRAND.text};">Allesis</p>
+              <p style="margin:0 0 6px;font-size:14px;color:${BRAND.muted};line-height:1.6;">
+                <a href="mailto:info@allesis.nl" style="color:${BRAND.markBlue};text-decoration:none;font-weight:600;">info@allesis.nl</a>
+                &nbsp;·&nbsp; Haarlem, Nederland
+              </p>
+              <p style="margin:12px 0 0;font-size:14px;">
+                <a href="${SITE_URL}" style="color:${BRAND.markBlue};text-decoration:none;font-weight:600;">allesis.nl</a>
+              </p>
+              <p style="margin:20px 0 0;font-size:11px;color:${BRAND.subtle};line-height:1.5;">
+                U ontvangt deze e-mail omdat u een bestelling heeft geplaatst op onze website. Dit is een automatische bevestiging; antwoorden op deze e-mail komen bij ons terecht indien uw mailclient dat ondersteunt.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
 export type AllesisEmailPayload =
   | { type: "contact"; naam: string; email: string; onderwerp?: string; bericht: string; nieuwsbrief?: boolean; lang?: string }
   | {
@@ -682,7 +779,8 @@ export type AllesisEmailPayload =
       bericht?: string;
       nieuwsbrief?: boolean;
     }
-  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean };
+  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean }
+  | ({ type: "web_order" } & WebOrderPayload);
 
 export async function sendAllesisEmail(
   payload: AllesisEmailPayload,
@@ -697,7 +795,10 @@ export async function sendAllesisEmail(
 
   const resend = new Resend(key);
   const from = getFromAddress();
-  const to = process.env.BUSINESS_EMAIL || "info@allesis.nl";
+  const to =
+    payload.type === "web_order"
+      ? process.env.ADMIN_EMAIL || process.env.BUSINESS_EMAIL || "info@allesis.nl"
+      : process.env.BUSINESS_EMAIL || "info@allesis.nl";
 
   let subject: string;
   let html: string;
@@ -811,6 +912,13 @@ export async function sendAllesisEmail(
       text = businessMigratieNotificationText(payload);
       break;
     }
+    case "web_order": {
+      replyTo = payload.email;
+      subject = `Betaald: ${payload.product} — ${payload.email}`;
+      html = wrapEmail(tableHtml(webOrderRows(payload)), "Nieuwe bestelling betaald");
+      text = webOrderCustomerConfirmationText(payload);
+      break;
+    }
     default:
       return { ok: false, message: "Onbekend berichttype." };
   }
@@ -834,7 +942,8 @@ export async function sendAllesisEmail(
     payload.type === "contact" ||
     payload.type === "offerte" ||
     payload.type === "gratis_website" ||
-    payload.type === "migratie_aanvraag"
+    payload.type === "migratie_aanvraag" ||
+    payload.type === "web_order"
   ) {
     const customerEmail = payload.email.trim();
     console.log("[debug] sending to customer:", { type: payload.type, customerEmail });
@@ -854,6 +963,10 @@ export async function sendAllesisEmail(
         confirmHtml = offerteCustomerConfirmationHtml(payload);
         confirmText = offerteCustomerConfirmationText(payload);
         confirmSubject = "Bedankt voor uw offerteaanvraag — Allesis.nl";
+      } else if (payload.type === "web_order") {
+        confirmHtml = webOrderCustomerConfirmationHtml(payload);
+        confirmText = webOrderCustomerConfirmationText(payload);
+        confirmSubject = `Uw bestelling is ontvangen — ${payload.product}`;
       } else if (payload.type === "migratie_aanvraag") {
         confirmHtml = migratieCustomerConfirmationHtml(payload);
         confirmText = migratieCustomerConfirmationText(payload);

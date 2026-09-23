@@ -70,6 +70,7 @@ export default function AvgCheckClient() {
   const [popupPrivacyError, setPopupPrivacyError] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [avgAkkoord, setAvgAkkoord] = useState(false);
 
   const setPopupPrivacy = useCallback((v: boolean) => {
     setPopupPrivacyAccepted(v);
@@ -230,25 +231,30 @@ export default function AvgCheckClient() {
 
   const handleBetalen = async () => {
     if (!result) return;
+    if (!avgAkkoord) {
+      setPaymentError("Vink eerst aan dat u akkoord gaat met directe levering.");
+      return;
+    }
     setPaymentLoading(true);
     setPaymentError(null);
     try {
-      const res = await fetch("/api/payment/create", {
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          scanId: result.scanId,
-          domain: result.domain,
-          platform: platform,
+          slug: "avg-fix",
           email: contactEmail,
+          akkoord: true,
+          // var3 in MultiSafepay — de webhook splitst hierop voor de levering
+          extra: `${result.domain}|${platform || "Anders"}`,
         }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setPaymentError(data.error || "Betaling aanmaken mislukt.");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.url) {
+        setPaymentError(typeof data.error === "string" ? data.error : "Betaling aanmaken mislukt.");
         return;
       }
-      window.location.href = data.checkoutUrl;
+      window.location.href = data.url;
     } catch {
       setPaymentError("Kon de server niet bereiken. Probeer het opnieuw.");
     } finally {
@@ -391,16 +397,31 @@ export default function AvgCheckClient() {
                     placeholder="Uw e-mailadres voor de documenten"
                     className="font-lato w-full rounded-xl border-2 border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-accent focus:ring-2 focus:ring-accent/30"
                   />
+                  <label className="flex items-start gap-2 text-left text-xs leading-relaxed text-white/90">
+                    <input
+                      type="checkbox"
+                      checked={avgAkkoord}
+                      onChange={(e) => setAvgAkkoord(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 shrink-0 accent-white"
+                    />
+                    <span>
+                      Ik ga akkoord met de{" "}
+                      <Link href="/voorwaarden" target="_blank" className="underline">
+                        algemene voorwaarden
+                      </Link>{" "}
+                      en met directe levering, en weet dat ik daardoor mijn herroepingsrecht verlies.
+                    </span>
+                  </label>
                   <button
                     type="button"
                     onClick={handleBetalen}
-                    disabled={paymentLoading}
+                    disabled={paymentLoading || !avgAkkoord}
                     className="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-white px-8 font-bold text-primary transition hover:bg-neutral-light disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {paymentLoading ? "Bezig…" : "Fix mijn website voor €79 →"}
+                    {paymentLoading ? "Even geduld…" : "Fix mijn website voor €84,69 →"}
                   </button>
                   {paymentError ? <p className="text-sm text-red-200">{paymentError}</p> : null}
-                  <p className="text-xs text-white/70">Betalen via iDEAL · Binnen 10 minuten uw documenten per mail</p>
+                  <p className="text-xs text-white/70">Incl. btw · iDEAL, Bancontact, creditcard of Apple Pay · Binnen 10 minuten uw documenten per mail</p>
                 </div>
               </div>
             ) : (
