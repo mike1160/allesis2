@@ -38,6 +38,14 @@ const featured = {
 
 const projects = [
   {
+    title: "Voque Beauty Boutique",
+    subtitle: "Schoonheidssalon — Boesingheliede (Haarlemmermeer)",
+    url: "/salon-website",
+    image: "/cases/voque/home.webp",
+    description:
+      "Salonwebsite met online afspraken, cadeaubonnen met QR-code, webshop met PostNL/DHL-verzendkosten, facturen en lokale pagina's voor Haarlem, Hoofddorp en Amsterdam. Bekijk de volledige case.",
+  },
+  {
     title: "Saved Souls Foundation",
     subtitle: "Dierenopvang Thailand",
     url: "https://www.savedsouls-foundation.com/nl",
@@ -126,8 +134,8 @@ export default function RecentWebsitesPage() {
               <Link
                 key={project.url}
                 href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={project.url.startsWith("/") ? undefined : "_blank"}
+                rel={project.url.startsWith("/") ? undefined : "noopener noreferrer"}
                 className="group block no-underline"
               >
                 <PremiumCard className="!p-0 overflow-hidden">
@@ -149,7 +157,7 @@ export default function RecentWebsitesPage() {
                     <p className="font-lato mt-1 text-sm font-semibold" style={{ color: "#3B6D11" }}>{project.subtitle}</p>
                     <p className="font-lato mt-3 text-sm leading-relaxed text-neutral-mid">{project.description}</p>
                     <span className="font-lato mt-4 inline-flex items-center gap-2 text-sm font-bold group-hover:underline" style={{ color: "#3B6D11" }}>
-                      Bezoek website <ExternalLink className="h-4 w-4" aria-hidden />
+                      {project.url.startsWith("/") ? "Bekijk de case →" : <>Bezoek website <ExternalLink className="h-4 w-4" aria-hidden /></>}
                     </span>
                   </div>
                 </PremiumCard>

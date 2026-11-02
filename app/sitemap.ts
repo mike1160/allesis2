@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const tools = [
     "recent-websites",
+    "salon-website",
     "pagespeed-check",
     "ai-vindbaarheid-check",
     "tools/website-monitor",
