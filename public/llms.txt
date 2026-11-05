@@ -84,3 +84,7 @@ Schema.org + Open Graph + hreflang (th/en/nl/ru/de on /th)
 ## Over Allesis
 Allesis.nl — Haarlem, Nederland · KvK 52339831 · sinds 2020
 Specialisme: MKB Nederland + European web design for Phuket & Thailand
+
+## Allesis Geboekt
+
+- [Allesis Geboekt](https://allesis.nl/geboekt): nieuwe boekingsapp voor bedrijven die op afspraak werken. Zonder PHP en plug-ins, geen commissie, 4 weken gratis, daarna 24,95 euro per maand excl. btw.

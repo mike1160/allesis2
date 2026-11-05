@@ -1241,6 +1241,21 @@ export default function HomePageContent() {
       </RevealSection>
 
       {/* Sectie 10 — FAQ */}
+      {/* Nieuw product: Allesis Geboekt */}
+      <RevealSection className="px-6 py-[110px] md:px-10">
+        <div className="mx-auto grid max-w-5xl items-center gap-10 rounded-3xl px-8 py-12 text-white md:grid-cols-[1.4fr_1fr] md:px-12" style={{ background: "linear-gradient(135deg,#3F2554,#D45D79)" }}>
+          <div>
+            <span className="font-lato inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold tracking-wide uppercase">Nieuw</span>
+            <h2 className="font-sora mt-4 text-3xl font-bold md:text-4xl">Alles is geboekt.</h2>
+            <p className="font-lato mt-3 max-w-xl text-white/90">Onze nieuwe boekingsapp voor iedereen die op afspraak werkt, van kapper tot tandarts. Klanten boeken zelf, dag en nacht. Zonder PHP, zonder plug-ins en zonder commissie.</p>
+            <Link href="/geboekt" className="font-lato mt-6 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-8 font-bold text-[#3F2554] transition hover:opacity-90">Bekijk Allesis Geboekt →</Link>
+          </div>
+          <ul className="font-lato space-y-3 text-sm">
+            {["4 weken gratis, zonder betaalgegevens", "Daarna €24,95 per maand excl. btw", "2FA en elke zaak apart afgeschermd", "Op uw telefoon, in gewone taal"].map((x) => <li key={x} className="flex gap-2"><span aria-hidden="true" className="font-bold">✓</span>{x}</li>)}
+          </ul>
+        </div>
+      </RevealSection>
+
       <FAQGrid
         gradient="from-blue-900/95 via-blue-900/80 to-blue-800/60"
         items={HOME_FAQ_GRID}

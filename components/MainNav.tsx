@@ -16,6 +16,7 @@ type NavLink = { href: string; label: string; badge?: string; neon?: "lime" | "o
 const NAV_LINKS: NavLink[] = [
   { href: "/webdesign", label: "Diensten" },
   { href: "/branches", label: "Branches" },
+  { href: "/geboekt", label: "Geboekt", badge: "Nieuw", neon: "orange" },
   { href: "/vaarapp", label: "VaarApp", badge: "Nieuw", neon: "lime" },
   { href: "/waiair", label: "WaiAir", badge: "Nieuw", neon: "orange" },
   { href: "/th", label: "🇹🇭 Thailand" },
