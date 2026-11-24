@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import BlackFridayPrijs from "@/components/BlackFridayPrijs";
+import WeatherFx, { LUCHT } from "@/components/home/WeatherFx";
+import { seizoenEffect, WEER_EFFECTEN, weerInfo, type WeerEffect, type WeerInfo } from "@/lib/weer";
 import CookieConsent from "@/components/CookieConsent";
 import FAQGrid from "@/components/FAQGrid";
 import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
@@ -367,67 +370,68 @@ function MigrationStatsBackgroundLogos() {
 }
 
 /* ---------- Hero — centered, accent #3B6D11 ---------- */
-const HERO_ACCENT = "#3B6D11";
 
 const HERO_CHECKS = ["Gevonden in Google én AI", "Hosting €20 p/m incl. e-mail & SSL", "Reactie binnen 1 werkdag"];
 
 function OrchidHero() {
+  const [weer, setWeer] = useState<WeerInfo | null>(null);
+  const effect: WeerEffect = weer?.effect ?? seizoenEffect();
+
+  useEffect(() => {
+    let actief = true;
+    const forceer = new URLSearchParams(window.location.search).get("weer") as WeerEffect | null;
+    fetch("/api/weer")
+      .then((r) => r.json() as Promise<WeerInfo>)
+      .catch(() => weerInfo(seizoenEffect(), null))
+      .then((info) => {
+        if (!actief) return;
+        setWeer(forceer && WEER_EFFECTEN.includes(forceer) ? weerInfo(forceer, info.temp) : info);
+      });
+    return () => {
+      actief = false;
+    };
+  }, []);
+
   return (
     <section
-      className="relative overflow-hidden"
-      style={{
-        backgroundImage: "url('/hero.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="relative overflow-hidden text-white transition-[background] duration-1000"
+      style={{ background: LUCHT[effect] }}
     >
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{ backgroundColor: "rgba(255,255,255,0.82)" }}
-        aria-hidden
-      />
+      <WeatherFx effect={effect} />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black/30" aria-hidden />
 
-      <div className="relative z-[1] mx-auto flex max-w-3xl flex-col items-center px-6 pb-20 pt-32 text-center md:px-10 md:pb-28 md:pt-36">
+      <div className="relative z-[1] mx-auto flex min-h-[88vh] max-w-4xl flex-col items-center justify-center px-6 pb-20 pt-32 text-center md:px-10 md:pb-24 md:pt-36">
         <motion.div
           className="flex w-full flex-col items-center"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: easeOut }}
+          transition={{ duration: 0.7, ease: easeOut }}
         >
-          <span
-            className="font-lato inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em]"
-            style={{
-              color: HERO_ACCENT,
-              borderColor: "rgba(59,109,17,0.25)",
-              backgroundColor: "rgba(59,109,17,0.06)",
-            }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: HERO_ACCENT }} aria-hidden />
-            ✦ Voor het Nederlandse MKB
+          <span className="font-lato inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+            Webbureau voor het MKB · Haarlem
           </span>
 
-          <h1 className="font-sora mt-7 text-[clamp(2.4rem,6.5vw,4.25rem)] font-black leading-[1.08] tracking-[-0.03em] text-neutral-dark">
-            Klaar met <span className="whitespace-nowrap">website-gedoe?</span>{" "}
-            <span style={{ color: HERO_ACCENT }}>Wij regelen het</span>.
+          <h1 className="font-sora mt-7 text-[clamp(2.8rem,8vw,5.6rem)] font-black leading-[1.02] tracking-[-0.035em] [text-shadow:0_4px_30px_rgba(0,0,0,0.35)]">
+            Uw website.
+            <br />
+            <span className="text-accent">Zorgeloos geregeld.</span>
           </h1>
 
-          <p className="font-lato mt-6 max-w-xl text-lg leading-relaxed text-gray-600 md:text-xl">
-            Geen PHP-lekken, geen spam in uw inbox, geen plug-ins die om updates zeuren. Wij bouwen
-            snelle, goed beveiligde websites voor ondernemers die gewoon willen dat het werkt. Gevonden
-            in Google én AI, met hosting en AVG inbegrepen. Eén vast aanspreekpunt, vaste prijs.
+          <p className="font-lato mt-6 max-w-xl text-lg leading-relaxed text-white/85 md:text-xl">
+            Snel, veilig en gevonden in Google én AI. Wij doen de techniek, u doet zaken.
           </p>
 
           <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
               href="/contact#offerte"
-              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-full px-8 text-base font-bold text-white shadow-[0_10px_30px_-8px_rgba(59,109,17,0.6)] transition hover:opacity-90"
-              style={{ backgroundColor: HERO_ACCENT }}
+              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-full bg-accent px-8 text-base font-bold text-neutral-dark shadow-[0_10px_40px_-8px_rgba(232,255,71,0.55)] transition hover:brightness-95"
             >
               Gratis kennismaking →
             </Link>
             <a
               href="#diensten"
-              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-full border border-gray-300 bg-white/80 px-8 text-base font-bold text-neutral-dark transition hover:border-gray-400"
+              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-full border border-white/40 bg-white/5 px-8 text-base font-bold text-white backdrop-blur transition hover:bg-white/15"
             >
               Bekijk wat we doen
             </a>
@@ -435,28 +439,24 @@ function OrchidHero() {
 
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             {HERO_CHECKS.map((item) => (
-              <li key={item} className="font-lato flex items-center gap-2 text-sm text-gray-600">
-                <span
-                  className="inline-flex h-5 w-5 items-center justify-center rounded-full text-white"
-                  style={{ backgroundColor: HERO_ACCENT }}
-                  aria-hidden
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
+              <li key={item} className="font-lato flex items-center gap-2 text-sm text-white/80">
+                <span className="text-accent" aria-hidden>
+                  ✓
                 </span>
                 {item}
               </li>
             ))}
           </ul>
-          <p className="font-lato mt-5 text-sm text-gray-500">
-            Wij spreken Nederlands, English &amp; ภาษาไทย ·{" "}
-            <Link href="/th" className="font-semibold underline-offset-2 hover:underline" style={{ color: HERO_ACCENT }}>
-              websites voor Thailand →
-            </Link>
-          </p>
         </motion.div>
       </div>
+
+      {weer && (
+        <p className="font-lato absolute bottom-5 right-5 z-[1] hidden items-center gap-2 rounded-full border border-white/15 bg-black/25 px-3.5 py-1.5 text-xs text-white/80 backdrop-blur sm:inline-flex">
+          <span aria-hidden>{weer.emoji}</span>
+          {weer.label}
+          {weer.temp !== null ? ` · ${weer.temp}°C` : ""}
+        </p>
+      )}
     </section>
   );
 }

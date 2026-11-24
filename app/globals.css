@@ -540,3 +540,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .bf-backdrop, .bf-card, .bf-marquee, .bf-cta, .bf-badge { animation: none; }
 }
+
+/* Weereffect homepage: zon */
+@keyframes weer-draai { to { transform: rotate(360deg); } }
+@keyframes weer-puls { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .8; transform: scale(1.06); } }
+.weer-zon-gloed { background: radial-gradient(circle, rgba(255,214,120,.85) 0%, rgba(255,170,60,.35) 35%, rgba(255,150,50,0) 70%); animation: weer-puls 6s ease-in-out infinite; }
+.weer-zon-stralen { background: repeating-conic-gradient(from 0deg, rgba(255,226,150,.16) 0deg 6deg, rgba(255,226,150,0) 6deg 18deg); -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 62%); mask-image: radial-gradient(circle, #000 18%, transparent 62%); animation: weer-draai 90s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .weer-zon-gloed, .weer-zon-stralen { animation: none; } }
