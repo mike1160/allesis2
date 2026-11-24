@@ -178,7 +178,13 @@ export default function Footer() {
               <p className="font-lato mb-4 text-sm leading-relaxed text-gray-500">
                 Webdesign, hosting en AVG-compliance voor het MKB — duidelijk, snel en betrouwbaar.
               </p>
-              <p className="font-lato text-xs text-gray-400">Gevestigd in Haarlem, Nederland</p>
+              <address className="font-lato text-xs not-italic leading-relaxed text-gray-400">
+                Spaarndamseweg 103
+                <br />
+                2025 AM Haarlem
+                <br />
+                KvK 52339831
+              </address>
               <a
                 href="mailto:info@allesis.nl"
                 className="font-lato mt-3 block text-sm transition-colors hover:opacity-80"
@@ -242,17 +248,15 @@ export default function Footer() {
                 </Link>
               </div>
 
-              {/* Google reviews badge */}
-              <div className="mt-6 rounded-xl border border-gray-200 bg-white p-4">
-                <div className="mb-1 flex items-center gap-1" aria-label="5 van 5 sterren">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <span key={i} className="text-sm text-amber-400">
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <p className="font-lato text-xs text-gray-500">Beoordeeld door klanten</p>
-              </div>
+              {/* Google reviews link */}
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Allesis%2C+Spaarndamseweg+103%2C+2025+AM+Haarlem"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-lato mt-6 inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-4 py-3 text-xs font-semibold text-gray-600 transition-colors hover:border-gray-300"
+              >
+                <span aria-hidden className="text-amber-400">★</span> Bekijk onze Google reviews
+              </a>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ const sections: { titel: string; body: string[] }[] = [
     titel: "1. Wie is verantwoordelijk?",
     body: [
       "Allesis is verantwoordelijk voor de verwerking van uw persoonsgegevens zoals beschreven in deze privacyverklaring.",
-      "Contact: info@allesis.nl · Gevestigd te Haarlem, Nederland · KvK-nummer: 52339831.",
+      "Contact: info@allesis.nl · Spaarndamseweg 103, 2025 AM Haarlem · KvK-nummer: 52339831.",
       "Wij zijn een webdesign- en digitaal bureau: onder meer websites, hosting, domeinen, SEO en AVG-diensten.",
     ],
   },

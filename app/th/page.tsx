@@ -437,7 +437,7 @@ export default function ThPage() {
               </a>
             </div>
             <div className="flex gap-6 pt-2">
-              {[['⚡','98/100','PageSpeed'],['🔒','AVG','Certified'],['⭐','4.9/5','Google']].map(([ico,val,lab]) => (
+              {[['⚡','98/100','PageSpeed'],['🔒','AVG','Certified'],['🤝','1:1','Personal']].map(([ico,val,lab]) => (
                 <div key={lab} className="text-center">
                   <div className="text-lg">{ico}</div>
                   <div className="text-white font-black text-sm">{val}</div>

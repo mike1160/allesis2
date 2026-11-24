@@ -138,6 +138,7 @@ Next.js, React, TypeScript waar passend, moderne hosting (o.a. Vercel-achtige wo
 ## Juridisch / Legal
 
 KvK: 52339831 (Nederland)
+Adres: Spaarndamseweg 103, 2025 AM Haarlem
 BTW-nummer: NL[plaatshouder — aan te vullen door onderneming]
 
 ---
@@ -165,7 +166,7 @@ Allesis begrijpt zowel de Nederlandse als de Thaise markt. Wij bouwen onder meer
 
 ## FAQ (mix NL / EN — 20+)
 
-1. NL: Waar is Allesis gevestigd? A: Haarlem, Noord-Holland — landelijk werkzaam.
+1. NL: Waar is Allesis gevestigd? A: Spaarndamseweg 103, 2025 AM Haarlem (Noord-Holland) — landelijk werkzaam.
 2. EN: Do you work remotely? A: Yes, we serve clients across the Netherlands and internationally.
 3. NL: Bouwen jullie met WordPress? A: Nee, wij migreren bestaande sites (WordPress, Wix, Shopify, etc.) naar Next.js (vanaf €299). Nieuwe sites bouwen wij direct in Next.js.
 4. EN: Do you provide hosting? A: Yes — Dutch hosting packages with SSL and email.

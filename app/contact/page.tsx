@@ -38,7 +38,7 @@ const contactFaqLd = {
       name: "Waar is Allesis gevestigd?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Allesis is gevestigd in Haarlem, Noord-Holland, en werkt voor klanten in heel Nederland en internationaal.",
+        text: "Allesis is gevestigd aan de Spaarndamseweg 103, 2025 AM Haarlem (KvK 52339831), en werkt voor klanten in heel Nederland en internationaal.",
       },
     },
   ],
@@ -108,7 +108,12 @@ export default function ContactPage() {
                 <MapPin className="h-5 w-5" strokeWidth={1.75} aria-hidden />
               </div>
               <div className="font-lato text-xs font-bold uppercase tracking-wider text-neutral-mid">Locatie</div>
-              <span className="font-sora mt-1 block text-sm font-semibold text-neutral-dark">Haarlem, Nederland</span>
+              <span className="font-sora mt-1 block text-sm font-semibold text-neutral-dark">
+                Spaarndamseweg 103
+                <br />
+                2025 AM Haarlem
+              </span>
+              <span className="font-lato mt-1 block text-xs text-neutral-mid">KvK 52339831</span>
             </PremiumCard>
           </div>
 

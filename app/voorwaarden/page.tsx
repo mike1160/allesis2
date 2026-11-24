@@ -248,7 +248,7 @@ export default function VoorwaardenPage() {
                   </a>
                 </>,
                 "KvK: 52339831",
-                "Gevestigd in: Haarlem, Noord-Holland",
+                "Adres: Spaarndamseweg 103, 2025 AM Haarlem",
               ]}
             />
           </section>

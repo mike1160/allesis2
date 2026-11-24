@@ -300,27 +300,27 @@ const WERKWIJZE = [
   },
 ];
 
-const REVIEWS = [
+const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Allesis%2C+Spaarndamseweg+103%2C+2025+AM+Haarlem";
+
+const KLANTEN = [
   {
-    sterren: 5,
-    tekst: "Dankzij Allesis staat mijn website al jaren bij de eerste 3 zoekresultaten van Google — zonder Google Adwords.",
-    naam: "M. Kleinjans",
-    bedrijf: "Snelontruiming",
-    foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=70",
+    naam: "Voque Beauty Boutique",
+    branche: "Schoonheidssalon — Boesingheliede",
+    url: "https://voquebeautyboutique.com/",
+    foto: "/cases/voque/home.webp",
   },
   {
-    sterren: 5,
-    tekst: "Mijn website werd geredesignd met mooie foto's, goed vindbaar op Google en alle sociale netwerken werden ook bijgehouden.",
-    naam: "Runee",
-    bedrijf: "Bangkokwellness",
-    foto: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=70",
+    naam: "QualiPhied",
+    branche: "Administratie & belastingaangiften — Alkmaar",
+    url: "https://qualiphied.nl/",
+    foto: "/klanten/qualiphied.webp",
   },
   {
-    sterren: 5,
-    tekst: "Snelle, persoonlijke service en een prachtige website die precies bij mijn praktijk past. Een echte aanrader.",
-    naam: "Ren Ji Tang",
-    bedrijf: "Acupunctuur & TCM",
-    foto: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=70",
+    naam: "Shu Xin",
+    branche: "Acupunctuur & Chinese geneeskunde — Haarlem",
+    url: "https://shuxin.nl/",
+    foto: "/klanten/shuxin.webp",
   },
 ];
 
@@ -651,7 +651,7 @@ export default function HomePageContent() {
         style={{ padding: "16px 32px", borderBottom: "0.5px solid #e5e7eb" }}
       >
         {[
-          { icon: "⭐", value: "4.9/5", label: "Google Reviews" },
+          { icon: "🤝", value: "Persoonlijk", label: "Vast aanspreekpunt" },
           { icon: "🔒", value: "Gecertificeerd", label: "AVG Compliant" },
           { icon: "⚡", value: "98/100", label: "PageSpeed" },
         ].map((item, i) => (
@@ -1194,48 +1194,54 @@ export default function HomePageContent() {
         </div>
       </RevealSection>
 
-      {/* Sectie 9 — Reviews */}
+      {/* Sectie 9 — Tevreden klanten */}
       <RevealSection className="relative overflow-hidden bg-neutral-light px-6 py-[110px] md:px-10">
         <div className="relative mx-auto max-w-6xl">
           <h2 className="font-sora text-center text-[clamp(2rem,4vw,3rem)] font-extrabold text-neutral-dark">
-            Wat klanten zeggen
+            Tevreden klanten
           </h2>
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {REVIEWS.map((review) => (
-              <div
-                key={review.naam}
-                className="group relative min-h-[320px] overflow-hidden rounded-2xl"
+          <p className="font-lato mx-auto mt-3 max-w-2xl text-center text-neutral-mid">
+            Een greep uit de websites die we recent hebben gebouwd. Bekijk ze gerust live.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {KLANTEN.map((klant) => (
+              <a
+                key={klant.naam}
+                href={klant.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <Image
-                  src={review.foto}
-                  alt={review.bedrijf}
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  priority={false}
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/98 via-gray-900/70 to-gray-900/30" />
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <div className="mb-3 flex gap-1" aria-label={`${review.sterren} van 5 sterren`}>
-                    {Array.from({ length: review.sterren }).map((_, i) => (
-                      <span key={i} className="text-lg text-amber-400">
-                        ★
-                      </span>
-                    ))}
-                  </div>
-                  <p className="font-lato mb-4 text-sm italic leading-relaxed text-white/90">
-                    &ldquo;{review.tekst}&rdquo;
-                  </p>
-                  <div className="border-t border-white/20 pt-3">
-                    <p className="font-sora text-sm font-black text-white">{review.naam}</p>
-                    <p className="font-lato text-xs text-white/50">{review.bedrijf}</p>
-                  </div>
+                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                  <Image
+                    src={klant.foto}
+                    alt={`Website van ${klant.naam}`}
+                    fill
+                    loading="lazy"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
-              </div>
+                <div className="p-5">
+                  <p className="font-sora text-base font-bold text-neutral-dark">{klant.naam}</p>
+                  <p className="font-lato mt-1 text-sm text-neutral-mid">{klant.branche}</p>
+                  <p className="font-lato mt-3 text-sm font-semibold" style={{ color: "#3B6D11" }}>
+                    {klant.url.replace(/^https:\/\//, "").replace(/\/$/, "")} →
+                  </p>
+                </div>
+              </a>
             ))}
+          </div>
+          <div className="mt-10 text-center">
+            <a
+              href={GOOGLE_REVIEWS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato inline-flex min-h-[44px] items-center gap-2 rounded-full border border-gray-300 bg-white px-6 text-sm font-semibold text-neutral-dark transition hover:border-gray-400"
+            >
+              <span aria-hidden className="text-amber-400">★</span>
+              Lees onze reviews op Google
+            </a>
           </div>
         </div>
       </RevealSection>

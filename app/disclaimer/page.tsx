@@ -26,7 +26,7 @@ const blokken: Blok[] = [
   {
     titel: "Algemeen",
     tekst: [
-      "Allesis is gevestigd in Haarlem, Nederland (KvK 52339831). Aan de informatie op deze website en op onderliggende pagina’s (waaronder /th — Phuket & Thailand) kunnen geen rechten worden ontleend.",
+      "Allesis is gevestigd aan de Spaarndamseweg 103, 2025 AM Haarlem (KvK 52339831). Aan de informatie op deze website en op onderliggende pagina’s (waaronder /th — Phuket & Thailand) kunnen geen rechten worden ontleend.",
       "Allesis behoudt het recht om de inhoud van deze website, dienstenbeschrijvingen en prijzen op elk moment te wijzigen zonder voorafgaande kennisgeving, behoudens dwingend recht en bestaande contractuele afspraken met klanten.",
       "Deze disclaimer is van toepassing op het gebruik van allesis.nl, gerelateerde subdomeinen, contactformulieren, demo’s en geleverde websites, ongeacht of de bezoeker of klant zich in Nederland, Thailand of elders bevindt.",
     ],
