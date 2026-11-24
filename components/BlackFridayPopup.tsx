@@ -10,7 +10,7 @@ const EINDE_ACTIE = BLACK_FRIDAY_EINDE;
 const STORAGE_KEY = "bf2026-popup-gesloten";
 /** Na sluiten blijft de pop-up 3 dagen weg. */
 const OPNIEUW_NA_MS = 3 * 24 * 60 * 60 * 1000;
-const VERBORGEN_OP = ["/admin", "/dashboard", "/login", "/registreren", "/contact", "/voorwaarden"];
+const VERBORGEN_OP = ["/admin", "/dashboard", "/login", "/registreren", "/contact", "/voorwaarden", "/opzeggen"];
 
 const OFFERTE_HREF = `/contact?pakket=${encodeURIComponent("Black Friday — hosting €20/mnd + gratis website")}#offerte`;
 const GEEL = "#FFD400";

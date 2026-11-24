@@ -97,12 +97,15 @@ const avgLinks: [string, string][] = [
   ["Disclaimer", "/disclaimer"],
   ["Privacyverklaring", "/privacy"],
   ["Voorwaarden*", "/voorwaarden"],
+  ["Mijn Allesis (inloggen)", "/login"],
+  ["Dienst opzeggen", "/opzeggen"],
 ];
 
 const bottomLinks: [string, string][] = [
   ["Privacyverklaring", "/privacy"],
   ["Disclaimer", "/disclaimer"],
   ["Voorwaarden", "/voorwaarden"],
+  ["Opzeggen", "/opzeggen"],
 ];
 
 export default function Footer() {

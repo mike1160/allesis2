@@ -694,7 +694,64 @@ export type AllesisEmailPayload =
       bericht?: string;
       nieuwsbrief?: boolean;
     }
-  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean };
+  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean }
+  | {
+      type: "opzegging";
+      naam: string;
+      email: string;
+      bedrijf?: string;
+      dienst: string;
+      domein: string;
+      ingangsdatum: string;
+      domeinWens: string;
+      reden?: string;
+    };
+
+type OpzegPayload = Extract<AllesisEmailPayload, { type: "opzegging" }>;
+
+function opzegRows(p: OpzegPayload) {
+  return [
+    { label: "Dienst", value: p.dienst },
+    { label: "Domein / website", value: p.domein },
+    { label: "Per", value: p.ingangsdatum },
+    { label: "Domeinnaam", value: p.domeinWens },
+    { label: "Naam", value: p.naam },
+    { label: "E-mail", value: p.email },
+    { label: "Bedrijf", value: p.bedrijf || "—" },
+  ];
+}
+
+function opzeggingCustomerConfirmationHtml(p: OpzegPayload): string {
+  const inner = `
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:0 0 16px;">Beste ${escapeHtml(p.naam)},</p>
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:0 0 16px;">
+      Wij hebben uw opzegging ontvangen. Binnen één werkdag bevestigen wij de definitieve einddatum${
+        p.domeinWens.startsWith("Ik wil") ? " en sturen wij de verhuiscode van uw domeinnaam" : ""
+      }.
+    </p>
+    ${tableHtml(opzegRows(p))}
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:20px 0 0;">
+      Klopt er iets niet, of heeft u zich bedacht? Beantwoord dan gewoon deze e-mail.
+      Bedankt voor het vertrouwen de afgelopen periode.
+    </p>
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:16px 0 0;">Met vriendelijke groet,<br />Allesis</p>`;
+  return wrapEmail(inner, "Uw opzegging is ontvangen", { klant: true });
+}
+
+function opzeggingCustomerConfirmationText(p: OpzegPayload): string {
+  return [
+    `Beste ${p.naam},`,
+    "",
+    "Wij hebben uw opzegging ontvangen. Binnen één werkdag bevestigen wij de definitieve einddatum.",
+    "",
+    ...opzegRows(p).map((r) => plainRow(r.label, r.value)),
+    "",
+    "Klopt er iets niet of heeft u zich bedacht? Beantwoord dan deze e-mail.",
+    "",
+    "Met vriendelijke groet,",
+    "Allesis · info@allesis.nl",
+  ].join("\n");
+}
 
 export async function sendAllesisEmail(
   payload: AllesisEmailPayload,
@@ -765,6 +822,23 @@ export async function sendAllesisEmail(
       ]);
       html = wrapEmail(inner, "AVG-check: contactaanvraag (popup)");
       text = businessAvgPopupNotificationText(payload);
+      break;
+    }
+    case "opzegging": {
+      replyTo = payload.email;
+      subject = `Opzegging — ${payload.dienst} — ${payload.domein}`;
+      const inner = tableHtml([
+        ...opzegRows(payload),
+        { label: "Reden", value: payload.reden || "—" },
+        { label: "Privacyverklaring", value: "Akkoord (formulier)" },
+      ]);
+      html = wrapEmail(inner, "Opzegging via allesis.nl");
+      text = [
+        "Opzegging via allesis.nl",
+        "",
+        ...opzegRows(payload).map((r) => plainRow(r.label, r.value)),
+        plainRow("Reden", payload.reden || "—"),
+      ].join("\n");
       break;
     }
     case "hosting_order": {
@@ -846,7 +920,8 @@ export async function sendAllesisEmail(
     payload.type === "contact" ||
     payload.type === "offerte" ||
     payload.type === "gratis_website" ||
-    payload.type === "migratie_aanvraag"
+    payload.type === "migratie_aanvraag" ||
+    payload.type === "opzegging"
   ) {
     const customerEmail = payload.email.trim();
     console.log("[debug] sending to customer:", { type: payload.type, customerEmail });
@@ -866,6 +941,10 @@ export async function sendAllesisEmail(
         confirmHtml = offerteCustomerConfirmationHtml(payload);
         confirmText = offerteCustomerConfirmationText(payload);
         confirmSubject = "Bedankt voor uw offerteaanvraag — Allesis.nl";
+      } else if (payload.type === "opzegging") {
+        confirmHtml = opzeggingCustomerConfirmationHtml(payload);
+        confirmText = opzeggingCustomerConfirmationText(payload);
+        confirmSubject = "Uw opzegging is ontvangen — Allesis";
       } else if (payload.type === "migratie_aanvraag") {
         confirmHtml = migratieCustomerConfirmationHtml(payload);
         confirmText = migratieCustomerConfirmationText(payload);

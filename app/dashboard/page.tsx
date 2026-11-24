@@ -33,6 +33,7 @@ export default async function DashboardPage() {
   return (
     <DashboardClient
       user={{ email: user.email!, naam: klant?.naam || user.user_metadata?.naam || "Klant" }}
+      isAdmin={user.email === process.env.ADMIN_EMAIL || user.email === "info@allesis.nl"}
       pakketten={pakketten || []}
       domeinen={domeinen || []}
     />

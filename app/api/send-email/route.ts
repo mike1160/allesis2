@@ -99,6 +99,34 @@ export async function POST(request: NextRequest) {
       };
       break;
     }
+    case "opzegging": {
+      const b = body as Record<string, unknown>;
+      const str = (k: string, max = 300) => (typeof b[k] === "string" ? (b[k] as string).trim().slice(0, max) : "");
+      const naam = str("naam");
+      const email = str("email");
+      const dienst = str("dienst");
+      const domein = str("domein");
+      const ingangsdatum = str("ingangsdatum");
+      const domeinWens = str("domeinWens");
+      if (!naam || !email || !dienst || !domein || !ingangsdatum || !domeinWens) {
+        return bad("Vul naam, e-mailadres, dienst, domein, einddatum en de domeinkeuze in.");
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return bad("Vul een geldig e-mailadres in.");
+      }
+      payload = {
+        type: "opzegging",
+        naam,
+        email,
+        bedrijf: str("bedrijf") || undefined,
+        dienst,
+        domein,
+        ingangsdatum,
+        domeinWens,
+        reden: str("reden", 2000) || undefined,
+      };
+      break;
+    }
     case "hosting_order": {
       const b = body as {
         pakket?: string;
@@ -218,7 +246,7 @@ export async function POST(request: NextRequest) {
       type: payload.type,
       naam: payload.naam,
       email: payload.email,
-      pakket: payload.pakket,
+      pakket: payload.type === "hosting_order" ? payload.pakket : payload.dienst,
     });
   }
 

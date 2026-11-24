@@ -7,8 +7,23 @@ import Link from "next/link";
 type Pakket = { id: string; naam: string; prijs: string; status: string; verloopdatum: string; schijfruimte: string; dataverkeer: string; };
 type Domein = { id: string; naam: string; extensie: string; status: string; verloopdatum: string; };
 
-export default function DashboardClient({ user, pakketten, domeinen }: {
+function opzegLink(dienst: string, domein: string, email: string) {
+  const q = new URLSearchParams({ dienst, domein, email });
+  return `/opzeggen?${q.toString()}`;
+}
+
+const opzegStijl = {
+  fontFamily: "Lato, sans-serif",
+  fontSize: 13,
+  fontWeight: 700,
+  color: "#64748b",
+  textDecoration: "underline",
+  textUnderlineOffset: 3,
+} as const;
+
+export default function DashboardClient({ user, isAdmin, pakketten, domeinen }: {
   user: { email: string; naam: string };
+  isAdmin: boolean;
   pakketten: Pakket[];
   domeinen: Domein[];
 }) {
@@ -37,7 +52,9 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
             <p style={{ fontFamily: "Lato, sans-serif", fontSize: 13, color: "#94a3b8", margin: "4px 0 0" }}>{user.email}</p>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
-            <Link href="/admin" style={{ padding: "8px 16px", border: "1px solid #e2e6f0", borderRadius: 8, fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, color: "#374151", textDecoration: "none" }}>Admin</Link>
+            {isAdmin && (
+              <Link href="/admin" style={{ padding: "8px 16px", border: "1px solid #e2e6f0", borderRadius: 8, fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, color: "#374151", textDecoration: "none" }}>Admin</Link>
+            )}
             <button onClick={handleLogout} style={{ padding: "8px 16px", background: "#f1f3f9", border: "none", borderRadius: 8, fontFamily: "Lato, sans-serif", fontSize: 13, fontWeight: 700, color: "#374151", cursor: "pointer" }}>
               Uitloggen
             </button>
@@ -117,6 +134,11 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
                     </div>
                   ))}
                 </div>
+                <div style={{ marginTop: 16, textAlign: "right" }}>
+                  <Link href={opzegLink("Hosting (website + e-mail)", p.naam, user.email)} style={opzegStijl}>
+                    Hosting opzeggen
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -137,9 +159,14 @@ export default function DashboardClient({ user, pakketten, domeinen }: {
                   <h3 style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "1.1rem", color: "#0f172a", margin: "0 0 4px" }}>{d.naam}{d.extensie}</h3>
                   <span style={{ fontFamily: "Lato, sans-serif", fontSize: 13, color: "#64748b" }}>Verloopt: {new Date(d.verloopdatum).toLocaleDateString("nl-NL")}</span>
                 </div>
-                <span style={{ padding: "4px 12px", borderRadius: 999, fontFamily: "Lato, sans-serif", fontSize: 12, fontWeight: 700, background: statusBg(d.status), color: statusKleur(d.status) }}>
-                  {d.status}
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                  <span style={{ padding: "4px 12px", borderRadius: 999, fontFamily: "Lato, sans-serif", fontSize: 12, fontWeight: 700, background: statusBg(d.status), color: statusKleur(d.status) }}>
+                    {d.status}
+                  </span>
+                  <Link href={opzegLink("Domeinnaam", `${d.naam}${d.extensie}`, user.email)} style={opzegStijl}>
+                    Opzeggen
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
