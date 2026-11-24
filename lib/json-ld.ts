@@ -1,4 +1,5 @@
 import { ORGANIZATION_SAME_AS, SITE_URL } from "@/lib/seo-config";
+import { HOSTING_PAKKETTEN } from "@/lib/hosting-pakketten";
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const LOCAL_BUSINESS_ID = `${SITE_URL}/#localbusiness`;
@@ -132,20 +133,21 @@ export function buildLocalBusinessSchema() {
       "App-ontwikkeling",
       "Thaise webdiensten en vertaling",
     ],
-    makesOffer: {
+    makesOffer: HOSTING_PAKKETTEN.map((p) => ({
       "@type": "Offer",
-      name: "Zorgeloze hosting",
-      description: "Websitehosting, aparte mailhosting, SSL, back-ups en helpdesk.",
-      price: "20.00",
+      name: `Hosting ${p.naam}`,
+      description: p.kenmerken.filter((k) => k.inbegrepen).map((k) => k.tekst).join(", "),
+      price: p.prijs.toFixed(2),
       priceCurrency: "EUR",
+      url: `${SITE_URL}/hosting`,
       priceSpecification: {
         "@type": "UnitPriceSpecification",
-        price: "20.00",
+        price: p.prijs.toFixed(2),
         priceCurrency: "EUR",
         unitCode: "MON",
         valueAddedTaxIncluded: false,
       },
-    },
+    })),
     parentOrganization: { "@id": ORGANIZATION_ID },
   };
 }

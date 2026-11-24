@@ -84,7 +84,7 @@ export const HOSTING_FAQ: FaqItem[] = [
   {
     question: "Wat kost webhosting bij Allesis?",
     answer:
-      "Eén vast pakket: €20 per maand excl. btw, inclusief websitehosting, aparte mailhosting, SSL-certificaat, dagelijkse back-ups en persoonlijke helpdesk.",
+      "Er zijn drie pakketten (per maand, excl. btw): Basis €17,50 (alleen websitehosting en SSL, zonder e-mail), Zorgeloos €20 (inclusief aparte mailhosting, SSL, dagelijkse back-ups en persoonlijke helpdesk; de meest logische keuze) en Pro €35 (alles uit Zorgeloos plus voorrang, uptime-bewaking, maandrapport en een uur kleine wijzigingen per maand).",
   },
   {
     question: "Zit een SSL-certificaat inbegrepen?",

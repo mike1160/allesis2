@@ -45,7 +45,7 @@ Case study: https://allesis.nl/muziek
 - /app-ontwerp — App-ontwerp & distributie (iOS / App Store)
 - /vaarapp — VaarApp: bruggen, sluizen & havens (gratis in de App Store)
 - /waiair — WaiAir: live vluchten & radar (gratis in de App Store)
-- /hosting — Zorgeloze hosting: €20 per maand excl. btw, inclusief aparte mailhosting, SSL, back-ups en helpdesk
+- /hosting — Hosting per maand excl. btw: Basis €17,50 (zonder e-mail), Zorgeloos €20 (incl. aparte mailhosting, SSL, dagelijkse back-ups en helpdesk), Pro €35 (plus voorrang, uptime-bewaking en wijzigingen)
 - /seo — SEO & AI-zoekmachines
 - /avg — AVG/GDPR compliance
 - /migratie-aanvragen · /wordpress-naar-nextjs — Migratie naar Next.js

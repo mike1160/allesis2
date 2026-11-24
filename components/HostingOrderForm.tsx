@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 import FormConsentFields from "@/components/forms/FormConsentFields";
 import TurnstileWidget from "@/components/forms/TurnstileWidget";
 import { PRIVACY_CONSENT_ERROR } from "@/lib/form-consent";
+import { HOSTING_FORM_LABELS, HOSTING_STANDAARD, vindHostingPakket } from "@/lib/hosting-pakketten";
 
-const PAKKETTEN = ["Zorgeloos (€20 p/m ex btw)"] as const;
 
 const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
 const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
@@ -14,7 +14,7 @@ const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieu
 export default function HostingOrderForm() {
   const searchParams = useSearchParams();
   const [form, setForm] = useState({
-    pakket: PAKKETTEN[0] as string,
+    pakket: HOSTING_STANDAARD.formLabel as string,
     naam: "",
     email: "",
     telefoon: "",
@@ -29,9 +29,9 @@ export default function HostingOrderForm() {
   const [privacyError, setPrivacyError] = useState(false);
 
   useEffect(() => {
-    const q = searchParams.get("pakket")?.trim();
-    if (q && PAKKETTEN.includes(q as (typeof PAKKETTEN)[number])) {
-      setForm((f) => ({ ...f, pakket: q }));
+    const gevonden = vindHostingPakket(searchParams.get("pakket"));
+    if (gevonden) {
+      setForm((f) => ({ ...f, pakket: gevonden.formLabel }));
     }
   }, [searchParams]);
 
@@ -147,7 +147,7 @@ export default function HostingOrderForm() {
             style={inputStyle}
             required
           >
-            {PAKKETTEN.map((p) => (
+            {HOSTING_FORM_LABELS.map((p) => (
               <option key={p} value={p}>
                 {p}
               </option>

@@ -29,8 +29,8 @@ EN: Remove friction for businesses online — measurable quality, clear communic
 Op maat, responsive, toegankelijk waar mogelijk, koppelingen met analytics en formulieren, AVG-bewust.
 
 ### Hosting (NL/EN)
-Zorgeloze hosting voor het MKB: €20 per maand excl. btw, inclusief websitehosting, aparte mailhosting op eigen domein, SSL-certificaat (automatisch verlengd), dagelijkse back-ups en een vaste helpdesk. Geen PHP of plug-ins, dus minder onderhoud en minder beveiligingslekken.
-Zero-hassle hosting: €20/month excl. VAT including website hosting, separate email hosting, SSL, daily backups and a personal helpdesk.
+Hosting voor het MKB in drie pakketten: Basis €17,50 (website + SSL, zonder e-mail), Pro €35 (met voorrang, uptime-bewaking, maandrapport en wijzigingen) en het aanbevolen Zorgeloos-pakket: €20 per maand excl. btw, inclusief websitehosting, aparte mailhosting op eigen domein, SSL-certificaat (automatisch verlengd), dagelijkse back-ups en een vaste helpdesk. Geen PHP of plug-ins, dus minder onderhoud en minder beveiligingslekken.
+Hosting plans: Basic €17.50 (no email), Pro €35, and Zero-hassle at €20/month excl. VAT including website hosting, separate email hosting, SSL, daily backups and a personal helpdesk.
 
 ### SEO (NL/EN)
 Technische SEO, contentstructuur, lokale vindbaarheid, monitoring.
@@ -69,7 +69,7 @@ App Store: https://apps.apple.com/nl/app/waiair/id6798072839
 ## Prijzen / Pricing
 
 - Webdesign: op aanvraag / on request
-- Hosting: één zorgeloos pakket van €20 per maand excl. btw, inclusief aparte mailhosting, SSL, back-ups en helpdesk (zie /hosting)
+- Hosting: Basis €17,50, Zorgeloos €20 of Pro €35 per maand excl. btw; Zorgeloos is inclusief aparte mailhosting, SSL, back-ups en helpdesk (zie /hosting)
 - SEO: maandelijkse trajecten op maat / monthly retainers
 - AVG-fix: vanaf €69,99 ex btw / from €69.99 excl. VAT
 - Migratie naar Next.js: WordPress/Squarespace/Jimdo vanaf €299, Wix vanaf €249, Shopify vanaf €399
