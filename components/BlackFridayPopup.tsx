@@ -31,6 +31,8 @@ const TEKST = {
     geldig: "t/m 31 december",
     kleine: "*Bij minimaal 1 jaar hosting à €20 p/m ex btw. Webshops, betaalkoppelingen en maatwerk niet inbegrepen.",
     voorwaarden: "Voorwaarden",
+    badge: "Gratis website*",
+    badgeLabel: "Bekijk de Black Friday-deal",
   },
   en: {
     tape: "FREE WEBSITE",
@@ -46,6 +48,8 @@ const TEKST = {
     geldig: "until 31 December",
     kleine: "*With a minimum 1-year hosting plan at €20 p/m excl. VAT. Webshops, payment integrations and custom work not included.",
     voorwaarden: "Terms",
+    badge: "Free website*",
+    badgeLabel: "View the Black Friday deal",
   },
 } as const;
 
@@ -54,21 +58,21 @@ export default function BlackFridayPopup() {
   const [open, setOpen] = useState(false);
   const [taal, setTaal] = useState<Taal>("nl");
   const [dagen, setDagen] = useState(0);
+  const [actief, setActief] = useState(false);
 
   const verborgen = VERBORGEN_OP.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
   useEffect(() => {
     if (verborgen || Date.now() > EINDE_ACTIE) return;
-    const gesloten = Number(localStorage.getItem(STORAGE_KEY) || 0);
-    if (gesloten && Date.now() - gesloten < OPNIEUW_NA_MS) return;
-
     const engels =
       pathname.startsWith("/th") || pathname.startsWith("/thai") || !navigator.language?.toLowerCase().startsWith("nl");
-    const timer = window.setTimeout(() => {
-      setTaal(engels ? "en" : "nl");
-      setDagen(Math.max(1, Math.ceil((EINDE_ACTIE - Date.now()) / 86_400_000)));
-      setOpen(true);
-    }, 2500);
+    setTaal(engels ? "en" : "nl");
+    setDagen(Math.max(1, Math.ceil((EINDE_ACTIE - Date.now()) / 86_400_000)));
+    setActief(true);
+
+    const gesloten = Number(localStorage.getItem(STORAGE_KEY) || 0);
+    if (gesloten && Date.now() - gesloten < OPNIEUW_NA_MS) return;
+    const timer = window.setTimeout(() => setOpen(true), 2500);
     return () => window.clearTimeout(timer);
   }, [pathname, verborgen]);
 
@@ -84,8 +88,25 @@ export default function BlackFridayPopup() {
     setOpen(false);
   }
 
-  if (!open) return null;
   const t = TEKST[taal];
+
+  if (!open) {
+    if (!actief || verborgen) return null;
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="bf-badge font-sora fixed bottom-4 left-4 z-[990] flex items-center gap-2 rounded-full bg-black py-2 pl-2 pr-4 text-sm font-black text-white shadow-2xl transition hover:scale-105"
+        style={{ boxShadow: `0 0 0 2px ${GEEL}, 0 10px 30px -5px ${GEEL}80` }}
+        aria-label={t.badgeLabel}
+      >
+        <span className="rounded-full px-2 py-0.5 text-[11px] uppercase tracking-wider text-black" style={{ background: GEEL }}>
+          Black Friday
+        </span>
+        {t.badge}
+      </button>
+    );
+  }
   const tapeTekst = Array.from({ length: 8 }, () => `${t.tape} ✦ BLACK FRIDAY ✦ `).join("");
 
   return (

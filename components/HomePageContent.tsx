@@ -648,24 +648,24 @@ export default function HomePageContent() {
 
       {/* Trust badges */}
       <div
-        className="flex items-center justify-center bg-white"
-        style={{ padding: "16px 32px", borderBottom: "0.5px solid #e5e7eb" }}
+        className="flex items-center justify-center bg-white px-3 py-4 sm:px-8"
+        style={{ borderBottom: "0.5px solid #e5e7eb" }}
       >
         {[
-          { icon: "🤝", value: "Persoonlijk", label: "Vast aanspreekpunt" },
+          { icon: "🤝", value: "Persoonlijk", label: "Vast contact" },
           { icon: "🔒", value: "Gecertificeerd", label: "AVG Compliant" },
           { icon: "⚡", value: "98/100", label: "PageSpeed" },
         ].map((item, i) => (
           <div key={item.label} className="flex items-center">
             {i > 0 ? (
-              <div className="mx-6 h-8 w-px shrink-0 self-center" style={{ backgroundColor: "#e5e7eb" }} aria-hidden />
+              <div className="mx-3 h-8 w-px shrink-0 self-center sm:mx-6" style={{ backgroundColor: "#e5e7eb" }} aria-hidden />
             ) : null}
             <div className="text-center">
-              <div className="flex items-center justify-center gap-1.5" style={{ fontSize: 18, fontWeight: 600, color: "#111" }}>
+              <div className="flex items-center justify-center gap-1.5 text-[15px] sm:text-[18px]" style={{ fontWeight: 600, color: "#111" }}>
                 <span aria-hidden>{item.icon}</span>
                 <span>{item.value}</span>
               </div>
-              <div style={{ fontSize: 12, color: "#6b7280" }}>{item.label}</div>
+              <div className="text-[11px] sm:text-xs" style={{ color: "#6b7280" }}>{item.label}</div>
             </div>
           </div>
         ))}

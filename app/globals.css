@@ -536,6 +536,7 @@ body {
 .bf-card { animation: bf-in .5s cubic-bezier(.2, .9, .3, 1.2) both; }
 .bf-marquee { animation: bf-marquee 18s linear infinite; }
 .bf-cta { animation: bf-pulse 2.2s ease-in-out infinite; }
+.bf-badge { animation: bf-in .5s ease-out both; }
 @media (prefers-reduced-motion: reduce) {
-  .bf-backdrop, .bf-card, .bf-marquee, .bf-cta { animation: none; }
+  .bf-backdrop, .bf-card, .bf-marquee, .bf-cta, .bf-badge { animation: none; }
 }
