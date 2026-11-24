@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { EXTRA_BRANCH_SLUGS } from "@/lib/extra-branches";
 import { SECTOR_SLUGS } from "@/lib/sector-branches";
+import { TECH_SLUGS } from "@/lib/technologie";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://allesis.nl";
@@ -128,6 +129,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
 
     // Tools
+    // Technologie-uitleg
+    { url: `${baseUrl}/technologie`, lastModified, changeFrequency: "monthly", priority: 0.6 },
+    ...TECH_SLUGS.map((slug) => ({
+      url: `${baseUrl}/technologie/${slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
+
     ...tools.map((tool) => ({
       url: `${baseUrl}/${tool}`,
       lastModified,

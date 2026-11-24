@@ -1,58 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  siNextdotjs,
-  siCloudflare,
-  siResend,
-  siTailwindcss,
-  siSupabase,
-  siVercel,
-  siTypescript,
-  siGooglegemini,
-  siAnthropic,
-  siPerplexity,
-  siMeta,
-  type SimpleIcon,
-} from "simple-icons";
+import TechIcon from "@/components/TechIcon";
+import { GROEP_LABEL, techPerGroep, type TechGroep } from "@/lib/technologie";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
 
-const BUILT_WITH = [
-  { icon: siNextdotjs, color: "#000000", naam: "Next.js" },
-  { icon: siCloudflare, color: "#F97316", naam: "Cloudflare" },
-  { icon: siResend, color: "#000000", naam: "Resend" },
-  { icon: siTailwindcss, color: "#06B6D4", naam: "Tailwind" },
-  { icon: siSupabase, color: "#3ECF8E", naam: "Supabase" },
-  { icon: siVercel, color: "#000000", naam: "Vercel" },
-  { icon: siTypescript, color: "#3178C6", naam: "TypeScript" },
-] as const;
-
-type AiItem =
-  | { kind: "svg"; icon: SimpleIcon; color: string; naam: string }
-  | { kind: "emoji"; emoji: string; naam: string };
-
-const AI_ITEMS: AiItem[] = [
-  { kind: "emoji", emoji: "💬", naam: "ChatGPT" },
-  { kind: "svg", icon: siGooglegemini, color: "#4285F4", naam: "Gemini" },
-  { kind: "svg", icon: siAnthropic, color: "#D4A27F", naam: "Claude" },
-  { kind: "svg", icon: siPerplexity, color: "#20808D", naam: "Perplexity" },
-  { kind: "svg", icon: siMeta, color: "#0866FF", naam: "Meta AI" },
-  { kind: "emoji", emoji: "🤖", naam: "Copilot" },
-];
-
-const TRUST_BADGES = [
-  { emoji: "🔒", naam: "SSL/TLS" },
-  { emoji: "📧", naam: "DKIM & SPF" },
-  { emoji: "🛡️", naam: "WAF" },
-  { emoji: "✅", naam: "AVG/GDPR" },
-  { emoji: "⚡", naam: "CDN" },
-  { emoji: "📊", naam: "Core Web Vitals" },
-  { emoji: "🖼️", naam: "WebP" },
-  { emoji: "♿", naam: "WCAG" },
-  { emoji: "🔍", naam: "Schema.org" },
-  { emoji: "🤖", naam: "llms.txt" },
-  { emoji: "🗺️", naam: "Sitemap XML" },
-  { emoji: "📈", naam: "Open Graph" },
-] as const;
+const TECH_GROEPEN: TechGroep[] = ["gebouwd", "ai", "standaard"];
 
 const branchLinks: [string, string][] = [
   ["Horeca", "/horeca"],
@@ -269,67 +221,37 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Trust badges — lichtgrijs */}
+      {/* Trust badges — lichtgrijs, elke badge linkt naar een uitlegpagina */}
       <div className="border-t border-gray-200 bg-gray-100 px-6 py-10 md:px-16">
         <div className="mx-auto max-w-6xl">
           <p className="mb-6 text-center italic" style={{ fontSize: 13, color: "#6b7280" }}>
-            Meer dan 20 technologieën, standaarden en certificeringen — inbegrepen bij elk project.
+            Meer dan 20 technologieën, standaarden en certificeringen — inbegrepen bij elk project.{" "}
+            <Link href="/technologie" className="not-italic font-semibold text-primary hover:underline">
+              Wat betekenen ze? →
+            </Link>
           </p>
 
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
-            <span className="mr-2 text-xs font-semibold uppercase tracking-widest text-gray-400">Gebouwd met</span>
-            {BUILT_WITH.map((item) => (
-              <div
-                key={item.naam}
-                className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1"
-              >
-                <svg viewBox="0 0 24 24" className="h-3 w-3 flex-shrink-0" style={{ fill: item.color }} aria-hidden>
-                  <path d={item.icon.path} />
-                </svg>
-                <span className="text-xs font-medium text-gray-500">{item.naam}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mb-6 border-t border-gray-200" />
-
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
-            <span className="mr-2 text-xs font-semibold uppercase tracking-widest text-gray-400">Vindbaar in AI</span>
-            {AI_ITEMS.map((item) => (
-              <div
-                key={item.naam}
-                className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1"
-              >
-                {item.kind === "emoji" ? (
-                  <span className="text-xs" aria-hidden>
-                    {item.emoji}
-                  </span>
-                ) : (
-                  <svg viewBox="0 0 24 24" className="h-3 w-3 flex-shrink-0" style={{ fill: item.color }} aria-hidden>
-                    <path d={item.icon.path} />
-                  </svg>
-                )}
-                <span className="text-xs font-medium text-gray-500">{item.naam}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mb-6 border-t border-gray-200" />
-
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="mr-2 text-xs font-semibold uppercase tracking-widest text-gray-400">Gecertificeerd</span>
-            {TRUST_BADGES.map((item) => (
-              <div
-                key={item.naam}
-                className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1"
-              >
-                <span className="text-xs" aria-hidden>
-                  {item.emoji}
+          {TECH_GROEPEN.map((groep, i) => (
+            <div key={groep}>
+              {i > 0 && <div className="mb-6 border-t border-gray-200" />}
+              <div className={`flex flex-wrap items-center justify-center gap-2 ${i < TECH_GROEPEN.length - 1 ? "mb-6" : ""}`}>
+                <span className="mr-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  {GROEP_LABEL[groep]}
                 </span>
-                <span className="text-xs font-medium text-gray-500">{item.naam}</span>
+                {techPerGroep(groep).map((t) => (
+                  <Link
+                    key={t.slug}
+                    href={`/technologie/${t.slug}`}
+                    title={t.kort}
+                    className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs transition hover:-translate-y-0.5 hover:border-primary hover:shadow-sm"
+                  >
+                    <TechIcon tech={t} />
+                    <span className="text-xs font-medium text-gray-500">{t.naam}</span>
+                  </Link>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
 
