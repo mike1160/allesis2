@@ -58,6 +58,26 @@ function emailBrandMarkHtml(): string {
     </table>`;
 }
 
+/** Header-foto voor klantmails (Unsplash, donkere laptop met gloeiend scherm). */
+const EMAIL_HEADER_IMG =
+  "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&h=440&fit=crop&crop=center&q=75&fm=jpg";
+
+/**
+ * Header met foto-achtergrond. Mailclients zonder achtergrondafbeeldingen (bijv. Outlook desktop)
+ * tonen de donkere bgcolor, waarop het witte logo leesbaar blijft.
+ */
+function emailPhotoHeaderHtml(): string {
+  return `
+          <tr>
+            <td align="center" valign="middle" background="${EMAIL_HEADER_IMG}" bgcolor="#0b1020" style="background-color:#0b1020;background-image:url('${EMAIL_HEADER_IMG}');background-size:cover;background-position:center;background-repeat:no-repeat;padding:56px 32px 40px;text-align:center;color:${BRAND.white};">
+              ${emailBrandMarkHtml()}
+              <div style="margin-top:16px;">
+                <a href="${SITE_URL}" style="display:inline-block;background-color:rgba(0,0,0,0.45);border-radius:999px;padding:6px 14px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;font-weight:700;color:${BRAND.white};letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;">allesis.nl</a>
+              </div>
+            </td>
+          </tr>`;
+}
+
 function escapeHtml(text: string): string {
   return String(text)
     .replace(/&/g, "&amp;")
@@ -90,12 +110,18 @@ function plainDivider(): string {
   return "----------------------------------------";
 }
 
-function wrapEmail(inner: string, title: string): string {
+function wrapEmail(inner: string, title: string, opts: { klant?: boolean } = {}): string {
+  const kop = opts.klant
+    ? `<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-radius:8px 8px 0 0;overflow:hidden;">${emailPhotoHeaderHtml()}</table>
+      <div style="background: #ffffff; padding: 26px 32px 20px; border-left: 1px solid #e2e6f0; border-right: 1px solid #e2e6f0;">
+        <h1 style="color: #0f172a; margin: 0; font-size: 22px;">${escapeHtml(title)}</h1>
+      </div>`
+    : `<div style="background: #3B6D11; padding: 24px; border-radius: 8px 8px 0 0; color: #ffffff;">
+        <h1 style="color: #ffffff; margin: 0; font-size: 20px;">${escapeHtml(title)}</h1>
+      </div>`;
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: #3B6D11; padding: 24px; border-radius: 8px 8px 0 0; color: #ffffff;">
-        <h1 style="color: #ffffff; margin: 0; font-size: 20px;">${escapeHtml(title)}</h1>
-      </div>
+      ${kop}
       <div style="background: #f8f9fc; padding: 32px; border-radius: 0 0 8px 8px; border: 1px solid #e2e6f0;">
         ${inner}
         <hr style="border: none; border-top: 1px solid #e2e6f0; margin: 20px 0;" />
@@ -227,14 +253,7 @@ function contactCustomerConfirmationHtml(payload: ContactCustomerPayload): strin
     <tr>
       <td align="center">
         <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(30,64,175,0.10);border:1px solid ${BRAND.border};">
-          <tr>
-            <td style="background:${BRAND.markBlue};padding:28px 32px;text-align:center;color:${BRAND.white};">
-              ${emailBrandMarkHtml()}
-              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
-                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
-              </div>
-            </td>
-          </tr>
+          ${emailPhotoHeaderHtml()}
           <tr>
             <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
               <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">${escapeHtml(CONTACT_CONFIRM.greeting[lang](payload.naam))}</p>
@@ -428,7 +447,7 @@ function migratieCustomerConfirmationHtml(payload: {
       { label: "Migratie naar", value: "Next.js via Allesis" },
     ])}
   `;
-  return wrapEmail(inner, "Migratie-aanvraag ontvangen");
+  return wrapEmail(inner, "Migratie-aanvraag ontvangen", { klant: true });
 }
 
 function businessGratisWebsiteNotificationText(payload: {
@@ -497,7 +516,7 @@ function gratisWebsiteCustomerConfirmationHtml(payload: { naam: string; bedrijf:
       </p>
     </div>
   `;
-  return wrapEmail(inner, "Aanvraag ontvangen");
+  return wrapEmail(inner, "Aanvraag ontvangen", { klant: true });
 }
 
 function businessAvgPopupNotificationText(payload: {
@@ -583,14 +602,7 @@ function offerteCustomerConfirmationHtml(payload: OfferteCustomerPayload): strin
     <tr>
       <td align="center">
         <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background:${BRAND.white};border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(30,64,175,0.10);border:1px solid ${BRAND.border};">
-          <tr>
-            <td style="background:${BRAND.markBlue};padding:28px 32px;text-align:center;color:${BRAND.white};">
-              ${emailBrandMarkHtml()}
-              <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:11px;color:${BRAND.white};margin-top:14px;letter-spacing:0.1em;text-transform:uppercase;">
-                <a href="${SITE_URL}" style="color:${BRAND.white};text-decoration:none;">allesis.nl</a>
-              </div>
-            </td>
-          </tr>
+          ${emailPhotoHeaderHtml()}
           <tr>
             <td style="padding:36px 32px 28px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
               <p style="margin:0 0 8px;font-size:15px;color:${BRAND.muted};">Beste ${escapeHtml(payload.naam)},</p>
