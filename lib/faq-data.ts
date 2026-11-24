@@ -24,13 +24,13 @@ export const HOME_FAQ_GRID: FAQGridItem[] = [
   {
     vraag: "Biedt Allesis ook hosting en SEO aan?",
     antwoord:
-      "Ja. Allesis levert Nederlandse hosting vanaf €8,95 per maand excl. btw en SEO-trajecten op maat voor lokale en landelijke vindbaarheid.",
+      "Ja. Allesis levert zorgeloze hosting voor €20 per maand excl. btw (inclusief aparte mailhosting en SSL) en SEO-trajecten op maat voor lokale en landelijke vindbaarheid.",
     foto: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=70",
   },
   {
     vraag: "Wat is de gratis one-pager precies?",
     antwoord:
-      "Een professionele enkelvoudige pagina met uw bedrijfsinfo, contactformulier en SSF-donatie link. Bouw gratis, hosting v.a. €8,95/mnd. Zie voorwaarden.*",
+      "Een professionele enkelvoudige pagina met uw bedrijfsinfo, contactformulier en SSF-donatie link. Bouw gratis, hosting €20/mnd incl. e-mail en SSL. Zie voorwaarden.*",
     foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=70",
   },
   {
@@ -84,12 +84,12 @@ export const HOSTING_FAQ: FaqItem[] = [
   {
     question: "Wat kost webhosting bij Allesis?",
     answer:
-      "Pakketten starten vanaf €4,95 per maand excl. btw (Lite). Prijzen worden jaarlijks gefactureerd; zie allesis.nl/hosting voor actuele pakketten.",
+      "Eén vast pakket: €20 per maand excl. btw, inclusief websitehosting, aparte mailhosting, SSL-certificaat, dagelijkse back-ups en persoonlijke helpdesk.",
   },
   {
     question: "Zit een SSL-certificaat inbegrepen?",
     answer:
-      "Ja. Elk hostingpakket bevat een SSL-certificaat voor een beveiligde HTTPS-verbinding.",
+      "Ja. Het SSL-certificaat is inbegrepen en wordt automatisch verlengd.",
   },
   {
     question: "Kan ik mijn bestaande domeinnaam meenemen?",
@@ -99,7 +99,7 @@ export const HOSTING_FAQ: FaqItem[] = [
   {
     question: "Is er helpdesk bij problemen?",
     answer:
-      "Ja. Alle pakketten omvatten helpdesk-ondersteuning bij hosting-, e-mail- of SSL-vragen.",
+      "Ja. U heeft één vast aanspreekpunt voor vragen over hosting, e-mail of SSL.",
   },
 ];
 

@@ -6,7 +6,7 @@ import FormConsentFields from "@/components/forms/FormConsentFields";
 import TurnstileWidget from "@/components/forms/TurnstileWidget";
 import { PRIVACY_CONSENT_ERROR } from "@/lib/form-consent";
 
-const PAKKETTEN = ["Lite", "Start Up", "Basic"] as const;
+const PAKKETTEN = ["Zorgeloos (€20 p/m ex btw)"] as const;
 
 const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
 const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
@@ -14,7 +14,7 @@ const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieu
 export default function HostingOrderForm() {
   const searchParams = useSearchParams();
   const [form, setForm] = useState({
-    pakket: "Start Up",
+    pakket: PAKKETTEN[0] as string,
     naam: "",
     email: "",
     telefoon: "",
@@ -136,7 +136,7 @@ export default function HostingOrderForm() {
         Hosting bestellen
       </h2>
       <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", marginBottom: 24, lineHeight: 1.6 }}>
-        Kies uw pakket en laat uw gegevens achter. Prijzen excl. BTW, jaarlijks gefactureerd.
+        Laat uw gegevens achter, dan regelen wij de rest. €20 per maand exclusief btw, inclusief mailhosting en SSL.
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
         <div>

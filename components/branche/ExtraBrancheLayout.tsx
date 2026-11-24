@@ -11,7 +11,7 @@ const PAKKETTEN = [
     badge: "🐾 Steunt SSF",
     naam: "Gratis one-pager*",
     prijs: "€ 0",
-    prijsDetail: "eenmalig · hosting vanaf €8,95/mnd",
+    prijsDetail: "eenmalig · hosting €20/mnd incl. e-mail & SSL",
     features: [
       "Professionele one-pager",
       "Online binnen 24 uur**",

@@ -29,7 +29,8 @@ EN: Remove friction for businesses online — measurable quality, clear communic
 Op maat, responsive, toegankelijk waar mogelijk, koppelingen met analytics en formulieren, AVG-bewust.
 
 ### Hosting (NL/EN)
-Nederlandse hosting, SSL, e-mail, databases — pakketten op maat van het MKB.
+Zorgeloze hosting voor het MKB: €20 per maand excl. btw, inclusief websitehosting, aparte mailhosting op eigen domein, SSL-certificaat (automatisch verlengd), dagelijkse back-ups en een vaste helpdesk. Geen PHP of plug-ins, dus minder onderhoud en minder beveiligingslekken.
+Zero-hassle hosting: €20/month excl. VAT including website hosting, separate email hosting, SSL, daily backups and a personal helpdesk.
 
 ### SEO (NL/EN)
 Technische SEO, contentstructuur, lokale vindbaarheid, monitoring.
@@ -68,7 +69,7 @@ App Store: https://apps.apple.com/nl/app/waiair/id6798072839
 ## Prijzen / Pricing
 
 - Webdesign: op aanvraag / on request
-- Hosting: pakketten vanaf circa €4,95–€8,95 per maand (zie /hosting; excl. btw, jaarlijks gefactureerd)
+- Hosting: één zorgeloos pakket van €20 per maand excl. btw, inclusief aparte mailhosting, SSL, back-ups en helpdesk (zie /hosting)
 - SEO: maandelijkse trajecten op maat / monthly retainers
 - AVG-fix: vanaf €69,99 ex btw / from €69.99 excl. VAT
 - Migratie naar Next.js: WordPress/Squarespace/Jimdo vanaf €299, Wix vanaf €249, Shopify vanaf €399
@@ -85,7 +86,11 @@ EN: Local partner, single point of contact, modern stack, GDPR-minded, rare Thai
 
 ## Werkgebied / Service area
 
+Gevestigd: Spaarndamseweg 103, 2025 AM Haarlem (KvK 52339831).
 Haarlem, Amsterdam, Alkmaar, Noord-Holland, heel Nederland — én Phuket & omstreken (Thailand).
+
+### Branches met specialistische websites
+Uitvaartondernemers (24/7 bereikbaarheid, condoleanceregister), binnenvaart (scheepsprofiel, vrachtaanvraag), rederijen en rondvaart (online tickets zonder commissie), havens en jachthavens (ligplaats online reserveren), fotografen, fysiotherapeuten, rijscholen, verhuisbedrijven, schilders, dakdekkers, installateurs van zonnepanelen, transport en logistiek (vacatures in Google for Jobs), B&B's en vakantieverhuur (direct boeken zonder commissie), campings en bakkerijen. Plus horeca, beauty, kappers, bouw, zorg, tandartsen, vastgoed, advocaten, accountants, garages en webshops. Overzicht: https://allesis.nl/branches
 Internationale klanten welkom.
 
 ### Phuket & surrounding areas / ภูเก็ตและพื้นที่ใกล้เคียง

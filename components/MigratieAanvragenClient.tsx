@@ -523,15 +523,18 @@ export default function MigratieAanvragenClient() {
                 ))}
                 <tr className="bg-[#3B6D11] text-white">
                   <td className="px-6 py-4 font-black">⚡ Next.js via Allesis</td>
-                  <td className="px-6 py-4 font-black">v.a. €8,95</td>
-                  <td className="px-6 py-4 font-black">v.a. €107</td>
-                  <td className="px-6 py-4 font-semibold">Geen problemen ✅</td>
+                  <td className="px-6 py-4 font-black">
+                    €20
+                    <span className="block text-xs font-semibold text-white/75">incl. e-mail &amp; SSL</span>
+                  </td>
+                  <td className="px-6 py-4 font-black">€240</td>
+                  <td className="px-6 py-4 font-semibold">Zorgeloos ✅</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="mt-3 text-center text-xs text-gray-400">
-            * Hostingprijzen zijn afhankelijk van uw pakket. Maatwerk projecten worden apart geprijsd.
+            * Allesis: €20 per maand exclusief btw, inclusief aparte mailhosting, SSL, back-ups en een vaste helpdesk. Bij andere platforms betaalt u e-mail en extra’s vaak apart. Maatwerk wordt apart geprijsd.
           </p>
           <p className="mt-6 text-center text-gray-600">
             Klaar met betalen?

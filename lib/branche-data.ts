@@ -123,7 +123,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
         {
           vraag: "Wat is de gratis one-pager precies?",
           antwoord:
-            "Een professionele enkelvoudige pagina met uw naam, menu, contactgegevens en een SSF-donatie link. Bouw gratis, hosting v.a. €8,95/mnd.*",
+            "Een professionele enkelvoudige pagina met uw naam, menu, contactgegevens en een SSF-donatie link. Bouw gratis, hosting €20/mnd.*",
           foto: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=70",
         },
       ],
@@ -232,7 +232,7 @@ export const BRANCHES: Record<string, BrancheEntry> = {
         {
           vraag: "Wat kost een salonwebsite?",
           antwoord:
-            "Gratis one-pager beschikbaar* of Starter pakket vanaf €299. Maatwerk op aanvraag. Hosting v.a. €8,95/mnd.",
+            "Gratis one-pager beschikbaar* of Starter pakket vanaf €299. Maatwerk op aanvraag. Hosting €20/mnd incl. e-mail en SSL.",
           foto: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=70",
         },
       ],

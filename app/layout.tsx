@@ -185,46 +185,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="alternate" hrefLang="en" href={SITE_URL} />
         <link rel="alternate" hrefLang="th" href={`${SITE_URL}/th`} />
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Allesis",
-              description: "Webdesign bureau in Haarlem voor het MKB — hosting, SEO en AVG-compliance.",
-              url: "https://allesis.nl",
-              email: "info@allesis.nl",
-              identifier: { "@type": "PropertyValue", propertyID: "KvK", value: "52339831" },
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Spaarndamseweg 103",
-                postalCode: "2025 AM",
-                addressLocality: "Haarlem",
-                addressRegion: "Noord-Holland",
-                addressCountry: "NL",
-              },
-              priceRange: "€0 - €€€",
-              openingHours: "Mo-Fr 09:00-17:00",
-              areaServed: ["Nederland", "Phuket", "Thailand"],
-              serviceType: [
-                "Webdesign",
-                "SEO",
-                "AVG-compliance",
-                "Hosting",
-                "WordPress migratie",
-                "Thaise webdiensten",
-                "Web design Phuket",
-              ],
-              sameAs: [
-                "https://www.savedsouls-foundation.org/nl",
-                "https://www.thaiplot.com",
-                "https://www.hua-hin-land.com",
-              ],
-              knowsLanguage: ["nl", "en", "th", "ru", "de"],
-            }),
-          }}
-        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="font-lato text-lg antialiased">

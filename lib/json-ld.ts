@@ -62,6 +62,8 @@ export function buildOrganizationSchema() {
       "Full-service digitaal bureau in Haarlem: webdesign, hosting, SEO, AVG-compliance en Thaise web- en taaldiensten.",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Spaarndamseweg 103",
+      postalCode: "2025 AM",
       addressLocality: "Haarlem",
       addressRegion: "Noord-Holland",
       addressCountry: "NL",
@@ -100,14 +102,11 @@ export function buildLocalBusinessSchema() {
     },
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Spaarndamseweg 103",
+      postalCode: "2025 AM",
       addressLocality: "Haarlem",
       addressRegion: "Noord-Holland",
       addressCountry: "NL",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 52.3873878,
-      longitude: 4.6462194,
     },
     openingHours: "Mo-Fr 09:00-17:00",
     openingHoursSpecification: {
@@ -118,8 +117,35 @@ export function buildLocalBusinessSchema() {
     },
     sameAs: ["https://www.savedsouls-foundation.org/nl", ...ORGANIZATION_SAME_AS],
     knowsLanguage: ["nl", "en", "th"],
-    areaServed: "Nederland",
-    serviceType: ["Webdesign", "SEO", "AVG-compliance", "Hosting", "WordPress migratie", "Thaise webdiensten"],
+    areaServed: [
+      { "@type": "Country", name: "Nederland" },
+      { "@type": "Country", name: "Thailand" },
+    ],
+    serviceType: [
+      "Webdesign",
+      "Webshops",
+      "Hosting en zakelijke e-mail",
+      "SEO en AI-vindbaarheid",
+      "AVG-compliance",
+      "Website migratie",
+      "Online afsprakensysteem",
+      "App-ontwikkeling",
+      "Thaise webdiensten en vertaling",
+    ],
+    makesOffer: {
+      "@type": "Offer",
+      name: "Zorgeloze hosting",
+      description: "Websitehosting, aparte mailhosting, SSL, back-ups en helpdesk.",
+      price: "20.00",
+      priceCurrency: "EUR",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "20.00",
+        priceCurrency: "EUR",
+        unitCode: "MON",
+        valueAddedTaxIncluded: false,
+      },
+    },
     parentOrganization: { "@id": ORGANIZATION_ID },
   };
 }

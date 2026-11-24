@@ -66,6 +66,10 @@ const branchLinks: [string, string][] = [
   ["Vastgoed", "/vastgoed"],
   ["Sport", "/sport"],
   ["Advocaten", "/advocaat"],
+  ["Uitvaart", "/uitvaart"],
+  ["Binnenvaart & rederijen", "/binnenvaart"],
+  ["Havens", "/havens"],
+  ["Alle branches →", "/branches"],
   ["Thaise ondernemers", "/thai"],
   ["Phuket & Thailand · ไทย 🇹🇭", "/th"],
 ];

@@ -117,7 +117,7 @@ export default function VoorwaardenPage() {
 
             <h3 className="font-sora mt-8 text-base font-bold text-neutral-dark">1.3 Hosting</h3>
             <p className="font-lato mt-3 leading-relaxed text-neutral-mid">
-              De bouw is gratis. Hosting wordt apart gefactureerd vanaf €8,95 per maand exclusief BTW. Hosting is
+              De bouw is gratis. Hosting wordt apart gefactureerd à €20 per maand exclusief btw, inclusief aparte mailhosting en SSL. Hosting is
               jaarlijks opzegbaar na het eerste jaar.
             </p>
 

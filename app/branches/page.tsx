@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SECTORS } from "@/lib/sector-branches";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
 export const metadata: Metadata = {
-  title: "Websites per branche — Allesis",
+  title: "Websites per branche",
   description:
-    "Websites die passen bij uw vak: horeca, beauty, bouw, zorg, ZZP, webshop en meer. Gevonden door klanten én AI.",
+    "Websites die passen bij uw vak: horeca, uitvaart, binnenvaart, rederijen, havens, fysiotherapie, bouw, webshops en meer. Gevonden door klanten én AI.",
   alternates: pageAlternates("/branches"),
   openGraph: {
     title: "Websites voor uw branche | Allesis",
@@ -113,12 +114,6 @@ const BRANCH_CARDS: BranchCard[] = [
     href: "/kappers",
     icon: "✂️",
     foto: "https://images.pexels.com/photos/1570807/pexels-photo-1570807.jpeg",
-  },
-  {
-    naam: "Fotografie & Video",
-    href: "/fotografie",
-    icon: "📷",
-    foto: "https://images.pexels.com/photos/1983037/pexels-photo-1983037.jpeg",
   },
   {
     naam: "Coaching & Training",
@@ -332,6 +327,18 @@ const BRANCH_CARDS: BranchCard[] = [
   },
 ];
 
+/** Uitgebreide sectorpagina's (met voorbeeldwebsite) bovenaan. */
+const ALLE_KAARTEN: BranchCard[] = [
+  ...SECTORS.map((sec) => ({
+    naam: sec.label,
+    href: `/${sec.slug}`,
+    icon: sec.icon,
+    foto: sec.heroFoto.replace("w=1600", "w=800"),
+    badge: "✦ Nieuw",
+  })),
+  ...BRANCH_CARDS,
+];
+
 export default function BranchesPage() {
   return (
     <main>
@@ -351,7 +358,7 @@ export default function BranchesPage() {
 
       <section className="bg-white px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {BRANCH_CARDS.map((branch) => (
+          {ALLE_KAARTEN.map((branch) => (
             <Link
               key={branch.href}
               href={branch.href}

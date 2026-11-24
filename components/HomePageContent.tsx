@@ -59,56 +59,16 @@ const MIGRATION_LOGO_COLORS: Record<string, string> = {
 const MIGRATION_LOGO_ROW_1 = [siWordpress, siWix, siShopify, siSquarespace, siWebflow, siJoomla];
 const MIGRATION_LOGO_ROW_2 = [siShopify, siWordpress, siJoomla, siWix, siSquarespace, siWebflow];
 
-type Dienst = {
-  naam: string;
-  beschrijving: string;
-  href: string;
-  foto: string;
-  gradient: string;
-  emoji: string;
-};
-
-const DIENSTEN: Dienst[] = [
-  {
-    naam: "Webdesign",
-    beschrijving: "Online binnen 24 uur** mogelijk. Modern, snel en mobielvriendelijk. Maatwerk in 4 weken.",
-    href: "/webdesign",
-    foto: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=70",
-    gradient: "from-blue-900/80 to-blue-600/40",
-    emoji: "🎨",
-  },
-  {
-    naam: "App-ontwerp & distributie",
-    beschrijving: "Van idee tot App Store: ontwerp, bouw en publicatie van iOS-apps.",
-    href: "/app-ontwerp",
-    foto: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=70",
-    gradient: "from-emerald-950/85 to-lime-700/40",
-    emoji: "📱",
-  },
-  {
-    naam: "AVG & Compliance",
-    beschrijving: "Wij leveren elke website AVG-compliant op. Privacybeleid, cookiebanner, SSL.",
-    href: "/avg",
-    foto: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&q=70",
-    gradient: "from-green-900/80 to-green-600/40",
-    emoji: "🔒",
-  },
-  {
-    naam: "Hosting & Domeinen",
-    beschrijving: "Nederlandse hosting met 99,9% uptime. Alles onder één dak.",
-    href: "/hosting",
-    foto: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=70",
-    gradient: "from-slate-900/80 to-slate-600/40",
-    emoji: "⚡",
-  },
-  {
-    naam: "Thaise webdiensten",
-    beschrijving: "Websites in Thai, NL en EN. Vertaling en tolkdiensten.",
-    href: "/thai",
-    foto: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=400&q=70",
-    gradient: "from-orange-900/80 to-orange-500/40",
-    emoji: "🇹🇭",
-  },
+const ALLES_ONDER_EEN_DAK = [
+  { icon: "💻", titel: "Website laten maken", tekst: "Snel, mooi en mobielvriendelijk. Wij schrijven ook de teksten.", href: "/webdesign" },
+  { icon: "🛒", titel: "Webshop", tekst: "Verkopen met iDEAL, voorraad en verzending geregeld.", href: "/webshop" },
+  { icon: "📧", titel: "Hosting & zakelijke e-mail", tekst: "€20 p/m: website, aparte mailhosting en SSL. Zorgeloos.", href: "/hosting" },
+  { icon: "🔎", titel: "Gevonden in Google én AI", tekst: "SEO en vindbaarheid in ChatGPT, Gemini en Perplexity.", href: "/seo" },
+  { icon: "📅", titel: "Online afspraken", tekst: "Allesis Geboekt: klanten boeken zelf, zonder commissie.", href: "/geboekt" },
+  { icon: "🔁", titel: "Overstappen", tekst: "Weg van WordPress, Wix of Jimdo. Wij verhuizen alles.", href: "/migratie-aanvragen" },
+  { icon: "🔒", titel: "AVG & privacy", tekst: "Cookiebanner, privacyverklaring en gratis AVG-check.", href: "/avg" },
+  { icon: "📱", titel: "Apps voor iPhone & Android", tekst: "Van ontwerp tot App Store en Google Play.", href: "/app-ontwerp" },
+  { icon: "🇹🇭", titel: "Thaise websites & vertaling", tekst: "Websites en vertalingen Thai, Nederlands en Engels.", href: "/thai" },
 ];
 
 const BRANCHES = [
@@ -208,6 +168,38 @@ const BRANCHES = [
     gradient: "from-red-900/90 via-red-800/70 to-transparent",
     icon: "🇹🇭",
   },
+  {
+    naam: "Uitvaart",
+    beschrijving: "24/7 bereikbaar & condoleanceregister.",
+    href: "/uitvaart",
+    foto: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=400&q=70",
+    gradient: "from-slate-900/90 via-slate-800/70 to-transparent",
+    icon: "🕊️",
+  },
+  {
+    naam: "Binnenvaart",
+    beschrijving: "Scheepsprofiel & vrachtaanvragen.",
+    href: "/binnenvaart",
+    foto: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=400&q=70",
+    gradient: "from-blue-950/90 via-blue-900/70 to-transparent",
+    icon: "🚢",
+  },
+  {
+    naam: "Rederijen",
+    beschrijving: "Online tickets zonder commissie.",
+    href: "/rederij",
+    foto: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=400&q=70",
+    gradient: "from-cyan-950/90 via-cyan-900/70 to-transparent",
+    icon: "⛴️",
+  },
+  {
+    naam: "Havens",
+    beschrijving: "Ligplaatsen online reserveren.",
+    href: "/havens",
+    foto: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=400&q=70",
+    gradient: "from-teal-950/90 via-teal-900/70 to-transparent",
+    icon: "⚓",
+  }
 ];
 
 const PAKKETTEN = [
@@ -216,7 +208,7 @@ const PAKKETTEN = [
     badgeKleur: "text-orange-500",
     naam: "Gratis one-pager*",
     prijs: "€ 0",
-    prijsDetail: "eenmalig · hosting vanaf €8,95/mnd",
+    prijsDetail: "eenmalig · hosting €20/mnd incl. e-mail & SSL",
     foto: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=70",
     gradient: "from-slate-900/80 via-slate-800/65 to-slate-700/45",
     featured: false,
@@ -376,59 +368,7 @@ function MigrationStatsBackgroundLogos() {
 /* ---------- Hero — centered, accent #3B6D11 ---------- */
 const HERO_ACCENT = "#3B6D11";
 
-const HERO_CHECKS = ["AVG-compliant", "SEO & hosting inbegrepen", "Reactie binnen 1 werkdag"];
-
-const LANG_CLOUD = [
-  { flag: "🇹🇭", name: "ภาษาไทย", en: "Thai", rotate: -5, href: "/th?lang=th" },
-  { flag: "🇬🇧", name: "English", en: "English", rotate: 3, href: "/th?lang=en" },
-  { flag: "🇳🇱", name: "Nederlands", en: "Dutch", rotate: -2, href: "/th?lang=nl" },
-] as const;
-
-function LanguageCloud() {
-  return (
-    <div className="mt-9 w-full max-w-lg">
-      <p className="font-lato mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gray-500">
-        Wij spreken · We speak · เราพูด
-      </p>
-      <div
-        className="relative mx-auto flex flex-wrap items-center justify-center gap-3 rounded-[3rem] px-6 py-7"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 70% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(232,245,220,0.55) 45%, transparent 75%)",
-        }}
-      >
-        {LANG_CLOUD.map((l, i) => (
-          <motion.div
-            key={l.en}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: [0, -6, 0] }}
-            transition={{
-              opacity: { duration: 0.45, delay: 0.15 * i },
-              y: { duration: 3.6 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay: 0.2 * i },
-            }}
-            style={{ rotate: l.rotate }}
-          >
-            <Link
-              href={l.href}
-              className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-4 py-2.5 shadow-[0_6px_24px_rgba(15,23,42,0.1)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(59,109,17,0.18)]"
-            >
-              <span className="text-lg leading-none" aria-hidden>
-                {l.flag}
-              </span>
-              <span className="font-sora text-sm font-bold text-neutral-dark">{l.name}</span>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
-      <p className="font-lato mt-3 text-sm text-gray-500">
-        Thai · English · Nederlands —{" "}
-        <Link href="/th" className="font-semibold underline-offset-2 hover:underline" style={{ color: HERO_ACCENT }}>
-          websites voor Phuket →
-        </Link>
-      </p>
-    </div>
-  );
-}
+const HERO_CHECKS = ["Gevonden in Google én AI", "Hosting €20 p/m incl. e-mail & SSL", "Reactie binnen 1 werkdag"];
 
 function OrchidHero() {
   return (
@@ -476,63 +416,21 @@ function OrchidHero() {
             in Google én AI, met hosting en AVG inbegrepen. Eén vast aanspreekpunt, vaste prijs.
           </p>
 
-          {/* Apps — elegant Apple & Android */}
-          <Link
-            href="/app-ontwerp"
-            className="group mt-7 inline-flex flex-col items-center gap-2.5 no-underline sm:flex-row sm:gap-3"
-          >
-            <span
-              className="font-lato inline-flex items-center gap-2.5 rounded-full border border-white bg-white/90 px-4 py-2.5 shadow-[0_6px_24px_rgba(15,23,42,0.08)] transition group-hover:-translate-y-0.5 group-hover:shadow-[0_10px_28px_rgba(59,109,17,0.16)]"
-            >
-              <span className="inline-flex items-center gap-1.5" aria-hidden>
-                {/* Apple */}
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-neutral-dark">
-                  <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.97 2.93 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" />
-                </svg>
-                <span className="h-3 w-px bg-gray-200" />
-                {/* Android */}
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-[#3DDC84]">
-                  <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4483.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4483.9993.9993 0 .5511-.4483.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1367 1.0989L4.841 5.4467a.4161.4161 0 00-.5676-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.186.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.575-6.1185-9.4396" />
-                </svg>
-              </span>
-              <span className="font-sora text-sm font-semibold text-neutral-dark">
-                Ook apps voor{" "}
-                <span style={{ color: HERO_ACCENT }}>Apple</span>
-                {" "}&amp;{" "}
-                <span style={{ color: HERO_ACCENT }}>Android</span>
-              </span>
-            </span>
-            <span className="font-lato text-sm text-gray-500 transition group-hover:text-neutral-dark">
-              Van ontwerp tot App Store &amp; Play Store →
-            </span>
-          </Link>
-
-          <LanguageCloud />
-
-          <form
-            action="/contact"
-            method="get"
-            className="mt-10 flex w-full max-w-lg flex-col gap-3 sm:flex-row sm:items-stretch"
-          >
-            <label htmlFor="hero-email" className="sr-only">
-              E-mailadres
-            </label>
-            <input
-              id="hero-email"
-              name="email"
-              type="email"
-              required
-              placeholder="Wat voor bedrijf heb jij?"
-              className="font-lato min-h-[54px] flex-1 rounded-full border border-gray-200 bg-white px-5 text-base text-neutral-dark outline-none placeholder:text-gray-400 focus:border-[#3B6D11] focus:ring-2 focus:ring-[#3B6D11]/20"
-            />
-            <button
-              type="submit"
-              className="font-lato inline-flex min-h-[54px] shrink-0 items-center justify-center rounded-full px-7 text-base font-bold text-white transition hover:opacity-90"
+          <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Link
+              href="/contact#offerte"
+              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-full px-8 text-base font-bold text-white shadow-[0_10px_30px_-8px_rgba(59,109,17,0.6)] transition hover:opacity-90"
               style={{ backgroundColor: HERO_ACCENT }}
             >
-              Gratis gesprek
-            </button>
-          </form>
+              Gratis kennismaking →
+            </Link>
+            <a
+              href="#diensten"
+              className="font-lato inline-flex min-h-[54px] items-center justify-center rounded-full border border-gray-300 bg-white/80 px-8 text-base font-bold text-neutral-dark transition hover:border-gray-400"
+            >
+              Bekijk wat we doen
+            </a>
+          </div>
 
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             {HERO_CHECKS.map((item) => (
@@ -550,6 +448,12 @@ function OrchidHero() {
               </li>
             ))}
           </ul>
+          <p className="font-lato mt-5 text-sm text-gray-500">
+            Wij spreken Nederlands, English &amp; ภาษาไทย ·{" "}
+            <Link href="/th" className="font-semibold underline-offset-2 hover:underline" style={{ color: HERO_ACCENT }}>
+              websites voor Thailand →
+            </Link>
+          </p>
         </motion.div>
       </div>
     </section>
@@ -567,84 +471,6 @@ export default function HomePageContent() {
 
       {/* Sectie 1 — Hero */}
       <OrchidHero />
-
-      {/* WaiAir spotlight — Cloudflare-oranje */}
-      <section
-        aria-label="Nieuw: WaiAir"
-        className="relative overflow-hidden border-y border-white/10"
-        style={{
-          background:
-            "linear-gradient(120deg, #0a0f1e 0%, #3d2410 48%, #0a0f1e 100%)",
-        }}
-      >
-        <div
-          className="pointer-events-none absolute -left-20 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full blur-3xl"
-          style={{ backgroundColor: "rgba(246,130,32,0.28)" }}
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-16 top-0 h-36 w-36 rounded-full blur-3xl"
-          style={{ backgroundColor: "rgba(255,154,74,0.22)", animationDelay: "1.2s" }}
-          aria-hidden
-        />
-
-        <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-7 sm:flex-row sm:justify-between sm:gap-8 md:px-10 md:py-8">
-          <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-5 sm:text-left">
-            <span
-              className="waiair-nieuw-badge font-lato inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-neutral-dark"
-              style={{ backgroundColor: "#FF9A4A" }}
-            >
-              Nieuw
-            </span>
-            <div className="flex items-center gap-3">
-              <div className="relative hidden h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md sm:block">
-                <Image
-                  src="/waiair/icon.png"
-                  alt=""
-                  fill
-                  className="object-cover"
-                  sizes="48px"
-                />
-              </div>
-              <div>
-                <p className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">
-                  Nu in de App Store
-                </p>
-                <Link
-                  href="/waiair"
-                  className="group inline-flex items-baseline gap-2 no-underline"
-                >
-                  <span className="waiair-nav-wordmark font-sora text-4xl font-black tracking-tight md:text-5xl">
-                    WaiAir
-                  </span>
-                  <span className="font-lato text-sm font-medium text-white/70 transition group-hover:text-white">
-                    Live vluchten &amp; radar →
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="https://apps.apple.com/nl/app/vaarapp/id6799596805"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full px-5 text-sm font-bold text-neutral-dark transition hover:opacity-90"
-              style={{ backgroundColor: "#FF9A4A" }}
-              aria-label="Download VaarApp in de App Store"
-            >
-              Download gratis
-            </a>
-            <Link
-              href="/app-ontwerp"
-              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
-            >
-              App-ontwerp &amp; distributie
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Trust badges */}
       <div
@@ -730,6 +556,333 @@ export default function HomePageContent() {
           ))}
         </div>
       </div>
+
+      {/* Diensten — alles onder één dak */}
+      <section id="diensten" className="scroll-mt-20 bg-neutral-light px-6 py-[100px] md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Wat wij doen</p>
+            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
+              Alles onder één dak
+            </h2>
+            <p className="font-lato mx-auto mt-3 max-w-2xl text-gray-500">
+              Van website tot e-mail, van Google tot app. Eén aanspreekpunt, geen losse partijen.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {ALLES_ONDER_EEN_DAK.map((d) => (
+              <Link
+                key={d.titel}
+                href={d.href}
+                className="group flex gap-4 rounded-2xl border border-gray-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+              >
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#EAF3DE] text-2xl" aria-hidden>
+                  {d.icon}
+                </span>
+                <span>
+                  <span className="font-sora block font-bold text-neutral-dark">{d.titel}</span>
+                  <span className="font-lato mt-1 block text-sm leading-relaxed text-gray-500">{d.tekst}</span>
+                  <span className="font-lato mt-2 inline-block text-sm font-bold text-primary transition group-hover:translate-x-0.5">
+                    Meer info →
+                  </span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sectie 4 — Pakketten (Gratis / Starter / Maatwerk) */}
+      <RevealSection className="px-6 py-[110px] md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Pakketten</p>
+            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
+              Een pakket voor elke ondernemer
+            </h2>
+          </div>
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {PAKKETTEN.map((pakket) => (
+              <div
+                key={pakket.naam}
+                className={`group relative overflow-hidden rounded-3xl ${
+                  pakket.featured ? "scale-105 ring-2 ring-blue-400" : ""
+                }`}
+                style={{ minHeight: "520px" }}
+              >
+                <Image
+                  src={pakket.foto}
+                  alt={pakket.naam}
+                  fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${pakket.gradient}`} aria-hidden />
+                <div className="absolute inset-0 flex flex-col p-7">
+                  <p className={`mb-3 text-xs font-black uppercase tracking-widest ${pakket.badgeKleur}`}>
+                    {pakket.badge}
+                  </p>
+                  <h3 className="font-sora mb-2 text-2xl font-black text-white">{pakket.naam}</h3>
+                  <p className="mb-1 text-4xl font-black tracking-tight text-white">{pakket.prijs}</p>
+                  <p className="mb-6 text-xs text-white/50">{pakket.prijsDetail}</p>
+                  <ul className="flex flex-1 flex-col gap-2">
+                    {pakket.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-white/80">
+                        <span className="mt-0.5 flex-shrink-0 font-bold text-green-400" aria-hidden>
+                          ✓
+                        </span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={pakket.ctaHref}
+                    className={`mt-6 block rounded-xl px-6 py-3 text-center font-black transition-all hover:scale-105 ${pakket.ctaStijl}`}
+                  >
+                    {pakket.cta}
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          <GratisVoorwaardenNote className="mt-10 text-center" />
+          <p className="font-lato mt-2 text-center text-xs text-neutral-mid/80">
+            ** Online binnen 24 uur geldt bij tijdige aanlevering van content en logo op een werkdag.
+          </p>
+        </div>
+      </RevealSection>
+
+      {/* Sectie 5 — Branches */}
+      <RevealSection className="px-6 py-[110px] md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Voor uw branche</p>
+            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
+              Websites die uw vak begrijpen
+            </h2>
+          </div>
+          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {BRANCHES.map((branche, index) => (
+              <Link
+                key={branche.naam}
+                href={branche.href}
+                className="group relative block aspect-[4/3] overflow-hidden rounded-2xl"
+              >
+                <Image
+                  src={branche.foto}
+                  alt={branche.naam}
+                  fill
+                  loading={index < 6 ? "eager" : "lazy"}
+                  priority={false}
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t ${branche.gradient} transition-opacity group-hover:opacity-90`}
+                  aria-hidden
+                />
+                <div className="absolute inset-0 flex flex-col justify-end p-4">
+                  <span className="mb-1 text-xl" aria-hidden>
+                    {branche.icon}
+                  </span>
+                  <h3 className="mb-1 text-sm font-black leading-tight text-white md:text-base">{branche.naam}</h3>
+                  <p className="hidden text-xs leading-snug text-white/60 md:block">{branche.beschrijving}</p>
+                  <span className="mt-1 text-xs text-white/50 transition-colors group-hover:text-white/90">
+                    Bekijk →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/branches"
+              className="font-lato inline-flex min-h-[48px] items-center rounded-full border border-gray-300 px-6 font-bold text-neutral-dark transition hover:border-primary hover:text-primary"
+            >
+              Bekijk alle branches: van bakkerij tot rederij →
+            </Link>
+          </div>
+        </div>
+      </RevealSection>
+
+      {/* Sectie 8 — Werkwijze */}
+      <RevealSection className="px-6 py-[110px] md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Werkwijze</p>
+            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
+              Van idee tot live in 4 stappen
+            </h2>
+          </div>
+          <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {WERKWIJZE.map((stap) => (
+              <div key={stap.nummer} className="group relative aspect-[3/4] overflow-hidden rounded-2xl">
+                <Image
+                  src={stap.foto}
+                  alt={stap.titel}
+                  fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-900/60 to-blue-900/20" />
+                <div className="absolute inset-0 flex flex-col justify-between p-5">
+                  <span className="font-sora text-4xl font-black text-white/20">{stap.nummer}</span>
+                  <div>
+                    <h3 className="font-sora mb-2 text-lg font-black text-white">{stap.titel}</h3>
+                    <p className="font-lato text-sm leading-relaxed text-white/70">{stap.beschrijving}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </RevealSection>
+
+      {/* Sectie 6 — Portfolio */}
+      <RevealSection className="bg-neutral-light px-6 py-[110px] md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center">
+            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Portfolio</p>
+            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
+              Recent opgeleverd
+            </h2>
+          </div>
+          <div className="mt-14 grid gap-8 lg:grid-cols-2">
+            {/* Saved Souls Foundation */}
+            <article className="overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-14px_rgba(10,15,30,0.14)] ring-1 ring-black/5">
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src="/savedsouls-screenshot.png"
+                  alt="Website van Saved Souls Foundation"
+                  fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-top"
+                />
+              </div>
+              <div className="p-8">
+                <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-ssf-orange">🐾 Goed doel</p>
+                <h3 className="font-sora mt-2 text-xl font-bold text-neutral-dark">Saved Souls Foundation</h3>
+                <p className="font-lato mt-3 leading-relaxed text-neutral-mid">
+                  Meertalige website voor de dierenopvang in Khon Kaen, Thailand — met donatiemodule en verhalen van
+                  geredde dieren.
+                </p>
+                <a
+                  href="https://www.savedsouls-foundation.org/nl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-lato mt-5 inline-block font-bold text-primary hover:underline"
+                >
+                  Bekijk de website →
+                </a>
+              </div>
+            </article>
+
+            {/* Ren Ji Tang */}
+            <article className="group overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-14px_rgba(10,15,30,0.14)] ring-1 ring-black/5">
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                  src="/portfolio/renjitang.jpg"
+                  alt="Ren Ji Tang — Acupunctuur & TCM website"
+                  fill
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  priority={false}
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="p-8">
+                <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Uitgelicht project</p>
+                <h3 className="font-sora mt-2 text-xl font-bold text-neutral-dark">Ren Ji Tang — Acupunctuur &amp; TCM</h3>
+                <p className="font-lato mt-3 leading-relaxed text-neutral-mid">
+                  Complete Next.js website met online boekingsmodule en Google-reviews. Volledig AVG-compliant. Resultaat:
+                  5 sterren op Google.
+                </p>
+                <ul className="font-lato mt-4 flex flex-wrap gap-2">
+                  {REN_JI_TAGS.map((t) => (
+                    <li key={t} className="rounded-full border border-neutral-light bg-neutral-light px-3 py-1 text-xs font-medium text-neutral-mid">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="https://www.renjitang.nl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-lato mt-5 inline-block font-bold text-primary hover:underline"
+                >
+                  Bekijk de website →
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </RevealSection>
+
+      {/* Sectie 9 — Tevreden klanten */}
+      <RevealSection className="relative overflow-hidden bg-neutral-light px-6 py-[110px] md:px-10">
+        <div className="relative mx-auto max-w-6xl">
+          <h2 className="font-sora text-center text-[clamp(2rem,4vw,3rem)] font-extrabold text-neutral-dark">
+            Tevreden klanten
+          </h2>
+          <p className="font-lato mx-auto mt-3 max-w-2xl text-center text-neutral-mid">
+            Een greep uit de websites die we recent hebben gebouwd. Bekijk ze gerust live.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {KLANTEN.map((klant) => (
+              <a
+                key={klant.naam}
+                href={klant.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                  <Image
+                    src={klant.foto}
+                    alt={`Website van ${klant.naam}`}
+                    fill
+                    loading="lazy"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="font-sora text-base font-bold text-neutral-dark">{klant.naam}</p>
+                  <p className="font-lato mt-1 text-sm text-neutral-mid">{klant.branche}</p>
+                  <p className="font-lato mt-3 text-sm font-semibold" style={{ color: "#3B6D11" }}>
+                    {klant.url.replace(/^https:\/\//, "").replace(/\/$/, "")} →
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <a
+              href={GOOGLE_REVIEWS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato inline-flex min-h-[44px] items-center gap-2 rounded-full border border-gray-300 bg-white px-6 text-sm font-semibold text-neutral-dark transition hover:border-gray-400"
+            >
+              <span aria-hidden className="text-amber-400">★</span>
+              Lees onze reviews op Google
+            </a>
+          </div>
+        </div>
+      </RevealSection>
 
       {/* Sectie 2 — Prominente migratie service */}
       <section className="border-y border-gray-100 bg-white px-6 py-16 md:px-16">
@@ -847,69 +1000,98 @@ export default function HomePageContent() {
         </div>
       </section>
 
-      {/* Sectie 4 — Pakketten (Gratis / Starter / Maatwerk) */}
+      {/* Nieuw product: Allesis Geboekt */}
       <RevealSection className="px-6 py-[110px] md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center">
-            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Pakketten</p>
-            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
-              Een pakket voor elke ondernemer
-            </h2>
+        <div className="mx-auto grid max-w-5xl items-center gap-10 rounded-3xl px-8 py-12 text-white md:grid-cols-[1.4fr_1fr] md:px-12" style={{ background: "linear-gradient(135deg,#3F2554,#D45D79)" }}>
+          <div>
+            <span className="font-lato inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold tracking-wide uppercase">Nieuw</span>
+            <h2 className="font-sora mt-4 text-3xl font-bold md:text-4xl">Alles is geboekt.</h2>
+            <p className="font-lato mt-3 max-w-xl text-white/90">Onze nieuwe boekingsapp voor iedereen die op afspraak werkt, van kapper tot tandarts. Klanten boeken zelf, dag en nacht. Zonder PHP, zonder plug-ins en zonder commissie.</p>
+            <Link href="/geboekt" className="font-lato mt-6 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-8 font-bold text-[#3F2554] transition hover:opacity-90">Bekijk Allesis Geboekt →</Link>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {PAKKETTEN.map((pakket) => (
-              <div
-                key={pakket.naam}
-                className={`group relative overflow-hidden rounded-3xl ${
-                  pakket.featured ? "scale-105 ring-2 ring-blue-400" : ""
-                }`}
-                style={{ minHeight: "520px" }}
-              >
-                <Image
-                  src={pakket.foto}
-                  alt={pakket.naam}
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  priority={false}
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className={`absolute inset-0 bg-gradient-to-t ${pakket.gradient}`} aria-hidden />
-                <div className="absolute inset-0 flex flex-col p-7">
-                  <p className={`mb-3 text-xs font-black uppercase tracking-widest ${pakket.badgeKleur}`}>
-                    {pakket.badge}
-                  </p>
-                  <h3 className="font-sora mb-2 text-2xl font-black text-white">{pakket.naam}</h3>
-                  <p className="mb-1 text-4xl font-black tracking-tight text-white">{pakket.prijs}</p>
-                  <p className="mb-6 text-xs text-white/50">{pakket.prijsDetail}</p>
-                  <ul className="flex flex-1 flex-col gap-2">
-                    {pakket.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-white/80">
-                        <span className="mt-0.5 flex-shrink-0 font-bold text-green-400" aria-hidden>
-                          ✓
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={pakket.ctaHref}
-                    className={`mt-6 block rounded-xl px-6 py-3 text-center font-black transition-all hover:scale-105 ${pakket.ctaStijl}`}
-                  >
-                    {pakket.cta}
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-          <GratisVoorwaardenNote className="mt-10 text-center" />
-          <p className="font-lato mt-2 text-center text-xs text-neutral-mid/80">
-            ** Online binnen 24 uur geldt bij tijdige aanlevering van content en logo op een werkdag.
-          </p>
+          <ul className="font-lato space-y-3 text-sm">
+            {["4 weken gratis, zonder betaalgegevens", "Daarna €24,95 per maand excl. btw", "2FA en elke zaak apart afgeschermd", "Op uw telefoon, in gewone taal"].map((x) => <li key={x} className="flex gap-2"><span aria-hidden="true" className="font-bold">✓</span>{x}</li>)}
+          </ul>
         </div>
       </RevealSection>
+
+      {/* WaiAir spotlight — Cloudflare-oranje */}
+      <section
+        aria-label="Nieuw: WaiAir"
+        className="relative overflow-hidden border-y border-white/10"
+        style={{
+          background:
+            "linear-gradient(120deg, #0a0f1e 0%, #3d2410 48%, #0a0f1e 100%)",
+        }}
+      >
+        <div
+          className="pointer-events-none absolute -left-20 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full blur-3xl"
+          style={{ backgroundColor: "rgba(246,130,32,0.28)" }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-16 top-0 h-36 w-36 rounded-full blur-3xl"
+          style={{ backgroundColor: "rgba(255,154,74,0.22)", animationDelay: "1.2s" }}
+          aria-hidden
+        />
+
+        <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-7 sm:flex-row sm:justify-between sm:gap-8 md:px-10 md:py-8">
+          <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-5 sm:text-left">
+            <span
+              className="waiair-nieuw-badge font-lato inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-neutral-dark"
+              style={{ backgroundColor: "#FF9A4A" }}
+            >
+              Nieuw
+            </span>
+            <div className="flex items-center gap-3">
+              <div className="relative hidden h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md sm:block">
+                <Image
+                  src="/waiair/icon.png"
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
+              </div>
+              <div>
+                <p className="font-lato text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">
+                  Nu in de App Store
+                </p>
+                <Link
+                  href="/waiair"
+                  className="group inline-flex items-baseline gap-2 no-underline"
+                >
+                  <span className="waiair-nav-wordmark font-sora text-4xl font-black tracking-tight md:text-5xl">
+                    WaiAir
+                  </span>
+                  <span className="font-lato text-sm font-medium text-white/70 transition group-hover:text-white">
+                    Live vluchten &amp; radar →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href="https://apps.apple.com/nl/app/vaarapp/id6799596805"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full px-5 text-sm font-bold text-neutral-dark transition hover:opacity-90"
+              style={{ backgroundColor: "#FF9A4A" }}
+              aria-label="Download VaarApp in de App Store"
+            >
+              Download gratis
+            </a>
+            <Link
+              href="/app-ontwerp"
+              className="font-lato inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/25 px-5 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
+            >
+              App-ontwerp &amp; distributie
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Featured — Nene Royal Live */}
       <section
@@ -975,294 +1157,6 @@ export default function HomePageContent() {
         </div>
       </section>
 
-      {/* Sectie 4 — Diensten */}
-      <section className="scroll-mt-20 bg-neutral-light px-6 py-[110px] md:px-10">
-        <div id="home-diensten-reveal" className="relative mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-48px 0px -64px 0px" }}
-            transition={{ duration: 0.52, ease: easeOut }}
-          >
-            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Wat wij doen</p>
-            <h2 className="font-sora mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
-              Alles voor uw online aanwezigheid
-            </h2>
-          </motion.div>
-          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {DIENSTEN.map((dienst) => (
-              <Link
-                key={dienst.naam}
-                href={dienst.href}
-                className="group relative block h-64 overflow-hidden rounded-2xl"
-              >
-                <Image
-                  src={dienst.foto}
-                  alt={dienst.naam}
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  priority={false}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className={`absolute inset-0 bg-gradient-to-t ${dienst.gradient}`} />
-                <div className="absolute right-0 bottom-0 left-0 p-5">
-                  <span className="mb-2 block text-2xl" aria-hidden>
-                    {dienst.emoji}
-                  </span>
-                  <h3 className="font-sora mb-1 text-lg font-black text-white">{dienst.naam}</h3>
-                  <p className="font-lato text-sm leading-relaxed text-white/70">{dienst.beschrijving}</p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-white/90 transition-all group-hover:gap-2">
-                    Meer info →
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sectie 5 — Branches */}
-      <RevealSection className="px-6 py-[110px] md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center">
-            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Voor uw branche</p>
-            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
-              Websites die uw vak begrijpen
-            </h2>
-          </div>
-          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {BRANCHES.map((branche, index) => (
-              <Link
-                key={branche.naam}
-                href={branche.href}
-                className="group relative block aspect-[4/3] overflow-hidden rounded-2xl"
-              >
-                <Image
-                  src={branche.foto}
-                  alt={branche.naam}
-                  fill
-                  loading={index < 6 ? "eager" : "lazy"}
-                  priority={false}
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                />
-                <div
-                  className={`absolute inset-0 bg-gradient-to-t ${branche.gradient} transition-opacity group-hover:opacity-90`}
-                  aria-hidden
-                />
-                <div className="absolute inset-0 flex flex-col justify-end p-4">
-                  <span className="mb-1 text-xl" aria-hidden>
-                    {branche.icon}
-                  </span>
-                  <h3 className="mb-1 text-sm font-black leading-tight text-white md:text-base">{branche.naam}</h3>
-                  <p className="hidden text-xs leading-snug text-white/60 md:block">{branche.beschrijving}</p>
-                  <span className="mt-1 text-xs text-white/50 transition-colors group-hover:text-white/90">
-                    Bekijk →
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </RevealSection>
-
-      {/* Sectie 6 — Portfolio */}
-      <RevealSection className="bg-neutral-light px-6 py-[110px] md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center">
-            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Portfolio</p>
-            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
-              Recent opgeleverd
-            </h2>
-          </div>
-          <div className="mt-14 grid gap-8 lg:grid-cols-2">
-            {/* Saved Souls Foundation */}
-            <article className="overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-14px_rgba(10,15,30,0.14)] ring-1 ring-black/5">
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src="/savedsouls-screenshot.png"
-                  alt="Website van Saved Souls Foundation"
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  priority={false}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-top"
-                />
-              </div>
-              <div className="p-8">
-                <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-ssf-orange">🐾 Goed doel</p>
-                <h3 className="font-sora mt-2 text-xl font-bold text-neutral-dark">Saved Souls Foundation</h3>
-                <p className="font-lato mt-3 leading-relaxed text-neutral-mid">
-                  Meertalige website voor de dierenopvang in Khon Kaen, Thailand — met donatiemodule en verhalen van
-                  geredde dieren.
-                </p>
-                <a
-                  href="https://www.savedsouls-foundation.org/nl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-lato mt-5 inline-block font-bold text-primary hover:underline"
-                >
-                  Bekijk de website →
-                </a>
-              </div>
-            </article>
-
-            {/* Ren Ji Tang */}
-            <article className="group overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-14px_rgba(10,15,30,0.14)] ring-1 ring-black/5">
-              <div className="relative h-64 w-full overflow-hidden">
-                <Image
-                  src="/portfolio/renjitang.jpg"
-                  alt="Ren Ji Tang — Acupunctuur & TCM website"
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  priority={false}
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="p-8">
-                <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Uitgelicht project</p>
-                <h3 className="font-sora mt-2 text-xl font-bold text-neutral-dark">Ren Ji Tang — Acupunctuur &amp; TCM</h3>
-                <p className="font-lato mt-3 leading-relaxed text-neutral-mid">
-                  Complete Next.js website met online boekingsmodule en Google-reviews. Volledig AVG-compliant. Resultaat:
-                  5 sterren op Google.
-                </p>
-                <ul className="font-lato mt-4 flex flex-wrap gap-2">
-                  {REN_JI_TAGS.map((t) => (
-                    <li key={t} className="rounded-full border border-neutral-light bg-neutral-light px-3 py-1 text-xs font-medium text-neutral-mid">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="https://www.renjitang.nl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-lato mt-5 inline-block font-bold text-primary hover:underline"
-                >
-                  Bekijk de website →
-                </a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </RevealSection>
-
-      {/* Sectie 7 — SSF Missie */}
-      <SSFMissie />
-
-      {/* Sectie 8 — Werkwijze */}
-      <RevealSection className="px-6 py-[110px] md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center">
-            <p className="font-lato text-xs font-bold uppercase tracking-[0.14em] text-primary">Werkwijze</p>
-            <h2 className="font-sora mt-3 text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-neutral-dark">
-              Van idee tot live in 4 stappen
-            </h2>
-          </div>
-          <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {WERKWIJZE.map((stap) => (
-              <div key={stap.nummer} className="group relative aspect-[3/4] overflow-hidden rounded-2xl">
-                <Image
-                  src={stap.foto}
-                  alt={stap.titel}
-                  fill
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  priority={false}
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-900/60 to-blue-900/20" />
-                <div className="absolute inset-0 flex flex-col justify-between p-5">
-                  <span className="font-sora text-4xl font-black text-white/20">{stap.nummer}</span>
-                  <div>
-                    <h3 className="font-sora mb-2 text-lg font-black text-white">{stap.titel}</h3>
-                    <p className="font-lato text-sm leading-relaxed text-white/70">{stap.beschrijving}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </RevealSection>
-
-      {/* Sectie 9 — Tevreden klanten */}
-      <RevealSection className="relative overflow-hidden bg-neutral-light px-6 py-[110px] md:px-10">
-        <div className="relative mx-auto max-w-6xl">
-          <h2 className="font-sora text-center text-[clamp(2rem,4vw,3rem)] font-extrabold text-neutral-dark">
-            Tevreden klanten
-          </h2>
-          <p className="font-lato mx-auto mt-3 max-w-2xl text-center text-neutral-mid">
-            Een greep uit de websites die we recent hebben gebouwd. Bekijk ze gerust live.
-          </p>
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {KLANTEN.map((klant) => (
-              <a
-                key={klant.naam}
-                href={klant.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
-                  <Image
-                    src={klant.foto}
-                    alt={`Website van ${klant.naam}`}
-                    fill
-                    loading="lazy"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-                <div className="p-5">
-                  <p className="font-sora text-base font-bold text-neutral-dark">{klant.naam}</p>
-                  <p className="font-lato mt-1 text-sm text-neutral-mid">{klant.branche}</p>
-                  <p className="font-lato mt-3 text-sm font-semibold" style={{ color: "#3B6D11" }}>
-                    {klant.url.replace(/^https:\/\//, "").replace(/\/$/, "")} →
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-          <div className="mt-10 text-center">
-            <a
-              href={GOOGLE_REVIEWS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-lato inline-flex min-h-[44px] items-center gap-2 rounded-full border border-gray-300 bg-white px-6 text-sm font-semibold text-neutral-dark transition hover:border-gray-400"
-            >
-              <span aria-hidden className="text-amber-400">★</span>
-              Lees onze reviews op Google
-            </a>
-          </div>
-        </div>
-      </RevealSection>
-
-      {/* Sectie 10 — FAQ */}
-      {/* Nieuw product: Allesis Geboekt */}
-      <RevealSection className="px-6 py-[110px] md:px-10">
-        <div className="mx-auto grid max-w-5xl items-center gap-10 rounded-3xl px-8 py-12 text-white md:grid-cols-[1.4fr_1fr] md:px-12" style={{ background: "linear-gradient(135deg,#3F2554,#D45D79)" }}>
-          <div>
-            <span className="font-lato inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold tracking-wide uppercase">Nieuw</span>
-            <h2 className="font-sora mt-4 text-3xl font-bold md:text-4xl">Alles is geboekt.</h2>
-            <p className="font-lato mt-3 max-w-xl text-white/90">Onze nieuwe boekingsapp voor iedereen die op afspraak werkt, van kapper tot tandarts. Klanten boeken zelf, dag en nacht. Zonder PHP, zonder plug-ins en zonder commissie.</p>
-            <Link href="/geboekt" className="font-lato mt-6 inline-flex min-h-[52px] items-center justify-center rounded-xl bg-white px-8 font-bold text-[#3F2554] transition hover:opacity-90">Bekijk Allesis Geboekt →</Link>
-          </div>
-          <ul className="font-lato space-y-3 text-sm">
-            {["4 weken gratis, zonder betaalgegevens", "Daarna €24,95 per maand excl. btw", "2FA en elke zaak apart afgeschermd", "Op uw telefoon, in gewone taal"].map((x) => <li key={x} className="flex gap-2"><span aria-hidden="true" className="font-bold">✓</span>{x}</li>)}
-          </ul>
-        </div>
-      </RevealSection>
-
       <FAQGrid
         gradient="from-blue-900/95 via-blue-900/80 to-blue-800/60"
         items={HOME_FAQ_GRID}
@@ -1302,6 +1196,9 @@ export default function HomePageContent() {
           </p>
         </div>
       </RevealSection>
+
+      {/* Sectie 7 — SSF Missie */}
+      <SSFMissie />
 
       {/* Sectie 12 — CTA */}
       <RevealSection className="relative overflow-hidden px-6 py-24 md:px-16">

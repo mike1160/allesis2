@@ -1,10 +1,10 @@
-import ExtraBrancheLayout from "@/components/branche/ExtraBrancheLayout";
-import { EXTRA_BRANCHES } from "@/lib/extra-branches";
+import SectorLayout from "@/components/branche/SectorLayout";
+import { getSector, sectorMetadata } from "@/lib/sector-branches";
 
-const data = EXTRA_BRANCHES.fotografie;
+const sector = getSector("fotografie");
 
-export const metadata = data.metadata;
+export const metadata = sectorMetadata(sector);
 
 export default function Page() {
-  return <ExtraBrancheLayout data={data} />;
+  return <SectorLayout sector={sector} />;
 }

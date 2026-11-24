@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { EXTRA_BRANCH_SLUGS } from "@/lib/extra-branches";
+import { SECTOR_SLUGS } from "@/lib/sector-branches";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://allesis.nl";
-  const lastModified = new Date("2026-07-25");
+  const lastModified = new Date("2026-11-24");
 
   const coreBranches = [
     "horeca",
@@ -20,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "thai",
   ];
 
-  const branches = [...coreBranches, ...EXTRA_BRANCH_SLUGS].filter(
+  const branches = [...new Set([...SECTOR_SLUGS, ...coreBranches, ...EXTRA_BRANCH_SLUGS])].filter(
     (slug) => slug !== "muziek",
   );
 
