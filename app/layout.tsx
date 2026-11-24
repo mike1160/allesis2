@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import MainNav from "@/components/MainNav";
+import BlackFridayPopup from "@/components/BlackFridayPopup";
 import Footer from "@/components/Footer";
 import BreadcrumbAuto from "@/components/seo/BreadcrumbAuto";
 import { buildSiteGraphSchema } from "@/lib/json-ld";
@@ -231,6 +232,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MainNav />
         <main>{children}</main>
         <Footer />
+        <BlackFridayPopup />
       </body>
     </html>
   );
