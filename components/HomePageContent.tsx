@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import BlackFridayPrijs from "@/components/BlackFridayPrijs";
 import CookieConsent from "@/components/CookieConsent";
 import FAQGrid from "@/components/FAQGrid";
 import GratisVoorwaardenNote from "@/components/GratisVoorwaardenNote";
@@ -622,12 +623,16 @@ export default function HomePageContent() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${pakket.gradient}`} aria-hidden />
-                <div className="absolute inset-0 flex flex-col p-7">
+                <div className="relative flex h-full min-h-[520px] flex-col p-7">
                   <p className={`mb-3 text-xs font-black uppercase tracking-widest ${pakket.badgeKleur}`}>
                     {pakket.badge}
                   </p>
                   <h3 className="font-sora mb-2 text-2xl font-black text-white">{pakket.naam}</h3>
-                  <p className="mb-1 text-4xl font-black tracking-tight text-white">{pakket.prijs}</p>
+                  {pakket.naam === "Starter" ? (
+                    <BlackFridayPrijs prijs={pakket.prijs} className="text-4xl text-white" />
+                  ) : (
+                    <p className="mb-1 text-4xl font-black tracking-tight text-white">{pakket.prijs}</p>
+                  )}
                   <p className="mb-6 text-xs text-white/50">{pakket.prijsDetail}</p>
                   <ul className="flex flex-1 flex-col gap-2">
                     {pakket.features.map((f) => (

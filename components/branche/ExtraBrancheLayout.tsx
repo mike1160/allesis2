@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BlackFridayPrijs from "@/components/BlackFridayPrijs";
 import BrowserMockup from "@/components/BrowserMockup";
 import type { ExtraBrancheConfig } from "@/lib/extra-branches";
 import { BLUR_DATA_URL } from "@/lib/image-placeholders";
@@ -177,7 +178,11 @@ export default function ExtraBrancheLayout({ data }: { data: ExtraBrancheConfig 
               >
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-white/60">{pakket.badge}</p>
                 <h3 className="font-sora mb-1 text-xl font-black">{pakket.naam}</h3>
-                <p className="mb-1 text-3xl font-black">{pakket.prijs}</p>
+                {pakket.naam === "Starter" ? (
+                  <BlackFridayPrijs prijs={pakket.prijs} className="text-3xl" />
+                ) : (
+                  <p className="mb-1 text-3xl font-black">{pakket.prijs}</p>
+                )}
                 <p className="mb-5 text-xs text-white/50">{pakket.prijsDetail}</p>
                 <ul className="mb-6 flex flex-1 flex-col gap-2">
                   {pakket.features.map((f) => (

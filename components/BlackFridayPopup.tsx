@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BLACK_FRIDAY_EINDE } from "@/lib/black-friday";
 
 /** Actie loopt t/m 31 december 2026 (23:59:59 Nederlandse tijd). */
-const EINDE_ACTIE = new Date("2026-12-31T23:59:59+01:00").getTime();
+const EINDE_ACTIE = BLACK_FRIDAY_EINDE;
 const STORAGE_KEY = "bf2026-popup-gesloten";
 /** Na sluiten blijft de pop-up 3 dagen weg. */
 const OPNIEUW_NA_MS = 3 * 24 * 60 * 60 * 1000;
@@ -66,15 +67,26 @@ export default function BlackFridayPopup() {
     if (verborgen || Date.now() > EINDE_ACTIE) return;
     const engels =
       pathname.startsWith("/th") || pathname.startsWith("/thai") || !navigator.language?.toLowerCase().startsWith("nl");
-    setTaal(engels ? "en" : "nl");
-    setDagen(Math.max(1, Math.ceil((EINDE_ACTIE - Date.now()) / 86_400_000)));
-    setActief(true);
+    // State pas zetten in een callback (na de eerste paint), niet synchroon in de effect.
+    const frame = window.requestAnimationFrame(() => {
+      setTaal(engels ? "en" : "nl");
+      setDagen(Math.max(1, Math.ceil((EINDE_ACTIE - Date.now()) / 86_400_000)));
+      setActief(true);
+    });
 
     const gesloten = Number(localStorage.getItem(STORAGE_KEY) || 0);
-    if (gesloten && Date.now() - gesloten < OPNIEUW_NA_MS) return;
-    const timer = window.setTimeout(() => setOpen(true), 2500);
-    return () => window.clearTimeout(timer);
+    const timer =
+      gesloten && Date.now() - gesloten < OPNIEUW_NA_MS ? undefined : window.setTimeout(() => setOpen(true), 2500);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      if (timer) window.clearTimeout(timer);
+    };
   }, [pathname, verborgen]);
+
+  function sluit() {
+    localStorage.setItem(STORAGE_KEY, String(Date.now()));
+    setOpen(false);
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -82,11 +94,6 @@ export default function BlackFridayPopup() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
-
-  function sluit() {
-    localStorage.setItem(STORAGE_KEY, String(Date.now()));
-    setOpen(false);
-  }
 
   const t = TEKST[taal];
 

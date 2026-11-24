@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BlackFridayPrijs from "@/components/BlackFridayPrijs";
 import BrowserMockup from "@/components/BrowserMockup";
 import JsonLd from "@/components/seo/JsonLd";
 import { buildFaqPageSchema, buildServiceSchema } from "@/lib/json-ld";
@@ -243,8 +244,7 @@ export default function SectorLayout({ sector: s }: { sector: Sector }) {
           <div className="mt-10 grid gap-4 rounded-3xl bg-neutral-dark p-7 text-white md:grid-cols-3 md:p-9">
             <div>
               <p className="font-lato text-xs font-bold uppercase tracking-widest text-white/50">Website</p>
-              <p className="font-sora mt-1 text-2xl font-black">Vanaf €299</p>
-              <p className="font-lato text-sm text-white/60">eenmalig · of gratis one-pager*</p>
+              <BlackFridayPrijs prijs="Vanaf €299" className="font-sora mt-1 text-2xl" />
             </div>
             <div>
               <p className="font-lato text-xs font-bold uppercase tracking-widest text-white/50">Hosting</p>
