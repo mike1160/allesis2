@@ -526,3 +526,16 @@ body {
     text-shadow: 0 0 8px rgba(246, 130, 32, 0.4);
   }
 }
+
+/* Black Friday pop-up */
+@keyframes bf-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes bf-in { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes bf-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bf-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 212, 0, .55); } 50% { box-shadow: 0 0 0 10px rgba(255, 212, 0, 0); } }
+.bf-backdrop { animation: bf-fade .3s ease-out both; }
+.bf-card { animation: bf-in .5s cubic-bezier(.2, .9, .3, 1.2) both; }
+.bf-marquee { animation: bf-marquee 18s linear infinite; }
+.bf-cta { animation: bf-pulse 2.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .bf-backdrop, .bf-card, .bf-marquee, .bf-cta { animation: none; }
+}

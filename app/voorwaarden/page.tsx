@@ -52,7 +52,7 @@ export default function VoorwaardenPage() {
   return (
     <>
       <SubpageHero
-        eyebrow="Allesis.nl · KvK 52339831 · Versie juli 2026"
+        eyebrow="Allesis.nl · KvK 52339831 · Versie november 2026"
         title="Voorwaarden &"
         titleAccent="Disclaimer"
         subtitle="De volledige voorwaarden rondom ons gratis one-pager pakket, de 24-uurs belofte en de algemene disclaimer."
@@ -235,9 +235,29 @@ export default function VoorwaardenPage() {
 
           <hr className="my-12 border-neutral-light" />
 
-          {/* 5. CONTACT */}
+          {/* 5. BLACK FRIDAY */}
+          <section id="black-friday" className="scroll-mt-28">
+            <h2 className="font-sora text-2xl font-extrabold text-neutral-dark">5. Black Friday-actie: gratis website bij overstap</h2>
+            <p className="font-lato mt-6 leading-relaxed text-neutral-mid">
+              Wie tot en met 31 december 2026 zijn hosting naar Allesis overzet, krijgt een nieuwe website zonder
+              bouwkosten. Hiervoor gelden de volgende voorwaarden:
+            </p>
+            <Bullets
+              items={[
+                "Hosting bij Allesis à €20 per maand exclusief btw, met een looptijd van minimaal 1 jaar.",
+                "Inbegrepen: een complete website met meerdere pagina's, contactformulier, SSL-certificaat, mobielvriendelijk ontwerp en basis-SEO.",
+                "Niet inbegrepen: webshops, betaalintegraties, koppelingen met externe systemen en ander maatwerk. Hiervoor ontvangt u vooraf een offerte.",
+                "Vraagt een website uitzonderlijk veel werk, dan spreken we vooraf een eerlijke prijs af. U zit nergens aan vast voordat u akkoord geeft.",
+                "De aanvraag moet uiterlijk 31 december 2026 binnen zijn. Allesis kan een aanvraag zonder opgave van reden weigeren.",
+              ]}
+            />
+          </section>
+
+          <hr className="my-12 border-neutral-light" />
+
+          {/* 6. CONTACT */}
           <section>
-            <h2 className="font-sora text-2xl font-extrabold text-neutral-dark">5. Contact</h2>
+            <h2 className="font-sora text-2xl font-extrabold text-neutral-dark">6. Contact</h2>
             <p className="font-lato mt-6 leading-relaxed text-neutral-mid">Vragen over deze voorwaarden? Neem contact op:</p>
             <Bullets
               items={[

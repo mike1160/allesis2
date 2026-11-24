@@ -9,44 +9,43 @@ const EINDE_ACTIE = new Date("2026-12-31T23:59:59+01:00").getTime();
 const STORAGE_KEY = "bf2026-popup-gesloten";
 /** Na sluiten blijft de pop-up 3 dagen weg. */
 const OPNIEUW_NA_MS = 3 * 24 * 60 * 60 * 1000;
-const VERBORGEN_OP = ["/admin", "/dashboard", "/login", "/registreren", "/contact"];
+const VERBORGEN_OP = ["/admin", "/dashboard", "/login", "/registreren", "/contact", "/voorwaarden"];
 
 const OFFERTE_HREF = `/contact?pakket=${encodeURIComponent("Black Friday — hosting €20/mnd + gratis website")}#offerte`;
+const GEEL = "#FFD400";
 
 type Taal = "nl" | "en";
 
 const TEKST = {
   nl: {
-    label: "Black Friday deal",
-    titel: "Stap over naar onze hosting en krijg je website gratis*",
-    prijs: "€20",
-    perMaand: "per maand ex btw · minimaal 1 jaar",
-    punten: [
-      "Complete website met meerdere pagina's",
-      "Contactformulier, SSL-certificaat en mobielvriendelijk ontwerp",
-      "Snelle Nederlandse hosting, basis-SEO en AVG-proof",
-    ],
-    cta: "Ik wil overstappen",
+    tape: "GRATIS WEBSITE",
+    kop: "Gratis website.",
+    sub: "Stap over naar onze hosting en wij bouwen uw nieuwe website. Zonder gedoe.",
+    website: "Website",
+    hosting: "Hosting",
+    pm: "p/m ex btw",
+    punten: ["Complete website met contactformulier", "Veilig: SSL, geen PHP, geen plug-in-lekken", "Snel, vindbaar en AVG-proof"],
+    cta: "Ik stap over",
     sluiten: "Nee, bedankt",
-    geldig: "Geldig t/m 31 december 2026",
-    voorwaarden:
-      "*Gratis website bij overstap naar hosting bij Allesis à €20 per maand ex btw, met een looptijd van minimaal 1 jaar. Inbegrepen is alles wat wij geautomatiseerd kunnen opleveren: een uitgebreide website met contactformulier, SSL en mobielvriendelijk ontwerp. Webshops, betaalintegraties, koppelingen en ander maatwerk blijven betaald; daarvoor ontvangt u vooraf een offerte. Kost een website uitzonderlijk veel werk, dan spreken we vooraf een eerlijke prijs af.",
+    dagen: (d: number) => (d === 1 ? "Nog 1 dag" : `Nog ${d} dagen`),
+    geldig: "t/m 31 december",
+    kleine: "*Bij minimaal 1 jaar hosting à €20 p/m ex btw. Webshops, betaalkoppelingen en maatwerk niet inbegrepen.",
+    voorwaarden: "Voorwaarden",
   },
   en: {
-    label: "Black Friday deal",
-    titel: "Switch to our hosting and get your website for free*",
-    prijs: "€20",
-    perMaand: "per month excl. VAT · 1-year minimum",
-    punten: [
-      "Complete multi-page website",
-      "Contact form, SSL certificate and mobile-friendly design",
-      "Fast Dutch hosting, basic SEO and GDPR-compliant",
-    ],
-    cta: "I want to switch",
+    tape: "FREE WEBSITE",
+    kop: "Free website.",
+    sub: "Move your hosting to us and we'll build your new website. Hassle-free.",
+    website: "Website",
+    hosting: "Hosting",
+    pm: "p/m excl. VAT",
+    punten: ["Complete website with contact form", "Secure: SSL, no PHP, no plug-in leaks", "Fast, findable and GDPR-proof"],
+    cta: "I'm switching",
     sluiten: "No, thanks",
-    geldig: "Valid until 31 December 2026",
-    voorwaarden:
-      "*Free website when you move your hosting to Allesis at €20 per month excl. VAT, with a minimum term of 1 year. Included is everything we can deliver in an automated way: an extensive website with contact form, SSL and mobile-friendly design. Webshops, payment integrations, third-party connections and other custom work remain paid; you will receive a quote in advance. If a website turns out to require an exceptional amount of work, we agree on a fair price beforehand.",
+    dagen: (d: number) => (d === 1 ? "1 day left" : `${d} days left`),
+    geldig: "until 31 December",
+    kleine: "*With a minimum 1-year hosting plan at €20 p/m excl. VAT. Webshops, payment integrations and custom work not included.",
+    voorwaarden: "Terms",
   },
 } as const;
 
@@ -54,6 +53,7 @@ export default function BlackFridayPopup() {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState(false);
   const [taal, setTaal] = useState<Taal>("nl");
+  const [dagen, setDagen] = useState(0);
 
   const verborgen = VERBORGEN_OP.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
@@ -66,6 +66,7 @@ export default function BlackFridayPopup() {
       pathname.startsWith("/th") || pathname.startsWith("/thai") || !navigator.language?.toLowerCase().startsWith("nl");
     const timer = window.setTimeout(() => {
       setTaal(engels ? "en" : "nl");
+      setDagen(Math.max(1, Math.ceil((EINDE_ACTIE - Date.now()) / 86_400_000)));
       setOpen(true);
     }, 2500);
     return () => window.clearTimeout(timer);
@@ -85,10 +86,11 @@ export default function BlackFridayPopup() {
 
   if (!open) return null;
   const t = TEKST[taal];
+  const tapeTekst = Array.from({ length: 8 }, () => `${t.tape} ✦ BLACK FRIDAY ✦ `).join("");
 
   return (
     <div
-      className="fixed inset-0 z-[1100] flex items-end justify-center bg-black/60 p-3 backdrop-blur-sm sm:items-center sm:p-6"
+      className="bf-backdrop fixed inset-0 z-[1100] flex items-end justify-center bg-black/75 p-3 backdrop-blur-md sm:items-center sm:p-6"
       onClick={sluit}
     >
       <div
@@ -96,18 +98,28 @@ export default function BlackFridayPopup() {
         aria-modal="true"
         aria-labelledby="bf-titel"
         lang={taal}
-        className="relative max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-[#0b0b0f] text-white shadow-2xl"
+        className="bf-card relative max-h-[94vh] w-full max-w-[440px] overflow-y-auto overflow-x-hidden rounded-[28px] bg-black text-white"
+        style={{ boxShadow: `0 0 0 1px ${GEEL}55, 0 30px 80px -10px ${GEEL}40, 0 0 120px -30px ${GEEL}` }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 pt-5">
-          <div className="flex rounded-full border border-white/15 p-0.5 text-xs font-bold" role="group" aria-label="Taal / Language">
+        {/* Gele gloed */}
+        <div
+          className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-30 blur-3xl"
+          style={{ background: GEEL }}
+          aria-hidden
+        />
+
+        {/* Kopbalk */}
+        <div className="relative flex items-center justify-between px-5 pt-5">
+          <div className="flex rounded-full border border-white/15 p-0.5 text-[11px] font-black" role="group" aria-label="Taal / Language">
             {(["nl", "en"] as const).map((l) => (
               <button
                 key={l}
                 type="button"
                 onClick={() => setTaal(l)}
                 aria-pressed={taal === l}
-                className={`rounded-full px-3 py-1 uppercase transition ${taal === l ? "bg-white text-black" : "text-white/60 hover:text-white"}`}
+                className="rounded-full px-3 py-1 uppercase transition"
+                style={taal === l ? { background: GEEL, color: "#000" } : { color: "rgba(255,255,255,.55)" }}
               >
                 {l}
               </button>
@@ -117,53 +129,98 @@ export default function BlackFridayPopup() {
             type="button"
             onClick={sluit}
             aria-label={taal === "nl" ? "Sluiten" : "Close"}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-xl text-white/60 transition hover:bg-white/10 hover:text-white"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-2xl leading-none text-white/50 transition hover:bg-white/10 hover:text-white"
           >
             ×
           </button>
         </div>
 
-        <div className="px-6 pb-6 pt-4 sm:px-8">
-          <span className="font-lato inline-block rounded-full bg-[#facc15] px-3 py-1 text-xs font-black uppercase tracking-widest text-black">
-            {t.label}
+        {/* BLACK FRIDAY */}
+        <div className="relative px-6 pt-4">
+          <p
+            className="font-sora select-none text-[clamp(3.1rem,15vw,4.4rem)] font-black uppercase leading-[0.85] tracking-[-0.04em]"
+            aria-hidden
+          >
+            <span className="block" style={{ color: "transparent", WebkitTextStroke: `1.5px ${GEEL}` }}>
+              Black
+            </span>
+            <span className="block" style={{ color: GEEL }}>
+              Friday
+            </span>
+          </p>
+          <span
+            className="font-lato absolute right-6 top-6 rotate-6 rounded-md px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-black"
+            style={{ background: GEEL }}
+          >
+            {t.dagen(dagen)}
           </span>
-          <h2 id="bf-titel" className="font-sora mt-4 text-2xl font-extrabold leading-tight sm:text-3xl">
-            {t.titel}
-          </h2>
+        </div>
 
-          <div className="mt-5 flex items-baseline gap-3">
-            <span className="font-sora text-5xl font-black text-[#facc15]">{t.prijs}</span>
-            <span className="font-lato text-sm text-white/70">{t.perMaand}</span>
+        {/* Bewegende tape */}
+        <div className="relative my-5 -rotate-2 scale-110 overflow-hidden py-2" style={{ background: GEEL }} aria-hidden>
+          <div className="bf-marquee font-sora flex w-max whitespace-nowrap text-sm font-black tracking-wider text-black">
+            <span>{tapeTekst}</span>
+            <span>{tapeTekst}</span>
+          </div>
+        </div>
+
+        <div className="relative px-6 pb-6">
+          <h2 id="bf-titel" className="font-sora text-[28px] font-black leading-tight">
+            {t.kop}
+            <span style={{ color: GEEL }}>*</span>
+          </h2>
+          <p className="font-lato mt-1.5 text-[15px] leading-snug text-white/70">{t.sub}</p>
+
+          {/* Prijsblokken */}
+          <div className="mt-5 grid grid-cols-2 gap-2.5">
+            <div className="rounded-2xl p-4 text-black" style={{ background: GEEL }}>
+              <p className="font-lato text-[11px] font-black uppercase tracking-widest opacity-70">{t.website}</p>
+              <p className="font-sora mt-1 text-4xl font-black leading-none">€0</p>
+            </div>
+            <div className="rounded-2xl border border-white/15 p-4">
+              <p className="font-lato text-[11px] font-black uppercase tracking-widest text-white/50">{t.hosting}</p>
+              <p className="font-sora mt-1 text-4xl font-black leading-none">€20</p>
+              <p className="font-lato mt-1 text-[11px] text-white/50">{t.pm}</p>
+            </div>
           </div>
 
-          <ul className="font-lato mt-5 space-y-2 text-sm text-white/85">
+          <ul className="font-lato mt-5 space-y-2 text-[14px] text-white/85">
             {t.punten.map((p) => (
-              <li key={p} className="flex gap-2">
-                <span className="text-[#facc15]" aria-hidden>✓</span>
+              <li key={p} className="flex items-center gap-2.5">
+                <span
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-black text-black"
+                  style={{ background: GEEL }}
+                  aria-hidden
+                >
+                  ✓
+                </span>
                 {p}
               </li>
             ))}
           </ul>
 
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-            <Link
-              href={OFFERTE_HREF}
-              onClick={sluit}
-              className="font-lato inline-flex min-h-[48px] flex-1 items-center justify-center rounded-full bg-[#facc15] px-6 text-sm font-black text-black transition hover:bg-[#fde047]"
-            >
-              {t.cta} →
-            </Link>
-            <button
-              type="button"
-              onClick={sluit}
-              className="font-lato min-h-[48px] rounded-full px-6 text-sm font-semibold text-white/60 transition hover:text-white"
-            >
-              {t.sluiten}
-            </button>
-          </div>
+          <Link
+            href={OFFERTE_HREF}
+            onClick={sluit}
+            className="bf-cta font-sora mt-6 flex min-h-[56px] w-full items-center justify-center gap-2 rounded-2xl text-base font-black uppercase tracking-wide text-black transition hover:brightness-110"
+            style={{ background: GEEL }}
+          >
+            {t.cta} <span aria-hidden>→</span>
+          </Link>
+          <button
+            type="button"
+            onClick={sluit}
+            className="font-lato mt-2 w-full py-2 text-sm font-semibold text-white/45 transition hover:text-white/80"
+          >
+            {t.sluiten}
+          </button>
 
-          <p className="font-lato mt-5 text-xs font-bold text-white/70">{t.geldig}</p>
-          <p className="font-lato mt-2 text-[11px] leading-relaxed text-white/50">{t.voorwaarden}</p>
+          <p className="font-lato mt-3 border-t border-white/10 pt-3 text-[11px] leading-relaxed text-white/45">
+            <span className="font-bold text-white/70">{t.geldig}.</span> {t.kleine}{" "}
+            <Link href="/voorwaarden#black-friday" onClick={sluit} className="underline underline-offset-2 hover:text-white">
+              {t.voorwaarden}
+            </Link>
+          </p>
         </div>
       </div>
     </div>

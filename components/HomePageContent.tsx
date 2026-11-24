@@ -462,17 +462,18 @@ function OrchidHero() {
             }}
           >
             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: HERO_ACCENT }} aria-hidden />
-            ✦ Persoonlijk · Professioneel · Nederland
+            ✦ Voor het Nederlandse MKB
           </span>
 
           <h1 className="font-sora mt-7 text-[clamp(2.4rem,6.5vw,4.25rem)] font-black leading-[1.08] tracking-[-0.03em] text-neutral-dark">
-            Een website die{" "}
-            <span style={{ color: HERO_ACCENT }}>écht werkt</span>.
+            Klaar met <span className="whitespace-nowrap">website-gedoe?</span>{" "}
+            <span style={{ color: HERO_ACCENT }}>Wij regelen het</span>.
           </h1>
 
           <p className="font-lato mt-6 max-w-xl text-lg leading-relaxed text-gray-600 md:text-xl">
-            Allesis bouwt websites die gevonden worden — door mensen én door AI. Hosting, SEO
-            en AVG inbegrepen. Persoonlijk contact, vaste prijs.
+            Geen PHP-lekken, geen spam in uw inbox, geen plug-ins die om updates zeuren. Wij bouwen
+            snelle, goed beveiligde websites voor ondernemers die gewoon willen dat het werkt. Gevonden
+            in Google én AI, met hosting en AVG inbegrepen. Eén vast aanspreekpunt, vaste prijs.
           </p>
 
           {/* Apps — elegant Apple & Android */}
