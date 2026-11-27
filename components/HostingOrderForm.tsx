@@ -29,6 +29,7 @@ export default function HostingOrderForm({ ingActief = false }: { ingActief?: bo
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [betaalverzoek, setBetaalverzoek] = useState(false);
   const [error, setError] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
@@ -73,6 +74,7 @@ export default function HostingOrderForm({ ingActief = false }: { ingActief?: bo
         window.location.href = data.redirectUrl;
         return;
       }
+      if (data.betalingMislukt) setBetaalverzoek(true);
       setSuccess(true);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Er ging iets mis. Probeer het opnieuw.");
@@ -124,7 +126,9 @@ export default function HostingOrderForm({ ingActief = false }: { ingActief?: bo
           Bedankt!
         </h2>
         <p style={{ fontFamily: "Lato, sans-serif", fontSize: 15, color: "#64748b", margin: 0 }}>
-          Uw hostingaanvraag is verzonden. Wij nemen binnen één werkdag contact met u op.
+          {betaalverzoek
+            ? "Uw bestelling is ontvangen. Online betalen lukt op dit moment niet; u ontvangt binnen één werkdag een betaalverzoek per e-mail."
+            : "Uw hostingaanvraag is verzonden. Wij nemen binnen één werkdag contact met u op."}
         </p>
       </div>
     );

@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
 
   let payload: AllesisEmailPayload;
   let redirectUrl: string | undefined;
+  let betalingMislukt = false;
 
   switch (type) {
     case "contact": {
@@ -170,6 +171,8 @@ export async function POST(request: NextRequest) {
         } catch (err) {
           // Bestelling gaat gewoon door als aanvraag; wij sturen dan een betaalverzoek.
           console.error("[api/send-email] ING-betaling starten mislukt", err);
+          betalingMislukt = true;
+          payload.bericht = `${payload.bericht ? `${payload.bericht}\n\n` : ""}⚠️ Online betalen via ING mislukt: stuur de klant een betaalverzoek.`;
         }
       }
       break;
@@ -279,7 +282,7 @@ export async function POST(request: NextRequest) {
     if (!result.ok) {
       return NextResponse.json({ error: result.message }, { status: 500 });
     }
-    return NextResponse.json(redirectUrl ? { success: true, redirectUrl } : { success: true });
+    return NextResponse.json({ success: true, ...(redirectUrl ? { redirectUrl } : {}), ...(betalingMislukt ? { betalingMislukt } : {}) });
   } catch (err) {
     console.error("[api/send-email] onverwachte fout bij verzenden", err);
     return NextResponse.json(
