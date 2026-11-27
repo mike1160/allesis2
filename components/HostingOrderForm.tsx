@@ -11,7 +11,14 @@ import { HOSTING_FORM_LABELS, HOSTING_STANDAARD, vindHostingPakket } from "@/lib
 const VERIFY_SERVER = "Verificatie mislukt. Probeer het opnieuw.";
 const VERIFY_CLIENT = "Verificatie mislukt. Vernieuw de pagina en probeer opnieuw.";
 
-export default function HostingOrderForm() {
+/** Eerste jaar vooruit, incl. 21% btw. */
+function jaarBedrag(label: string) {
+  const p = vindHostingPakket(label);
+  if (!p) return null;
+  return (Math.round(p.prijs * 12 * 1.21 * 100) / 100).toFixed(2).replace(".", ",");
+}
+
+export default function HostingOrderForm({ ingActief = false }: { ingActief?: boolean }) {
   const searchParams = useSearchParams();
   const [form, setForm] = useState({
     pakket: HOSTING_STANDAARD.formLabel as string,
@@ -62,6 +69,10 @@ export default function HostingOrderForm() {
         }
         return;
       }
+      if (typeof data.redirectUrl === "string" && data.redirectUrl.startsWith("https://")) {
+        window.location.href = data.redirectUrl;
+        return;
+      }
       setSuccess(true);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Er ging iets mis. Probeer het opnieuw.");
@@ -92,7 +103,10 @@ export default function HostingOrderForm() {
   };
 
   const submitDisabled = loading || !turnstileToken;
-  const submitLabel = loading ? "Verzenden…" : !turnstileToken ? "Bezig met verificatie..." : "Aanvraag versturen";
+  const submitLabel = loading ? "Verzenden…" : !turnstileToken ? "Bezig met verificatie..." : ingActief
+          ? "Bestellen en betalen met iDEAL →"
+          : "Aanvraag versturen";
+  const bedrag = jaarBedrag(form.pakket);
 
   if (success) {
     return (
@@ -224,6 +238,27 @@ export default function HostingOrderForm() {
           onToken={setTurnstileToken}
           onVerificationFailed={() => setError(VERIFY_CLIENT)}
         />
+        {ingActief && bedrag && (
+          <div
+            style={{
+              background: "#f8fafc",
+              border: "1px solid #e2e6f0",
+              borderRadius: 10,
+              padding: "14px 16px",
+              fontFamily: "Lato, sans-serif",
+              fontSize: 14,
+              color: "#334155",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", fontWeight: 700, color: "#0f172a" }}>
+              <span>Eerste jaar vooruit</span>
+              <span>€ {bedrag}</span>
+            </div>
+            <div style={{ marginTop: 4, fontSize: 12, color: "#64748b" }}>
+              Incl. 21% btw. Veilig betalen via ING Checkout (o.a. iDEAL). De factuur volgt per e-mail.
+            </div>
+          </div>
+        )}
         <button
           type="submit"
           disabled={submitDisabled}

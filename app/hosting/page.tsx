@@ -8,6 +8,7 @@ import { Reveal } from "@/components/subpage/Reveal";
 import SubpageHero from "@/components/subpage/SubpageHero";
 import { HOSTING_FAQ } from "@/lib/faq-data";
 import { HOSTING_PAKKETTEN } from "@/lib/hosting-pakketten";
+import { ingGeconfigureerd } from "@/lib/ing-checkout";
 import { buildFaqPageSchema, buildServiceSchema } from "@/lib/json-ld";
 import { pageAlternates, SITE_URL } from "@/lib/seo-config";
 
@@ -142,7 +143,7 @@ export default function HostingPage() {
             <p className="font-lato mt-12 text-center text-neutral-mid">Formulier laden…</p>
           }
         >
-          <HostingOrderForm />
+          <HostingOrderForm ingActief={ingGeconfigureerd()} />
         </Suspense>
       </Reveal>
 

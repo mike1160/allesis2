@@ -358,12 +358,14 @@ function businessHostingOrderNotificationText(payload: {
   telefoon: string;
   bericht?: string;
   nieuwsbrief?: boolean;
+  betaling?: { referentie: string; bedrag: string };
 }): string {
   const opmerking = payload.bericht?.trim() || "—";
   return [
     "Hostingbestelling via allesis.nl",
     "",
     plainRow("Pakket", payload.pakket),
+    plainRow("Betaling", payload.betaling ? `ING Checkout ${payload.betaling.bedrag} (ref. ${payload.betaling.referentie}) — wacht op betaling` : "Op factuur"),
     plainRow("Naam", payload.naam),
     plainRow("E-mail", payload.email),
     plainRow("Telefoon", payload.telefoon),
@@ -694,7 +696,27 @@ export type AllesisEmailPayload =
       bericht?: string;
       nieuwsbrief?: boolean;
     }
-  | { type: "hosting_order"; pakket: string; naam: string; email: string; telefoon: string; bericht?: string; nieuwsbrief?: boolean }
+  | {
+      type: "hosting_order";
+      pakket: string;
+      naam: string;
+      email: string;
+      telefoon: string;
+      bericht?: string;
+      nieuwsbrief?: boolean;
+      /** Gezet als de klant direct via ING Checkout gaat betalen. */
+      betaling?: { referentie: string; bedrag: string };
+    }
+  | {
+      type: "hosting_betaald";
+      naam: string;
+      email: string;
+      pakket: string;
+      bedrag: string;
+      referentie: string;
+      orderId: string;
+      test?: boolean;
+    }
   | {
       type: "opzegging";
       naam: string;
@@ -708,6 +730,51 @@ export type AllesisEmailPayload =
     };
 
 type OpzegPayload = Extract<AllesisEmailPayload, { type: "opzegging" }>;
+type BetaaldPayload = Extract<AllesisEmailPayload, { type: "hosting_betaald" }>;
+
+function hostingBetaaldRows(p: BetaaldPayload) {
+  return [
+    { label: "Pakket", value: `${p.pakket} — eerste jaar` },
+    { label: "Bedrag", value: `${p.bedrag} incl. btw${p.test ? " (TESTBETALING)" : ""}` },
+    { label: "Referentie", value: p.referentie },
+    { label: "ING-order", value: p.orderId },
+    { label: "Naam", value: p.naam || "—" },
+    { label: "E-mail", value: p.email },
+  ];
+}
+
+function hostingBetaaldCustomerHtml(p: BetaaldPayload): string {
+  const inner = `
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:0 0 16px;">Beste ${escapeHtml(p.naam || "klant")},</p>
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:0 0 16px;">
+      Bedankt! Uw betaling is ontvangen. Uw hosting is hiermee voor het eerste jaar geregeld.
+      Wij nemen binnen één werkdag contact met u op om alles over te zetten. U hoeft zelf niets te doen.
+    </p>
+    ${tableHtml(hostingBetaaldRows(p).filter((r) => r.label !== "ING-order"))}
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:20px 0 0;">
+      De factuur ontvangt u apart. Vragen? Beantwoord gewoon deze e-mail.
+    </p>
+    <p style="color:#334155;font-size:15px;line-height:1.6;margin:16px 0 0;">Met vriendelijke groet,<br />Allesis</p>`;
+  return wrapEmail(inner, "Betaling ontvangen", { klant: true });
+}
+
+function hostingBetaaldCustomerText(p: BetaaldPayload): string {
+  return [
+    `Beste ${p.naam || "klant"},`,
+    "",
+    "Bedankt! Uw betaling is ontvangen. Uw hosting is voor het eerste jaar geregeld.",
+    "Wij nemen binnen één werkdag contact met u op om alles over te zetten.",
+    "",
+    ...hostingBetaaldRows(p)
+      .filter((r) => r.label !== "ING-order")
+      .map((r) => plainRow(r.label, r.value)),
+    "",
+    "De factuur ontvangt u apart. Vragen? Beantwoord deze e-mail.",
+    "",
+    "Met vriendelijke groet,",
+    "Allesis · info@allesis.nl",
+  ].join("\n");
+}
 
 function opzegRows(p: OpzegPayload) {
   return [
@@ -850,11 +917,25 @@ export async function sendAllesisEmail(
         { label: "E-mail", value: payload.email },
         { label: "Telefoon", value: payload.telefoon },
         { label: "Opmerking", value: payload.bericht || "—" },
+        {
+          label: "Betaling",
+          value: payload.betaling
+            ? `ING Checkout, eerste jaar ${payload.betaling.bedrag} (ref. ${payload.betaling.referentie}) — wacht op betaling`
+            : "Op factuur",
+        },
         { label: "Privacyverklaring", value: "Akkoord (formulier)" },
         { label: "Nieuwsbrief", value: payload.nieuwsbrief ? "Ja" : "Nee" },
       ]);
       html = wrapEmail(inner, "Hostingbestelling via allesis.nl");
       text = businessHostingOrderNotificationText(payload);
+      break;
+    }
+    case "hosting_betaald": {
+      replyTo = payload.email;
+      subject = `${payload.test ? "[TEST] " : ""}Betaald: hosting ${payload.pakket} — ${payload.bedrag}`;
+      const inner = tableHtml(hostingBetaaldRows(payload));
+      html = wrapEmail(inner, "Betaling ontvangen via ING Checkout");
+      text = ["Betaling ontvangen via ING Checkout", "", ...hostingBetaaldRows(payload).map((r) => plainRow(r.label, r.value))].join("\n");
       break;
     }
     case "gratis_website": {
@@ -921,7 +1002,8 @@ export async function sendAllesisEmail(
     payload.type === "offerte" ||
     payload.type === "gratis_website" ||
     payload.type === "migratie_aanvraag" ||
-    payload.type === "opzegging"
+    payload.type === "opzegging" ||
+    payload.type === "hosting_betaald"
   ) {
     const customerEmail = payload.email.trim();
     console.log("[debug] sending to customer:", { type: payload.type, customerEmail });
@@ -945,6 +1027,10 @@ export async function sendAllesisEmail(
         confirmHtml = opzeggingCustomerConfirmationHtml(payload);
         confirmText = opzeggingCustomerConfirmationText(payload);
         confirmSubject = "Uw opzegging is ontvangen — Allesis";
+      } else if (payload.type === "hosting_betaald") {
+        confirmHtml = hostingBetaaldCustomerHtml(payload);
+        confirmText = hostingBetaaldCustomerText(payload);
+        confirmSubject = `${payload.test ? "[TEST] " : ""}Betaling ontvangen — uw hosting is geregeld`;
       } else if (payload.type === "migratie_aanvraag") {
         confirmHtml = migratieCustomerConfirmationHtml(payload);
         confirmText = migratieCustomerConfirmationText(payload);

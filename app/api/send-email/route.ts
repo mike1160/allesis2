@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendAllesisEmail, type AllesisEmailPayload } from "@/lib/allesis-email";
 import { PRIVACY_CONSENT_ERROR, parseNieuwsbrief, parsePrivacyAccepted } from "@/lib/form-consent";
 import { getClientIp, validateTurnstile } from "@/lib/validate-turnstile";
+import { vindHostingPakket } from "@/lib/hosting-pakketten";
+import { euro, ingGeconfigureerd, maakHostingBetaling } from "@/lib/ing-checkout";
+import { SITE_URL } from "@/lib/seo-config";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +50,7 @@ export async function POST(request: NextRequest) {
   const type = body.type;
 
   let payload: AllesisEmailPayload;
+  let redirectUrl: string | undefined;
 
   switch (type) {
     case "contact": {
@@ -135,6 +139,7 @@ export async function POST(request: NextRequest) {
         telefoon?: string;
         bericht?: string;
         type?: string;
+        betalen?: boolean;
       };
       if (!b.pakket?.trim() || !b.naam?.trim() || !b.email?.trim() || !b.telefoon?.trim()) {
         return bad("Vul pakket, naam, e-mailadres en telefoonnummer in.");
@@ -148,6 +153,25 @@ export async function POST(request: NextRequest) {
         bericht: b.bericht?.trim(),
         nieuwsbrief,
       };
+      // Direct betalen via ING Checkout (eerste jaar vooruit) als ING is ingesteld.
+      const pakket = vindHostingPakket(b.pakket);
+      if (pakket && ingGeconfigureerd() && b.betalen !== false) {
+        const referentie = `HOST-${pakket.id.toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
+        try {
+          const betaling = await maakHostingBetaling({
+            pakket,
+            naam: payload.naam,
+            email: payload.email,
+            referentie,
+            siteUrl: SITE_URL,
+          });
+          payload.betaling = { referentie, bedrag: euro(betaling.bedrag) };
+          redirectUrl = betaling.redirectUrl;
+        } catch (err) {
+          // Bestelling gaat gewoon door als aanvraag; wij sturen dan een betaalverzoek.
+          console.error("[api/send-email] ING-betaling starten mislukt", err);
+        }
+      }
       break;
     }
     case "gratis_website": {
@@ -255,7 +279,7 @@ export async function POST(request: NextRequest) {
     if (!result.ok) {
       return NextResponse.json({ error: result.message }, { status: 500 });
     }
-    return NextResponse.json({ success: true });
+    return NextResponse.json(redirectUrl ? { success: true, redirectUrl } : { success: true });
   } catch (err) {
     console.error("[api/send-email] onverwachte fout bij verzenden", err);
     return NextResponse.json(
