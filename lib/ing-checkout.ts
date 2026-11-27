@@ -24,12 +24,22 @@ function testModus() {
   return process.env.ING_TEST?.trim().toLowerCase() === "true";
 }
 
-/** Voorkeur: API-token (AT-code + token); anders verkooplocatie (SL-code + secret). */
-function auth() {
+type AuthSoort = "token" | "verkooplocatie";
+
+function basic(user: string, pass: string) {
+  return `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}`;
+}
+
+/** Beschikbare inlogcombinaties, in volgorde van voorkeur (AT-code + token, dan SL-code + secret). */
+export function authOpties(): { soort: AuthSoort; header: string }[] {
+  const opties: { soort: AuthSoort; header: string }[] = [];
   const at = process.env.ING_AT_CODE?.trim();
   const token = process.env.ING_TOKEN?.trim();
-  const [user, pass] = at && token ? [at, token] : [process.env.ING_SL_CODE!.trim(), process.env.ING_SECRET!.trim()];
-  return `Basic ${Buffer.from(`${user}:${pass}`).toString("base64")}`;
+  if (at && token) opties.push({ soort: "token", header: basic(at, token) });
+  const sl = process.env.ING_SL_CODE?.trim();
+  const secret = process.env.ING_SECRET?.trim();
+  if (sl && secret) opties.push({ soort: "verkooplocatie", header: basic(sl, secret) });
+  return opties;
 }
 
 /** Eerste jaar vooruit, incl. btw, in centen. */
@@ -58,49 +68,71 @@ export function isBetaald(s?: IngStatus) {
   return s?.action === "PAID" || s?.code === 100;
 }
 
-export async function maakHostingBetaling(opts: {
+export function hostingOrderBody(opts: {
   pakket: HostingPakket;
   naam: string;
   email: string;
   referentie: string;
   siteUrl: string;
 }) {
-  const bedrag = jaarBedragCenten(opts.pakket);
   const [voornaam, ...rest] = opts.naam.trim().split(/\s+/);
-  const body = {
+  return {
     serviceId: process.env.ING_SL_CODE!.trim(),
-    description: `Allesis hosting ${opts.pakket.naam} 1 jaar`,
+    description: `Allesis hosting ${opts.pakket.naam}`.slice(0, 32),
     reference: opts.referentie,
-    amount: { value: bedrag, currency: "EUR" },
+    amount: { value: jaarBedragCenten(opts.pakket), currency: "EUR" },
     returnUrl: `${opts.siteUrl}/hosting/betaald?ref=${encodeURIComponent(opts.referentie)}`,
     exchangeUrl: `${opts.siteUrl}/api/betalen/exchange`,
     customer: {
       email: opts.email,
-      firstName: voornaam || undefined,
-      lastName: rest.join(" ") || undefined,
-      locale: "nl_NL",
+      ...(voornaam ? { firstName: voornaam } : {}),
+      ...(rest.length ? { lastName: rest.join(" ") } : {}),
     },
     ...(testModus() ? { integration: { test: true } } : {}),
   };
+}
 
-  const res = await fetch(API, {
-    method: "POST",
-    headers: { Authorization: auth(), "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(10000),
-  });
-  const data = (await res.json().catch(() => ({}))) as IngOrder & { errors?: unknown; detail?: string };
-  if (!res.ok || !data.links?.redirect) {
-    console.error("[ing] order aanmaken mislukt", res.status, JSON.stringify(data).slice(0, 600));
+/** Stuurt de order naar ING; probeert bij 401/403 de andere inlogcombinatie. */
+export async function verstuurOrder(body: object) {
+  const pogingen: { soort: AuthSoort; status: number; antwoord: string }[] = [];
+  for (const optie of authOpties()) {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { Authorization: optie.header, "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(10000),
+    });
+    const tekst = await res.text();
+    pogingen.push({ soort: optie.soort, status: res.status, antwoord: tekst.slice(0, 1500) });
+    let data: IngOrder | null = null;
+    try {
+      data = JSON.parse(tekst) as IngOrder;
+    } catch {}
+    if (res.ok && data?.links?.redirect) {
+      werkendeAuth = optie.header;
+      return { ok: true as const, data, pogingen };
+    }
+    if (res.status !== 401 && res.status !== 403) break;
+  }
+  return { ok: false as const, pogingen };
+}
+
+let werkendeAuth: string | null = null;
+
+export async function maakHostingBetaling(opts: Parameters<typeof hostingOrderBody>[0]) {
+  const body = hostingOrderBody(opts);
+  const r = await verstuurOrder(body);
+  if (!r.ok) {
+    console.error("[ing] order aanmaken mislukt", JSON.stringify(r.pogingen));
     throw new Error("ING-betaling kon niet worden gestart");
   }
-  return { id: data.id, redirectUrl: data.links.redirect, bedrag };
+  return { id: r.data.id, redirectUrl: r.data.links!.redirect!, bedrag: body.amount.value };
 }
 
 export async function haalOrderStatus(id: string): Promise<IngOrder | null> {
   if (!/^[A-Za-z0-9-]{6,64}$/.test(id)) return null;
   const res = await fetch(`${API}/${id}/status`, {
-    headers: { Authorization: auth(), Accept: "application/json" },
+    headers: { Authorization: werkendeAuth ?? authOpties()[0]?.header ?? "", Accept: "application/json" },
     cache: "no-store",
     signal: AbortSignal.timeout(8000),
   });
