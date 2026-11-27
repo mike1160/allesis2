@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { HOSTING_PAKKETTEN } from "@/lib/hosting-pakketten";
-import { API_HOSTS, hostingOrderBody, verstuurOrder } from "@/lib/ing-checkout";
+import { API_HOSTS, authOpties, hostingOrderBody, verstuurOrder } from "@/lib/ing-checkout";
 import { SITE_URL } from "@/lib/seo-config";
 
 /**
@@ -42,9 +42,35 @@ export async function GET() {
     }));
     perServer.push({ server: host, resultaat: r.ok ? "OK" : "MISLUKT", pogingen: r.pogingen });
   }
+  // Status van de betaalmethodes (boarding) van deze verkooplocatie.
+  const betaalmethodes = [];
+  for (const optie of authOpties()) {
+    try {
+      const res = await fetch(`https://gms.pay.nl/v2/services/${sl}/paymentmethods`, {
+        headers: { Authorization: optie.header, Accept: "application/json" },
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000),
+      });
+      const tekst = await res.text();
+      let samenvatting: unknown = tekst.slice(0, 800);
+      try {
+        const j = JSON.parse(tekst) as {
+          paymentMethods?: { id: number; name: string; active: boolean; boarding?: { status?: string } | null }[];
+        };
+        if (j.paymentMethods) {
+          samenvatting = j.paymentMethods.map((m) => `${m.name} (${m.id}): ${m.active ? "actief" : "NIET actief"}, boarding ${m.boarding?.status ?? "—"}`);
+        }
+      } catch {}
+      betaalmethodes.push({ soort: optie.soort, status: res.status, resultaat: samenvatting });
+    } catch (e) {
+      betaalmethodes.push({ soort: optie.soort, status: 0, resultaat: String(e) });
+    }
+  }
+
   return NextResponse.json({
     env: { ...env, ING_API_HOST: process.env.ING_API_HOST?.trim() || "(standaard connect.pay.nl)" },
     verzonden: { ...body, serviceId: "SL-…" },
     perServer,
+    betaalmethodes,
   });
 }
