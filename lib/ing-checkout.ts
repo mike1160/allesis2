@@ -13,7 +13,11 @@ import type { HostingPakket } from "@/lib/hosting-pakketten";
  *
  * Docs: https://developer.pay.nl/reference/api_create_order-1 · /docs/signing-1 · /docs/use-our-sandbox-mode
  */
-const API = "https://connect.pay.nl/v1/orders";
+/** Pay. draait op meerdere "cores"; ING-klanten kunnen op een andere core zitten. Instelbaar via ING_API_HOST. */
+export const API_HOSTS = ["https://connect.pay.nl", "https://connect.payments.nl", "https://connect.achterelkebetaling.nl"];
+function apiBasis(host?: string) {
+  return `${host || process.env.ING_API_HOST?.trim() || API_HOSTS[0]}/v1/orders`;
+}
 export const BTW = 0.21;
 
 export function ingGeconfigureerd() {
@@ -93,10 +97,10 @@ export function hostingOrderBody(opts: {
 }
 
 /** Stuurt de order naar ING; probeert bij 401/403 de andere inlogcombinatie. */
-export async function verstuurOrder(body: object) {
+export async function verstuurOrder(body: object, host?: string) {
   const pogingen: { soort: AuthSoort; status: number; antwoord: string }[] = [];
   for (const optie of authOpties()) {
-    const res = await fetch(API, {
+    const res = await fetch(apiBasis(host), {
       method: "POST",
       headers: { Authorization: optie.header, "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(body),
@@ -131,7 +135,7 @@ export async function maakHostingBetaling(opts: Parameters<typeof hostingOrderBo
 
 export async function haalOrderStatus(id: string): Promise<IngOrder | null> {
   if (!/^[A-Za-z0-9-]{6,64}$/.test(id)) return null;
-  const res = await fetch(`${API}/${id}/status`, {
+  const res = await fetch(`${apiBasis()}/${id}/status`, {
     headers: { Authorization: werkendeAuth ?? authOpties()[0]?.header ?? "", Accept: "application/json" },
     cache: "no-store",
     signal: AbortSignal.timeout(8000),

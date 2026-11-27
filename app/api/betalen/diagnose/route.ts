@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { HOSTING_PAKKETTEN } from "@/lib/hosting-pakketten";
-import { hostingOrderBody, verstuurOrder } from "@/lib/ing-checkout";
+import { API_HOSTS, hostingOrderBody, verstuurOrder } from "@/lib/ing-checkout";
 import { SITE_URL } from "@/lib/seo-config";
 
 /**
@@ -34,11 +34,17 @@ export async function GET() {
     referentie: `DIAG-${Date.now().toString(36).toUpperCase()}`,
     siteUrl: SITE_URL,
   });
-  const r = await verstuurOrder(body);
+  const perServer = [];
+  for (const host of API_HOSTS) {
+    const r = await verstuurOrder(body, host).catch((e: unknown) => ({
+      ok: false as const,
+      pogingen: [{ soort: "fout", status: 0, antwoord: String(e) }],
+    }));
+    perServer.push({ server: host, resultaat: r.ok ? "OK" : "MISLUKT", pogingen: r.pogingen });
+  }
   return NextResponse.json({
-    env,
+    env: { ...env, ING_API_HOST: process.env.ING_API_HOST?.trim() || "(standaard connect.pay.nl)" },
     verzonden: { ...body, serviceId: "SL-…" },
-    resultaat: r.ok ? "OK" : "MISLUKT",
-    pogingen: r.pogingen,
+    perServer,
   });
 }
